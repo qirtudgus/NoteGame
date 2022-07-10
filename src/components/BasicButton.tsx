@@ -9,8 +9,7 @@ const BasicButton = styled.button`
     z-index:2;
     margin-bottom:3rem;
     border:none;
-
-
+    border-radius:5px;
 `
 interface ButtonText{
     ButtonText : string;
