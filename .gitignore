@@ -10,6 +10,7 @@
 
 # production
 /build
+/기획.txt
 
 # misc
 .DS_Store
