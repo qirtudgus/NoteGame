@@ -9,6 +9,7 @@ const Bg = styled.div`
     z-index:1;
 
 `
+//https://stackoverflow.com/questions/62690259/typescript-checking-in-react-functional-components
 interface children {
     children : React.ReactNode
 }
