@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const BasicInput = styled.input`
+const BasicButton = styled.button`
     width:13rem;
     height:3rem;
     font-size:1.5rem;
@@ -9,18 +9,21 @@ const BasicInput = styled.input`
     z-index:2;
     margin-bottom:3rem;
     border:none;
+
+
 `
-interface holder{
-    placeholder : string;
+interface ButtonText{
+    ButtonText : string;
+    color : string;
 }
 
 
-const BasicInputs = ({placeholder}:holder) => {
+const BasicButtons = ({ButtonText,color}:ButtonText) => {
     return(
-        <BasicInput color="#fff" placeholder={placeholder}></BasicInput>
+        <BasicButton color={color} >{ButtonText}</BasicButton>
 
     )
 
 }
 
-export default BasicInputs
+export default BasicButtons

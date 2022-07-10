@@ -7,7 +7,10 @@ const Bg = styled.div`
     margin: 50px auto;
     position:relative;
     z-index:1;
-
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 `
 //https://stackoverflow.com/questions/62690259/typescript-checking-in-react-functional-components
 interface children {
