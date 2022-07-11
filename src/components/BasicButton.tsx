@@ -14,12 +14,13 @@ const BasicButton = styled.button`
 interface ButtonText{
     ButtonText : string;
     color : string;
+    func? : any;
 }
 
 
-const BasicButtons = ({ButtonText,color}:ButtonText) => {
+const BasicButtons = ({ButtonText,color,func}:ButtonText) => {
     return(
-        <BasicButton color={color} >{ButtonText}</BasicButton>
+        <BasicButton color={color} onClick={func}>{ButtonText}</BasicButton>
 
     )
 

@@ -11,16 +11,27 @@ import {
 
 import { ThemeProvider } from 'styled-components';
 import Register from './components/Register';
+
+import { Provider } from 'react-redux';
+import {createStore} from 'redux';
+import rootReducer from './modules/modules_index';
+const store = createStore(rootReducer);
+
+
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  <Provider store={store}>
   <BrowserRouter>
   <Routes>
   <Route path='/' element={<App />}></Route>
   <Route path='/register' element={<Register />}></Route>
 </Routes>
 </BrowserRouter>
+</Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
