@@ -12,12 +12,14 @@ const BasicInput = styled.input`
 `
 interface holder{
     placeholder : string;
+    onChange?: (e:any) => void;
+    value? : string;
 }
 
 
-const BasicInputs = ({placeholder}:holder) => {
+const BasicInputs = ({placeholder,onChange,value}:holder) => {
     return(
-        <BasicInput color="#fff" placeholder={placeholder}></BasicInput>
+        <BasicInput color="#fff" placeholder={placeholder} onChange={onChange} value={value}></BasicInput>
 
     )
 

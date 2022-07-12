@@ -23,7 +23,7 @@ function App() {
 
 
   const apiTest = () => {
-    axios.post("http://localhost:1234/test",{key:"안녕하세요"}).then((res) => {
+    axios.post("http://localhost:1234/hi",{key:"안녕하세요"}).then((res) => {
       console.log(res);
     });
   };
