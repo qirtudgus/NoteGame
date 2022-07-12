@@ -21,14 +21,22 @@ const Register = () => {
         setCheckPassword(e.currentTarget.value);
       };  
   
+      const onSubmitRegister = () => {
+        if(Password === CheckPassword){
+            alert("비밀번호가 일치합니다..")
+
+        }else{
+            alert("비밀번호를 확인해주세요.")
+        }
+      }
 
 
     return (
         <BackGround>
-        <BasicInputs placeholder="아이디" onChange={onNameHandler} value={Name}></BasicInputs>
-        <BasicInputs placeholder="비밀번호" onChange={onPasswordHandler} value={Password}></BasicInputs>
-        <BasicInputs placeholder="비밀번호 확인" onChange={onCheckPasswordHandler} value={CheckPassword}></BasicInputs>
-        <BasicButtons ButtonText="회원가입" color="#fff"></BasicButtons>
+        <BasicInputs placeholder="아이디" OnChange={onNameHandler} value={Name}></BasicInputs>
+        <BasicInputs placeholder="비밀번호" OnChange={onPasswordHandler} value={Password}></BasicInputs>
+        <BasicInputs placeholder="비밀번호 확인" OnChange={onCheckPasswordHandler} value={CheckPassword}></BasicInputs>
+        <BasicButtons ButtonText="회원가입" color="#fff" OnClick={onSubmitRegister}></BasicButtons>
         </BackGround>
     )
 }

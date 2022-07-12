@@ -33,14 +33,14 @@ function App() {
     {isLogin ? 
         <BackGround>
           <BasicButtons ButtonText='환영합니다!' color='#e1550a'></BasicButtons>
-          <BasicButtons ButtonText='서버테스트 ' color='#e1550a' func={apiTest}></BasicButtons>
+          <BasicButtons ButtonText='서버테스트 ' color='#e1550a' OnClick={apiTest}></BasicButtons>
         </BackGround>
     :     
      
       <BackGround>
       <BasicInputs placeholder="아이디"></BasicInputs>
       <BasicInputs placeholder="비밀번호"></BasicInputs>
-      <BasicButtons ButtonText='로그인' color='#e1550a' func={loginRequest}></BasicButtons>
+      <BasicButtons ButtonText='로그인' color='#e1550a' OnClick={loginRequest}></BasicButtons>
       <Link to='/register'><BasicButtons ButtonText='회원가입' color='#e1550a'></BasicButtons></Link>
     </BackGround>
   
