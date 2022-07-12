@@ -27,6 +27,7 @@ app.get('/', ({req, res, next}:API) => {
 
 app.get('/hi', (req,res):void => {
     console.log(req.body)
+    res.send("서버에서 전송하는 메시지입니다.")
 })
 
 app.listen('1234', () => {

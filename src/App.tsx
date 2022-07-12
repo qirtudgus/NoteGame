@@ -6,10 +6,10 @@ import BackGround from './components/BackGround';
 import BasicInputs from './components/BasicInput';
 import BasicButtons from './components/BasicButton';
 import { Link } from "react-router-dom";
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from './modules/modules_index';
 import {login} from './modules/register';
+import axios from 'axios';
 
 
 function App() {
@@ -21,10 +21,19 @@ function App() {
     dispatch(login())
   }
 
+
+  const apiTest = () => {
+    axios.post("http://localhost:1234/test",{key:"안녕하세요"}).then((res) => {
+      console.log(res);
+    });
+  };
+
+
   return ( <>
     {isLogin ? 
         <BackGround>
           <BasicButtons ButtonText='환영합니다!' color='#e1550a'></BasicButtons>
+          <BasicButtons ButtonText='서버테스트 ' color='#e1550a' func={apiTest}></BasicButtons>
         </BackGround>
     :     
      
