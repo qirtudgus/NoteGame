@@ -25,6 +25,10 @@ app.get('/', ({req, res, next}:API) => {
     res.send('welcome!');
 });
 
+app.get('/hi', (req,res):void => {
+    console.log(req.body)
+})
+
 app.listen('1234', () => {
     console.log(`
   ################################################
