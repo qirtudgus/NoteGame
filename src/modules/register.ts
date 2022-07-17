@@ -1,16 +1,23 @@
 import axios from "axios";
 
 //액션 타입 선언
-const REGISTER = 'register/register' as const;
+export const REGISTER = 'register/register' as const;
+export const REGISTER_SUCCESS = 'register/register_success' as const;
 
 //액션 생성 함수
 export const register = (id:string, password:string) => ({
     type: REGISTER,
     payload : {id,password}
 })
+export const register_success = (result:any) => ({
+    type: REGISTER_SUCCESS,
+    payload : result,
+})
+
 
 type RegisterAction =
-  | ReturnType<typeof register>;
+  | ReturnType<typeof register>
+  | ReturnType<typeof register_success>;
 
   type IsRegisterState = {
     isRegister : number | Promise<number>;
@@ -27,7 +34,10 @@ const ResgisterState: IsRegisterState = {
 const registerApi = async (id:string, password :string):Promise<number> => {
     return await axios.post("http://localhost:1234/register",{id,password})
     .then(res => {
-        return res.data.num
+
+        //서버에서 받아온 number 값을 return
+        console.log(res.data.num) // 11111
+        return res.data.num 
     })
 } 
 
@@ -37,7 +47,10 @@ const regitserRequest = (
 ):IsRegisterState => {
  switch (action.type){
     case REGISTER:{
-        return { isRegister : registerApi(action.payload.id , action.payload.password)}
+        return { isRegister : 1}
+    }
+    case REGISTER_SUCCESS: {
+        return {isRegister : action.payload}
     }
     default:
         return state;

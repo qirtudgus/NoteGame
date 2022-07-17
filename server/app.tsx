@@ -30,7 +30,7 @@ app.post('/register', (req:Request, res: Response, next:NextFunction) => {
   const id = req.body.id;
   const password = req.body.password;
   console.log(id,password)
-  const numbers = {num :1};
+  const numbers = {num :200};
   res.send(numbers)
 })
 

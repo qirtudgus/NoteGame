@@ -7,6 +7,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { register } from "../modules/register";
 import { RootState } from "../modules/modules_index";
 
+
 const Register = () => {
     const [Name, setName] = useState<string>("");
     const [Password, setPassword] = useState<string>("");
@@ -46,8 +47,8 @@ const Register = () => {
 
     return (
         <BackGround>
-            { isRegister === 11111 ? 
-            <div>11111입니다</div> :
+            { isRegister === 200 ? 
+            <div>200입니다</div> :
             <div>아닙니다.</div>    
         }
         <BasicInputs placeholder="아이디" OnChange={onNameHandler} value={Name}></BasicInputs>
