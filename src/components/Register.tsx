@@ -47,6 +47,7 @@ const Register = () => {
 
     return (
         <BackGround>
+            <div>{isRegister}</div>
             { isRegister === 200 ? 
             <div>200입니다</div> :
             <div>아닙니다.</div>    

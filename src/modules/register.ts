@@ -1,8 +1,10 @@
-import axios from "axios";
+import { ReactNode } from "react";
+
 
 //액션 타입 선언
 export const REGISTER = 'register/register' as const;
 export const REGISTER_SUCCESS = 'register/register_success' as const;
+export const REGISTER_FAILED = 'register/register_FAILED' as const;
 
 //액션 생성 함수
 export const register = (id:string, password:string) => ({
@@ -14,13 +16,19 @@ export const register_success = (result:any) => ({
     payload : result,
 })
 
+export const register_failed = (result:any) => ({
+    type: REGISTER_FAILED,
+    payload : result,
+})
+
 
 type RegisterAction =
   | ReturnType<typeof register>
-  | ReturnType<typeof register_success>;
+  | ReturnType<typeof register_success>
+  | ReturnType<typeof register_failed>;
 
   type IsRegisterState = {
-    isRegister : number | Promise<number>;
+    isRegister : number | Promise<number> | string | any;
 }
 
 // 초기상태를 선언합니다.
@@ -28,29 +36,21 @@ const ResgisterState: IsRegisterState = {
     isRegister : 0
   };
 
-
-//아이디와 패스워드를 서버에 전송해줄 API 함수 생성
-//페이로드의 아이디와 비밀번호를 서버로 전송해준다.
-const registerApi = async (id:string, password :string):Promise<number> => {
-    return await axios.post("http://localhost:1234/register",{id,password})
-    .then(res => {
-
-        //서버에서 받아온 number 값을 return
-        console.log(res.data.num) // 11111
-        return res.data.num 
-    })
-} 
-
 const regitserRequest = (
     state : IsRegisterState = ResgisterState,
     action : RegisterAction
 ):IsRegisterState => {
  switch (action.type){
-    case REGISTER:{
-        return { isRegister : 1}
-    }
+    //아래 REGISTER case가 없어도
+    //dispatch를 통해 saga가 액션을 감지하는데는 지장없었다.
+    // case REGISTER:{
+    //     return { isRegister : 1}
+    // }
     case REGISTER_SUCCESS: {
         return {isRegister : action.payload}
+    }
+    case REGISTER_FAILED: {
+        return {isRegister : "비밀번호가 1234면 안됩니다."}
     }
     default:
         return state;

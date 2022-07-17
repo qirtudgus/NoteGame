@@ -29,9 +29,17 @@ app.post('/hi', (req : Request, res : Response, next :NextFunction) => {
 app.post('/register', (req:Request, res: Response, next:NextFunction) => {
   const id = req.body.id;
   const password = req.body.password;
-  console.log(id,password)
+  const password2 = '1234';
+  console.log(id, password)
   const numbers = {num :200};
-  res.send(numbers)
+  const numbers2 = {num :404};
+  if(password === password2 ){
+    res.send(numbers2)
+  }
+  else{
+    res.send(numbers)
+
+  }
 })
 
 app.listen('1234', () => {
