@@ -26,6 +26,14 @@ app.post('/hi', (req : Request, res : Response, next :NextFunction) => {
     res.send("서버에서 전송하는 메시지입니다.")
 })
 
+app.post('/register', (req:Request, res: Response, next:NextFunction) => {
+  const id = req.body.id;
+  const password = req.body.password;
+  console.log(id,password)
+  const numbers = {num :1};
+  res.send(numbers)
+})
+
 app.listen('1234', () => {
     console.log(`
   ################################################

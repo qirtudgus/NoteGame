@@ -8,13 +8,13 @@ import BasicButtons from './components/BasicButton';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from './modules/modules_index';
-import {login} from './modules/register';
+import {login} from './modules/login';
 import axios from 'axios';
 
 
 function App() {
   // const [isLogin, SetIsLogin] = useState<boolean>(false)
-  const isLogin = useSelector((state:RootState) => state.register.isLogin);
+  const isLogin = useSelector((state:RootState) => state.login.isLogin);
   const dispatch = useDispatch(); // 디스패치 함수를 가져옵니다
 
   const loginRequest = () => {
