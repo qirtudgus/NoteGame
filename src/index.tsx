@@ -13,9 +13,18 @@ import { ThemeProvider } from 'styled-components';
 import Register from './components/Register';
 
 import { Provider } from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './modules/modules_index';
-const store = createStore(rootReducer);
+import createSagaMiddleware from '@redux-saga/core';
+import rootSaga from './modules/root_saga';
+
+//사가미들웨어 생성
+const sagaMiddleware = createSagaMiddleware()
+//두번째인자에 사용할 미들웨어를 추가해주었다.
+const store = createStore(rootReducer,applyMiddleware(sagaMiddleware));
+
+//사가미들웨어의 run함수로 rootSaga를 호출
+sagaMiddleware.run(rootSaga)
 
 
 
