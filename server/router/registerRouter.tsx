@@ -20,13 +20,9 @@ registerRouter.post('/confirmid',(req:Request, res: Response, next:NextFunction)
   const idCheck = 'SELECT * FROM users WHERE ID = ?';
 
   db.query(idCheck, [id], function (err, rows, fields) {
-    console.log(err);
-    console.log(rows); //찾은 rows 값 확인
     if (rows[0] === undefined) {
-      // rows 0인덱스에 아무것도 없으면, 찾은 값이 없다는것이므로 udfined와 동일함 생성가능, true를 전달
       console.log("사용가능한 아이디")
       res.send(true);
-      
     } else if (rows[0]) {
       res.send(false);
     }
