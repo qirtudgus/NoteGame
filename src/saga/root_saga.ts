@@ -4,5 +4,4 @@ function* rootSaga() {
     yield all([fork(getRegisterApiSaga)])
   }
   
-
   export default rootSaga

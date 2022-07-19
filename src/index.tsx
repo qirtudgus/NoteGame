@@ -16,7 +16,7 @@ import { Provider } from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './modules/modules_index';
 import createSagaMiddleware from '@redux-saga/core';
-import rootSaga from './modules/root_saga';
+import rootSaga from './saga/root_saga';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware()
