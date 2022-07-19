@@ -12,6 +12,9 @@ tsconfig.json에 아래 코드를 추가하여 해결
 */
 import express, { Request, Response, NextFunction } from 'express';
 import cors from "cors";
+import { Jwt } from 'jsonwebtoken';
+import CryptoJS from 'crypto-js';
+
 const app = express();
 
 app.use(cors());
@@ -27,13 +30,16 @@ app.post('/hi', (req : Request, res : Response, next :NextFunction) => {
 })
 
 app.post('/register', (req:Request, res: Response, next:NextFunction) => {
-  const id = req.body.id;
-  const password = req.body.password;
-  const password2 = '1234';
+  const {id,password} = req.body;
+  const salt :string = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+  const hashPassword :string = CryptoJS.HmacSHA256(password, salt).toString();
+
   console.log(id, password)
+  console.log(hashPassword)
+
   const numbers = {num :200};
   const numbers2 = {num :404};
-  if(password === password2 ){
+  if(password ){
     res.send(numbers2)
   }
   else{
