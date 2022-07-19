@@ -7,7 +7,7 @@ import axios from 'axios';
 
 // id와 password를 인자로 받아 서버통신을 요청하는 함수
 const registerApi = async (id:string, password :string):Promise<any> => {
-    return await axios.post("http://localhost:1234/register",{id,password})
+    return await axios.post("http://localhost:1234/register/join",{id,password})
     .then(res => {
         //서버에서 받아온 number 값을 return
         console.log(res.data) // 200
@@ -26,8 +26,8 @@ function* registerApi$(action:any):Generator<any, any, any> {
       console.log(memos) // api 결과값이 정상적으로 들어있음
     //put은 dispatch를 해주는 기능이다.
     //REGISTER액션을 감지하여 REGISTER_SUCCESS 액션까지 디스패치할 수 있는 것이다.
-    if(memos.num === 404) yield put({ type: REGISTER_FAILED, payload: memos.num });
-    if(memos.num === 200) yield put({ type: REGISTER_SUCCESS, payload: memos.num })
+    if(memos === 404) yield put({ type: REGISTER_FAILED, payload: memos });
+    if(memos === 200) yield put({ type: REGISTER_SUCCESS, payload: memos })
     } catch (err) {
   
     }

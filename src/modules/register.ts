@@ -1,6 +1,3 @@
-import { ReactNode } from "react";
-
-
 //액션 타입 선언
 export const REGISTER = 'register/register' as const;
 export const REGISTER_SUCCESS = 'register/register_success' as const;
