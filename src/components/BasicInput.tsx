@@ -13,13 +13,16 @@ const BasicInput = styled.input`
 interface holder{
     placeholder : string;
     OnChange?: (e:any) => void;
+    OnBlur?: (e:any) => void;
     value? : string;
+    type? : string;
+
 }
 
 
-const BasicInputs = ({placeholder,OnChange,value}:holder) => {
+const BasicInputs = ({placeholder,OnChange,value,type,OnBlur}:holder) => {
     return(
-        <BasicInput color="#fff" placeholder={placeholder} onChange={OnChange} value={value}></BasicInput>
+        <BasicInput color="#fff" type={type} placeholder={placeholder} onChange={OnChange} onBlur={OnBlur} value={value}></BasicInput>
 
     )
 
