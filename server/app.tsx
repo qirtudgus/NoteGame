@@ -14,6 +14,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from "cors";
 import { Jwt } from 'jsonwebtoken';
 import CryptoJS from 'crypto-js';
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
@@ -34,8 +36,12 @@ app.post('/register', (req:Request, res: Response, next:NextFunction) => {
   const salt :string = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
   const hashPassword :string = CryptoJS.HmacSHA256(password, salt).toString();
 
+  
+
+
   console.log(id, password)
   console.log(hashPassword)
+  console.log(process.env.local_DB)
 
   const numbers = {num :200};
   const numbers2 = {num :404};

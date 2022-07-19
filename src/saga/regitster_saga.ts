@@ -15,7 +15,6 @@ const registerApi = async (id:string, password :string):Promise<any> => {
     })
 }
 
-
 // 리덕스 사가를 통해 감지할 액션이 감지되었을 때 실행할 함수
 // 인자값에 dispatch할 때 보낸 payload가 담겨있다.
 // 이를 통해 registerApi함수와 뒤에 인자로 이어서 action.payload.id 를 담아서 실행할 수 있었다. 
