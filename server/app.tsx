@@ -15,7 +15,25 @@ import cors from "cors";
 import { Jwt } from 'jsonwebtoken';
 import CryptoJS from 'crypto-js';
 import dotenv from "dotenv";
+import mysql from "mysql";
 dotenv.config();
+
+
+const db = mysql.createConnection({
+  host: process.env.local_DB_host,
+  port: 3306,
+  user: process.env.local_DB_user,
+  password: process.env.local_DB_password,
+  database: process.env.local_DB,
+  charset: "utf8mb4",
+});
+
+db.connect((err:any) => {
+  if (err) console.log("MySQL 연결 실패 : ", err);
+  console.log("MySQL Connected!!!");
+});
+
+
 
 const app = express();
 
@@ -42,6 +60,8 @@ app.post('/register', (req:Request, res: Response, next:NextFunction) => {
   console.log(id, password)
   console.log(hashPassword)
   console.log(process.env.local_DB)
+  console.log(process.env.local_DB_user)
+  console.log(process.env.local_DB_password)
 
   const numbers = {num :200};
   const numbers2 = {num :404};
