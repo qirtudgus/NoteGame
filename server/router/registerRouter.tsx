@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import CryptoJS from 'crypto-js';
 import {db} from '../db.js';
-import {createHashPassword} from "../../src/modules/createHashPassword.js"
+import {createHashPassword} from "../../src/util/createHashPassword.js"
 
 
 export const registerRouter = express.Router();
@@ -21,7 +21,7 @@ registerRouter.post('/join', (req:Request, res: Response, next:NextFunction) => 
 registerRouter.post('/confirmid',(req:Request, res: Response, next:NextFunction) => {
   const {id} = req.body;
   const idCheck = 'SELECT * FROM users WHERE ID = ?';
-  
+
   db.query(idCheck, [id], function (err, rows, fields) {
     if (rows[0] === undefined) {
       console.log("사용가능한 아이디")

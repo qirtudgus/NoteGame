@@ -1,18 +1,29 @@
 import {takeLatest,put,call, fork,all, take} from 'redux-saga/effects'
 import { REGISTER ,REGISTER_SUCCESS,REGISTER_FAILURE} from "../modules/register";
 import axios from 'axios';
+import {customAxios} from '../util/axios';
 //리덕스 사가 참고 페이지
 //https://kyounghwan01.github.io/blog/React/redux/redux-saga/#react%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-saga-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5
 //https://jeonghwan-kim.github.io/dev/2019/07/22/react-saga-ts-1.html
 
 // id와 password를 인자로 받아 서버통신을 요청하는 함수
 const registerApi = async (id:string, password :string):Promise<any> => {
-    return await axios.post("http://localhost:1234/register/join",{id,password})
+    return customAxios("post","/register/join",{id,password})
     .then(res => {
-        //서버에서 받아온 number 값을 return
-        console.log(res.data) // 200
+        console.log(res.data)
+
         return res.data
     })
+    .catch(err => console.log(err))
+
+
+
+    // return await axios.post("http://localhost:1234/register/join",{id,password})
+    // .then(res => {
+    //     //서버에서 받아온 number 값을 return
+    //     console.log(res.data) // 200
+    //     return res.data
+    // })
 }
 
 // 리덕스 사가를 통해 감지할 액션이 감지되었을 때 실행할 함수
