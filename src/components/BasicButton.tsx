@@ -15,12 +15,15 @@ interface ButtonText{
     ButtonText : string;
     color : string;
     OnClick? : any;
+    disabled? :any;
 }
 
 
-const BasicButtons = ({ButtonText,color,OnClick}:ButtonText) => {
+const BasicButtons = ({ButtonText,color,OnClick,disabled}:ButtonText) => {
     return(
-        <BasicButton color={color} onClick={OnClick}>{ButtonText}</BasicButton>
+        <BasicButton 
+        disabled={disabled}
+        color={color} onClick={OnClick}>{ButtonText}</BasicButton>
 
     )
 

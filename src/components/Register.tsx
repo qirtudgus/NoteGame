@@ -13,8 +13,9 @@ const Register = () => {
     const [Name, setName] = useState<string>("");
     const [Password, setPassword] = useState<string>("");
     const [CheckPassword, setCheckPassword] = useState<string>("");
-    const [isPassword, setIsPassword] = useState<boolean>();
-    const [isCheckPassword, setIsCheckPassword] = useState<boolean>();
+    const [isId, setIsId] = useState<boolean>(false);
+    const [isPassword, setIsPassword] = useState<boolean>(false);
+    const [isCheckPassword, setIsCheckPassword] = useState<boolean>(false);
     const [PasswordAuthText, setPasswordAuthText] = useState<string>();
     const [isPasswordAuthText, setIsPasswordAuthText] = useState<string>();
     const isRegister = useSelector((state:RootState) => state.register.isRegister);
@@ -51,6 +52,7 @@ const Register = () => {
         setCheckPassword(e.currentTarget.value);
       };  
   
+      //회원가입 버튼
       const onSubmitRegister = () => {
         if(Password === CheckPassword){
             
@@ -63,11 +65,20 @@ const Register = () => {
         }
       }
 
+      //아이디 중복확인 액션
       const confirmIdRequest = () => {
         console.log(isConfirmId)
         dispatch(confirm_id_request(Name))
-      }
 
+      }
+      // 아이디 확인 함수
+  useEffect(() => {
+    if(isConfirmId === true){
+      setIsId(() => true);
+    }else{
+      setIsId(() => false)
+    }
+  },[Name,isConfirmId])
 
        // 패스워드 확인 함수
   useEffect(() => {
@@ -83,27 +94,24 @@ const Register = () => {
 
     return (
         <BackGround>
-            { isRegister === 200 ? 
-            <div>200입니다</div> :
-            <div>아닙니다.</div>    
-        }
-        <BasicInputs placeholder="아이디" OnChange={onNameHandler} OnBlur={confirmIdRequest} value={Name} color="#555"></BasicInputs>
         { isConfirmId  ? 
             <div>사용가능한 아이디입니다.</div> :
             <div>이미 사용중인 아이디입니다.</div>    
         }
-        <BasicInputs placeholder="비밀번호" type="password" OnChange={onPasswordHandler} value={Password}></BasicInputs>
+        <BasicInputs placeholder="아이디" OnChange={onNameHandler} OnBlur={confirmIdRequest} value={Name} color="#fff"></BasicInputs>
         
         { isPassword  ? 
             <div>{PasswordAuthText}</div> :
             <div>{PasswordAuthText}</div>    
         }
-        <BasicInputs placeholder="비밀번호 확인" type="password" OnChange={onCheckPasswordHandler} value={CheckPassword}></BasicInputs>
+        <BasicInputs placeholder="비밀번호" type="password" OnChange={onPasswordHandler} value={Password}></BasicInputs>
         { isCheckPassword  ? 
             <div>{isPasswordAuthText}</div> :
             <div>{isPasswordAuthText}</div>    
         }
-        <BasicButtons ButtonText="회원가입" color="#fff" OnClick={onSubmitRegister}></BasicButtons>
+        <BasicInputs placeholder="비밀번호 확인" type="password" OnChange={onCheckPasswordHandler} value={CheckPassword}></BasicInputs>
+
+        <BasicButtons disabled={!(isId && isPassword && isCheckPassword)} ButtonText="회원가입" color="#fff" OnClick={onSubmitRegister}></BasicButtons>
         </BackGround>
     )
 }

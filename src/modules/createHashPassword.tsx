@@ -6,7 +6,6 @@ interface passwordSet {
     hashPassword: string
 }
 
-
 export const createHashPassword = (password :string):passwordSet => {
     const salt :string = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
     const hashPassword :string = CryptoJS.HmacSHA256(password, salt).toString();
