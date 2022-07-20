@@ -7,6 +7,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { register } from "../modules/register";
 import { confirm_id_request } from "../modules/confirmId";
 import { RootState } from "../modules/modules_index";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -20,6 +21,8 @@ const Register = () => {
     const [isPasswordAuthText, setIsPasswordAuthText] = useState<string>();
     const isRegister = useSelector((state:RootState) => state.register.isRegister);
     const isConfirmId = useSelector((state:RootState) => state.confirmId.confirmId)
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const onNameHandler = (e:any) => {
@@ -55,11 +58,9 @@ const Register = () => {
       //회원가입 버튼
       const onSubmitRegister = () => {
         if(Password === CheckPassword){
-            
-            alert("비밀번호가 일치합니다..")
             registerRequest()
-            console.log(isRegister)
-
+            alert("회원가입 완료")
+            navigate('/')
         }else{
             alert("비밀번호를 확인해주세요.")
         }
