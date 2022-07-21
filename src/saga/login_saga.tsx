@@ -40,12 +40,13 @@ function* loginApi$(action:any):Generator<any,any,any>{
         console.log(action)
         const result = yield call(loginApi, action.payload.id, action.payload.password)
         console.log(result)
-        if(result === 200) yield put({type:LOGIN_SUCCESS, payload:result})
-        if(result === 404) yield alert("없는 계정입니다.")
-        if(result === 405) yield alert("비밀번호가 틀렸습니다.")
+        console.log(result.code)
+        if(result.code === 200) yield put({type:LOGIN_SUCCESS, payload:result})
+        if(result.code === 404) yield alert(result.message)
+        if(result.code === 405) yield alert(result.message)
     }catch(err){
         console.log(err)
-    }
+  }
 }
 
 function* getLoginApi(){

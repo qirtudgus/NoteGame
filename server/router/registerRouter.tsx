@@ -14,8 +14,8 @@ registerRouter.post('/join', (req:Request, res: Response, next:NextFunction) => 
 
     db.query(sqlQuery, [id, a.hashPassword, a.salt]);
     console.log(`${id}님 회원가입 완료`);
-    res.send("200")
-})
+    res.status(200).json({code:200})
+  })
 
 //아이디 중복확인
 registerRouter.post('/confirmid',(req:Request, res: Response, next:NextFunction) => {

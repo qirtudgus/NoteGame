@@ -29,6 +29,9 @@ function App() {
   setPassword(e.currentTarget.value)
  }
   
+ const tokenCheck = () => {
+  
+ }
 
 
 
@@ -37,6 +40,7 @@ function App() {
     {isLogin ? 
         <BackGround>
           <BasicButtons ButtonText='환영합니다!' color='#e1550a'></BasicButtons>
+          <BasicButtons ButtonText='토큰 테스트' color='#e1550a'></BasicButtons>
         </BackGround>
     :     
      
