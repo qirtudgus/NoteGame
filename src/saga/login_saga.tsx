@@ -41,7 +41,7 @@ function* loginApi$(action:any):Generator<any,any,any>{
         const result = yield call(loginApi, action.payload.id, action.payload.password)
         console.log(result)
         console.log(result.code)
-        if(result.code === 200) yield put({type:LOGIN_SUCCESS, payload:result})
+        if(result.code === 200) yield put({type:LOGIN_SUCCESS, token:result.token})
         if(result.code === 404) yield alert(result.message)
         if(result.code === 405) yield alert(result.message)
     }catch(err){

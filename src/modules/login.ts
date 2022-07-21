@@ -56,7 +56,7 @@ const LoginRequest = (
     //     return { isLogin : true, }
     // }
     case LOGIN_SUCCESS:{
-        return { isLogin : true,  token : action}
+        return { isLogin : true,  token : action.token}
     }
     case LOGIN_FAILURE:{
         return { isLogin : false, token:undefined}

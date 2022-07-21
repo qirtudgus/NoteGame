@@ -1,9 +1,17 @@
 import  jwt  from 'jsonwebtoken';
 const SECRET_TOKEN :string = process.env.SECRET_TOKEN!;
-type TokenType = string;
+type TokenType = string | unknown;
+
 
 const createToken = (id :string):TokenType => {
-   return jwt.sign( { userId:id},SECRET_TOKEN,{expiresIn:'5s'})
+    try{
+        return jwt.sign( { userId:id},SECRET_TOKEN,{expiresIn:'5s'})
+
+    }catch(err){
+        return err
+    }
 }
+
+
 
 export default createToken;

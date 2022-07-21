@@ -37,7 +37,7 @@ function* registerApi$(action:any):Generator<any, any, any> {
     //put은 dispatch를 해주는 기능이다.
     //REGISTER액션을 감지하여 REGISTER_SUCCESS 액션까지 디스패치할 수 있는 것이다.
     if(memos.code === 404) yield put({ type: REGISTER_FAILURE, payload: memos });
-    if(memos.code === 200) yield put({ type: REGISTER_SUCCESS, payload: memos })
+    if(memos.code === 200) yield put({ type: REGISTER_SUCCESS, payload: memos });
     } catch (err) {
         console.log(err)
     }
