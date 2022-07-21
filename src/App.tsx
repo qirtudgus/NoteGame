@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './App.css';
 import './Reset.css'
@@ -8,38 +8,41 @@ import BasicButtons from './components/BasicButton';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from './modules/modules_index';
-import {login} from './modules/login';
-import axios from 'axios';
+import {login_request} from './modules/login';
 
 
 function App() {
-  // const [isLogin, SetIsLogin] = useState<boolean>(false)
-  const isLogin = useSelector((state:RootState) => state.login.isLogin);
   const dispatch = useDispatch(); // 디스패치 함수를 가져옵니다
+  const [Id, setId] = useState<string>("")
+  const [Password, setPassword] = useState<string>("")
+  const isLogin = useSelector((state:RootState) => state.login.isLogin);
 
   const loginRequest = () => {
-    dispatch(login())
+    dispatch(login_request(Id,Password))
   }
 
+ const onChangeId = (e:any) => {
+  setId(e.currentTarget.value)
+ }
 
-  const apiTest = () => {
-    axios.post("http://localhost:1234/hi",{key:"안녕하세요"}).then((res) => {
-      console.log(res);
-    });
-  };
+ const onChangePassword = (e:any) => {
+  setPassword(e.currentTarget.value)
+ }
+  
+
+
 
 
   return ( <>
     {isLogin ? 
         <BackGround>
           <BasicButtons ButtonText='환영합니다!' color='#e1550a'></BasicButtons>
-          <BasicButtons ButtonText='서버테스트 ' color='#e1550a' OnClick={apiTest}></BasicButtons>
         </BackGround>
     :     
      
       <BackGround>
-      <BasicInputs placeholder="아이디"></BasicInputs>
-      <BasicInputs placeholder="비밀번호"></BasicInputs>
+      <BasicInputs value={Id} placeholder="아이디" OnChange={onChangeId}></BasicInputs>
+      <BasicInputs value={Password} placeholder="비밀번호" OnChange={onChangePassword}></BasicInputs>
       <BasicButtons ButtonText='로그인' color='#e1550a' OnClick={loginRequest}></BasicButtons>
       <Link to='/register'><BasicButtons ButtonText='회원가입' color='#e1550a'></BasicButtons></Link>
     </BackGround>

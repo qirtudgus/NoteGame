@@ -23,4 +23,35 @@
 
 // 8.api통신 시 토큰을 담아보내어 해당 유저의 db 조회 및 데이터 획득
 
-export const a = 1;
+import { takeLatest, fork, all , put, call } from "redux-saga/effects";
+import { LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE } from "../modules/login";
+import customAxios from "../util/axios";
+
+const loginApi = async ( id:string, password:string):Promise<any> => {
+    return customAxios('post','/login/',{id,password}).then(res => {
+        console.log(res.data)
+        return res.data
+    })
+    .catch(err => {console.log(err)})
+}
+
+function* loginApi$(action:any):Generator<any,any,any>{
+    try {
+        console.log(action)
+        const result = yield call(loginApi, action.payload.id, action.payload.password)
+        console.log(result)
+        if(result === 200) yield put({type:LOGIN_SUCCESS, payload:result})
+        if(result === 404) yield alert("없는 계정입니다.")
+        if(result === 405) yield alert("비밀번호가 틀렸습니다.")
+    }catch(err){
+        console.log(err)
+    }
+}
+
+function* getLoginApi(){
+    yield takeLatest(LOGIN_REQUEST,loginApi$)
+}
+
+export default function* getLoginApiSage(){
+    yield all([fork(getLoginApi)])
+}

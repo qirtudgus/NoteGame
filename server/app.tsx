@@ -15,6 +15,7 @@ import cors from "cors";
 import { Jwt } from 'jsonwebtoken';
 import {registerRouter} from './router/registerRouter.js';
 import {db} from "./db.js"
+import { loginRouter } from './router/loginRouter.js';
 
 db.connect((err:any) => {
   if (err) console.log("MySQL 연결 실패 : ", err);
@@ -27,6 +28,8 @@ app.use(express.json());
 
 //회원가입 라우터
 app.use('/register',registerRouter)
+//로그인 라우터
+app.use('/login',loginRouter)
 
 app.get('/', (req : Request, res : Response, next :NextFunction) => {
     res.send('welcome!');

@@ -1,6 +1,5 @@
 import {takeLatest,put,call, fork,all, take} from 'redux-saga/effects'
 import { REGISTER ,REGISTER_SUCCESS,REGISTER_FAILURE} from "../modules/register";
-import axios from 'axios';
 import {customAxios} from '../util/axios';
 //리덕스 사가 참고 페이지
 //https://kyounghwan01.github.io/blog/React/redux/redux-saga/#react%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-saga-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5
@@ -40,7 +39,7 @@ function* registerApi$(action:any):Generator<any, any, any> {
     if(memos === 404) yield put({ type: REGISTER_FAILURE, payload: memos });
     if(memos === 200) yield put({ type: REGISTER_SUCCESS, payload: memos })
     } catch (err) {
-  
+        console.log(err)
     }
   }
 
