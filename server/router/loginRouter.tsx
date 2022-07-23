@@ -1,19 +1,14 @@
 import express, { Request, Response, NextFunction } from 'express';
 import {db} from '../db.js';
-import  jwt  from 'jsonwebtoken';
 import checkHashPasswordeck from "../../src/util/checkHashPassword.js"
 import createToken  from '../../src/util/createToken.js';
 import checkToken  from '../../src/util/checkToken.js';
-
 export const loginRouter = express.Router();
-
-const app = express();
 
 loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
  const {id,password} = req.body;
  const loginQuery = 'SELECT Id,Password,Salt FROM users WHERE ID = ?';
  db.query(loginQuery,[id],function(err,rows,fields){
-        // console.log(accessToken)
         // db조회값이 없을 시
         if (rows[0] === undefined) {
             console.log(`${id} 없는 계정으로 로그인 시도`);
@@ -28,8 +23,6 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
           }
  })
 })
-
-
 
 loginRouter.post('/tokencheck',(req,res) => {
     //decode된 토큰객체가 들어있음
