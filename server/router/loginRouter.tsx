@@ -16,7 +16,9 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
           }
         // db조회값이 있을 시
           else{
+            console.log(`로그인 시간${req.requestTime}`);
             checkHashPasswordeck(password,rows[0].Password,rows[0].Salt) ? 
+           
             res.status(200).json({code:200,token:createToken(id)})
             :
             res.status(200).json({code:405,message:"비밀번호가 틀렸습니다."});

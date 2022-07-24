@@ -26,12 +26,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+declare module "express-serve-static-core" {
+  interface Request {
+    requestTime?: number;
+  }
+}
+
 // req 변수할당 하는 방법 찾아봐야함
-// var requestTime = function (req:Request, res: Response, next:NextFunction) {
-//   req.requestTime  = Date.now();
-//   console.log(req.requestTime)
-//   next();
-// };
+var requestTime = function (req:Request, res: Response, next:NextFunction) {
+  req.requestTime  = Date.now();
+  console.log(req.requestTime)
+  next();
+};
+app.use(requestTime);
 
 
 //회원가입 라우터
