@@ -26,16 +26,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+//express req 속성 추가
 declare module "express-serve-static-core" {
   interface Request {
-    requestTime?: number;
+    requestTime?: Date;
   }
 }
 
 // req 변수할당 하는 방법 찾아봐야함
-var requestTime = function (req:Request, res: Response, next:NextFunction) {
-  req.requestTime  = Date.now();
-  console.log(req.requestTime)
+const requestTime = function (req:Request, res: Response, next:NextFunction) {
+  req.requestTime  = new Date()
   next();
 };
 app.use(requestTime);

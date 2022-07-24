@@ -16,7 +16,8 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
           }
         // db조회값이 있을 시
           else{
-            console.log(`로그인 시간${req.requestTime}`);
+            console.log(`로그인 시간
+            ${req.requestTime}`);
             checkHashPasswordeck(password,rows[0].Password,rows[0].Salt) ? 
            
             res.status(200).json({code:200,token:createToken(id)})
@@ -28,6 +29,12 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
 
 loginRouter.post('/tokencheck',(req,res) => {
     //decode된 토큰객체가 들어있음
+    console.log(`
+헤더 토큰값
+${req.headers.authorization}
+헤더 토큰값
+    `
+    )
     res.send(checkToken(req.body.isToken))
 
 })

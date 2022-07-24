@@ -26,10 +26,17 @@
 import { takeLatest, fork, all , put, call } from "redux-saga/effects";
 import { LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE } from "../modules/login";
 import customAxios from "../util/axios";
+import axios from "axios";
 
 const loginApi = async ( id:string, password:string):Promise<any> => {
     return customAxios('post','/login/',{id,password}).then(res => {
         console.log(res.data)
+        if(res.data.code === 200){
+            localStorage.setItem('token', res.data.token);
+            axios.defaults.headers.common[
+                'Authorization'
+              ] = `${res.data.token}`; //앞으로 api통신에 토큰이 들어가있음
+        }
         return res.data
     })
     .catch(err => {console.log(err)})

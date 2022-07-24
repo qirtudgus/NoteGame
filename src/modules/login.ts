@@ -37,12 +37,14 @@ type LoginAction =
 type IsLoginState = {
     isLogin : boolean;
     token : string | undefined | any;
+    id? : string | number | undefined;
 }
 
 // 초기상태를 선언합니다.
 const LoginState: IsLoginState = {
     isLogin : false,
     token : undefined,
+    id : undefined,
 }
 
 
