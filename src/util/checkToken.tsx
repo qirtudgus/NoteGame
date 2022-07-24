@@ -2,8 +2,8 @@ import  jwt  from 'jsonwebtoken';
 const SECRET_TOKEN :string = process.env.SECRET_TOKEN!;
 type TokenType = string;
 
-const checkToken = (token :string)=> {
-    let result = jwt.verify(token,SECRET_TOKEN)
+const checkToken = (token :string | undefined)=> {
+    let result = jwt.verify(token!,SECRET_TOKEN)
     return result
 }
 

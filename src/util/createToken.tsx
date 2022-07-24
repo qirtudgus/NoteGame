@@ -5,7 +5,7 @@ type TokenType = string | unknown;
 
 const createToken = (id :string):TokenType => {
     try{
-        return jwt.sign( { userId:id},SECRET_TOKEN,{expiresIn:'5m'})
+        return jwt.sign( { userId:id},SECRET_TOKEN,{expiresIn:'10s'})
 
     }catch(err){
         return err

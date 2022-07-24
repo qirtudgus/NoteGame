@@ -17,6 +17,8 @@ import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './modules/modules_index';
 import createSagaMiddleware from '@redux-saga/core';
 import rootSaga from './saga/root_saga';
+import Logout from './components/Logout';
+import Notfound from './components/Notfound';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware()
@@ -38,6 +40,8 @@ root.render(
   <Routes>
   <Route path='/' element={<App />}></Route>
   <Route path='/register' element={<Register />}></Route>
+  <Route path='/logout' element={<Logout />}></Route>
+  <Route path='*' element={<Notfound />}> </Route>
 </Routes>
 </BrowserRouter>
 </Provider>

@@ -20,7 +20,7 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
             ${req.requestTime}`);
             checkHashPasswordeck(password,rows[0].Password,rows[0].Salt) ? 
            
-            res.status(200).json({code:200,token:createToken(id)})
+            res.status(200).json({code:200,token:createToken(id),id:id})
             :
             res.status(200).json({code:405,message:"비밀번호가 틀렸습니다."});
           }
@@ -29,6 +29,8 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
 
 loginRouter.post('/tokencheck',(req,res) => {
     //decode된 토큰객체가 들어있음
+    console.log(req.isToken)
+    if(req.isToken === true){
     console.log(`
 헤더 토큰값
 ${req.headers.authorization}
@@ -36,5 +38,14 @@ ${req.headers.authorization}
     `
     )
     res.send(checkToken(req.body.isToken))
+  }else{
+    console.log("토큰이 만료")
+    res.redirect('http://localhost:3000/aaw')
+  }
 
+})
+
+loginRouter.post('/tokencheck2',(req,res) => {
+
+  res.status(200)
 })

@@ -30,7 +30,7 @@ import axios from "axios";
 
 const loginApi = async ( id:string, password:string):Promise<any> => {
     return customAxios('post','/login/',{id,password}).then(res => {
-        console.log(res.data)
+        //로그인 코드가 성공일 시 스토리지에 저장하고 axios 헤더에 담는다
         if(res.data.code === 200){
             localStorage.setItem('token', res.data.token);
             axios.defaults.headers.common[
@@ -44,11 +44,10 @@ const loginApi = async ( id:string, password:string):Promise<any> => {
 
 function* loginApi$(action:any):Generator<any,any,any>{
     try {
-        console.log(action)
         const result = yield call(loginApi, action.payload.id, action.payload.password)
-        console.log(result)
-        console.log(result.code)
-        if(result.code === 200) yield put({type:LOGIN_SUCCESS, token:result.token})
+        if(result.code === 200) yield put({type:LOGIN_SUCCESS, token:result.token, id:result.id})
+        if(result.code === 201) yield put({type:LOGIN_SUCCESS, token:result.token, id:result.id})
+
         if(result.code === 404) yield alert(result.message)
         if(result.code === 405) yield alert(result.message)
     }catch(err){

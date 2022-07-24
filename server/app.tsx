@@ -16,6 +16,8 @@ import { Jwt } from 'jsonwebtoken';
 import {registerRouter} from './router/registerRouter.js';
 import {db} from "./db.js"
 import { loginRouter } from './router/loginRouter.js';
+import checkToken  from '../src/util/checkToken.js';
+
 
 db.connect((err:any) => {
   if (err) console.log("MySQL 연결 실패 : ", err);
@@ -31,6 +33,9 @@ app.use(express.json());
 declare module "express-serve-static-core" {
   interface Request {
     requestTime?: Date;
+    isToken?:boolean;
+    decoded?:any
+
   }
 }
 
@@ -41,6 +46,19 @@ const requestTime = function (req:Request, res: Response, next:NextFunction) {
 };
 app.use(requestTime);
 
+const jwtCheck = (req:Request, res: Response, next:NextFunction)=> {
+  let token = req.headers.authorization
+  if(!token) return next();
+  try{
+    req.decoded = checkToken(token)
+    req.isToken = true;
+    next()
+  }catch(e){
+    req.isToken = false;
+    next()
+    }
+}
+app.use(jwtCheck)
 
 //회원가입 라우터
 app.use('/register',registerRouter)

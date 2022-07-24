@@ -12,12 +12,14 @@ export const login_request = (id :string, password :string) => ({
 
 export const login_succes = (token : string | undefined) => ({
     type: LOGIN_SUCCESS,
-    token : {token}
+    token : {token},
+    id : undefined,
 })
 
 export const login_failure = (token : string | undefined) => ({
     type: LOGIN_FAILURE,
-    token : {token}
+    token : {token},
+    id : undefined,
 })
 
 export const logout = () => ({
@@ -58,10 +60,13 @@ const LoginRequest = (
     //     return { isLogin : true, }
     // }
     case LOGIN_SUCCESS:{
-        return { isLogin : true,  token : action.token}
+        return { isLogin : true,  token : action.token, id : action.id}
     }
     case LOGIN_FAILURE:{
-        return { isLogin : false, token:undefined}
+        return { isLogin : false, token:undefined, id : undefined}
+    }
+    case LOGOUT_REQUSET:{
+        return { isLogin : false, token:undefined, id : undefined}
     }
     default:
         return state;
