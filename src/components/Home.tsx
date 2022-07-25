@@ -6,15 +6,11 @@ import { logout } from "../modules/login"
 import BasicBoxs from "./userInfo"
 
 const Home = () => {
-
-    const userId = useSelector((state:RootState) => state.login.id)
-    const userInfo= useSelector((state:RootState) => state.login.userInfo)
     const isTokenExPired = useSelector((state:RootState) => state.login.tokenExpired);
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const logOutRequest = () => {
         dispatch(logout())
-    
       }
     
 
@@ -31,7 +27,7 @@ const Home = () => {
             : 
             <>
             <ul>
-            <li>볼펜 굴리기</li>
+            <li onClick={() => {navigate('/choicepencount')}}>볼펜 굴리기</li>
             <li>인벤토리</li>
             <li>던전</li>
             <li>상점</li>
@@ -39,13 +35,8 @@ const Home = () => {
     
         </ul>
         <BasicBoxs>
-        <p>
-        <button onClick={logOutRequest} >로그아웃</button>
 
-            {userId}
-            {userInfo?.Level}
-            {userInfo?.Gold}
-            </p>
+            
         </BasicBoxs>
         </>
     }

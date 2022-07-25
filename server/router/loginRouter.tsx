@@ -36,29 +36,6 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
  })
 })
 
-loginRouter.post('/tokencheck',(req,res) => {
-    //decode된 토큰객체가 들어있음
-    console.log(req.isToken)
-    if(req.isToken === true){
-    console.log(`
-헤더 토큰값
-${req.headers.authorization}
-헤더 토큰값
-    `
-    )
-    res.send(checkToken(req.body.isToken))
-  }else{
-    console.log("토큰이 만료")
-    res.redirect('http://localhost:3000/aaw')
-  }
-
-})
-
-loginRouter.post('/tokencheck2',(req,res) => {
-
-  res.status(200)
-})
-
 loginRouter.post('/localstorage',(req,res) => {
   try{
     let id:any = checkToken(req.body.token.token)
@@ -82,13 +59,10 @@ loginRouter.post('/localstorage',(req,res) => {
                 WeaponDamage:rows[0].WeaponDamage,
                 WeaponHp: rows[0].WeaponHp,
                 Gold:0,
-  
               }
               res.status(200).json({code:200,token:req.body.token.token,id:id,userInfo:{...userInfo}})
                         }
    })
-
-
   }
   catch(e){
     console.log(e)

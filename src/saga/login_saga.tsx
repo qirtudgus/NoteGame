@@ -23,7 +23,7 @@
 
 // 8.api통신 시 토큰을 담아보내어 해당 유저의 db 조회 및 데이터 획득
 
-import { takeLatest, fork, all , put, call, take } from "redux-saga/effects";
+import { takeLatest, fork, all , put, call, take, delay } from "redux-saga/effects";
 import { LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE, LOGIN_LOCALSTORAGE, LOGIN_LOCALSTORAGE_SUCCESS, LOGIN_LOCALSTORAGE_FAILURE, LOGOUT_REQUSET } from "../modules/login";
 import customAxios from "../util/axios";
 import axios from "axios";
@@ -48,7 +48,6 @@ function* loginApi$(action:any):Generator<any,any,any>{
         const result = yield call(loginApi, action.payload.id, action.payload.password);
         if(result.code === 200) yield put({type:LOGIN_SUCCESS, token:result.token, id:result.id, userInfo: result.userInfo})
         if(result.code === 201) yield put({type:LOGIN_SUCCESS, token:result.token, id:result.id})
-
         if(result.code === 404) yield alert(result.message)
         if(result.code === 405) yield alert(result.message)
     }catch(err){
@@ -65,20 +64,17 @@ const loginLocalStorage = async(token: string):Promise<any> => {
 function* loginLocalStorage$(action: any):Generator<any,any,any>{
     try{
         const result = yield call(loginLocalStorage, action.token)
-        console.log(result)
-        console.log(result.id)
-
         if(result.code === 200) yield put({type:LOGIN_LOCALSTORAGE_SUCCESS, token:result.token, id:result.id.userId, userInfo: result.userInfo})
         if(result.code === 201) yield put({type:LOGIN_LOCALSTORAGE_FAILURE, token:result.token, id:result.id.userId, userInfo: result.userInfo})
     }catch(e){
-        if(e) yield put({type:LOGIN_LOCALSTORAGE_FAILURE})
+        yield put({type:LOGIN_LOCALSTORAGE_FAILURE})
         console.log(e)
     }
 }
 
 function logout(){
-    localStorage.removeItem('token')
     window.location.replace('/')
+    localStorage.removeItem('token')
 }
 
 function* getLogout(){

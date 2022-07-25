@@ -124,10 +124,10 @@ const LoginRequest = (
         return { isLogin : true,  token : action.token, id : action.id, userInfo: action.userInfo, tokenExpired:false}
     }
     case LOGIN_FAILURE:{
-        return { isLogin : false, token:undefined, id : undefined}
+        return { isLogin : false, token:undefined, id : undefined, tokenExpired:false}
     }
     case LOGIN_LOCALSTORAGE_SUCCESS:{
-        return { isLogin : true,  token : action.token, id : action.id, userInfo: action.userInfo}
+        return { isLogin : true,  token : action.token, id : action.id, userInfo: action.userInfo, tokenExpired:false}
     }
     case LOGIN_LOCALSTORAGE_FAILURE:{
         return { isLogin : false , token : undefined, id : undefined, tokenExpired:true}

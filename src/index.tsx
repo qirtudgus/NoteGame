@@ -9,7 +9,6 @@ import {
   Route,
 } from "react-router-dom";
 
-import { ThemeProvider } from 'styled-components';
 import Register from './components/Register';
 
 import { Provider } from 'react-redux';
@@ -17,12 +16,10 @@ import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './modules/modules_index';
 import createSagaMiddleware from '@redux-saga/core';
 import rootSaga from './saga/root_saga';
-import Logout from './components/Logout';
 import Notfound from './components/Notfound';
 import Home from './components/Home';
 import { login_localstorage } from './modules/login';
-
-import { useDispatch } from 'react-redux';
+import ChoicePenCount from './page/ChoicePenCount';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware()
@@ -56,7 +53,7 @@ root.render(
   <Route path='/' element={<App />}></Route>
   <Route path='/register' element={<Register />}></Route>
   <Route path='/home' element={<Home />}></Route>
-  <Route path='/logout' element={<Logout />}></Route>
+  <Route path='/choicepencount' element={<ChoicePenCount />}></Route>
   <Route path='*' element={<Notfound />}> </Route>
 </Routes>
 </BrowserRouter>
