@@ -1,5 +1,5 @@
 import BackGround from "./BackGround"
-import BasicButtons from "./BasicButton"
+import BasicButtons from "./BasicBtn"
 import BasicInputs from "./BasicInput"
 import axios from "axios";
 import { useEffect, useState } from "react";

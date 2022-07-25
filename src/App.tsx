@@ -4,7 +4,7 @@ import './App.css';
 import './Reset.css'
 import BackGround from './components/BackGround';
 import BasicInputs from './components/BasicInput';
-import BasicButtons from './components/BasicButton';
+import BasicButtons from './components/BasicBtn';
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from './modules/modules_index';
