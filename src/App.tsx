@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {RootState} from './modules/modules_index';
 import {login_request, logout} from './modules/login';
 import customAxios from './util/axios';
-import axios from 'axios';
 
 
 function App() {
@@ -20,10 +19,12 @@ function App() {
   const [Password, setPassword] = useState<string>("")
   const isLogin = useSelector((state:RootState) => state.login.isLogin);
   const isToken =useSelector((state:RootState) => state.login.token);
+  const isTokenExPired =useSelector((state:RootState) => state.login.tokenExpired);
   const userId =useSelector((state:RootState) => state.login.id);
 
   const loginRequest = () => {
     dispatch(login_request(Id,Password))
+
   }
 
  const onChangeId = (e:any) => {
@@ -58,21 +59,10 @@ const logoutRequest = () => {
 }
 
 useEffect(()=>{
-  try{
-    let token = localStorage.getItem('token')
-    customAxios('post','/',token).then(res => {
-      if(res.data.code === 201){
-        localStorage.removeItem('token')
-        window.location.replace('/')
-
-      }
-      console.log(res.data)
-    })
-
-  }catch(e){
-    console.log(e)
+  if(isLogin === true){
+    navigate('/home')
   }
-},[])
+},[isLogin])
 
 
 
@@ -86,6 +76,7 @@ useEffect(()=>{
           <BasicButtons ButtonText='토큰 값 확인' color='#e1550a' OnClick={tokenConfirm}></BasicButtons>
           <BasicButtons ButtonText='로그아웃' color='#e1550a' OnClick={logoutRequest}></BasicButtons>
         </BackGround>
+      
     :     
      
       <BackGround>

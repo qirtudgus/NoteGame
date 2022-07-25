@@ -19,6 +19,10 @@ import createSagaMiddleware from '@redux-saga/core';
 import rootSaga from './saga/root_saga';
 import Logout from './components/Logout';
 import Notfound from './components/Notfound';
+import Home from './components/Home';
+import { login_localstorage } from './modules/login';
+
+import { useDispatch } from 'react-redux';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware()
@@ -28,7 +32,18 @@ const store = createStore(rootReducer,applyMiddleware(sagaMiddleware));
 //사가미들웨어의 run함수로 rootSaga를 호출
 sagaMiddleware.run(rootSaga)
 
-
+//로그인 유지를 위한 함수, 토큰이 유효할 시 정보를 불러오는 디스패치, 토큰이 없을 시 return
+function loadUser(){
+  try{
+    let user = localStorage.getItem('token')
+    if(!user) return;
+    console.log(user);
+     store.dispatch(login_localstorage(user))
+  }catch(e){
+    console.log(e)
+  }
+}
+loadUser()
 
 
 const root = ReactDOM.createRoot(
@@ -40,6 +55,7 @@ root.render(
   <Routes>
   <Route path='/' element={<App />}></Route>
   <Route path='/register' element={<Register />}></Route>
+  <Route path='/home' element={<Home />}></Route>
   <Route path='/logout' element={<Logout />}></Route>
   <Route path='*' element={<Notfound />}> </Route>
 </Routes>
@@ -50,4 +66,4 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();
