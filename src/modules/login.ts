@@ -9,6 +9,9 @@ export const LOGIN_LOCALSTORAGE_SUCCESS = 'login/LOGIN_LOCALSTORAGE_SUCCESS' as 
 export const LOGIN_LOCALSTORAGE_FAILURE = 'login/LOGIN_LOCALSTORAGE_FAILURE' as const;
 export const LOGOUT_REQUSET = 'login/LOGOUT_REQUEST' as const;
 
+export const PENGAME_REQUEST = 'login/PENGAME_REQUEST' as const;
+export const PENGAME_GOLDX2 = 'login/PENGAME_GOLDX2' as const;
+
 export const login_request = (id :string, password :string) => ({
     type: LOGIN_REQUEST,
     payload: {id,password}
@@ -66,6 +69,24 @@ export const logout = () => ({
     type: LOGOUT_REQUSET
 })
 
+
+export const pengame_request = (multilple:number) => ({
+    type : PENGAME_REQUEST,
+    multilple
+})
+
+export const pengame_goldx2 = () => ({
+    type : PENGAME_GOLDX2,
+    userInfo : {
+        Level: 0,
+        BasicDamage: 0,
+        BasicHp: 0,
+        WeaponDamage:0,
+        WeaponHp: 0,
+        Gold:0,
+    }
+})
+
 // 모든 액션 겍체들에 대한 타입을 준비해줍니다.
 // ReturnType<typeof _____> 는 특정 함수의 반환값을 추론해줍니다
 // 상단부에서 액션타입을 선언 할 떄 as const 를 하지 않으면 이 부분이 제대로 작동하지 않습니다.
@@ -76,7 +97,8 @@ type LoginAction =
   | ReturnType<typeof login_localstorage_success>
   | ReturnType<typeof login_localstorage_failure>
   | ReturnType<typeof login_failure>
-  | ReturnType<typeof logout>;
+  | ReturnType<typeof logout>
+  | ReturnType<typeof pengame_goldx2>;
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
 type IsLoginState = {
@@ -134,6 +156,9 @@ const LoginRequest = (
     }
     case LOGOUT_REQUSET:{
         return { isLogin : false , token : undefined, id : undefined, tokenExpired:false}
+    }
+    case PENGAME_GOLDX2:{
+        return {...state, userInfo :action.userInfo}
     }
     default:
         return state;

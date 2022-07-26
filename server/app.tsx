@@ -69,6 +69,17 @@ app.get('/', (req : Request, res : Response, next :NextFunction) => {
     res.send('welcome!');
 });
 
+app.post('/pengame', (req : Request, res : Response, next :NextFunction) => {
+  console.log(req.body)
+  console.log(req.decoded.userId)
+  const {multiple} = req.body
+  
+  //220727 해야할 것
+  //유저 정보의 골드를 가져와 multiple만큼 곱하여 db에 저장
+  // db값(userInfo)을 응답코드와 함께 응답해줌
+
+  res.send(`${req.decoded.userId}님의 ${multiple}배 상승하는 디스패치입니다.`);
+});
 
 
 app.listen('1234', () => {

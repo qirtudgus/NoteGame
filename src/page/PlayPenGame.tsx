@@ -3,6 +3,9 @@ import BackHistoryBtn from "../components/BackHistoryBtn";
 import UserInfo from "../components/userInfo";
 import { useEffect, useRef, useState } from "react";
 import BasicButtons from "../components/BasicBtn";
+import { pengame_request } from "../modules/login";
+import { useDispatch } from "react-redux";
+
 
 interface penAni {
     penStatus? :any;
@@ -86,7 +89,7 @@ const PlayPenGame = () => {
 
  const [penStatus,setPenSatus] = useState<boolean>(true)
  const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
- 
+ const dispatch = useDispatch()
  
  var evt = document.createEvent("MouseEvents");
  evt.initMouseEvent("click", true, true, window, 0,0,0,0,0,false, false, false, false,0, null);
@@ -149,7 +152,10 @@ const PlayPenGame = () => {
 <Pen></Pen>
 </PenWrap>
 <BoxWrap>
-<Box onClick={()=> console.log("1번박스")}></Box>
+<Box onClick={()=> {
+    dispatch(pengame_request(2))
+
+}}></Box>
 <Box onClick={()=> console.log("2번박스")}></Box>
 <Box  onClick={()=> console.log("3번박스")}></Box>
 </BoxWrap>
