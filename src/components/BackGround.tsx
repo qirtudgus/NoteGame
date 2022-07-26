@@ -11,6 +11,8 @@ const Bg = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
+    user-select:none
 `
 //https://stackoverflow.com/questions/62690259/typescript-checking-in-react-functional-components
 interface children {

@@ -9,18 +9,18 @@ import {
   Route,
 } from "react-router-dom";
 
-import Register from './components/Register';
+import Register from './page/Register';
 
 import { Provider } from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './modules/modules_index';
 import createSagaMiddleware from '@redux-saga/core';
 import rootSaga from './saga/root_saga';
-import Notfound from './components/Notfound';
-import Home from './components/Home';
+import Notfound from './page/Notfound';
+import Home from './page/Home';
 import { login_localstorage } from './modules/login';
 import ChoicePenCount from './page/ChoicePenCount';
-
+import Layout from './layout/layout';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware()
 //두번째인자에 사용할 미들웨어를 추가해주었다.
@@ -50,11 +50,13 @@ root.render(
   <Provider store={store}>
   <BrowserRouter>
   <Routes>
+  <Route element={<Layout />}>
   <Route path='/' element={<App />}></Route>
   <Route path='/register' element={<Register />}></Route>
   <Route path='/home' element={<Home />}></Route>
   <Route path='/choicepencount' element={<ChoicePenCount />}></Route>
   <Route path='*' element={<Notfound />}> </Route>
+  </Route>
 </Routes>
 </BrowserRouter>
 </Provider>

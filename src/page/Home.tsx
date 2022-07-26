@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { RootState } from "../modules/modules_index"
-import BackGround from "./BackGround"
+import BackGround from "../components/BackGround"
 import { logout } from "../modules/login"
-import BasicBoxs from "./userInfo"
+import BasicBoxs from "../components/userInfo"
 
 const Home = () => {
     const isTokenExPired = useSelector((state:RootState) => state.login.tokenExpired);
@@ -17,7 +17,7 @@ const Home = () => {
 
     return(
 
-        <BackGround>
+        <>
             {isTokenExPired ? 
                     <div>
                <p>토큰이 만료되었습니다 재로그인해주세요.</p>
@@ -41,7 +41,7 @@ const Home = () => {
         </>
     }
        
-     </BackGround>
+     </>
 
     )
 }

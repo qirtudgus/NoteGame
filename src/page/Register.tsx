@@ -1,7 +1,6 @@
-import BackGround from "./BackGround"
-import BasicButtons from "./BasicBtn"
-import BasicInputs from "./BasicInput"
-import axios from "axios";
+import BackGround from "../components/BackGround"
+import BasicButtons from "../components/BasicBtn"
+import BasicInputs from "../components/BasicInput"
 import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { register } from "../modules/register";
@@ -94,7 +93,7 @@ const Register = () => {
   }, [CheckPassword, Password]);
 
     return (
-        <BackGround>
+        <>
         { isConfirmId  ? 
             <div>사용가능한 아이디입니다.</div> :
             <div>이미 사용중인 아이디입니다.</div>    
@@ -113,7 +112,7 @@ const Register = () => {
         <BasicInputs placeholder="비밀번호 확인" type="password" OnChange={onCheckPasswordHandler} value={CheckPassword}></BasicInputs>
 
         <BasicButtons disabled={!(isId && isPassword && isCheckPassword)} ButtonText="회원가입" color="#fff" OnClick={onSubmitRegister}></BasicButtons>
-        </BackGround>
+        </>
     )
 }
 

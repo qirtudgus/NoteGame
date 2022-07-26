@@ -10,6 +10,8 @@ const BasicButton = styled.button`
     margin-bottom:3rem;
     border:none;
     border-radius:5px;
+    cursor: pointer;
+
 `
 interface ButtonText{
     ButtonText : string;

@@ -8,7 +8,9 @@ interface cornerBtn{
     corner:string
 }
 
-const HeaderImg = styled.img.attrs({
+//이미지 사용
+//https://velog.io/@shinwonse/React-styled-components%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80
+const ArrowImg = styled.img.attrs({
     src: `${backArrow}`
   })`
   width: 30px;
@@ -41,8 +43,7 @@ const BackHistoryBtn = (props:any) => {
     return(
         <>
         <Back {...props} onClick={()=> {navigate('/home')}}>
-        {/* <img alt="back" src={backArrow}> </img> */}
-<HeaderImg></HeaderImg>
+<ArrowImg />
         </Back>
         </>
     )

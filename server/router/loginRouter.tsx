@@ -3,6 +3,7 @@ import {db} from '../db.js';
 import checkHashPasswordeck from "../../src/util/checkHashPassword.js"
 import createToken  from '../../src/util/createToken.js';
 import checkToken  from '../../src/util/checkToken.js';
+import { JwtPayload } from 'jsonwebtoken';
 export const loginRouter = express.Router();
 
 loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
@@ -38,7 +39,7 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
 
 loginRouter.post('/localstorage',(req,res) => {
   try{
-    let id:any = checkToken(req.body.token.token)
+    let id: string | JwtPayload | any  = checkToken(req.body.token.token)
 
     console.log(id.userId)
     const loginQuery = 'SELECT * FROM users WHERE ID = ?';
