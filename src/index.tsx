@@ -21,6 +21,7 @@ import Home from './page/Home';
 import { login_localstorage } from './modules/login';
 import ChoicePenCount from './page/ChoicePenCount';
 import Layout from './layout/layout';
+import PlayPenGame from './page/PlayPenGame';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware()
 //두번째인자에 사용할 미들웨어를 추가해주었다.
@@ -55,6 +56,7 @@ root.render(
   <Route path='/register' element={<Register />}></Route>
   <Route path='/home' element={<Home />}></Route>
   <Route path='/choicepencount' element={<ChoicePenCount />}></Route>
+  <Route path='/playpengame' element={<PlayPenGame />}></Route>
   <Route path='*' element={<Notfound />}> </Route>
   </Route>
 </Routes>

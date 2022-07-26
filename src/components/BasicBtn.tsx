@@ -11,19 +11,20 @@ const BasicButton = styled.button`
     border:none;
     border-radius:5px;
     cursor: pointer;
-
 `
 interface ButtonText{
     ButtonText : string;
     color : string;
     OnClick? : any;
     disabled? :any;
+    OnKeyDown? : any;
 }
 
 
-const BasicButtons = ({ButtonText,color,OnClick,disabled}:ButtonText) => {
+const BasicButtons = ({ButtonText,color,OnClick,disabled,OnKeyDown}:ButtonText) => {
     return(
         <BasicButton 
+        onKeyUp={OnKeyDown}
         disabled={disabled}
         color={color} onClick={OnClick}>{ButtonText}</BasicButton>
 

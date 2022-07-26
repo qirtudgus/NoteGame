@@ -19,7 +19,7 @@ interface children {
     children : React.ReactNode
 }
 
-const BasicBoxs = ({children}:children) => {
+const UserInfo = ({children}:children) => {
     const userId = useSelector((state:RootState) => state.login.id)
     const userInfo= useSelector((state:RootState) => state.login.userInfo)
 
@@ -43,4 +43,4 @@ const BasicBoxs = ({children}:children) => {
 
 }
 
-export default BasicBoxs
+export default UserInfo
