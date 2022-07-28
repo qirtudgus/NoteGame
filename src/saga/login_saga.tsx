@@ -31,12 +31,11 @@ import axios from "axios";
 const loginApi = async ( id:string, password:string):Promise<any> => {
     return await customAxios('post','/login/',{id,password}).then(res => {
         //로그인 코드가 성공일 시 스토리지에 저장하고 axios 헤더에 담는다
-        console.log(res.data)
         if(res.data.code === 200){
             localStorage.setItem('token', res.data.token);
-            // axios.defaults.headers.common[
-                // 'Authorization'
-            //   ] = `Bearer ${res.data.token}`; //앞으로 api통신에 토큰이 들어가있음
+
+            axios.defaults.headers.common['Authorization'] = res.data.token;
+
         }
         return res.data
     })
@@ -57,8 +56,7 @@ function* loginApi$(action:any):Generator<any,any,any>{
 
 const loginLocalStorage = async(token: any):Promise<any> => {
     return await customAxios('post','/login/localstorage',{token}).then(res => {
-        console.log(res.data.code)
-        console.log(res.data.token)
+        axios.defaults.headers.common['Authorization'] = res.data.token;
         // if(res.data.code === 200){
         //     console.log("200이군")
         //     axios.defaults.headers.common[

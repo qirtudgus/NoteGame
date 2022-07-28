@@ -34,11 +34,9 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
             //https://bobbyhadz.com/blog/typescript-type-unknown-is-not-assignable-to-type
             const b :string = token as string;
 
-            console.log("디코드값")
-            console.log(b)
             console.log(checkToken(b))
             req.decoded = checkToken(b)
-            console.log(req.decoded)
+
 
             checkHashPasswordeck(password,rows[0].Password,rows[0].Salt) ? 
             res.status(200).json({code:200,token:token,id:id,userInfo:{...userInfo}})

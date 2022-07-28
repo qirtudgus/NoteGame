@@ -48,8 +48,7 @@ const requestTime = function (req:Request, res: Response, next:NextFunction) {
 app.use(requestTime);
 
 const jwtCheck = (req:Request, res: Response, next:NextFunction)=> {
-  let token: string | undefined = req.headers.authorization
-  console.log(token)
+  let token: string | undefined = req.headers.authorization as string
   if(!token) {
     console.log("토큰이 없음")
     return next();}
@@ -57,7 +56,6 @@ const jwtCheck = (req:Request, res: Response, next:NextFunction)=> {
     req.decoded = checkToken(token)
     req.isToken = true;
     console.log("유효한 토큰")
-    console.log(req.decoded.userId)
     next()
   }catch(e){
     console.log("만료된 토큰")
