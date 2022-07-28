@@ -23,6 +23,8 @@ const UserInfo = ({children}:children) => {
     const userId = useSelector((state:RootState) => state.login.id)
     const userInfo= useSelector((state:RootState) => state.login.userInfo)
 
+    console.log(userInfo)
+
     const dispatch = useDispatch();
     const logOutRequest = () => {
         dispatch(logout())

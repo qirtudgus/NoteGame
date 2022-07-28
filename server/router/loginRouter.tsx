@@ -25,12 +25,23 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
               BasicHp: rows[0].BasicHp,
               WeaponDamage:rows[0].WeaponDamage,
               WeaponHp: rows[0].WeaponHp,
-              Gold:0,
+              Gold:rows[0].Gold,
 
             }
+            const token :unknown = createToken(id);
+            // req.decoded = checkToken(token)
+
+            //https://bobbyhadz.com/blog/typescript-type-unknown-is-not-assignable-to-type
+            const b :string = token as string;
+
+            console.log("디코드값")
+            console.log(b)
+            console.log(checkToken(b))
+            req.decoded = checkToken(b)
+            console.log(req.decoded)
 
             checkHashPasswordeck(password,rows[0].Password,rows[0].Salt) ? 
-            res.status(200).json({code:200,token:createToken(id),id:id,userInfo:{...userInfo}})
+            res.status(200).json({code:200,token:token,id:id,userInfo:{...userInfo}})
             :
             res.status(200).json({code:405,message:"비밀번호가 틀렸습니다."});
           }
@@ -40,8 +51,6 @@ loginRouter.post('/', (req:Request, res: Response, next:NextFunction) => {
 loginRouter.post('/localstorage',(req,res) => {
   try{
     let id: string | JwtPayload | any  = checkToken(req.body.token.token)
-
-    console.log(id.userId)
     const loginQuery = 'SELECT * FROM users WHERE ID = ?';
    db.query(loginQuery,[id.userId],function(err,rows,fields){
           // db조회값이 없을 시
@@ -59,7 +68,7 @@ loginRouter.post('/localstorage',(req,res) => {
                 BasicHp: rows[0].BasicHp,
                 WeaponDamage:rows[0].WeaponDamage,
                 WeaponHp: rows[0].WeaponHp,
-                Gold:0,
+                Gold:rows[0].Gold,
               }
               res.status(200).json({code:200,token:req.body.token.token,id:id,userInfo:{...userInfo}})
                         }

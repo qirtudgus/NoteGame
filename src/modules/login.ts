@@ -10,7 +10,7 @@ export const LOGIN_LOCALSTORAGE_FAILURE = 'login/LOGIN_LOCALSTORAGE_FAILURE' as 
 export const LOGOUT_REQUSET = 'login/LOGOUT_REQUEST' as const;
 
 export const PENGAME_REQUEST = 'login/PENGAME_REQUEST' as const;
-export const PENGAME_GOLDX2 = 'login/PENGAME_GOLDX2' as const;
+export const PENGAME_MULTIPLE = 'login/PENGAME_MULTIPLE' as const;
 
 export const login_request = (id :string, password :string) => ({
     type: LOGIN_REQUEST,
@@ -75,8 +75,8 @@ export const pengame_request = (multiple:number) => ({
     multiple
 })
 
-export const pengame_goldx2 = () => ({
-    type : PENGAME_GOLDX2,
+export const pengame_multiple = () => ({
+    type : PENGAME_MULTIPLE,
     userInfo : {
         Level: 0,
         BasicDamage: 0,
@@ -98,7 +98,7 @@ type LoginAction =
   | ReturnType<typeof login_localstorage_failure>
   | ReturnType<typeof login_failure>
   | ReturnType<typeof logout>
-  | ReturnType<typeof pengame_goldx2>;
+  | ReturnType<typeof pengame_multiple>;
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
 type IsLoginState = {
@@ -157,8 +157,8 @@ const LoginRequest = (
     case LOGOUT_REQUSET:{
         return { isLogin : false , token : undefined, id : undefined, tokenExpired:false}
     }
-    case PENGAME_GOLDX2:{
-        return {...state, userInfo :action.userInfo}
+    case PENGAME_MULTIPLE:{
+        return {...state,userInfo: action.userInfo }
     }
     default:
         return state;

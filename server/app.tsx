@@ -17,6 +17,7 @@ import {registerRouter} from './router/registerRouter.js';
 import {db} from "./db.js"
 import { loginRouter } from './router/loginRouter.js';
 import checkToken  from '../src/util/checkToken.js';
+import { pengameRouter } from './router/pengameRouter.js';
 
 
 db.connect((err:any) => {
@@ -47,13 +48,19 @@ const requestTime = function (req:Request, res: Response, next:NextFunction) {
 app.use(requestTime);
 
 const jwtCheck = (req:Request, res: Response, next:NextFunction)=> {
-  let token = req.headers.authorization
-  if(!token) return next();
+  let token: string | undefined = req.headers.authorization
+  console.log(token)
+  if(!token) {
+    console.log("토큰이 없음")
+    return next();}
   try{
     req.decoded = checkToken(token)
     req.isToken = true;
+    console.log("유효한 토큰")
+    console.log(req.decoded.userId)
     next()
   }catch(e){
+    console.log("만료된 토큰")
     req.isToken = false;
     next()
     }
@@ -64,21 +71,10 @@ app.use(jwtCheck)
 app.use('/register',registerRouter)
 //로그인 라우터
 app.use('/login',loginRouter)
-
+//팬게임 라우터
+app.use('/pengame',pengameRouter)
 app.get('/', (req : Request, res : Response, next :NextFunction) => {
     res.send('welcome!');
-});
-
-app.post('/pengame', (req : Request, res : Response, next :NextFunction) => {
-  console.log(req.body)
-  console.log(req.decoded.userId)
-  const {multiple} = req.body
-  
-  //220727 해야할 것
-  //유저 정보의 골드를 가져와 multiple만큼 곱하여 db에 저장
-  // db값(userInfo)을 응답코드와 함께 응답해줌
-
-  res.send(`${req.decoded.userId}님의 ${multiple}배 상승하는 디스패치입니다.`);
 });
 
 

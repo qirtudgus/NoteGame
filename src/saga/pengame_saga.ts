@@ -1,10 +1,11 @@
 import { takeLatest, put, call ,fork, all } from "redux-saga/effects";
-import { PENGAME_GOLDX2, PENGAME_REQUEST } from "../modules/login";
+import { PENGAME_MULTIPLE, PENGAME_REQUEST } from "../modules/login";
 import customAxios from "../util/axios";
 
 
 const penGameTakeGold = async (multiple: number) => {
-    return await customAxios('post','/pengame',{multiple}).then(res => {
+    return await customAxios('post','/pengame/multiple',{multiple}).then(res => {
+        console.log(res.data)
         return res.data
     })
 
@@ -16,7 +17,9 @@ function* penGameTakeGold$(action:any):Generator<any,any,any>{
      const result = yield call(penGameTakeGold, action.multiple);
      console.log(result)
      //db값을 받아와 PENGAME_GOLDX2를 put으로 디스패치 userinfo를 업데이트 해주어 상태 업데이트
-     
+     if(result.code === 200){
+        yield put({type:PENGAME_MULTIPLE, userInfo:result.userInfo})
+     }
 
     }catch(E){
         console.log(E)
