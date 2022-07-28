@@ -70,9 +70,9 @@ export const logout = () => ({
 })
 
 
-export const pengame_request = (multilple:number) => ({
+export const pengame_request = (multiple:number) => ({
     type : PENGAME_REQUEST,
-    multilple
+    multiple
 })
 
 export const pengame_goldx2 = () => ({

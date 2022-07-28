@@ -1,5 +1,10 @@
 import styled from "styled-components"
 
+const BgWrap = styled.div`
+width:1920px;
+height:800px;
+`
+
 const Bg = styled.div`
     width:1000px;
     height:800px;
@@ -16,12 +21,14 @@ const Bg = styled.div`
 `
 //https://stackoverflow.com/questions/62690259/typescript-checking-in-react-functional-components
 interface children {
-    children : React.ReactNode
+    children? : React.ReactNode
 }
 
 const BackGround = ({children}:children) => {
     return(
+        <BgWrap>
         <Bg>{children}</Bg>
+        </BgWrap>
         // <Bg color="#D9D9D9"  />
         
 

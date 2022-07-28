@@ -113,8 +113,6 @@ const PlayPenGame = () => {
     const y = inputRef.current.getBoundingClientRect().y
     // console.log(x)
     // console.log(y)
-
-
  }
 
  const toggleExit = () => {
@@ -125,23 +123,36 @@ const PlayPenGame = () => {
     //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
     const y = inputRef.current.getBoundingClientRect().y - 100
     console.log(x);
-    console.log(y);
-    dropClick(x,y)
+    // console.log(y);
+
+    if( 838 <= x && x <= 917 ){
+      console.log("x안에 들어옴")
+      dispatch(pengame_request(2))
+    }
     
+    if( 920 <= x && x <= 1000 ){
+      console.log("x안에 들어옴")
+      dispatch(pengame_request(10))
+    }
+    if( 1001 <= x && x <= 1082 ){
+      console.log("x안에 들어옴")
+      dispatch(pengame_request(20))
+    }
 
 
+    // dropClick(x,y)
  }
 
-
+ 
 
     return(
 <>
-<button onClick={()=>{dropClick(540.3131103515625,388)}}>zzzzzz</button>
 {penStatus ? 
 <BasicButtons ButtonText="스타트" color="#aaa" OnClick={toggle} ></BasicButtons>
 :
 <BasicButtons ButtonText="종료" color="#aaa" OnClick={toggleExit} ></BasicButtons>
 }
+
 
 
 
@@ -152,12 +163,14 @@ const PlayPenGame = () => {
 <Pen></Pen>
 </PenWrap>
 <BoxWrap>
-<Box onClick={()=> {
-    dispatch(pengame_request(2))
-
-}}></Box>
-<Box onClick={()=> console.log("2번박스")}></Box>
-<Box  onClick={()=> console.log("3번박스")}></Box>
+<Box
+//  onClick={()=> {
+//     dispatch(pengame_request(2))
+// }
+// }
+></Box>
+<Box ></Box>
+<Box ></Box>
 </BoxWrap>
 
 <UserInfo><></></UserInfo>
