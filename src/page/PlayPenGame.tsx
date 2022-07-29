@@ -26,17 +26,6 @@ const PenWrap = styled.div<penAni>`
 position:relative;
 bottom:-205px;
 z-index:2;
-animation-fill-mode: forwards;
-animation:${animation} 2s ease-in-out infinite; //1초동안 선형 무한 속성값주기
-animation-play-state:running;
-${(props) =>
-    props.penStatus &&
-    css`
-    animation-play-state:paused;
-    `
- }
- &:focus{
- }
 
 
 `
@@ -48,14 +37,28 @@ background:#fff;
 
 `
 const PenEnd = styled.div<penAni>`
-border-radius:40px 40px 0 0;
-width:2px;
-height:40px;
+width:1px;
+height:5px;
 background:#000;
-position:relative;
-left:18px;
+position:absolute;
+z-index:3;
+top:400px;
+left:500px;
 margin:none;
+animation-fill-mode: both;
+animation:${animation} 1s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+animation-play-state:running;
+${(props) =>
+    props.penStatus &&
+    css`
+    animation-play-state:paused;
+    `
+ }
+ &:focus{
+ }
+
 `
+
 
 const PenHead = styled.div`
 border-radius:40px 40px 0 0;
@@ -90,56 +93,62 @@ const PlayPenGame = () => {
  const [penStatus,setPenSatus] = useState<boolean>(true)
  const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
  const dispatch = useDispatch()
- 
+
+
+
  var evt = document.createEvent("MouseEvents");
  evt.initMouseEvent("click", true, true, window, 0,0,0,0,0,false, false, false, false,0, null);
 	/* 특정 좌표에 위치한 객체 강제로 클릭 이벤트 발생 수행 */
 
     function dropClick(x:number,y:number):any {
-        // console.log("[dropClick] : [start]");
-        // console.log("[X 좌표] : " + x);
-        // console.log("[Y 좌표] : " + y);
-        // console.log("");
 
         var cb:any = document.elementFromPoint(x, y);
         console.log(cb)
         cb.dispatchEvent(evt);
     };	    	
-
+    
  const toggle = () => {
+    // start();
     setPenSatus((penStatus)=> !penStatus)
-    console.log(inputRef.current.getBoundingClientRect())
+    // console.log(inputRef.current.getBoundingClientRect())
     const x = inputRef.current.getBoundingClientRect().x
     const y = inputRef.current.getBoundingClientRect().y
     // console.log(x)
     // console.log(y)
  }
 
- const toggleExit = () => {
-    setPenSatus((penStatus)=> !penStatus)
-    console.log(inputRef.current.getBoundingClientRect())
-    inputRef.current.getClientRects()
+
+const anistart = async () => {
+
+   setTimeout ( function (){
     const x = inputRef.current.getBoundingClientRect().x
-    //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
-    const y = inputRef.current.getBoundingClientRect().y - 100
-    console.log(x);
-    // console.log(y);
+    console.log(x);    
+  if( 838 <= x && x <= 917 ){
+    console.log("x안에 들어옴")
+    dispatch(pengame_request(2))
+  }
+  
+  if( 920 <= x && x <= 1000 ){
+    console.log("x안에 들어옴")
+    dispatch(pengame_request(10))
+  }
+  if( 1001 <= x && x <= 1082 ){
+    console.log("x안에 들어옴")
+    dispatch(pengame_request(20))
+  }
+  },500)
 
-    if( 838 <= x && x <= 917 ){
-      console.log("x안에 들어옴")
-      dispatch(pengame_request(2))
-    }
+  // console.log(inputRef.current.getBoundingClientRect())
+  const x = inputRef.current.getBoundingClientRect().x
+  //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
+  // const y = inputRef.current.getBoundingClientRect().y - 100
+
+}
+
+ const toggleExit = async () => {
     
-    if( 920 <= x && x <= 1000 ){
-      console.log("x안에 들어옴")
-      dispatch(pengame_request(10))
-    }
-    if( 1001 <= x && x <= 1082 ){
-      console.log("x안에 들어옴")
-      dispatch(pengame_request(20))
-    }
-
-
+  setPenSatus((penStatus)=> !penStatus)
+  await anistart()
     // dropClick(x,y)
  }
 
@@ -157,8 +166,8 @@ const PlayPenGame = () => {
 
 
 <BackHistoryBtn corner></BackHistoryBtn>
+<PenEnd id="haha" penStatus={penStatus} ref={inputRef}></PenEnd>
 <PenWrap penStatus={penStatus}>
-<PenEnd ref={inputRef}></PenEnd>
 <PenHead></PenHead>
 <Pen></Pen>
 </PenWrap>
