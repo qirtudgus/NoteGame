@@ -1,7 +1,7 @@
 import styled, { keyframes, css } from 'styled-components';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import UserInfo from '../components/userInfo';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
 import { useDispatch } from 'react-redux';
@@ -98,6 +98,8 @@ const PlayPenGame = () => {
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
   const dispatch = useDispatch();
 
+  const randomArr = useCallback(createRandomRewardsArray(boxCount), [boxCount]);
+
   function dropClick(x: number, y: number): any {
     let cb: any = document.elementFromPoint(x, y);
     let boxNumber: number = parseInt(cb.dataset.boxnum);
@@ -152,7 +154,6 @@ const PlayPenGame = () => {
     await anistart();
   };
 
-  const randomArr = createRandomRewardsArray(boxCount);
   //이벤트 박스의 dataset 할당을 위한 문자열 제거용 정규식("골드 5배" -> 5)식으로 변환
   const regex = /[^0-9]/g;
 
