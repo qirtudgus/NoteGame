@@ -37,7 +37,7 @@ background:#fff;
 
 `
 const PenEnd = styled.div<penAni>`
-width:1px;
+width:3px;
 height:5px;
 background:#000;
 position:absolute;
@@ -46,7 +46,7 @@ top:400px;
 left:500px;
 margin:none;
 animation-fill-mode: both;
-animation:${animation} 1s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+animation:${animation} 2s ease-in-out infinite; //1초동안 선형 무한 속성값주기
 animation-play-state:running;
 ${(props) =>
     props.penStatus &&
@@ -69,6 +69,7 @@ background:#000;
 const BoxWrap = styled.div`
 position:absolute;
 display:flex;
+
 `
 
 const Box = styled.div`
@@ -77,9 +78,23 @@ height:300px;
 background:#fff;
 border:1px solid#000;
 position:relative;
+pointer-events: none; 
+&:nth-child(n){ border-right:none;}
+&:last-child { border-right:1px solid#000;}
 `
 
-document.addEventListener('click', logKey);
+
+
+
+const EventBox = styled.div`
+width:80px;
+height:300px;
+background:#fff;
+position:absoulte;
+`
+
+
+// document.addEventListener('click', logKey);
 
 function logKey(e:any) {
   console.log( `
@@ -105,7 +120,9 @@ const PlayPenGame = () => {
         var cb:any = document.elementFromPoint(x, y);
         console.log(cb)
         cb.dispatchEvent(evt);
+        console.log(cb.class)
     };	    	
+    
     
  const toggle = () => {
     // start();
@@ -120,22 +137,29 @@ const PlayPenGame = () => {
 
 const anistart = async () => {
 
+  let box1 = document.getElementById('1box')
+  box1?.click()
+
    setTimeout ( function (){
     const x = inputRef.current.getBoundingClientRect().x
+    const y = inputRef.current.getBoundingClientRect().y - 50;
     console.log(x);    
-  if( 838 <= x && x <= 917 ){
-    console.log("x안에 들어옴")
-    dispatch(pengame_request(2))
-  }
+    dropClick(x,y)
+
+    //x값에 따른 처리는 따로 모듈화 해주자
+  // if( 838 <= x && x <= 917 ){
+  //   console.log("x안에 들어옴")
+  //   dispatch(pengame_request(2))
+  // }
   
-  if( 920 <= x && x <= 1000 ){
-    console.log("x안에 들어옴")
-    dispatch(pengame_request(10))
-  }
-  if( 1001 <= x && x <= 1082 ){
-    console.log("x안에 들어옴")
-    dispatch(pengame_request(20))
-  }
+  // if( 920 <= x && x <= 1000 ){
+  //   console.log("x안에 들어옴")
+  //   dispatch(pengame_request(10))
+  // }
+  // if( 1001 <= x && x <= 1082 ){
+  //   console.log("x안에 들어옴")
+  //   dispatch(pengame_request(20))
+  // }
   },500)
 
   // console.log(inputRef.current.getBoundingClientRect())
@@ -172,14 +196,28 @@ const anistart = async () => {
 <Pen></Pen>
 </PenWrap>
 <BoxWrap>
-<Box
-//  onClick={()=> {
-//     dispatch(pengame_request(2))
-// }
-// }
-></Box>
-<Box ></Box>
-<Box ></Box>
+<Box className="1boxx" onClick={(e)=> {
+  console.log("겉 1번박스")
+
+}} >
+  <EventBox className="1boxx" id="1box" onClick={(e)=>{
+  e.stopPropagation()
+
+    console.log("1번박스")
+    }}></EventBox>
+</Box>
+<Box >
+<EventBox  onClick={()=>console.log("2번박스")}></EventBox>
+
+</Box>
+<Box >
+<EventBox></EventBox>
+
+</Box>
+<Box >
+<EventBox></EventBox>
+
+</Box>
 </BoxWrap>
 
 <UserInfo><></></UserInfo>
