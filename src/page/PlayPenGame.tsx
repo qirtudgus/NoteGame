@@ -5,6 +5,11 @@ import { useEffect, useRef, useState } from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import createRandomNum from '../util/createRandomNum';
+import createRandomNumArray from '../util/createRandomNumArray';
+import { RootState } from '../modules/modules_index';
+import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 
 interface penAni {
   penStatus?: any;
@@ -90,33 +95,12 @@ function logKey(e: any) {
 const PlayPenGame = () => {
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
+  const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
   const dispatch = useDispatch();
-
-  // var evt = document.createEvent('MouseEvents');
-  // evt.initMouseEvent(
-  //   'click',
-  //   true,
-  //   true,
-  //   window,
-  //   0,
-  //   0,
-  //   0,
-  //   0,
-  //   0,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   0,
-  //   null,
-  // );
-  /* 특정 좌표에 위치한 객체 강제로 클릭 이벤트 발생 수행 */
 
   function dropClick(x: number, y: number): any {
     let cb: any = document.elementFromPoint(x, y);
     let boxNumber: number = parseInt(cb.dataset.boxnum);
-
-    console.log(cb);
     console.log(cb.dataset.boxnum);
 
     //옵션에 대한 박스를 필요한 갯수만큼 고정적으로 생성 후, 각각의 고유 박스넘버를 부여
@@ -139,9 +123,6 @@ const PlayPenGame = () => {
         dispatch(pengame_request(5));
         return;
     }
-    // 박스 자체에는 이벤트핸들러요소가 필요없게되었다.
-    // 그래서 좌표값의 요소만 반환하여 요소의 dataset에 따라 이벤트를 발생시키는 흐름으로 가보자
-    // cb.dispatchEvent(evt);
   }
 
   const toggle = () => {
@@ -171,6 +152,10 @@ const PlayPenGame = () => {
     await anistart();
   };
 
+  const randomArr = createRandomRewardsArray(boxCount);
+  //이벤트 박스의 dataset 할당을 위한 문자열 제거용 정규식("골드 5배" -> 5)식으로 변환
+  const regex = /[^0-9]/g;
+
   return (
     <>
       {penStatus ? (
@@ -194,10 +179,11 @@ const PlayPenGame = () => {
         <Pen></Pen>
       </PenWrap>
       <BoxWrap>
-        <Box data-boxnum='1'></Box>
-        <Box data-boxnum='2'></Box>
-        <Box data-boxnum='3'></Box>
-        <Box data-boxnum='4'></Box>
+        {randomArr.map((i: any, index: any) => (
+          <Box key={index} data-boxnum={i}>
+            {i}
+          </Box>
+        ))}
       </BoxWrap>
 
       <UserInfo>
