@@ -5,6 +5,7 @@ import BasicBoxs from '../components/userInfo';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { pengame_boxcount_success } from '../modules/pengameBoxCount';
+import { useState } from 'react';
 const PenCountWrap = styled.div`
   width: 473px;
   height: 293px;
@@ -39,10 +40,20 @@ const PenCount = styled.li`
 const ChoicePenCount = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [boxCount, setBoxCount] = useState<number>(0);
 
   const readyBoxCount = (boxCount: number): void => {
     dispatch(pengame_boxcount_success(boxCount));
     navigate('/playpengame');
+  };
+
+  const go = () => {
+    if (boxCount > 10) {
+      alert('10칸이 넘으면 안돼요!');
+    } else {
+      dispatch(pengame_boxcount_success(boxCount));
+      navigate('/playpengame');
+    }
   };
 
   return (
@@ -54,6 +65,13 @@ const ChoicePenCount = () => {
           <PenCount onClick={() => readyBoxCount(5)}>5</PenCount>
           <PenCount onClick={() => readyBoxCount(7)}>7</PenCount>
           <PenCount onClick={() => readyBoxCount(10)}>10</PenCount>
+          <input
+            placeholder='1 ~ 10칸까지 가능해요!'
+            onChange={(e) => {
+              setBoxCount(parseInt(e.target.value));
+            }}
+          ></input>
+          <button onClick={go}>Go</button>
         </PenCountBox>
       </PenCountWrap>
       <BackHistoryBtn corner />

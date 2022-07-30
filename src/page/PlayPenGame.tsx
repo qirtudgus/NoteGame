@@ -30,6 +30,14 @@ const PenWrap = styled.div<penAni>`
   position: relative;
   bottom: -205px;
   z-index: 2;
+  animation-fill-mode: both;
+  animation: ${animation} 2s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation-play-state: running;
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
 `;
 
 const Pen = styled.div`
@@ -38,9 +46,9 @@ const Pen = styled.div`
   background: #fff;
 `;
 const PenEnd = styled.div<penAni>`
-  width: 3px;
-  height: 5px;
-  background: #000;
+  width: 1px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0);
   position: absolute;
   z-index: 3;
   top: 400px;
@@ -54,8 +62,6 @@ const PenEnd = styled.div<penAni>`
     css`
       animation-play-state: paused;
     `}
-  &:focus {
-  }
 `;
 
 const PenHead = styled.div`
@@ -132,30 +138,21 @@ const PlayPenGame = () => {
     setPenSatus((penStatus) => !penStatus);
   };
 
-  const anistart = async () => {
+  const callRewardsList = async () => {
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
     setTimeout(function () {
-      const x = inputRef.current.getBoundingClientRect().x;
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
-      const y = inputRef.current.getBoundingClientRect().y - 50;
-      console.log(x);
-      dropClick(x, y);
+      const x = inputRef.current.getBoundingClientRect().x;
+      const y = inputRef.current.getBoundingClientRect().y - 10;
 
-      //x값에 따른 처리는 따로 모듈화 해주자
-      // if( 838 <= x && x <= 917 ){
-      //   console.log("x안에 들어옴")
-      //   dispatch(pengame_request(2))
-      // }
+      dropClick(x, y);
     }, 500);
   };
 
   const toggleExit = async () => {
     setPenSatus((penStatus) => !penStatus);
-    await anistart();
+    await callRewardsList();
   };
-
-  //이벤트 박스의 dataset 할당을 위한 문자열 제거용 정규식("골드 5배" -> 5)식으로 변환
-  const regex = /[^0-9]/g;
 
   return (
     <>
@@ -173,18 +170,24 @@ const PlayPenGame = () => {
         ></BasicButtons>
       )}
 
-      <BackHistoryBtn corner></BackHistoryBtn>
+      <BackHistoryBtn corner url='/choicepencount'></BackHistoryBtn>
       <PenEnd penStatus={penStatus} ref={inputRef}></PenEnd>
       <PenWrap penStatus={penStatus}>
         <PenHead></PenHead>
         <Pen></Pen>
       </PenWrap>
       <BoxWrap>
-        {randomArr.map((i: any, index: any) => (
-          <Box key={index} data-boxnum={i}>
-            {i}
-          </Box>
-        ))}
+        {boxCount === 0 ? (
+          <div>뒤로 돌아가 다시 박스 갯수를 정해주세요!</div>
+        ) : (
+          <>
+            {randomArr.map((i: any, index: any) => (
+              <Box key={index} data-boxnum={i}>
+                {i}
+              </Box>
+            ))}
+          </>
+        )}
       </BoxWrap>
 
       <UserInfo>
