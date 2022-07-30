@@ -56,20 +56,30 @@ const ChoicePenCount = () => {
     }
   };
 
+  const inputCheck = (e: any) => {
+    setBoxCount(parseInt(e.target.value));
+  };
+
   return (
     <>
       <PenCountWrap>
-        <PenCountTitle> 원하는 칸의 개수를 골라주세요!</PenCountTitle>
+        <PenCountTitle>
+          {' '}
+          원하는 칸의 개수를 골라주세요!<br></br>1 ~ 10칸까지 가능합니다.
+        </PenCountTitle>
         <PenCountBox>
           <PenCount onClick={() => readyBoxCount(3)}>3</PenCount>
           <PenCount onClick={() => readyBoxCount(5)}>5</PenCount>
           <PenCount onClick={() => readyBoxCount(7)}>7</PenCount>
           <PenCount onClick={() => readyBoxCount(10)}>10</PenCount>
           <input
+            name='count'
+            type='number'
+            min='1'
+            max='10'
+            value={boxCount}
             placeholder='1 ~ 10칸까지 가능해요!'
-            onChange={(e) => {
-              setBoxCount(parseInt(e.target.value));
-            }}
+            onChange={inputCheck}
           ></input>
           <button onClick={go}>Go</button>
         </PenCountBox>

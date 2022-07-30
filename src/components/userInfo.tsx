@@ -10,6 +10,7 @@ const BasicBox = styled.div`
   position: absolute;
   bottom: 20px;
   left: 50px;
+  z-index: 10;
   background-color: #eee;
   font-size: 32px;
   font-weight: bold;

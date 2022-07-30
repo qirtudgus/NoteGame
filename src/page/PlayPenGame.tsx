@@ -10,6 +10,7 @@ import createRandomNum from '../util/createRandomNum';
 import createRandomNumArray from '../util/createRandomNumArray';
 import { RootState } from '../modules/modules_index';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
+import RefreshBtn from '../components/RefreshBtn';
 
 interface penAni {
   penStatus?: any;
@@ -20,7 +21,7 @@ const animation = keyframes`
     transform:translate(-20em);
   }
 50%{
-  transform:translate(20em);  }
+  transform:translate(37em);  }
   100%{
     transform:translate(-20em);
   }
@@ -29,9 +30,10 @@ const animation = keyframes`
 const PenWrap = styled.div<penAni>`
   position: relative;
   bottom: -205px;
+  left: -130px;
   z-index: 2;
   animation-fill-mode: both;
-  animation: ${animation} 2s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation: ${animation} 1s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
   ${(props) =>
     props.penStatus &&
@@ -47,15 +49,15 @@ const Pen = styled.div`
 `;
 const PenEnd = styled.div<penAni>`
   width: 1px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0);
+  height: 100px;
+  background: rgba(0, 0, 0, 1);
   position: absolute;
   z-index: 3;
   top: 400px;
-  left: 500px;
+  left: 370px;
   margin: none;
   animation-fill-mode: both;
-  animation: ${animation} 2s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation: ${animation} 1s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
   ${(props) =>
     props.penStatus &&
@@ -100,15 +102,20 @@ function logKey(e: any) {
 
 const PlayPenGame = () => {
   const [penStatus, setPenSatus] = useState<boolean>(true);
+  const [refresh, setrefresh] = useState<boolean>(true);
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
   const dispatch = useDispatch();
 
-  const randomArr = useCallback(createRandomRewardsArray(boxCount), [boxCount]);
+  const randomArr = useCallback(createRandomRewardsArray(boxCount), [
+    boxCount,
+    refresh,
+  ]);
 
   function dropClick(x: number, y: number): any {
     let cb: any = document.elementFromPoint(x, y);
     let boxNumber: number = parseInt(cb.dataset.boxnum);
+    if (boxNumber === undefined) return;
     console.log(cb.dataset.boxnum);
 
     //옵션에 대한 박스를 필요한 갯수만큼 고정적으로 생성 후, 각각의 고유 박스넘버를 부여
@@ -144,9 +151,12 @@ const PlayPenGame = () => {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
       const x = inputRef.current.getBoundingClientRect().x;
       const y = inputRef.current.getBoundingClientRect().y - 10;
-
       dropClick(x, y);
     }, 500);
+  };
+
+  const refreshRewards = () => {
+    setrefresh((refresh) => !refresh);
   };
 
   const toggleExit = async () => {
@@ -170,7 +180,8 @@ const PlayPenGame = () => {
         ></BasicButtons>
       )}
 
-      <BackHistoryBtn corner url='/choicepencount'></BackHistoryBtn>
+      <BackHistoryBtn corner></BackHistoryBtn>
+      <RefreshBtn corner func={refreshRewards}></RefreshBtn>
       <PenEnd penStatus={penStatus} ref={inputRef}></PenEnd>
       <PenWrap penStatus={penStatus}>
         <PenHead></PenHead>
@@ -189,6 +200,7 @@ const PlayPenGame = () => {
           </>
         )}
       </BoxWrap>
+      {/* <button onClick={refreshRewards}>새로고침</button> */}
 
       <UserInfo>
         <></>
