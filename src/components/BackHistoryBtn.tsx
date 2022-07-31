@@ -19,6 +19,7 @@ const ArrowImg = styled.img.attrs({
 `;
 
 const Back = styled.div<cornerBtn>`
+  cursor: pointer;
   width: 76px;
   height: 76px;
   background-color: #fff;

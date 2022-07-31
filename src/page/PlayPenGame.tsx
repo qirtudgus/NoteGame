@@ -11,6 +11,7 @@ import createRandomNumArray from '../util/createRandomNumArray';
 import { RootState } from '../modules/modules_index';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import RefreshBtn from '../components/RefreshBtn';
+import HomeBtn from '../components/HomeBtn';
 
 interface penAni {
   penStatus?: any;
@@ -112,30 +113,48 @@ const PlayPenGame = () => {
     refresh,
   ]);
 
+  //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): any {
     let cb: any = document.elementFromPoint(x, y);
-    let boxNumber: number = parseInt(cb.dataset.boxnum);
-    if (boxNumber === undefined) return;
+    let dataset = cb.dataset.boxnum;
+    if (dataset === undefined) return;
     console.log(cb.dataset.boxnum);
 
     //옵션에 대한 박스를 필요한 갯수만큼 고정적으로 생성 후, 각각의 고유 박스넘버를 부여
     //click 후 스위치문 인자로 넣어서 각각 박스에 맞는 액션을 실행시키면 괜찮을 듯!
-    switch (boxNumber) {
-      case 1:
+    switch (dataset) {
+      case '골드 100 획득':
         console.log('1번박스');
-        dispatch(pengame_request(2));
+        dispatch(pengame_request(100, 'add'));
         return;
-      case 2:
-        console.log('2번박스');
-        dispatch(pengame_request(3));
+      case '골드 200 획득':
+        console.log('1번박스');
+        dispatch(pengame_request(200, 'add'));
         return;
-      case 3:
-        console.log('3번박스');
-        dispatch(pengame_request(4));
+      case '골드 500 획득':
+        console.log('1번박스');
+        dispatch(pengame_request(500, 'add'));
         return;
-      case 4:
-        console.log('4번박스');
-        dispatch(pengame_request(5));
+      case '골드 2배 획득':
+        console.log('1번박스');
+        dispatch(pengame_request(2, 'multiple'));
+        return;
+      case '골드 3배 획득':
+        console.log('1번박스');
+        dispatch(pengame_request(3, 'multiple'));
+        return;
+      case '골드 5배 획득':
+        console.log('1번박스');
+        dispatch(pengame_request(5, 'multiple'));
+        return;
+      case '골드 100 차감':
+        dispatch(pengame_request(100, 'deduct'));
+        return;
+      case '골드 200 차감':
+        dispatch(pengame_request(200, 'deduct'));
+        return;
+      case '골드 500 차감':
+        dispatch(pengame_request(500, 'deduct'));
         return;
     }
   }
@@ -145,7 +164,7 @@ const PlayPenGame = () => {
     setPenSatus((penStatus) => !penStatus);
   };
 
-  const callRewardsList = async () => {
+  const getReward = async () => {
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
     setTimeout(function () {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
@@ -161,8 +180,10 @@ const PlayPenGame = () => {
 
   const toggleExit = async () => {
     setPenSatus((penStatus) => !penStatus);
-    await callRewardsList();
+    await getReward();
   };
+
+  const regex = /[^0-9]/g;
 
   return (
     <>
@@ -182,6 +203,7 @@ const PlayPenGame = () => {
 
       <BackHistoryBtn corner></BackHistoryBtn>
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
+      <HomeBtn corner></HomeBtn>
       <PenEnd penStatus={penStatus} ref={inputRef}></PenEnd>
       <PenWrap penStatus={penStatus}>
         <PenHead></PenHead>
@@ -200,11 +222,7 @@ const PlayPenGame = () => {
           </>
         )}
       </BoxWrap>
-      {/* <button onClick={refreshRewards}>새로고침</button> */}
-
-      <UserInfo>
-        <></>
-      </UserInfo>
+      <UserInfo></UserInfo>
     </>
   );
 };
