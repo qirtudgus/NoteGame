@@ -40,8 +40,8 @@ const Refresh = styled.div<cornerBtn>`
 const RefreshBtn = (props: any) => {
   return (
     <>
-      <Refresh {...props} onClick={props.func}>
-        <ArrowImg />
+      <Refresh {...props} onClick={props.func} title='새로고침'>
+        <ArrowImg alt='새로고침' />
       </Refresh>
     </>
   );

@@ -46,8 +46,9 @@ const HomeBtn = (props: any) => {
         onClick={() => {
           navigate('/');
         }}
+        title='마을로'
       >
-        <ArrowImg />
+        <ArrowImg alt='home' />
       </Home>
     </>
   );

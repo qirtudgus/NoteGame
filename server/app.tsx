@@ -12,7 +12,6 @@ tsconfig.json에 아래 코드를 추가하여 해결
 */
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { Jwt } from 'jsonwebtoken';
 import { registerRouter } from './router/registerRouter.js';
 import { db } from './db.js';
 import { loginRouter } from './router/loginRouter.js';

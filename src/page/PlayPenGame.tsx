@@ -79,12 +79,18 @@ const BoxWrap = styled.div`
 `;
 
 const Box = styled.div`
-  width: 80px;
+  width: 60px;
+  padding: 0 10px 0 10px;
   height: 300px;
   background: #fff;
   border: 1px solid#000;
   position: relative;
-
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  word-break: keep-all;
+  line-height: 35px;
   &:nth-child(n) {
     border-right: none;
   }
@@ -182,8 +188,6 @@ const PlayPenGame = () => {
     setPenSatus((penStatus) => !penStatus);
     await getReward();
   };
-
-  const regex = /[^0-9]/g;
 
   return (
     <>

@@ -46,8 +46,9 @@ const BackHistoryBtn = (props: any) => {
         onClick={() => {
           navigate(-1);
         }}
+        title='뒤로가기'
       >
-        <ArrowImg />
+        <ArrowImg alt='뒤로가기' />
       </Back>
     </>
   );
