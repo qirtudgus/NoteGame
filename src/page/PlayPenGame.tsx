@@ -12,10 +12,12 @@ import { RootState } from '../modules/modules_index';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import RefreshBtn from '../components/RefreshBtn';
 import HomeBtn from '../components/HomeBtn';
+import FastForwardBtn from '../components/FastFowardBtn';
 
 interface penAni {
   penStatus?: any;
   ref?: any;
+  penSpeed?: number;
 }
 const animation = keyframes`
   0% {
@@ -34,7 +36,7 @@ const PenWrap = styled.div<penAni>`
   left: -130px;
   z-index: 2;
   animation-fill-mode: both;
-  animation: ${animation} 1s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
   ${(props) =>
     props.penStatus &&
@@ -58,7 +60,7 @@ const PenEnd = styled.div<penAni>`
   left: 370px;
   margin: none;
   animation-fill-mode: both;
-  animation: ${animation} 1s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
   ${(props) =>
     props.penStatus &&
@@ -110,6 +112,7 @@ function logKey(e: any) {
 const PlayPenGame = () => {
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [refresh, setrefresh] = useState<boolean>(true);
+  const [penSpeed, setPenSpeed] = useState<number>(1);
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
   const dispatch = useDispatch();
@@ -189,6 +192,18 @@ const PlayPenGame = () => {
     await getReward();
   };
 
+  const FastForward = () => {
+    if(penSpeed === 1){
+      setPenSpeed(0.5)
+    }
+    if(penSpeed === 0.5){
+      setPenSpeed(0.25)
+    }
+    if(penSpeed === 0.25){
+      setPenSpeed(1)
+    }
+  }
+
   return (
     <>
       {penStatus ? (
@@ -208,8 +223,9 @@ const PlayPenGame = () => {
       <BackHistoryBtn corner></BackHistoryBtn>
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
       <HomeBtn corner></HomeBtn>
-      <PenEnd penStatus={penStatus} ref={inputRef}></PenEnd>
-      <PenWrap penStatus={penStatus}>
+      <FastForwardBtn corner func={FastForward}></FastForwardBtn>
+      <PenEnd penStatus={penStatus} ref={inputRef} penSpeed={penSpeed}></PenEnd>
+      <PenWrap penSpeed={penSpeed} penStatus={penStatus}>
         <PenHead></PenHead>
         <Pen></Pen>
       </PenWrap>
