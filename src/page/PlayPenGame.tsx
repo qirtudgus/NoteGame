@@ -126,6 +126,8 @@ const PlayPenGame = () => {
   function dropClick(x: number, y: number): any {
     let cb: any = document.elementFromPoint(x, y);
     let dataset = cb.dataset.boxnum;
+    setrefresh((refresh) => !refresh);
+
     if (dataset === undefined) return;
     console.log(cb.dataset.boxnum);
 
@@ -180,6 +182,7 @@ const PlayPenGame = () => {
       const x = inputRef.current.getBoundingClientRect().x;
       const y = inputRef.current.getBoundingClientRect().y - 10;
       dropClick(x, y);
+
     }, 500);
   };
 
@@ -234,7 +237,7 @@ const PlayPenGame = () => {
           <div>뒤로 돌아가 다시 박스 갯수를 정해주세요!</div>
         ) : (
           <>
-            {randomArr.map((i: any, index: any) => (
+            {randomArr.map((i:any, index: any) => (
               <Box key={index} data-boxnum={i}>
                 {i}
               </Box>
