@@ -38,7 +38,7 @@ const UserInfo = ({ children }: children) => {
 
       <p>{userId}</p>
       <p>레벨 {userInfo?.Level}</p>
-      <p>골드 {userInfo?.Gold}</p>
+      <p>골드 {userInfo?.Gold.toLocaleString()}</p>
     </BasicBox>
   );
 };
