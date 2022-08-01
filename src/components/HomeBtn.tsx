@@ -44,7 +44,7 @@ const HomeBtn = (props: any) => {
       <Home
         {...props}
         onClick={() => {
-          navigate('/');
+          navigate('/home');
         }}
         title='마을로'
       >

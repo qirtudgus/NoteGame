@@ -79,7 +79,11 @@ const BoxWrap = styled.div`
   display: flex;
 `;
 
-const Box = styled.div`
+interface BoxColor{
+  red?:string;
+}
+
+const Box = styled.div<BoxColor>`
   width: 60px;
   padding: 0 10px 0 10px;
   height: 300px;
@@ -98,6 +102,11 @@ const Box = styled.div`
   &:last-child {
     border-right: 1px solid#000;
   }
+  ${(props) => props.red && css`
+  background: #e5005a;
+  color:#fff;
+
+  `}
 `;
 
 // document.addEventListener('click', logKey);
@@ -210,7 +219,7 @@ const PlayPenGame = () => {
         ) : (
           <>
             {randomArr.map((i:any, index: any) => (
-              <Box key={index} data-action={i.action} data-number={i.number}>
+              <Box red={i.color} key={index} data-action={i.action} data-number={i.number}>
                 {i.front + " " +( i.number * penSpeed.text) + " " + i.back}
               </Box>
             ))}

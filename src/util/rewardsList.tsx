@@ -35,6 +35,18 @@ export const rewardsListObj: any = [
   },
   {
     front:frontText,
+    number:1000,
+    back:deductText,
+    action:"deduct"
+  },
+  {
+    front:frontText,
+    number:1500,
+    back:deductText,
+    action:"deduct"
+  },
+  {
+    front:frontText,
     number:100,
     back:addText,
     action:"add"
@@ -53,23 +65,36 @@ export const rewardsListObj: any = [
   },
   {
     front:frontText,
+    number:1000,
+    back:addText,
+    action:"add"
+  },
+  {
+    front:frontText,
+    number:1500,
+    back:addText,
+    action:"add"
+  },
+  {
+    front:frontText,
+    number:2000,
+    back:addText,
+    action:"add"
+  },
+  {
+    front:frontText,
+    number:1.5,
+    back:multipleText,
+    action:"multiple",
+    color:"red"
+  },
+  {
+    front:frontText,
     number:2,
     back:multipleText,
-    action:"multiple"
+    action:"multiple",
+    color:"red"
   },
-  {
-    front:frontText,
-    number:3,
-    back:multipleText,
-    action:"multiple"
-  },
-  {
-    front:frontText,
-    number:4,
-    back:multipleText,
-    action:"multiple"
-  },
-  
   
 ];
 
