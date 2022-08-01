@@ -67,10 +67,11 @@ export const logout = () => ({
   type: LOGOUT_REQUSET,
 });
 
-export const pengame_request = (multiple: number, act: string) => ({
+export const pengame_request = (reward: number, act: string, speed:number) => ({
   type: PENGAME_REQUEST,
   act,
-  multiple,
+  reward,
+  speed
 });
 
 export const pengame_multiple = () => ({

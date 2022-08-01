@@ -2,22 +2,22 @@ import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
 import customAxios from '../util/axios';
 
-const penGameTakeGoldAdd = async (add: number) => {
-  return await customAxios('post', '/pengame/add', { add }).then((res) => {
+const penGameTakeGoldAdd = async (reward: number, speed:number) => {
+  return await customAxios('post', '/pengame/add', { reward, speed }).then((res) => {
     return res.data;
   });
 };
 
-const penGameTakeGoldDeduct = async (deduct: number) => {
-  return await customAxios('post', '/pengame/deduct', { deduct }).then(
+const penGameTakeGoldDeduct = async (reward: number,speed:number) => {
+  return await customAxios('post', '/pengame/deduct', { reward, speed }).then(
     (res) => {
       return res.data;
     },
   );
 };
 
-const penGameTakeGoldMultiple = async (multiple: number) => {
-  return await customAxios('post', '/pengame/multiple', { multiple }).then(
+const penGameTakeGoldMultiple = async (reward: number,speed:number) => {
+  return await customAxios('post', '/pengame/multiple', { reward, speed}).then(
     (res) => {
       return res.data;
     },
@@ -26,17 +26,17 @@ const penGameTakeGoldMultiple = async (multiple: number) => {
 
 function* penGameTakeGold$(action: any): Generator<any, any, any> {
   try {
-    console.log(action.multiple);
+    console.log(action.reward);
     console.log(action.act);
     let result;
     if (action.act === 'add') {
-      result = yield call(penGameTakeGoldAdd, action.multiple);
+      result = yield call(penGameTakeGoldAdd, action.reward, action.speed);
     }
     if (action.act === 'deduct') {
-      result = yield call(penGameTakeGoldDeduct, action.multiple);
+      result = yield call(penGameTakeGoldDeduct, action.reward, action.speed);
     }
     if (action.act === 'multiple') {
-      result = yield call(penGameTakeGoldMultiple, action.multiple);
+      result = yield call(penGameTakeGoldMultiple, action.reward, action.speed);
     }
     // const result = yield call(penGameTakeGoldMultiple, action.multiple);
     console.log(result);

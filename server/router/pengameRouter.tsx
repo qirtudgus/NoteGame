@@ -5,7 +5,11 @@ export const pengameRouter = express.Router();
 
 pengameRouter.post('/multiple', (req, res, next) => {
   const userId = req.decoded.userId;
-  const multipleNumber = req.body.multiple;
+  console.log(req.body)
+  console.log(req.body.reward)
+  console.log(req.body.speed)
+  const reward = req.body.reward;
+  const speed = req.body.speed;
   console.log('곱하기 요청');
 
   const userFindQuery = 'SELECT Gold FROM users WHERE ID = ?';
@@ -13,12 +17,10 @@ pengameRouter.post('/multiple', (req, res, next) => {
   const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
-    let resultGold = parseInt(result[0].Gold) * multipleNumber;
-
+    let resultGold = parseInt(result[0].Gold) * parseInt(reward);
     console.log(result[0].Gold);
-    console.log(multipleNumber);
+    console.log(reward);
     console.log(resultGold);
-
     db.query(multipleQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
         const userInfo = {
@@ -38,17 +40,20 @@ pengameRouter.post('/multiple', (req, res, next) => {
 
 pengameRouter.post('/add', (req, res, next) => {
   const userId = req.decoded.userId;
-  const multipleNumber = req.body.add;
+  const reward = req.body.reward;
+  const speed = req.body.speed;
+  console.log(req.body)
+  console.log(req.body.reward)
+  console.log(req.body.speed)
 
   const userFindQuery = 'SELECT Gold FROM users WHERE ID = ?';
   const multipleQuery = `UPDATE users SET Gold = ? WHERE ID = ?`;
   const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
-    let resultGold = parseInt(result[0].Gold) + multipleNumber;
+    let resultGold = parseInt(result[0].Gold) + (parseInt(reward) * speed);
 
     console.log(result[0].Gold);
-    console.log(multipleNumber);
     console.log(resultGold);
 
     db.query(multipleQuery, [resultGold, userId], (err, result, fields) => {
@@ -70,17 +75,21 @@ pengameRouter.post('/add', (req, res, next) => {
 
 pengameRouter.post('/deduct', (req, res, next) => {
   const userId = req.decoded.userId;
-  const multipleNumber = req.body.deduct;
+  const reward = req.body.reward;
+  const speed = req.body.speed;
+
+  console.log(req.body)
+  console.log(req.body.reward)
+  console.log(req.body.speed)
 
   const userFindQuery = 'SELECT Gold FROM users WHERE ID = ?';
   const multipleQuery = `UPDATE users SET Gold = ? WHERE ID = ?`;
   const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
-    let resultGold = parseInt(result[0].Gold) - multipleNumber;
+    let resultGold = parseInt(result[0].Gold) -(parseInt(reward) * speed);
 
     console.log(result[0].Gold);
-    console.log(multipleNumber);
     console.log(resultGold);
 
     db.query(multipleQuery, [resultGold, userId], (err, result, fields) => {

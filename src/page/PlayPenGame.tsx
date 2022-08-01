@@ -128,51 +128,10 @@ const PlayPenGame = () => {
     let cb: any = document.elementFromPoint(x, y);
     let reward = cb.dataset.number;
     let action = cb.dataset.action;
+
     setrefresh((refresh) => !refresh);
-
     if (reward === undefined) return;
-
-
-    dispatch(pengame_request(reward, action));
-
-
-    //옵션에 대한 박스를 필요한 갯수만큼 고정적으로 생성 후, 각각의 고유 박스넘버를 부여
-    //click 후 스위치문 인자로 넣어서 각각 박스에 맞는 액션을 실행시키면 괜찮을 듯!
-    // switch (dataset) {
-    //   case '골드 100 획득':
-    //     console.log('1번박스');
-    //     dispatch(pengame_request(100, 'add'));
-    //     return;
-    //   case '골드 200 획득':
-    //     console.log('1번박스');
-    //     dispatch(pengame_request(200, 'add'));
-    //     return;
-    //   case '골드 500 획득':
-    //     console.log('1번박스');
-    //     dispatch(pengame_request(500, 'add'));
-    //     return;
-    //   case '골드 2배 획득':
-    //     console.log('1번박스');
-    //     dispatch(pengame_request(2, 'multiple'));
-    //     return;
-    //   case '골드 3배 획득':
-    //     console.log('1번박스');
-    //     dispatch(pengame_request(3, 'multiple'));
-    //     return;
-    //   case '골드 5배 획득':
-    //     console.log('1번박스');
-    //     dispatch(pengame_request(5, 'multiple'));
-    //     return;
-    //   case '골드 100 차감':
-    //     dispatch(pengame_request(100, 'deduct'));
-    //     return;
-    //   case '골드 200 차감':
-    //     dispatch(pengame_request(200, 'deduct'));
-    //     return;
-    //   case '골드 500 차감':
-    //     dispatch(pengame_request(500, 'deduct'));
-    //     return;
-    // }
+    dispatch(pengame_request(reward, action,penSpeed.text));
   }
 
   const toggle = () => {
