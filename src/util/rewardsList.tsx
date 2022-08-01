@@ -9,3 +9,53 @@ export const rewardsList: any = [
   '골드 3배 획득',
   '골드 5배 획득',
 ];
+
+export const rewardsListObj: any = [
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+  {
+    front:"골드",
+    number:100,
+    back:"차감"
+  },
+
+];
+

@@ -131,6 +131,7 @@ const PlayPenGame = () => {
 
     if (dataset === undefined) return;
     console.log(cb.dataset.boxnum);
+    console.log(cb.dataset);
 
     //옵션에 대한 박스를 필요한 갯수만큼 고정적으로 생성 후, 각각의 고유 박스넘버를 부여
     //click 후 스위치문 인자로 넣어서 각각 박스에 맞는 액션을 실행시키면 괜찮을 듯!
@@ -248,8 +249,8 @@ const PlayPenGame = () => {
         ) : (
           <>
             {randomArr.map((i:any, index: any) => (
-              <Box key={index} data-boxnum={i}>
-                {i}
+              <Box key={index} data-boxnum={`${i.front} ${i.number} ${i.back}`}>
+                {i.front + " " +( i.number * penSpeed.text) + " " + i.back}
               </Box>
             ))}
           </>

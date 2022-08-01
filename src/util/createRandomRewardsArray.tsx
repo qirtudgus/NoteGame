@@ -1,4 +1,4 @@
-import { rewardsList } from './rewardsList';
+import { rewardsList ,rewardsListObj} from './rewardsList';
 import createRandomNumArray from './createRandomNumArray';
 
 export const createRandomRewardsArray = (boxCount: number | null) => {
@@ -7,7 +7,7 @@ export const createRandomRewardsArray = (boxCount: number | null) => {
   const randomResult = createRandomNumArray(boxCount);
 
   randomResult.map((i: number) => {
-    rewards.push(rewardsList[i]);
+    rewards.push(rewardsListObj[i]);
   });
 
   return rewards;
