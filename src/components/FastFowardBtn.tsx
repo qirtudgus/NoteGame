@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
 import FastArrow from '../img/빠른재생.svg';
 
+
 //props 사용을 위해 인터페이스로 타입 명시
 //https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
 interface cornerBtn {
   corner: string;
   url?: string;
   func?: any;
+  text? : string;
 }
 
 //이미지 사용
@@ -28,6 +30,7 @@ const FastForward = styled.div<cornerBtn>`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   ${(props) =>
     props.corner &&
     css`
@@ -41,6 +44,7 @@ const FastForwardBtn = (props: any) => {
   return (
     <>
       <FastForward {...props} onClick={props.func} title='빠른재생'>
+        {props.text}x
         <ArrowImg alt='빠른재생' />
       </FastForward>
     </>

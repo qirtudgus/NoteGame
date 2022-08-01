@@ -1,30 +1,29 @@
 import styled, { keyframes, css } from 'styled-components';
-import BackHistoryBtn from '../components/BackHistoryBtn';
 import UserInfo from '../components/userInfo';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React ,{ ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import createRandomNum from '../util/createRandomNum';
-import createRandomNumArray from '../util/createRandomNumArray';
+import { useDispatch , useSelector  } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
-import RefreshBtn from '../components/RefreshBtn';
 import HomeBtn from '../components/HomeBtn';
 import FastForwardBtn from '../components/FastFowardBtn';
+import BackHistoryBtn from '../components/BackHistoryBtn';
+import RefreshBtn from '../components/RefreshBtn';
 
 interface penAni {
-  penStatus?: any;
+  penStatus?: boolean;
   ref?: any;
   penSpeed?: number;
 }
+
 const animation = keyframes`
   0% {
     transform:translate(-20em);
   }
 50%{
-  transform:translate(37em);  }
+  transform:translate(37em); 
+ }
   100%{
     transform:translate(-20em);
   }
@@ -102,7 +101,6 @@ const Box = styled.div`
 `;
 
 // document.addEventListener('click', logKey);
-
 function logKey(e: any) {
   console.log(`
     Screen X/Y: ${e.screenX}, ${e.screenY}
@@ -112,7 +110,10 @@ function logKey(e: any) {
 const PlayPenGame = () => {
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [refresh, setrefresh] = useState<boolean>(true);
-  const [penSpeed, setPenSpeed] = useState<number>(1);
+  const [penSpeed, setPenSpeed] = useState<{speed:number,text:number}>({
+    speed : 1,
+    text : 1,
+  });
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
   const dispatch = useDispatch();
@@ -123,7 +124,7 @@ const PlayPenGame = () => {
   ]);
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
-  function dropClick(x: number, y: number): any {
+  function dropClick(x: number, y: number): void {
     let cb: any = document.elementFromPoint(x, y);
     let dataset = cb.dataset.boxnum;
     setrefresh((refresh) => !refresh);
@@ -196,14 +197,23 @@ const PlayPenGame = () => {
   };
 
   const FastForward = () => {
-    if(penSpeed === 1){
-      setPenSpeed(0.5)
+    if(penSpeed.speed === 1){
+      setPenSpeed({
+        speed: 0.5,
+        text:2,
+      })
     }
-    if(penSpeed === 0.5){
-      setPenSpeed(0.25)
-    }
-    if(penSpeed === 0.25){
-      setPenSpeed(1)
+    if(penSpeed.speed === 0.5){
+      setPenSpeed({
+        speed: 0.33,
+        text:3,
+    })
+  }
+    if(penSpeed.speed === 0.33){
+      setPenSpeed({
+        speed: 1,
+        text:1,
+      })
     }
   }
 
@@ -225,10 +235,10 @@ const PlayPenGame = () => {
 
       <BackHistoryBtn corner></BackHistoryBtn>
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
-      <HomeBtn corner></HomeBtn>
-      <FastForwardBtn corner func={FastForward}></FastForwardBtn>
-      <PenEnd penStatus={penStatus} ref={inputRef} penSpeed={penSpeed}></PenEnd>
-      <PenWrap penSpeed={penSpeed} penStatus={penStatus}>
+      <HomeBtn corner></HomeBtn>    
+      <FastForwardBtn corner func={FastForward} text={penSpeed.text}></FastForwardBtn>
+      <PenEnd penStatus={penStatus} ref={inputRef} penSpeed={penSpeed.speed}></PenEnd>
+      <PenWrap penSpeed={penSpeed.speed} penStatus={penStatus}>
         <PenHead></PenHead>
         <Pen></Pen>
       </PenWrap>
@@ -250,4 +260,4 @@ const PlayPenGame = () => {
   );
 };
 
-export default PlayPenGame;
+export default React.memo( PlayPenGame);
