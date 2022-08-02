@@ -143,12 +143,11 @@ const PlayPenGame = () => {
     let reward = cb.dataset.number;
     let action = cb.dataset.action;
   
-    if (reward === undefined) {setIsFalseModal((isFalseModal) => !isFalseModal)
+    if (reward === undefined) {
+      setIsFalseModal((isFalseModal) => !isFalseModal)
     }
     else{
-        // setrefresh((refresh) => !refresh);
         setIsModal((isModal) => !isModal);
-
         dispatch(pengame_request(reward, action,penSpeed.text));
     };
   }

@@ -4,14 +4,13 @@ import { db } from '../db.js';
 export const pengameRouter = express.Router();
 
 const userFindQuery = 'SELECT Gold FROM users WHERE ID = ?';
-const rewardUpdateQuery = `UPDATE users SET Gold = ? WHERE ID = ?`;
+const rewardUpdateQuery = `UPDATE users SET Gold = ?, PenCount = penCount + 1 WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
 
 pengameRouter.post('/multiple', (req, res, next) => {
   const userId = req.decoded.userId;
-  const reward = req.body.reward;
-  const speed = req.body.speed;
+  const {reward, speed } = req.body;
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
     let resultGold = parseInt(result[0].Gold) * reward;
@@ -37,8 +36,7 @@ pengameRouter.post('/multiple', (req, res, next) => {
 
 pengameRouter.post('/add', (req, res, next) => {
   const userId = req.decoded.userId;
-  const reward = req.body.reward;
-  const speed = req.body.speed;
+  const {reward, speed } = req.body;
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
     let resultGold = parseInt(result[0].Gold) + (parseInt(reward) * speed);
@@ -65,8 +63,8 @@ pengameRouter.post('/add', (req, res, next) => {
 
 pengameRouter.post('/deduct', (req, res, next) => {
   const userId = req.decoded.userId;
-  const reward = req.body.reward;
-  const speed = req.body.speed;
+  const {reward, speed } = req.body;
+
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
     let resultGold = parseInt(result[0].Gold) -(parseInt(reward) * speed);

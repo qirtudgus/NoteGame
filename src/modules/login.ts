@@ -85,6 +85,7 @@ export const pengame_multiple = () => ({
     WeaponHp: 0,
     Gold: 0,
     beforeGold:0,
+    penCount:0,
   },
 });
 
@@ -115,6 +116,7 @@ type IsLoginState = {
     WeaponHp: number;
     Gold: number;
     beforeGold: number;
+    penCount?:number;
   };
 };
 
@@ -132,6 +134,7 @@ const LoginState: IsLoginState = {
     WeaponHp: 0,
     Gold: 0,
     beforeGold: 0,
+    penCount: 0,
   },
 };
 
