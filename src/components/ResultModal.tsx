@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import BasicButtons from './BasicBtn';
 
+
+
 const BgWrap = styled.div`
   width: 100%;
   height: 100%;
@@ -28,6 +30,7 @@ border-radius:20px;
   align-items: center;
 
   user-select: none;
+
 `;
 //https://stackoverflow.com/questions/62690259/typescript-checking-in-react-functional-components
 interface children {
@@ -42,11 +45,11 @@ const re = {
 const ResultModal = (props: any,{ children }: children) => {
   return (
     <BgWrap>
-      <Bg>
+      <Bg >
         <p style={re}>열심히 멈춘 결과</p>
         <p>{props.beforeGold} 골드에서</p>
         <p>{props.afterGold} 골드로 증가!</p>
-        <BasicButtons ButtonText='이어서' color="#e5005a" OnClick={props.OnClick}></BasicButtons>
+        <BasicButtons ClassName={props.cName} ButtonText='이어서' color="#e5005a" OnClick={props.OnClick}></BasicButtons>
         </Bg>
     </BgWrap>
   );

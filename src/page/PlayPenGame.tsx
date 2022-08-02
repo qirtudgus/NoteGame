@@ -1,6 +1,6 @@
 import styled, { keyframes, css } from 'styled-components';
 import UserInfo from '../components/userInfo';
-import React ,{ ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React ,{ useCallback, useRef, useState } from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
 import { useDispatch , useSelector  } from 'react-redux';
@@ -10,7 +10,6 @@ import HomeBtn from '../components/HomeBtn';
 import FastForwardBtn from '../components/FastFowardBtn';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import RefreshBtn from '../components/RefreshBtn';
-import axios from 'axios';
 import ResultModal from '../components/ResultModal';
 import ResultFalseModal from '../components/ResultFalseModal';
 interface penAni {
@@ -112,11 +111,11 @@ const Box = styled.div<BoxColor>`
 `;
 
 // document.addEventListener('click', logKey);
-function logKey(e: any) {
-  console.log(`
-    Screen X/Y: ${e.screenX}, ${e.screenY}
-    Client X/Y: ${e.clientX}, ${e.clientY}`);
-}
+// function logKey(e: any) {
+//   console.log(`
+//     Screen X/Y: ${e.screenX}, ${e.screenY}
+//     Client X/Y: ${e.clientX}, ${e.clientY}`);
+// }
 
 const PlayPenGame = () => {
   const dispatch = useDispatch();
@@ -136,23 +135,22 @@ const PlayPenGame = () => {
     refresh,
   ]);
 
+
+
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     let cb: any = document.elementFromPoint(x, y);
     let reward = cb.dataset.number;
     let action = cb.dataset.action;
-
-
-
-    if (reward === undefined) {setIsFalseModal((isFalseModal) => !isFalseModal)}
+  
+    if (reward === undefined) {setIsFalseModal((isFalseModal) => !isFalseModal)
+    }
     else{
         // setrefresh((refresh) => !refresh);
         setIsModal((isModal) => !isModal);
+
         dispatch(pengame_request(reward, action,penSpeed.text));
     };
-    
-    
-
   }
 
 
@@ -170,6 +168,7 @@ const PlayPenGame = () => {
 
     }, 500);
   };
+
 
   const refreshRewards = () => {
     setrefresh((refresh) => !refresh);
@@ -212,30 +211,35 @@ const PlayPenGame = () => {
     setIsFalseModal((isFalseModal) => !isFalseModal)
 
   }
-
+  
   return (
     <>
     {isModal ? 
-        <ResultModal beforeGold={userInfo?.beforeGold} afterGold={userInfo?.Gold} OnClick={replay}></ResultModal>
+        <ResultModal cName="modalBtn" beforeGold={userInfo?.beforeGold} afterGold={userInfo?.Gold} OnClick={replay}></ResultModal>
     :
 false    
     }
         {isFalseModal ? 
-        <ResultFalseModal beforeGold={userInfo?.beforeGold} afterGold={userInfo?.Gold} OnClick={falseReplay}></ResultFalseModal>
+        <ResultFalseModal cName="modalBtn"  beforeGold={userInfo?.beforeGold} afterGold={userInfo?.Gold} OnClick={falseReplay}></ResultFalseModal>
     :
 false    
     }
       {penStatus ? (
         <BasicButtons
-          ButtonText='스타트'
+          ButtonText='시작'
           color='#aaa'
           OnClick={toggle}
+          TabIndex={-1}
+          disabled={false}
         ></BasicButtons>
       ) : (
         <BasicButtons
           ButtonText='멈춰!'
           color='#aaa'
           OnClick={toggleExit}
+          TabIndex={-1}
+          disabled={false}
+
         ></BasicButtons>
       )}
 

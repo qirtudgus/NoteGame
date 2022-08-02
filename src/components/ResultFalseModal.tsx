@@ -45,7 +45,7 @@ const ResultFalseModal = (props: any,{ children }: children) => {
       <Bg>
         <p style={re}>열심히 멈춘 결과</p>
         <p>꽝입니다...</p>
-        <BasicButtons ButtonText='이어서' color="#e5005a" OnClick={props.OnClick}></BasicButtons>
+        <BasicButtons ClassName={props.cName} ButtonText='이어서' color="#e5005a" OnClick={props.OnClick}></BasicButtons>
         </Bg>
     </BgWrap>
   );

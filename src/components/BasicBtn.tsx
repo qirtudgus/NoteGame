@@ -18,12 +18,16 @@ interface ButtonText{
     OnClick? : any;
     disabled? :any;
     OnKeyDown? : any;
+    TabIndex? :any;
+    ClassName? :any;
 }
 
 
-const BasicButtons = ({ButtonText,color,OnClick,disabled,OnKeyDown}:ButtonText) => {
+const BasicButtons = ({ButtonText,color,OnClick,disabled,OnKeyDown,TabIndex,ClassName}:ButtonText) => {
     return(
         <BasicButton 
+        className={ClassName}
+        tabIndex={TabIndex}
         onKeyUp={OnKeyDown}
         disabled={disabled}
         color={color} onClick={OnClick}>{ButtonText}</BasicButton>
