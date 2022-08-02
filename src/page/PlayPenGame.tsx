@@ -11,6 +11,8 @@ import FastForwardBtn from '../components/FastFowardBtn';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import RefreshBtn from '../components/RefreshBtn';
 import axios from 'axios';
+import ResultModal from '../components/ResultModal';
+import ResultFalseModal from '../components/ResultFalseModal';
 interface penAni {
   penStatus?: boolean;
   ref?: any;
@@ -117,16 +119,18 @@ function logKey(e: any) {
 }
 
 const PlayPenGame = () => {
+  const dispatch = useDispatch();
+  const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [refresh, setrefresh] = useState<boolean>(true);
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isFalseModal, setIsFalseModal] = useState<boolean>(false);
   const [penSpeed, setPenSpeed] = useState<{speed:number,text:number}>({
     speed : 1,
     text : 1,
   });
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
-  const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
-  const dispatch = useDispatch();
-
   const randomArr = useCallback(createRandomRewardsArray(boxCount), [
     boxCount,
     refresh,
@@ -138,10 +142,19 @@ const PlayPenGame = () => {
     let reward = cb.dataset.number;
     let action = cb.dataset.action;
 
-    setrefresh((refresh) => !refresh);
-    if (reward === undefined) return;
-    dispatch(pengame_request(reward, action,penSpeed.text));
+
+
+    if (reward === undefined) {setIsFalseModal((isFalseModal) => !isFalseModal)}
+    else{
+        // setrefresh((refresh) => !refresh);
+        setIsModal((isModal) => !isModal);
+        dispatch(pengame_request(reward, action,penSpeed.text));
+    };
+    
+    
+
   }
+
 
   const toggle = () => {
     setPenSatus((penStatus) => !penStatus);
@@ -188,8 +201,30 @@ const PlayPenGame = () => {
     }
   }
 
+  const replay = () =>{
+    setIsModal((isModal) => !isModal);
+    setrefresh((refresh) => !refresh);
+    setPenSatus((penStatus) => !penStatus);
+  }
+  const falseReplay = () => {
+    setrefresh((refresh) => !refresh);
+    setPenSatus((penStatus) => !penStatus);
+    setIsFalseModal((isFalseModal) => !isFalseModal)
+
+  }
+
   return (
     <>
+    {isModal ? 
+        <ResultModal beforeGold={userInfo?.beforeGold} afterGold={userInfo?.Gold} OnClick={replay}></ResultModal>
+    :
+false    
+    }
+        {isFalseModal ? 
+        <ResultFalseModal beforeGold={userInfo?.beforeGold} afterGold={userInfo?.Gold} OnClick={falseReplay}></ResultFalseModal>
+    :
+false    
+    }
       {penStatus ? (
         <BasicButtons
           ButtonText='스타트'
@@ -198,18 +233,12 @@ const PlayPenGame = () => {
         ></BasicButtons>
       ) : (
         <BasicButtons
-          ButtonText='종료'
+          ButtonText='멈춰!'
           color='#aaa'
           OnClick={toggleExit}
         ></BasicButtons>
       )}
-    <button onClick={()=>{
-      axios.post("http://localhost:1234/tistory").then(res => {
-        console.log(res.data)
-      })
-    }}>
-      티스토리
-    </button>
+
       <BackHistoryBtn corner></BackHistoryBtn>
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
       <HomeBtn corner></HomeBtn>    

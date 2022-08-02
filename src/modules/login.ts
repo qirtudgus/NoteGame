@@ -1,4 +1,3 @@
-import { userInfo } from 'os';
 
 //액션 타입 선언
 export const LOGIN_REQUEST = 'login/LOGIN_REQUEST' as const;
@@ -30,6 +29,7 @@ export const login_succes = (token: string | undefined) => ({
     WeaponDamage: 0,
     WeaponHp: 0,
     Gold: 0,
+    beforeGold:0,
   },
 });
 
@@ -55,6 +55,7 @@ export const login_localstorage_success = (token: string | undefined) => ({
     WeaponDamage: 0,
     WeaponHp: 0,
     Gold: 0,
+    beforeGold:0,
   },
 });
 
@@ -83,6 +84,7 @@ export const pengame_multiple = () => ({
     WeaponDamage: 0,
     WeaponHp: 0,
     Gold: 0,
+    beforeGold:0,
   },
 });
 
@@ -112,6 +114,7 @@ type IsLoginState = {
     WeaponDamage: number;
     WeaponHp: number;
     Gold: number;
+    beforeGold: number;
   };
 };
 
@@ -128,6 +131,7 @@ const LoginState: IsLoginState = {
     WeaponDamage: 0,
     WeaponHp: 0,
     Gold: 0,
+    beforeGold: 0,
   },
 };
 
