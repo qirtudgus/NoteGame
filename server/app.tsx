@@ -12,11 +12,13 @@ tsconfig.json에 아래 코드를 추가하여 해결
 */
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import cheerio from 'cheerio';
 import { registerRouter } from './router/registerRouter.js';
 import { db } from './db.js';
 import { loginRouter } from './router/loginRouter.js';
 import checkToken from '../src/util/checkToken.js';
 import { pengameRouter } from './router/pengameRouter.js';
+import axios from 'axios';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -27,6 +29,36 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+// app.post("/tistory", async (req,res) => {
+//   const  html = await axios.get("https://sott120.tistory.com/")
+//   const $ = cheerio.load(html.data);
+//   // const title = $("#container > main > div > div.area-common > article > div > a > strong");
+//   const title = $("#main > div > div > ul > li > div > div.box_contents > a.link_title > strong");
+
+// const img = $("#main > div > div > ul > li > div > div.thumbnail_zone > a");
+// let imgList:any = [];
+// img.each((idx, el) => {
+//     imgList[idx] = {
+//         img: $(el).attr("style")?.substring(22).split(`')`)[0]
+//     };
+// });
+// console.log(typeof img.attr("style"))
+// console.log(imgList)
+
+  
+//   let titleList: any = [];
+//   title.each((idx, el) => {
+//           titleList[idx] = {
+//            title: $(el).text(),
+//         };
+//   });
+//   // console.log(titleList)
+//   res.send("zz")
+// })
+
+
+
 //express req 속성 추가
 declare module 'express-serve-static-core' {
   interface Request {
@@ -35,6 +67,9 @@ declare module 'express-serve-static-core' {
     decoded?: any;
   }
 }
+
+
+
 
 // req 변수할당 하는 방법 찾아봐야함
 const requestTime = function (req: Request, res: Response, next: NextFunction) {
@@ -61,7 +96,6 @@ const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 app.use(jwtCheck);
-
 //회원가입 라우터
 app.use('/register', registerRouter);
 //로그인 라우터

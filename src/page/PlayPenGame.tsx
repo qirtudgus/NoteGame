@@ -10,7 +10,7 @@ import HomeBtn from '../components/HomeBtn';
 import FastForwardBtn from '../components/FastFowardBtn';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import RefreshBtn from '../components/RefreshBtn';
-
+import axios from 'axios';
 interface penAni {
   penStatus?: boolean;
   ref?: any;
@@ -203,7 +203,13 @@ const PlayPenGame = () => {
           OnClick={toggleExit}
         ></BasicButtons>
       )}
-
+    <button onClick={()=>{
+      axios.post("http://localhost:1234/tistory").then(res => {
+        console.log(res.data)
+      })
+    }}>
+      티스토리
+    </button>
       <BackHistoryBtn corner></BackHistoryBtn>
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
       <HomeBtn corner></HomeBtn>    
