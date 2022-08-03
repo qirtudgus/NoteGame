@@ -178,7 +178,7 @@ const PlayPenGame = () => {
     await getReward();
   };
 
-  const FastForward = () => {
+  const FastForward = ():void => {
     if(penSpeed.speed === 1){
       setPenSpeed({
         speed: 0.5,
@@ -199,18 +199,23 @@ const PlayPenGame = () => {
     }
   }
 
-  const replay = () =>{
+  const replay = ():void =>{
     setIsModal((isModal) => !isModal);
     setrefresh((refresh) => !refresh);
     setPenSatus((penStatus) => !penStatus);
   }
-  const falseReplay = () => {
+  const falseReplay = ():void => {
     setrefresh((refresh) => !refresh);
     setPenSatus((penStatus) => !penStatus);
     setIsFalseModal((isFalseModal) => !isFalseModal)
 
   }
-  
+  document.addEventListener('keydown',(e)=>{
+    console.log(e.keyCode)
+  })
+
+ 
+
   return (
     <>
     {isModal ? 
@@ -238,7 +243,6 @@ false
           OnClick={toggleExit}
           TabIndex={-1}
           disabled={false}
-
         ></BasicButtons>
       )}
 
