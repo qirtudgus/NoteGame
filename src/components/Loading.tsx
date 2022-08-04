@@ -63,7 +63,11 @@ const IdsEllipsis = styled.div`
   }
 `;
 
-const LoadingWrap = styled.div`
+interface loading {
+  pointer?: boolean;
+}
+
+const LoadingWrap = styled.div<loading>`
   position: fixed;
   top: 0;
   left: 0;
@@ -74,7 +78,8 @@ const LoadingWrap = styled.div`
   display:flex;
   justify-content:center;
   align-items: center;
-  pointer-events: none; 
+
+      pointer-events: none;
 
 `;
 

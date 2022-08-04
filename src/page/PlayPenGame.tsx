@@ -1,6 +1,12 @@
 import styled, { keyframes, css } from 'styled-components';
 import UserInfo from '../components/userInfo';
-import React, { useCallback, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
@@ -112,6 +118,24 @@ const Box = styled.div<BoxColor>`
     `}
 `;
 
+const TestInput = styled.input`
+  width: 13rem;
+  height: 4rem;
+  background: #fff;
+  text-align: center;
+  line-height: 4rem;
+  border-radius: 20px;
+`;
+
+const StartButton = styled.button`
+  width: 13rem;
+  height: 4rem;
+  background: #fff;
+  text-align: center;
+  line-height: 4rem;
+  border-radius: 20px;
+`;
+
 // document.addEventListener('click', logKey);
 // function logKey(e: any) {
 //   console.log(`
@@ -137,13 +161,15 @@ const PlayPenGame = () => {
     boxCount,
     refresh,
   ]);
+  const testInput = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const testInput2 = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const testInput3: any = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     let cb: any = document.elementFromPoint(x, y);
     let reward = cb.dataset.number;
     let action = cb.dataset.action;
-
     if (reward === undefined) {
       setIsFalseModal((isFalseModal) => !isFalseModal);
     } else {
@@ -151,9 +177,17 @@ const PlayPenGame = () => {
       dispatch(pengame_request(reward, action, penSpeed.text));
     }
   }
+  const [throttle, setThrottle] = useState(false);
 
   const toggle = () => {
-    setPenSatus((penStatus) => !penStatus);
+    if (throttle) return;
+    if (!throttle) {
+      setThrottle(true);
+      setTimeout(async () => {
+        setPenSatus((penStatus) => !penStatus);
+        testInput2.current.focus();
+      }, 0);
+    }
   };
 
   const getReward = async () => {
@@ -165,6 +199,9 @@ const PlayPenGame = () => {
       dropClick(x, y);
       setIsLoading((isLoading) => !isLoading);
     }, 500);
+    console.log(testInput3);
+    console.log(testInput3.current);
+    // testInput3.current.focus();
   };
 
   const refreshRewards = () => {
@@ -209,10 +246,28 @@ const PlayPenGame = () => {
     setPenSatus((penStatus) => !penStatus);
     setIsFalseModal((isFalseModal) => !isFalseModal);
   };
-  document.addEventListener('keydown', (e) => {});
+  useEffect(() => {
+    testInput.current.focus();
+  }, []);
 
   return (
     <>
+      <TestInput
+        ref={testInput}
+        type='button'
+        value='시작'
+        onClick={() => {
+          toggle();
+        }}
+      ></TestInput>
+      <TestInput
+        ref={testInput2}
+        type='button'
+        value='멈춰'
+        onClick={() => {
+          toggleExit();
+        }}
+      ></TestInput>
       {isLoading ? <Loading></Loading> : null}
 
       {isModal ? (
@@ -221,6 +276,7 @@ const PlayPenGame = () => {
           beforeGold={userInfo?.beforeGold}
           afterGold={userInfo?.Gold}
           OnClick={replay}
+          ref={testInput3}
         ></ResultModal>
       ) : (
         false
@@ -235,22 +291,49 @@ const PlayPenGame = () => {
       ) : (
         false
       )}
+      {/* {penStatus && !isModal && !isFalseModal ? (
+        <StartButton
+          data-zz='start'
+          className='start'
+          id='start'
+          onClick={() => {
+            toggle();
+          }}
+        >
+          시작
+        </StartButton>
+      ) : null}
+      {!penStatus && !isModal ? (
+        <StartButton
+          className='start'
+          data-zz='end'
+          id='end'
+          onClick={() => {
+            toggleExit();
+          }}
+        >
+          멈춰
+        </StartButton>
+      ) : null} */}
+
       {penStatus ? (
-        <BasicButtons
-          ButtonText='시작'
-          color='#aaa'
-          OnClick={toggle}
-          TabIndex={-1}
-          disabled={false}
-        ></BasicButtons>
+        <StartButton
+          id='start'
+          onClick={() => {
+            toggle();
+          }}
+        >
+          시작
+        </StartButton>
       ) : (
-        <BasicButtons
-          ButtonText='멈춰!'
-          color='#aaa'
-          OnClick={toggleExit}
-          TabIndex={-1}
-          disabled={false}
-        ></BasicButtons>
+        <StartButton
+          id='end'
+          onClick={() => {
+            toggleExit();
+          }}
+        >
+          멈춰
+        </StartButton>
       )}
 
       <BackHistoryBtn corner></BackHistoryBtn>

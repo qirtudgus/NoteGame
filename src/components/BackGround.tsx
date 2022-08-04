@@ -27,7 +27,7 @@ interface children {
 const BackGround = ({ children }: children) => {
   return (
     <BgWrap>
-      <Bg>{children}</Bg>
+      <Bg id='penBox'>{children}</Bg>
     </BgWrap>
     // <Bg color="#D9D9D9"  />
   );
