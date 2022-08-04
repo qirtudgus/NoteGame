@@ -19,6 +19,7 @@ import { loginRouter } from './router/loginRouter.js';
 import checkToken from '../src/util/checkToken.js';
 import { pengameRouter } from './router/pengameRouter.js';
 import axios from 'axios';
+import { skillRouter } from './router/skillRouter.js';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -28,7 +29,6 @@ db.connect((err: any) => {
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 
 // app.post("/tistory", async (req,res) => {
 //   const  html = await axios.get("https://sott120.tistory.com/")
@@ -46,7 +46,6 @@ app.use(express.json());
 // console.log(typeof img.attr("style"))
 // console.log(imgList)
 
-  
 //   let titleList: any = [];
 //   title.each((idx, el) => {
 //           titleList[idx] = {
@@ -57,8 +56,6 @@ app.use(express.json());
 //   res.send("zz")
 // })
 
-
-
 //express req 속성 추가
 declare module 'express-serve-static-core' {
   interface Request {
@@ -67,9 +64,6 @@ declare module 'express-serve-static-core' {
     decoded?: any;
   }
 }
-
-
-
 
 // req 변수할당 하는 방법 찾아봐야함
 const requestTime = function (req: Request, res: Response, next: NextFunction) {
@@ -102,6 +96,9 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 //팬게임 라우터
 app.use('/pengame', pengameRouter);
+//스킬 라우터
+app.use('/skill', skillRouter);
+
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.send('welcome!');
 });

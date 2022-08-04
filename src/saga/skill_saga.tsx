@@ -1,0 +1,43 @@
+import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
+import { SKILL_REQUEST, SKILL_UP } from '../modules/login';
+import customAxios from '../util/axios';
+
+const skillUpRequest = async (skillName: string, skillPoint: number) => {
+  return await customAxios('post', '/skill/skillup', {
+    skillName,
+    skillPoint,
+  }).then((res) => {
+    return res.data;
+  });
+};
+
+function* skillUpRequest$(action: any): Generator<any, any, any> {
+  try {
+    console.log(action);
+    console.log(action.payload.skillName);
+    console.log('zzz');
+
+    let result;
+    result = yield call(
+      skillUpRequest,
+      action.payload.skillName,
+      action.payload.skillPoint,
+    );
+    // // const result = yield call(penGameTakeGoldMultiple, action.multiple);
+    // console.log(result);
+    // //db값을 받아와 PENGAME_GOLDX2를 put으로 디스패치 userinfo를 업데이트 해주어 상태 업데이트
+    // if (result.code === 200) {
+    yield put({ type: SKILL_UP, userInfo: result.userInfo });
+    // }
+  } catch (E) {
+    console.log(E);
+  }
+}
+
+function* getSkillUpRequest() {
+  yield takeLatest(SKILL_REQUEST, skillUpRequest$);
+}
+
+export default function* getSkillUpRequestSaga() {
+  yield all([fork(getSkillUpRequest)]);
+}

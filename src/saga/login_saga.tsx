@@ -23,79 +23,121 @@
 
 // 8.api통신 시 토큰을 담아보내어 해당 유저의 db 조회 및 데이터 획득
 
-import { takeLatest, fork, all , put, call, take, delay } from "redux-saga/effects";
-import { LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILURE, LOGIN_LOCALSTORAGE, LOGIN_LOCALSTORAGE_SUCCESS, LOGIN_LOCALSTORAGE_FAILURE, LOGOUT_REQUSET } from "../modules/login";
-import customAxios from "../util/axios";
-import axios from "axios";
+import {
+  takeLatest,
+  fork,
+  all,
+  put,
+  call,
+  take,
+  delay,
+} from 'redux-saga/effects';
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGIN_LOCALSTORAGE,
+  LOGIN_LOCALSTORAGE_SUCCESS,
+  LOGIN_LOCALSTORAGE_FAILURE,
+  LOGOUT_REQUSET,
+} from '../modules/login';
+import customAxios from '../util/axios';
+import axios from 'axios';
 
-const loginApi = async ( id:string, password:string):Promise<any> => {
-    return await customAxios('post','/login/',{id,password}).then(res => {
-        //로그인 코드가 성공일 시 스토리지에 저장하고 axios 헤더에 담는다
-        if(res.data.code === 200){
-            localStorage.setItem('token', res.data.token);
+const loginApi = async (id: string, password: string): Promise<any> => {
+  return await customAxios('post', '/login/', { id, password })
+    .then((res) => {
+      //로그인 코드가 성공일 시 스토리지에 저장하고 axios 헤더에 담는다
+      if (res.data.code === 200) {
+        localStorage.setItem('token', res.data.token);
 
-            axios.defaults.headers.common['Authorization'] = res.data.token;
-
-        }
-        return res.data
+        axios.defaults.headers.common['Authorization'] = res.data.token;
+      }
+      return res.data;
     })
-    .catch(err => {console.log(err)})
-}
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
-function* loginApi$(action:any):Generator<any,any,any>{
-    try {
-        const result = yield call(loginApi, action.payload.id, action.payload.password);
-        if(result.code === 200) yield put({type:LOGIN_SUCCESS, token:result.token, id:result.id, userInfo: result.userInfo})
-        if(result.code === 201) yield put({type:LOGIN_SUCCESS, token:result.token, id:result.id})
-        if(result.code === 404) yield alert(result.message)
-        if(result.code === 405) yield alert(result.message)
-    }catch(err){
-        console.log(err)
+function* loginApi$(action: any): Generator<any, any, any> {
+  try {
+    const result = yield call(
+      loginApi,
+      action.payload.id,
+      action.payload.password,
+    );
+    if (result.code === 200)
+      yield put({
+        type: LOGIN_SUCCESS,
+        token: result.token,
+        id: result.id,
+        userInfo: result.userInfo,
+      });
+    if (result.code === 201)
+      yield put({ type: LOGIN_SUCCESS, token: result.token, id: result.id });
+    if (result.code === 404) yield alert(result.message);
+    if (result.code === 405) yield alert(result.message);
+  } catch (err) {
+    console.log(err);
   }
 }
 
-const loginLocalStorage = async(token: any):Promise<any> => {
-    return await customAxios('post','/login/localstorage',{token}).then(res => {
-        axios.defaults.headers.common['Authorization'] = res.data.token;
-        // if(res.data.code === 200){
-        //     console.log("200이군")
-        //     axios.defaults.headers.common[
-        //         'Authorization'
-        //       ] = `Bearer ${res.data.token}`; //앞으로 api통신에 토큰이 들어가있음
-        // }
-        return res.data
-    })
+const loginLocalStorage = async (token: any): Promise<any> => {
+  return await customAxios('post', '/login/localstorage', { token }).then(
+    (res) => {
+      axios.defaults.headers.common['Authorization'] = res.data.token;
+      // if(res.data.code === 200){
+      //     console.log("200이군")
+      //     axios.defaults.headers.common[
+      //         'Authorization'
+      //       ] = `Bearer ${res.data.token}`; //앞으로 api통신에 토큰이 들어가있음
+      // }
+      return res.data;
+    },
+  );
+};
+
+function* loginLocalStorage$(action: any): Generator<any, any, any> {
+  try {
+    const result = yield call(loginLocalStorage, action.token);
+    if (result.code === 200)
+      yield put({
+        type: LOGIN_LOCALSTORAGE_SUCCESS,
+        token: result.token,
+        id: result.id.userId,
+        userInfo: result.userInfo,
+      });
+    if (result.code === 201)
+      yield put({
+        type: LOGIN_LOCALSTORAGE_FAILURE,
+        token: result.token,
+        id: result.id.userId,
+        userInfo: result.userInfo,
+      });
+  } catch (e) {
+    yield put({ type: LOGIN_LOCALSTORAGE_FAILURE });
+    console.log(e);
+  }
 }
 
-function* loginLocalStorage$(action: any):Generator<any,any,any>{
-    try{
-        const result = yield call(loginLocalStorage, action.token)
-        if(result.code === 200) yield put({type:LOGIN_LOCALSTORAGE_SUCCESS, token:result.token, id:result.id.userId, userInfo: result.userInfo})
-        if(result.code === 201) yield put({type:LOGIN_LOCALSTORAGE_FAILURE, token:result.token, id:result.id.userId, userInfo: result.userInfo})
-    }catch(e){
-        yield put({type:LOGIN_LOCALSTORAGE_FAILURE})
-        console.log(e)
-    }
+function logout() {
+  window.location.replace('/');
+  localStorage.removeItem('token');
 }
 
-function logout(){
-    window.location.replace('/')
-    localStorage.removeItem('token')
+function* getLogout() {
+  yield takeLatest(LOGOUT_REQUSET, logout);
 }
 
-function* getLogout(){
-    yield takeLatest(LOGOUT_REQUSET,logout)
+function* getLoginLocalStorage() {
+  yield takeLatest(LOGIN_LOCALSTORAGE, loginLocalStorage$);
 }
 
-
-function* getLoginLocalStorage(){
-    yield takeLatest(LOGIN_LOCALSTORAGE,loginLocalStorage$)
+function* getLoginApi() {
+  yield takeLatest(LOGIN_REQUEST, loginApi$);
 }
 
-function* getLoginApi(){
-    yield takeLatest(LOGIN_REQUEST,loginApi$)
-}
-
-export default function* getLoginApiSage(){
-    yield all([fork(getLoginApi),fork(getLoginLocalStorage),fork(getLogout)])
+export default function* getLoginApiSage() {
+  yield all([fork(getLoginApi), fork(getLoginLocalStorage), fork(getLogout)]);
 }
