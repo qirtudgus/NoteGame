@@ -1,12 +1,6 @@
 import styled, { keyframes, css } from 'styled-components';
 import UserInfo from '../components/userInfo';
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +11,6 @@ import FastForwardBtn from '../components/FastFowardBtn';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import RefreshBtn from '../components/RefreshBtn';
 import ResultModal from '../components/ResultModal';
-import ResultFalseModal from '../components/ResultFalseModal';
 import Loading from '../components/Loading';
 interface penAni {
   penStatus?: boolean;
@@ -125,15 +118,8 @@ const TestInput = styled.input`
   text-align: center;
   line-height: 4rem;
   border-radius: 20px;
-`;
-
-const StartButton = styled.button`
-  width: 13rem;
-  height: 4rem;
-  background: #fff;
-  text-align: center;
-  line-height: 4rem;
-  border-radius: 20px;
+  font-size: 2rem;
+  font-weight: bold;
 `;
 
 // document.addEventListener('click', logKey);
@@ -170,8 +156,10 @@ const PlayPenGame = () => {
     let reward = cb.dataset.number;
     let action = cb.dataset.action;
     if (reward === undefined) {
-      setIsFalseModal((isFalseModal) => !isFalseModal);
+      setIsFalseModal(false);
+      setIsModal((isModal) => !isModal);
     } else {
+      setIsFalseModal(true);
       setIsModal((isModal) => !isModal);
       dispatch(pengame_request(reward, action, penSpeed.text));
     }
@@ -235,25 +223,22 @@ const PlayPenGame = () => {
     setrefresh((refresh) => !refresh);
     setPenSatus((penStatus) => !penStatus);
   };
-  const falseReplay = (): void => {
-    setrefresh((refresh) => !refresh);
-    setPenSatus((penStatus) => !penStatus);
-    setIsFalseModal((isFalseModal) => !isFalseModal);
-  };
 
-  const aa = useCallback((e: any) => {
-    let aaa = document.getElementById('startbutton');
+  const gameStart = useCallback((e: any) => {
+    let startBtn = document.getElementById('startbutton');
     if (e.keyCode === 32) {
-      aaa?.click();
+      startBtn?.click();
     }
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keypress', aa);
-  }, [aa]);
+    document.addEventListener('keypress', gameStart);
+  }, [gameStart]);
 
   return (
     <>
+      {isLoading ? <Loading></Loading> : null}
+
       <TestInput
         id='startbutton'
         type='button'
@@ -261,27 +246,14 @@ const PlayPenGame = () => {
         onClick={penStatus ? () => toggle() : () => toggleExit()}
       ></TestInput>
 
-      {isLoading ? <Loading></Loading> : null}
-
-      {isModal ? (
+      {isModal && (
         <ResultModal
+          isModal={isFalseModal}
           cName='modalBtn'
           beforeGold={userInfo?.beforeGold}
           afterGold={userInfo?.Gold}
           OnClick={replay}
         ></ResultModal>
-      ) : (
-        false
-      )}
-      {isFalseModal ? (
-        <ResultFalseModal
-          cName='modalBtn'
-          beforeGold={userInfo?.beforeGold}
-          afterGold={userInfo?.Gold}
-          OnClick={falseReplay}
-        ></ResultFalseModal>
-      ) : (
-        false
       )}
 
       <BackHistoryBtn corner></BackHistoryBtn>

@@ -16,39 +16,58 @@ const BgWrap = styled.div`
 const Bg = styled.div`
   border-radius: 20px;
   width: 600px;
-  height: 400px;
+  height: 300px;
   background: ${(props) => props.color || '#eee'};
   margin: 50px auto;
   position: relative;
   z-index: 1;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
 
   user-select: none;
 `;
-const re = {
-  padding: '20px 0 20px 0',
+const result = {
   fontSize: '30px',
   fontWeight: 'bold',
 };
-
+const resultGold = {
+  fontSize: '20px',
+  fontWeight: 'bold',
+};
+const falseGold = {
+  fontSize: '20px',
+};
 const ResultModal = (props: any) => {
   return (
     <BgWrap>
-      <Bg>
-        <p style={re}>열심히 멈춘 결과</p>
-        <p>{props.beforeGold} 골드에서</p>
-        <p>{props.afterGold} 골드로 증가!</p>
-
-        <BasicButtons
-          ClassName={props.cName}
-          ButtonText='이어서'
-          color='#e5005a'
-          OnClick={props.OnClick}
-        ></BasicButtons>
-      </Bg>
+      {props.isModal ? (
+        <Bg>
+          <p style={result}>열심히 멈춘 결과</p>
+          <div style={resultGold}>
+            <p>{props.beforeGold?.toLocaleString()} 골드에서</p>
+            <p>{props.afterGold?.toLocaleString()} 골드로!</p>
+          </div>
+          <BasicButtons
+            ClassName={props.cName}
+            ButtonText='이어서'
+            color='#e5005a'
+            OnClick={props.OnClick}
+          ></BasicButtons>
+        </Bg>
+      ) : (
+        <Bg>
+          <p style={result}>열심히 멈춘 결과</p>
+          <p style={falseGold}>꽝입니다...</p>
+          <BasicButtons
+            ClassName={props.cName}
+            ButtonText='이어서'
+            color='#e5005a'
+            OnClick={props.OnClick}
+          ></BasicButtons>
+        </Bg>
+      )}
     </BgWrap>
   );
 };
