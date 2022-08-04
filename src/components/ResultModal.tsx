@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import styled from 'styled-components';
 import BasicButtons from './BasicBtn';
 const BgWrap = styled.div`
@@ -29,43 +28,29 @@ const Bg = styled.div`
 
   user-select: none;
 `;
-
-const TestInput = styled.input`
-  width: 13rem;
-  height: 4rem;
-  background: #fff;
-  text-align: center;
-  line-height: 4rem;
-  border-radius: 20px;
-`;
-
-//https://stackoverflow.com/questions/62690259/typescript-checking-in-react-functional-components
-interface children {
-  children?: React.ReactNode;
-}
 const re = {
   padding: '20px 0 20px 0',
   fontSize: '30px',
   fontWeight: 'bold',
 };
 
-const ResultModal = forwardRef((props: any, ref: any) => {
+const ResultModal = (props: any) => {
   return (
     <BgWrap>
       <Bg>
         <p style={re}>열심히 멈춘 결과</p>
         <p>{props.beforeGold} 골드에서</p>
         <p>{props.afterGold} 골드로 증가!</p>
-        <TestInput onClick={props.OnClick} ref={ref}></TestInput>
-        {/* <BasicButtons
+
+        <BasicButtons
           ClassName={props.cName}
           ButtonText='이어서'
           color='#e5005a'
           OnClick={props.OnClick}
-        ></BasicButtons> */}
+        ></BasicButtons>
       </Bg>
     </BgWrap>
   );
-});
+};
 
 export default ResultModal;
