@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../modules/modules_index';
 import BackGround from './BackGround';
 import { logout } from '../modules/login';
+
+import React from 'react';
+
 const BasicBox = styled.div`
   width: 150px;
   height: 150px;
@@ -43,4 +46,4 @@ const UserInfo = ({ children }: children) => {
   );
 };
 
-export default UserInfo;
+export default React.memo(UserInfo);

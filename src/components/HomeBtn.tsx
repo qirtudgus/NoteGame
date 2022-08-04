@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import HomeSVG from '../img/홈.svg';
+import React from 'react';
 
 //props 사용을 위해 인터페이스로 타입 명시
 //https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
@@ -54,4 +55,4 @@ const HomeBtn = (props: any) => {
   );
 };
 
-export default HomeBtn;
+export default React.memo(HomeBtn);

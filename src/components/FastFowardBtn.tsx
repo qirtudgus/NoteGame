@@ -1,6 +1,6 @@
+import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import FastArrow from '../img/빠른재생.svg';
-
 
 //props 사용을 위해 인터페이스로 타입 명시
 //https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
@@ -8,7 +8,7 @@ interface cornerBtn {
   corner: string;
   url?: string;
   func?: any;
-  text? : string;
+  text?: string;
 }
 
 //이미지 사용
@@ -51,4 +51,4 @@ const FastForwardBtn = (props: any) => {
   );
 };
 
-export default FastForwardBtn;
+export default React.memo(FastForwardBtn);

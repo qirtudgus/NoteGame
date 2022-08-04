@@ -1,4 +1,4 @@
-import { rewardsListObj} from './rewardsList';
+import { rewardsListObj } from './rewardsList';
 import createRandomNumArray from './createRandomNumArray';
 
 export const createRandomRewardsArray = (boxCount: number | null) => {

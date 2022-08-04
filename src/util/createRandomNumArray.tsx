@@ -11,18 +11,14 @@ const max: number = arr;
 const createRandomNumArray = (boxCount: number | null) => {
   const randomResult: any = [];
 
-  while (randomResult.length < boxCount!){
+  while (randomResult.length < boxCount!) {
     let num = createRandomNum(min, max);
-    if(randomResult.indexOf(num) === -1){
-      randomResult.push(num)
+    if (randomResult.indexOf(num) === -1) {
+      randomResult.push(num);
     }
   }
 
   return randomResult;
 };
-
-
-
-
 
 export default createRandomNumArray;

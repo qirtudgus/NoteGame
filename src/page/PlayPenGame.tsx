@@ -291,7 +291,6 @@ const PlayPenGame = () => {
           </>
         )}
       </BoxWrap>
-      <UserInfo></UserInfo>
     </>
   );
 };
