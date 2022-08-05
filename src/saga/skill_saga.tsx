@@ -23,12 +23,8 @@ function* skillUpRequest$(action: any): Generator<any, any, any> {
       action.payload.skillName,
       action.payload.skillPoint,
     );
-    // // const result = yield call(penGameTakeGoldMultiple, action.multiple);
-    // console.log(result);
-    // //db값을 받아와 PENGAME_GOLDX2를 put으로 디스패치 userinfo를 업데이트 해주어 상태 업데이트
-    // if (result.code === 200) {
+
     yield put({ type: SKILL_UP, userInfo: result.userInfo });
-    // }
   } catch (E) {
     console.log(E);
   }
