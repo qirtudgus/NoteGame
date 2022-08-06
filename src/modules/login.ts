@@ -36,6 +36,7 @@ export const skill_up = () => ({
     skillPoint: 0,
     upGoldPen: 0,
     upGoldHunt: 0,
+    DungeonFloor: 0,
   },
 });
 
@@ -60,6 +61,7 @@ export const login_succes = (token: string | undefined) => ({
     skillPoint: 0,
     upGoldPen: 0,
     upGoldHunt: 0,
+    DungeonFloor: 0,
   },
 });
 
@@ -90,6 +92,7 @@ export const login_localstorage_success = (token: string | undefined) => ({
     SkillPoint: 0,
     UpGoldPen: 0,
     UpGoldHunt: 0,
+    DungeonFloor: 0,
   },
 });
 
@@ -127,6 +130,7 @@ export const pengame_multiple = () => ({
     SkillPoint: 0,
     UpGoldPen: 0,
     UpGoldHunt: 0,
+    DungeonFloor: 0,
   },
 });
 
@@ -163,6 +167,7 @@ type IsLoginState = {
     SkillPoint?: number;
     UpGoldPen?: number;
     UpGoldHunt?: number;
+    DungeonFloor?: number;
   };
 };
 
@@ -184,6 +189,7 @@ const LoginState: IsLoginState = {
     SkillPoint: 0,
     UpGoldPen: 0,
     UpGoldHunt: 0,
+    DungeonFloor: 0,
   },
 };
 

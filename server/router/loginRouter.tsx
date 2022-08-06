@@ -29,6 +29,7 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
         SkillPoint: rows[0].SkillPoint,
         UpGoldPen: rows[0].UpGoldPen,
         UpGoldHunt: rows[0].UpGoldHunt,
+        DungeonFloor: rows[0].DungeonFloor,
       };
       const token: unknown = createToken(id);
       // req.decoded = checkToken(token)
@@ -77,6 +78,7 @@ loginRouter.post('/localstorage', (req, res) => {
           SkillPoint: rows[0].SkillPoint,
           UpGoldPen: rows[0].UpGoldPen,
           UpGoldHunt: rows[0].UpGoldHunt,
+          DungeonFloor: rows[0].DungeonFloor,
         };
         res.status(200).json({
           code: 200,

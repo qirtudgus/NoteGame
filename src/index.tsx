@@ -19,6 +19,7 @@ import ChoicePenCount from './page/ChoicePenCount';
 import Layout from './layout/layout';
 import PlayPenGame from './page/PlayPenGame';
 import Skill from './page/Skill';
+import Dungeon from './page/Dungeon';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
 //두번째인자에 사용할 미들웨어를 추가해주었다.
@@ -57,6 +58,7 @@ root.render(
           </Route>
           <Route path='/playpengame' element={<PlayPenGame />}></Route>
           <Route path='/skill' element={<Skill />}></Route>
+          <Route path='/dungeon' element={<Dungeon />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
