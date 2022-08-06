@@ -1,4 +1,4 @@
-export const dungeonRewardsListObj: any = [
+export const dungeonRewardsListObj: any[] = [
   {
     attackNumber: 50,
   },

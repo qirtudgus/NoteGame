@@ -3,7 +3,7 @@
 import createRandomNum from '../util/createRandomNum';
 import { dungeonRewardsListObj } from './dungeonRewardList';
 import { rewardsListObj } from './rewardsList';
-
+import { useListName } from './createRandomRewardsArray';
 // 최대치는 rewardsList의 길이를 따라가게 설정해놓음
 const arr: number = rewardsListObj.length - 1;
 const dungeonArr: number = dungeonRewardsListObj.length - 1;
@@ -11,7 +11,7 @@ const min: number = 0;
 const max: number = arr;
 const dungeonMax: number = dungeonArr;
 
-const createRandomNumArray = (boxCount: number | null, useListName: string) => {
+const createRandomNumArray = (boxCount: number | null, useListName:useListName) => {
   const randomResult: any = [];
 
   if (useListName === 'penGame') {
