@@ -3,9 +3,8 @@ import { db } from '../db.js';
 
 export const pengameRouter = express.Router();
 
-const userFindQuery = 'SELECT Gold FROM users WHERE ID = ?';
+const userFindQuery = 'SELECT Gold, UpGoldPen FROM users WHERE ID = ?';
 const rewardUpdateQuery = `UPDATE users SET Gold = ?, PenCount = penCount + 1 WHERE ID = ?`;
-const rewardUpdateQuery2 = `UPDATE users SET Gold = ?, PenCount = penCount + 1 WHERE ID = ?`;
 
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
@@ -42,18 +41,21 @@ pengameRouter.post('/multiple', (req, res, next) => {
 
 pengameRouter.post('/add', (req, res, next) => {
   const userId = req.decoded.userId;
-  const { reward, speed } = req.body;
+  const { speed } = req.body;
+  const reward = parseInt(req.body.reward);
+  console.log(reward, speed);
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
     let skillBonus = result[0].UpGoldPen;
-    let speedGold = parseInt(reward) * speed;
+    console.log(skillBonus);
+    let speedGold = reward * speed;
     //스킬 1당 1%를 보너스로 지급
     let subGold = (speedGold * skillBonus) / 100;
     let BonusGold = speedGold + subGold;
 
     let resultGold = parseInt(result[0].Gold) + BonusGold;
     let beforeGold = parseInt(result[0].Gold);
-
+    console.log(subGold, BonusGold, resultGold);
     console.log(
       `${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`,
     );

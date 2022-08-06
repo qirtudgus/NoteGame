@@ -15,9 +15,9 @@ const BasicBox = styled.div`
   left: 50px;
   z-index: 10;
   background-color: #eee;
-  font-size: 32px;
+  font-size: 22px;
   font-weight: bold;
-  line-height: 3rem;
+  line-height: 32px;
 `;
 interface children {
   children?: React.ReactNode;
@@ -41,6 +41,8 @@ const UserInfo = ({ children }: children) => {
 
       <p>{userId}</p>
       <p>레벨 {userInfo?.Level}</p>
+      <p>체력 {userInfo?.BasicHp}</p>
+      <p>공격력 {userInfo?.BasicDamage}</p>
       <p>골드 {userInfo?.Gold.toLocaleString()}</p>
     </BasicBox>
   );
