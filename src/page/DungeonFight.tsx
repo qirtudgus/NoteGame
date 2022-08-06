@@ -7,70 +7,13 @@ import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import { useDispatch } from 'react-redux';
+import {PenWrap,Pen,PenEnd,PenHead} from "../styledComponents/DungeonFight"
 
 interface penAni {
   penStatus?: boolean;
   ref?: any;
   penSpeed?: number;
 }
-
-const animation = keyframes`
-  0% {
-    transform:translate(-20em);
-  }
-50%{
-  transform:translate(8.5em); 
- }
-  100%{
-    transform:translate(-20em);
-  }
-`;
-
-const PenWrap = styled.div<penAni>`
-  z-index: 10000;
-  position: absolute;
-  bottom: 0px;
-  left: 570px;
-  animation-fill-mode: both;
-  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
-  animation-play-state: running;
-  ${(props) =>
-    props.penStatus &&
-    css`
-      animation-play-state: paused;
-    `}
-`;
-
-const Pen = styled.div`
-  width: 40px;
-  height: 150px;
-  background: #fff;
-`;
-const PenEnd = styled.div<penAni>`
-  z-index: 10000;
-  width: 1px;
-  height: 100px;
-  background: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 500px;
-  left: 590px;
-  margin: none;
-  animation-fill-mode: both;
-  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
-  animation-play-state: running;
-  ${(props) =>
-    props.penStatus &&
-    css`
-      animation-play-state: paused;
-    `}
-`;
-
-const PenHead = styled.div`
-  border-radius: 40px 40px 0 0;
-  width: 40px;
-  height: 60px;
-  background: #000;
-`;
 
 const BottomBox = styled.div`
   width: 100%;
@@ -119,7 +62,7 @@ const HpBox = styled.div`
 `;
 
 interface HpInterface {
-  width: number;
+  width: number | (() => number);
 }
 
 const HpBar = styled.div<HpInterface>`
@@ -206,7 +149,10 @@ const DungeonFight = () => {
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [throttle, setThrottle] = useState(false);
   const [userHpBar, setUserHpBar] = useState(100);
-  const [monsterHpBar, setMonsterHpBar] = useState(100);
+  const [monsterHpBar, setMonsterHpBar] = useState({
+    fullHp : 100,
+    nowHp: 100,
+  });
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
 
   const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
@@ -306,10 +252,13 @@ const DungeonFight = () => {
         <CharacterBox>
           <HpBox>
             <HpText>
-              <p>70</p>
-              <p>/ {userInfo?.BasicHp}</p>
+              <p>{monsterHpBar.nowHp}</p>
+              <p>/ {monsterHpBar.fullHp}</p>
             </HpText>
-            <MonsterHpBar width={70}></MonsterHpBar>
+            <MonsterHpBar width={()=>{   
+            return   monsterHpBar.nowHp / monsterHpBar.fullHp * 100;
+             
+}}></MonsterHpBar>
             <BgBar></BgBar>
           </HpBox>
           <Character>몬스터</Character>

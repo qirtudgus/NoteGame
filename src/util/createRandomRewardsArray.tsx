@@ -8,7 +8,7 @@ export const createRandomRewardsArray = (
   boxCount: number | null,
   useListName: useListName,
 ) => {
-  const rewards: any[] = [];
+  const rewards: any = [];
  
 
   const randomResult = createRandomNumArray(boxCount, useListName);
@@ -25,6 +25,7 @@ export const createRandomRewardsArray = (
       rewards.push(dungeonRewardsListObj[i]);
     });
     return rewards;
+
   }
   return rewards;
 };
