@@ -225,6 +225,7 @@ const PlayPenGame = () => {
   };
 
   const gameStart = useCallback((e: any) => {
+    console.log(e.keyCode)
     let startBtn = document.getElementById('startbutton');
     if (e.keyCode === 32) {
       startBtn?.click();
@@ -246,7 +247,7 @@ const PlayPenGame = () => {
       {isLoading ? <Loading></Loading> : null}
 
       <TestInput
-        id='startbuttons'
+        id='startbutton'
         onClick={penStatus ? () => toggle() : () => toggleExit()}
       >
         {penStatus ? '시작' : '멈춰'}

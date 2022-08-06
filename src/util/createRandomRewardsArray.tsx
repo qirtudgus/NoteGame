@@ -7,6 +7,7 @@ export const createRandomRewardsArray = (
   useListName: string,
 ) => {
   const rewards: any = [];
+  type useListName = 'penGame' | 'dungeon';
 
   const randomResult = createRandomNumArray(boxCount, useListName);
 
