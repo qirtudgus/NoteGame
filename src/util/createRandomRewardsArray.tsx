@@ -1,14 +1,27 @@
 import { rewardsListObj } from './rewardsList';
 import createRandomNumArray from './createRandomNumArray';
+import { dungeonRewardsListObj } from './dungeonRewardList';
 
-export const createRandomRewardsArray = (boxCount: number | null) => {
+export const createRandomRewardsArray = (
+  boxCount: number | null,
+  useListName: string,
+) => {
   const rewards: any = [];
 
-  const randomResult = createRandomNumArray(boxCount);
+  const randomResult = createRandomNumArray(boxCount, useListName);
 
-  randomResult.map((i: number) => {
-    rewards.push(rewardsListObj[i]);
-  });
+  if (useListName === 'penGame') {
+    randomResult.map((i: number) => {
+      rewards.push(rewardsListObj[i]);
+    });
+    return rewards;
+  }
 
+  if (useListName === 'dungeon') {
+    randomResult.map((i: number) => {
+      rewards.push(dungeonRewardsListObj[i]);
+    });
+    return rewards;
+  }
   return rewards;
 };

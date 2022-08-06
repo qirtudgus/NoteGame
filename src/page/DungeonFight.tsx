@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import createRandomNum from '../util/createRandomNum';
-import arrowRight from '../img/오른쪽화살표.svg';
-import arrowLeft from '../img/왼쪽화살표.svg';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { useNavigate } from 'react-router-dom';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 
 const BottomBox = styled.div`
@@ -15,12 +13,27 @@ const BottomBox = styled.div`
   bottom: 0px;
   background: #928282;
 `;
-const CharacterBox = styled.div`
+
+const Character = styled.div`
   width: 200px;
-  height: 300px;
+  height: 250px;
   background: #555;
   position: relative;
   z-index: 10;
+`;
+
+const CharacterBox = styled.div`
+  width: 200px;
+  height: 300px;
+  position: relative;
+  z-index: 10;
+`;
+
+const CharacterBoxWrap = styled.div`
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: space-around;
 `;
 
 const FloorBox = styled.div`
@@ -33,34 +46,37 @@ const FloorBox = styled.div`
   }
 `;
 
-const MoveBox = styled.div`
-  display: flex;
-  align-items: center;
+const HpBox = styled.div`
+  position: absoulte;
+  width: 200px;
+  height: 50px;
+`;
+
+const HpBar = styled.div`
   position: absolute;
-  left: 30px;
-  font-size: 30px;
-  & img {
-    width: 50px;
-  }
+  width: 80%;
+  height: 20px;
+  background: #fff;
+  z-index: 10;
+  top: 0;
 `;
-
-const MoveBox2 = styled.div`
-  display: flex;
-  align-items: center;
+const BgBar = styled.div`
   position: absolute;
-  right: 30px;
-  font-size: 30px;
-  & img {
-    width: 50px;
-  }
+  width: 200px;
+  height: 20px;
+  background: #000;
+  z-index: 9;
+  top: 0;
 `;
 
-const MoveBoxWrap = styled.div`
-  width: 100%;
-  display: flex;
+const HpText = styled.div`
+  position: absolute;
+  height: 20px;
+  z-index: 9;
+  top: -50px;
 `;
 
-const Dungeon = () => {
+const DungeonFight = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   useEffect(() => {
@@ -88,28 +104,31 @@ const Dungeon = () => {
     console.log(createExp(floor, hp));
     console.log(createDamage(floor));
   }, []);
-  const navigate = useNavigate();
+
   return (
     <>
       <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
-
-      <MoveBoxWrap>
-        <MoveBox>
-          <img src={arrowLeft}></img>이전 층으로
-        </MoveBox>
-        <MoveBox2
-          onClick={() => {
-            navigate('/dungeonfight');
-          }}
-        >
-          도전<img src={arrowRight}></img>
-        </MoveBox2>
-      </MoveBoxWrap>
-      <CharacterBox>캐릭터</CharacterBox>
+      <CharacterBoxWrap>
+        <CharacterBox>
+          <HpBox>
+            <HpText>
+              <p>70</p>
+              <p>/ {userInfo?.BasicHp}</p>
+            </HpText>
+            <HpBar></HpBar>
+            <BgBar></BgBar>
+          </HpBox>
+          <Character>캐릭터</Character>
+        </CharacterBox>
+        <CharacterBox>
+          <HpBox></HpBox>
+          <Character>몬스터</Character>
+        </CharacterBox>
+      </CharacterBoxWrap>
       <BottomBox></BottomBox>
       <BackHistoryBtn corner></BackHistoryBtn>
     </>
   );
 };
 
-export default Dungeon;
+export default DungeonFight;

@@ -31,6 +31,7 @@ pengameRouter.post('/multiple', (req, res, next) => {
           SkillPoint: rows[0].SkillPoint,
           UpGoldPen: rows[0].UpGoldPen,
           UpGoldHunt: rows[0].UpGoldHunt,
+          DungeonFloor: rows[0].DungeonFloor,
         };
 
         res.status(200).json({ code: 200, userInfo: { ...userInfo } });
@@ -72,6 +73,7 @@ pengameRouter.post('/add', (req, res, next) => {
           SkillPoint: rows[0].SkillPoint,
           UpGoldPen: rows[0].UpGoldPen,
           UpGoldHunt: rows[0].UpGoldHunt,
+          DungeonFloor: rows[0].DungeonFloor,
         };
 
         res.status(200).json({ code: 200, userInfo: { ...userInfo } });
@@ -110,6 +112,7 @@ pengameRouter.post('/deduct', (req, res, next) => {
           SkillPoint: rows[0].SkillPoint,
           UpGoldPen: rows[0].UpGoldPen,
           UpGoldHunt: rows[0].UpGoldHunt,
+          DungeonFloor: rows[0].DungeonFloor,
         };
 
         res.status(200).json({ code: 200, userInfo: { ...userInfo } });

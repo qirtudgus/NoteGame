@@ -145,7 +145,7 @@ const PlayPenGame = () => {
     text: 1,
   });
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
-  const randomArr = useCallback(createRandomRewardsArray(boxCount), [
+  const randomArr = useCallback(createRandomRewardsArray(boxCount, 'penGame'), [
     boxCount,
     refresh,
   ]);
