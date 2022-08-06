@@ -1,12 +1,12 @@
-export const CREATE_MONSTER_REQUSET =
-  'createMonster/CREATE_MONSTER_REQUSET' as const;
+export const CREATE_MONSTER_REQUEST =
+  'createMonster/CREATE_MONSTER_REQUEST' as const;
 export const CREATE_MONSTER_SUCCESS =
   'createMonster/CREATE_MONSTER_SUCCESS' as const;
 export const CREATE_MONSTER_FAILURE =
   'createMonster/CREATE_MONSTER_FAILURE' as const;
 
-export const create_monster_request = (dungeonFloor: number) => ({
-  type: CREATE_MONSTER_REQUSET,
+export const create_monster_request = (dungeonFloor: number|undefined) => ({
+  type: CREATE_MONSTER_REQUEST,
   dungeonFloor
 });
 
@@ -24,7 +24,8 @@ export const create_monster_failure = (monsterInfo:MonsterInfo) => ({
 interface MonsterInfo{
     monsterInfo:{
         monsterLevel:number | null
-        monsterHp:number | null
+        monsterFullHp:number | null
+        monsterNowHp?:number | null
         monsterExp:number | null
         monsterDamage:number | null
         monsterGold:number | null
@@ -39,7 +40,8 @@ type CreateMonsterAction =
 type CreateMonsterStateType = {
     monsterInfo:{
         monsterLevel:number | null
-        monsterHp:number | null
+        monsterFullHp:number | null
+        monsterNowHp?:number | null
         monsterExp:number | null
         monsterDamage:number | null
         monsterGold:number | null
@@ -51,7 +53,8 @@ type CreateMonsterStateType = {
 const createMonsterState: CreateMonsterStateType = {
     monsterInfo: {
     monsterLevel:0,
-    monsterHp:0,
+    monsterFullHp:0,
+    monsterNowHp:0,
     monsterExp:0,
     monsterDamage:0,
     monsterGold:0
@@ -67,10 +70,10 @@ const createMonsterRequest = (
     //     return {confirmId : action.id}
     // }
     case CREATE_MONSTER_SUCCESS: {
-      return { monsterInfo: action.monsterInfo };
+      return { ...state, monsterInfo: action.monsterInfo };
     }
     case CREATE_MONSTER_FAILURE: {
-      return { monsterInfo: action.monsterInfo };
+      return { ...state,monsterInfo: action.monsterInfo };
     }
     default:
       return state;

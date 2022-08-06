@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import createRandomNum from '../util/createRandomNum';
 import arrowRight from '../img/오른쪽화살표.svg';
 import arrowLeft from '../img/왼쪽화살표.svg';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { useNavigate } from 'react-router-dom';
 import BackHistoryBtn from '../components/BackHistoryBtn';
-
+import { create_monster_request } from '../modules/createMonster';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -89,6 +89,7 @@ const Dungeon = () => {
     console.log(createDamage(floor));
   }, []);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <>
       <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
@@ -99,6 +100,7 @@ const Dungeon = () => {
         </MoveBox>
         <MoveBox2
           onClick={() => {
+            dispatch(create_monster_request(userInfo?.DungeonFloor))
             navigate('/dungeonfight');
           }}
         >

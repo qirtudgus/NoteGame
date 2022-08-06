@@ -156,6 +156,10 @@ const DungeonFight = () => {
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
 
   const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
+  const monsterInfo:any = useSelector((state: RootState) => state.monsterInfo.monsterInfo)
+
+  console.log(monsterInfo)
+
   const randomArr = useCallback(createRandomRewardsArray(6, 'dungeon'), [
     refresh,
   ]);
@@ -207,32 +211,6 @@ const DungeonFight = () => {
     };
   }, [gameStart]);
 
-  // useEffect(() => {
-  //   let floor = 1;
-  //   //레벨과 경험치 난수 미리 생성
-  //   let ran = createRandomNum(0, 2);
-
-  //   //몬스터 레벨 생성 공식 OK
-  //   const createLevel = (floor: number, randomNum: number) => {
-  //     return Math.ceil(floor + (floor * randomNum) / 10);
-  //   };
-  //   const createHp = (floor: number) => {
-  //     return Math.ceil(floor * (520 + floor * createRandomNum(5, 8)));
-  //   };
-  //   let hp = createHp(floor);
-
-  //   const createExp = (floor: number, hp: number) => {
-  //     return Math.ceil(floor + hp / 200);
-  //   };
-  //   const createDamage = (floor: number) => {
-  //     return Math.ceil(floor + floor * createRandomNum(5, 9));
-  //   };
-  //   console.log(createLevel(floor, ran));
-  //   console.log(hp);
-  //   console.log(createExp(floor, hp));
-  //   console.log(createDamage(floor));
-  // }, []);
-
   return (
     <>
       <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
@@ -253,12 +231,13 @@ const DungeonFight = () => {
           <HpBox>
             <HpText>
               <p>{monsterHpBar.nowHp}</p>
-              <p>/ {monsterHpBar.fullHp}</p>
+              <p>/ {monsterInfo.monsterFullHp}</p>
+              <p>레벨 {monsterInfo.monsterLevel}</p>
+              <p>공격력 {monsterInfo.monsterDamage}</p>
+              <p>경험치 {monsterInfo.monsterExp}</p>
+              <p>골드 {monsterInfo.monsterGold}</p>
             </HpText>
-            <MonsterHpBar width={()=>{   
-            return   monsterHpBar.nowHp / monsterHpBar.fullHp * 100;
-             
-}}></MonsterHpBar>
+            <MonsterHpBar width={70}></MonsterHpBar>
             <BgBar></BgBar>
           </HpBox>
           <Character>몬스터</Character>
