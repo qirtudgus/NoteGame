@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import createRandomNum from '../util/createRandomNum';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
+import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
+import { useDispatch } from 'react-redux';
 
 const BottomBox = styled.div`
   width: 100%;
@@ -76,34 +78,117 @@ const HpText = styled.div`
   top: -50px;
 `;
 
+const BoxWrap = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  bottom: 35px;
+  z-index: 11;
+`;
+const Box = styled.div`
+  width: 60px;
+  padding: 0 10px 0 10px;
+  height: 175px;
+  background: #fff;
+  border: 1px solid#000;
+  position: relative;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  word-break: keep-all;
+  line-height: 35px;
+  &:nth-child(n) {
+    border-right: none;
+  }
+  &:last-child {
+    border-right: 1px solid#000;
+  }
+`;
+
+const StartBtn = styled.div`
+  position: absolute;
+  right: 40px;
+  top: 90px;
+  width: 175px;
+  height: 175px;
+  background: #fff;
+  text-align: center;
+  line-height: 4rem;
+  border-radius: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 10000;
+`;
+
 const DungeonFight = () => {
+  const dispatch = useDispatch();
+  const [refresh, setRefresh] = useState<boolean>(false);
+  const [penStatus, setPenSatus] = useState<boolean>(true);
+  const [throttle, setThrottle] = useState(false);
+
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const randomArr = useCallback(createRandomRewardsArray(6, 'dungeon'), [
+    refresh,
+  ]);
+
+  const toggle = () => {
+    setPenSatus((penStatus) => !penStatus);
+
+    if (throttle) return;
+    if (!throttle) {
+      setThrottle(true);
+      setTimeout(async () => {
+        setPenSatus((penStatus) => !penStatus);
+      }, 100);
+    }
+  };
+
+  const toggleExit = async () => {
+    setPenSatus((penStatus) => !penStatus);
+
+    // await getReward();
+  };
+
+  const gameStart = useCallback((e: any) => {
+    let startBtn = document.getElementById('startbuttons');
+    console.log(e.keyCode);
+    if (e.keyCode === 32) {
+      startBtn?.click();
+    }
+  }, []);
 
   useEffect(() => {
-    let floor = 1;
-    //레벨과 경험치 난수 미리 생성
-    let ran = createRandomNum(0, 2);
+    document.addEventListener('keyup', gameStart);
+    console.log('이벤트 등록');
+  }, [gameStart]);
 
-    //몬스터 레벨 생성 공식 OK
-    const createLevel = (floor: number, randomNum: number) => {
-      return Math.ceil(floor + (floor * randomNum) / 10);
-    };
-    const createHp = (floor: number) => {
-      return Math.ceil(floor * (520 + floor * createRandomNum(5, 8)));
-    };
-    let hp = createHp(floor);
+  // useEffect(() => {
+  //   let floor = 1;
+  //   //레벨과 경험치 난수 미리 생성
+  //   let ran = createRandomNum(0, 2);
 
-    const createExp = (floor: number, hp: number) => {
-      return Math.ceil(floor + hp / 200);
-    };
-    const createDamage = (floor: number) => {
-      return Math.ceil(floor + floor * createRandomNum(5, 9));
-    };
-    console.log(createLevel(floor, ran));
-    console.log(hp);
-    console.log(createExp(floor, hp));
-    console.log(createDamage(floor));
-  }, []);
+  //   //몬스터 레벨 생성 공식 OK
+  //   const createLevel = (floor: number, randomNum: number) => {
+  //     return Math.ceil(floor + (floor * randomNum) / 10);
+  //   };
+  //   const createHp = (floor: number) => {
+  //     return Math.ceil(floor * (520 + floor * createRandomNum(5, 8)));
+  //   };
+  //   let hp = createHp(floor);
+
+  //   const createExp = (floor: number, hp: number) => {
+  //     return Math.ceil(floor + hp / 200);
+  //   };
+  //   const createDamage = (floor: number) => {
+  //     return Math.ceil(floor + floor * createRandomNum(5, 9));
+  //   };
+  //   console.log(createLevel(floor, ran));
+  //   console.log(hp);
+  //   console.log(createExp(floor, hp));
+  //   console.log(createDamage(floor));
+  // }, []);
 
   return (
     <>
@@ -125,7 +210,22 @@ const DungeonFight = () => {
           <Character>몬스터</Character>
         </CharacterBox>
       </CharacterBoxWrap>
-      <BottomBox></BottomBox>
+      <BoxWrap>
+        {randomArr.map((i: any, index: any) => (
+          <Box key={index} data-number={i.attackNumber}>
+            {i.attackNumber}%
+          </Box>
+        ))}
+      </BoxWrap>
+
+      <BottomBox>
+        <StartBtn
+          id='startbuttons'
+          onClick={penStatus ? () => toggle() : () => toggleExit()}
+        >
+          {penStatus ? '시작' : '멈춰'}
+        </StartBtn>
+      </BottomBox>
       <BackHistoryBtn corner></BackHistoryBtn>
     </>
   );

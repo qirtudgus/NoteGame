@@ -36,13 +36,13 @@ const UserInfo = ({ children }: children) => {
   return (
     <BasicBox>
       {children}
-      <button onClick={logOutRequest}>로그아웃</button>
 
       <p>{userId}</p>
       <p>레벨 {userInfo?.Level}</p>
       <p>체력 {userInfo?.BasicHp}</p>
       <p>공격력 {userInfo?.BasicDamage}</p>
       <p>골드 {userInfo?.Gold.toLocaleString()}</p>
+      <button onClick={logOutRequest}>로그아웃</button>
     </BasicBox>
   );
 };

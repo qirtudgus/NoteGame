@@ -111,7 +111,7 @@ const Box = styled.div<BoxColor>`
     `}
 `;
 
-const TestInput = styled.input`
+const TestInput = styled.div`
   width: 13rem;
   height: 4rem;
   background: #fff;
@@ -240,11 +240,11 @@ const PlayPenGame = () => {
       {isLoading ? <Loading></Loading> : null}
 
       <TestInput
-        id='startbutton'
-        type='button'
-        value={penStatus ? '시작' : '멈춰'}
+        id='startbuttons'
         onClick={penStatus ? () => toggle() : () => toggleExit()}
-      ></TestInput>
+      >
+        {penStatus ? '시작' : '멈춰'}
+      </TestInput>
 
       {isModal && (
         <ResultModal
