@@ -233,6 +233,9 @@ const PlayPenGame = () => {
 
   useEffect(() => {
     document.addEventListener('keypress', gameStart);
+    return () => {
+      document.removeEventListener('keypress', gameStart);
+    };
   }, [gameStart]);
 
   return (

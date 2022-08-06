@@ -160,8 +160,11 @@ const DungeonFight = () => {
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keyup', gameStart);
+    document.addEventListener('keypress', gameStart);
     console.log('이벤트 등록');
+    return () => {
+      document.removeEventListener('keypress', gameStart);
+    };
   }, [gameStart]);
 
   // useEffect(() => {
