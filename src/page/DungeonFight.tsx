@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import createRandomNum from '../util/createRandomNum';
 
 import { useSelector } from 'react-redux';
@@ -7,6 +7,70 @@ import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import { useDispatch } from 'react-redux';
+
+interface penAni {
+  penStatus?: boolean;
+  ref?: any;
+  penSpeed?: number;
+}
+
+const animation = keyframes`
+  0% {
+    transform:translate(-20em);
+  }
+50%{
+  transform:translate(8.5em); 
+ }
+  100%{
+    transform:translate(-20em);
+  }
+`;
+
+const PenWrap = styled.div<penAni>`
+  z-index: 10000;
+  position: absolute;
+  bottom: 0px;
+  left: 570px;
+  animation-fill-mode: both;
+  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation-play-state: running;
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+`;
+
+const Pen = styled.div`
+  width: 40px;
+  height: 150px;
+  background: #fff;
+`;
+const PenEnd = styled.div<penAni>`
+  z-index: 10000;
+  width: 1px;
+  height: 100px;
+  background: rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 500px;
+  left: 590px;
+  margin: none;
+  animation-fill-mode: both;
+  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation-play-state: running;
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+`;
+
+const PenHead = styled.div`
+  border-radius: 40px 40px 0 0;
+  width: 40px;
+  height: 60px;
+  background: #000;
+`;
 
 const BottomBox = styled.div`
   width: 100%;
@@ -54,14 +118,28 @@ const HpBox = styled.div`
   height: 50px;
 `;
 
-const HpBar = styled.div`
+interface HpInterface {
+  width: number;
+}
+
+const HpBar = styled.div<HpInterface>`
   position: absolute;
-  width: 80%;
   height: 20px;
-  background: #fff;
+  background: #c93c3c;
   z-index: 10;
   top: 0;
+  width: ${(props) => props.width}%;
 `;
+
+const MonsterHpBar = styled.div<HpInterface>`
+  position: absolute;
+  height: 20px;
+  background: #c93c3c;
+  z-index: 10;
+  top: 0;
+  width: ${(props) => props.width}%;
+`;
+
 const BgBar = styled.div`
   position: absolute;
   width: 200px;
@@ -110,7 +188,7 @@ const Box = styled.div`
 const StartBtn = styled.div`
   position: absolute;
   right: 40px;
-  top: 90px;
+  bottom: 35px;
   width: 175px;
   height: 175px;
   background: #fff;
@@ -119,7 +197,7 @@ const StartBtn = styled.div`
   border-radius: 20px;
   font-size: 2rem;
   font-weight: bold;
-  z-index: 10000;
+  z-index: 5000;
 `;
 
 const DungeonFight = () => {
@@ -127,22 +205,33 @@ const DungeonFight = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [throttle, setThrottle] = useState(false);
+  const [userHpBar, setUserHpBar] = useState(100);
+  const [monsterHpBar, setMonsterHpBar] = useState(100);
+  const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
 
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
   const randomArr = useCallback(createRandomRewardsArray(6, 'dungeon'), [
     refresh,
   ]);
 
+  const [penSpeed, setPenSpeed] = useState<{ speed: number; text: number }>({
+    speed: 0.75,
+    text: 1,
+  });
+
   const toggle = () => {
     setPenSatus((penStatus) => !penStatus);
-
-    if (throttle) return;
-    if (!throttle) {
-      setThrottle(true);
-      setTimeout(async () => {
-        setPenSatus((penStatus) => !penStatus);
-      }, 100);
-    }
+    //체력 퍼센트 구해서 hp바 너비에 할당
+    let hp = (70 / userInfo?.BasicHp) * 100;
+    console.log(hp);
+    setUserHpBar(hp);
+    // if (throttle) return;
+    // if (!throttle) {
+    //   setThrottle(true);
+    //   setTimeout(async () => {
+    //     setPenSatus((penStatus) => !penStatus);
+    //   }, 0);
+    // }
   };
 
   const toggleExit = async () => {
@@ -160,9 +249,14 @@ const DungeonFight = () => {
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keypress', gameStart);
-    console.log('이벤트 등록');
+    (() => {
+      document.addEventListener('keypress', gameStart);
+      console.log('이벤트 등록');
+    })();
+
     return () => {
+      console.log('이벤트 제거');
+
       document.removeEventListener('keypress', gameStart);
     };
   }, [gameStart]);
@@ -203,16 +297,41 @@ const DungeonFight = () => {
               <p>70</p>
               <p>/ {userInfo?.BasicHp}</p>
             </HpText>
-            <HpBar></HpBar>
+            <HpBar width={userHpBar}></HpBar>
             <BgBar></BgBar>
           </HpBox>
           <Character>캐릭터</Character>
         </CharacterBox>
+
         <CharacterBox>
-          <HpBox></HpBox>
+          <HpBox>
+            <HpText>
+              <p>70</p>
+              <p>/ {userInfo?.BasicHp}</p>
+            </HpText>
+            <MonsterHpBar width={70}></MonsterHpBar>
+            <BgBar></BgBar>
+          </HpBox>
           <Character>몬스터</Character>
         </CharacterBox>
       </CharacterBoxWrap>
+
+      <PenEnd
+        penStatus={penStatus}
+        ref={inputRef}
+        penSpeed={penSpeed.speed}
+      ></PenEnd>
+      <PenWrap penSpeed={penSpeed.speed} penStatus={penStatus}>
+        <PenHead></PenHead>
+        <Pen></Pen>
+      </PenWrap>
+      <StartBtn
+        id='startbuttons'
+        onClick={penStatus ? () => toggle() : () => toggleExit()}
+      >
+        {penStatus ? '시작' : '멈춰'}
+      </StartBtn>
+
       <BoxWrap>
         {randomArr.map((i: any, index: any) => (
           <Box key={index} data-number={i.attackNumber}>
@@ -221,14 +340,7 @@ const DungeonFight = () => {
         ))}
       </BoxWrap>
 
-      <BottomBox>
-        <StartBtn
-          id='startbuttons'
-          onClick={penStatus ? () => toggle() : () => toggleExit()}
-        >
-          {penStatus ? '시작' : '멈춰'}
-        </StartBtn>
-      </BottomBox>
+      <BottomBox></BottomBox>
       <BackHistoryBtn corner></BackHistoryBtn>
     </>
   );
