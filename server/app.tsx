@@ -20,6 +20,7 @@ import checkToken from '../src/util/checkToken.js';
 import { pengameRouter } from './router/pengameRouter.js';
 import axios from 'axios';
 import { skillRouter } from './router/skillRouter.js';
+import { dungeonRouter } from './router/dungeonRouter.js';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -98,10 +99,9 @@ app.use('/login', loginRouter);
 app.use('/pengame', pengameRouter);
 //스킬 라우터
 app.use('/skill', skillRouter);
+//던전 라우터
+app.use('/dungeon', dungeonRouter);
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.send('welcome!');
-});
 
 app.listen('1234', () => {
   console.log(`

@@ -148,7 +148,10 @@ const DungeonFight = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [throttle, setThrottle] = useState(false);
-  const [userHpBar, setUserHpBar] = useState(100);
+  const [userHpBar, setUserHpBar] = useState({
+    HpBarWidth : 100,
+    nowHp: 100,
+  });
   const [monsterHpBar, setMonsterHpBar] = useState({
     fullHp : 100,
     nowHp: 100,
@@ -174,7 +177,6 @@ const DungeonFight = () => {
     //체력 퍼센트 구해서 hp바 너비에 할당
     let hp = (70 / userInfo?.BasicHp) * 100;
     console.log(hp);
-    setUserHpBar(hp);
     // if (throttle) return;
     // if (!throttle) {
     //   setThrottle(true);
@@ -187,16 +189,65 @@ const DungeonFight = () => {
   const toggleExit = async () => {
     setPenSatus((penStatus) => !penStatus);
 
-    // await getReward();
+    await getReward();
   };
+
+  const getReward = async () => {
+    //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
+    setTimeout(function () {
+      //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
+      const x = inputRef.current.getBoundingClientRect().x;
+      const y = inputRef.current.getBoundingClientRect().y - 10;
+      dropClick(x, y);
+    }, 500);
+  };
+
+   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
+   function dropClick(x: number, y: number): void {
+    let cb: any = document.elementFromPoint(x, y);
+    let damage = cb.dataset.attacknumber;
+    let userDamage = userInfo.BasicDamage;
+    let result = userDamage * (damage / 100);
+    let hp:number = monsterHpBar.nowHp - result;
+    let hpbar = Math.ceil( (hp / monsterInfo.monsterFullHp) * 100);
+    if(hp <= 0){
+      alert("승리 함수 호출")
+      setMonsterHpBar({fullHp:hpbar,nowHp:0})
+      return
+    }
+
+    setMonsterHpBar({fullHp:hpbar,nowHp:hp})
+    setRefresh((refresh) => !refresh)
+
+    setTimeout(function(){    monsterAttack()
+    },1000)
+
+    console.log(result)
+  }
+
+  //몬스터 -> 사용자 공격 함수
+  const monsterAttack = () => {
+    let damage = monsterInfo.monsterDamage;
+    let userHp = userHpBar.nowHp;
+    let resultHp = userHp - damage;
+    let resultHpBar = Math.ceil( resultHp / userInfo.BasicHp * 100)
+
+    setUserHpBar({HpBarWidth:resultHpBar, nowHp:resultHp})
+  }
+
 
   const gameStart = useCallback((e: any) => {
     let startBtn = document.getElementById('startbuttons');
-    console.log(e.keyCode);
     if (e.keyCode === 32) {
       startBtn?.click();
     }
   }, []);
+
+  useEffect(()=>{
+    setMonsterHpBar({...monsterHpBar,nowHp: monsterInfo.monsterFullHp})
+    setUserHpBar({HpBarWidth:100, nowHp: userInfo.BasicHp})
+  },[])
+
 
   useEffect(() => {
     (() => {
@@ -218,10 +269,10 @@ const DungeonFight = () => {
         <CharacterBox>
           <HpBox>
             <HpText>
-              <p>70</p>
+              <p>{userHpBar.nowHp}</p>
               <p>/ {userInfo?.BasicHp}</p>
             </HpText>
-            <HpBar width={userHpBar}></HpBar>
+            <HpBar width={userHpBar.HpBarWidth}></HpBar>
             <BgBar></BgBar>
           </HpBox>
           <Character>캐릭터</Character>
@@ -237,7 +288,7 @@ const DungeonFight = () => {
               <p>경험치 {monsterInfo.monsterExp}</p>
               <p>골드 {monsterInfo.monsterGold}</p>
             </HpText>
-            <MonsterHpBar width={70}></MonsterHpBar>
+            <MonsterHpBar width={monsterHpBar.fullHp}></MonsterHpBar>
             <BgBar></BgBar>
           </HpBox>
           <Character>몬스터</Character>
@@ -262,7 +313,7 @@ const DungeonFight = () => {
 
       <BoxWrap>
         {randomArr.map((i: any, index: any) => (
-          <Box key={index} data-number={i.attackNumber}>
+          <Box key={index} data-attackNumber={i.attackNumber}>
             {i.attackNumber}%
           </Box>
         ))}

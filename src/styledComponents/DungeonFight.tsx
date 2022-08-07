@@ -22,7 +22,7 @@ export const animation = keyframes`
 export const PenWrap = styled.div<penAni>`
   z-index: 10000;
   position: absolute;
-  bottom: 0px;
+  bottom: -100px;
   left: 570px;
   animation-fill-mode: both;
   animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
@@ -45,7 +45,7 @@ export const PenEnd = styled.div<penAni>`
   height: 100px;
   background: rgba(0, 0, 0, 1);
   position: absolute;
-  top: 500px;
+  top: 620px;
   left: 590px;
   margin: none;
   animation-fill-mode: both;
