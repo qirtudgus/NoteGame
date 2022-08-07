@@ -17,10 +17,44 @@ export const PENGAME_MULTIPLE = 'login/PENGAME_MULTIPLE' as const;
 export const SKILL_REQUEST = 'login/SKILL_REQUEST' as const;
 export const SKILL_UP = 'login/SKILL_UP' as const;
 
+//던전 관련 액션
+export const DUNGEON_REQUEST = 'login/DUNGEON_REQUEST' as const;
+export const DUNGEON_VICTORY = 'login/DUNGEON_VICTORY' as const;
+
+
+
+
+
+
+export const dungeon_request = (monsterGold:number,monsterExp:number) => ({
+  type: DUNGEON_REQUEST,
+  payload: { monsterGold, monsterExp },
+});
+
+
+export const dungeon_victory = () => ({
+  type:DUNGEON_VICTORY,
+  userInfo: {
+    Level: 0,
+    BasicDamage: 0,
+    BasicHp: 0,
+    WeaponDamage: 0,
+    WeaponHp: 0,
+    Gold: 0,
+    beforeGold: 0,
+    penCount: 0,
+    skillPoint: 0,
+    upGoldPen: 0,
+    upGoldHunt: 0,
+    DungeonFloor: 0,
+  },
+})
+
 export const skill_request = (skillName: string, skillPoint: number) => ({
   type: SKILL_REQUEST,
   payload: { skillName, skillPoint },
 });
+
 
 export const skill_up = () => ({
   type: SKILL_UP,
@@ -147,7 +181,9 @@ type LoginAction =
   | ReturnType<typeof logout>
   | ReturnType<typeof pengame_multiple>
   | ReturnType<typeof skill_request>
-  | ReturnType<typeof skill_up>;
+  | ReturnType<typeof skill_up>
+  | ReturnType<typeof dungeon_request>
+  | ReturnType<typeof dungeon_victory>;
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
 type IsLoginState = {
@@ -248,6 +284,9 @@ const LoginRequest = (
     }
     case SKILL_UP: {
       return { ...state, userInfo: action.userInfo };
+    }
+    case DUNGEON_VICTORY: {
+      return { ...state, userInfo: action.userInfo};
     }
     default:
       return state;

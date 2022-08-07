@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import createRandomNum from '../util/createRandomNum';
 import arrowRight from '../img/오른쪽화살표.svg';
 import arrowLeft from '../img/왼쪽화살표.svg';
 import { useSelector,useDispatch } from 'react-redux';
@@ -62,32 +60,6 @@ const MoveBoxWrap = styled.div`
 
 const Dungeon = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
-
-  useEffect(() => {
-    let floor = 1;
-    //레벨과 경험치 난수 미리 생성
-    let ran = createRandomNum(0, 2);
-
-    //몬스터 레벨 생성 공식 OK
-    const createLevel = (floor: number, randomNum: number) => {
-      return Math.ceil(floor + (floor * randomNum) / 10);
-    };
-    const createHp = (floor: number) => {
-      return Math.ceil(floor * (520 + floor * createRandomNum(5, 8)));
-    };
-    let hp = createHp(floor);
-
-    const createExp = (floor: number, hp: number) => {
-      return Math.ceil(floor + hp / 200);
-    };
-    const createDamage = (floor: number) => {
-      return Math.ceil(floor + floor * createRandomNum(5, 9));
-    };
-    console.log(createLevel(floor, ran));
-    console.log(hp);
-    console.log(createExp(floor, hp));
-    console.log(createDamage(floor));
-  }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
@@ -96,7 +68,7 @@ const Dungeon = () => {
 
       <MoveBoxWrap>
         <MoveBox>
-          <img src={arrowLeft}></img>이전 층으로
+          <img src={arrowLeft} alt="arrow"></img>이전 층으로
         </MoveBox>
         <MoveBox2
           onClick={() => {
@@ -104,7 +76,7 @@ const Dungeon = () => {
             navigate('/dungeonfight');
           }}
         >
-          도전<img src={arrowRight}></img>
+          도전<img src={arrowRight} alt="arrow"></img>
         </MoveBox2>
       </MoveBoxWrap>
       <CharacterBox>캐릭터</CharacterBox>
