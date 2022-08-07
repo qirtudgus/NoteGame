@@ -66,6 +66,8 @@ interface HpInterface {
 }
 
 const HpBar = styled.div<HpInterface>`
+transition:all 0.5s;
+
   position: absolute;
   height: 20px;
   background: #c93c3c;
@@ -75,6 +77,7 @@ const HpBar = styled.div<HpInterface>`
 `;
 
 const MonsterHpBar = styled.div<HpInterface>`
+transition:all 0.5s;
   position: absolute;
   height: 20px;
   background: #c93c3c;
