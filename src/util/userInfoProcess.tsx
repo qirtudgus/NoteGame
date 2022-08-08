@@ -1,4 +1,4 @@
-export const userInfoProcess = (arr:{
+interface UserInfo {
     Index?:number,
     Id?:string,
     Password?: string,
@@ -25,10 +25,14 @@ export const userInfoProcess = (arr:{
     Exp: number,
     DungeonFloor: number,
     BetterPen: number,
-    SkillPoint: number}) => {
-    delete arr.Index
-    delete arr.Password
-    delete arr.Salt
-    
-    return arr
+    SkillPoint: number
+}
+
+export const userInfoProcess = (arr:UserInfo) => {
+    let result:UserInfo = {} as UserInfo;
+    Object.assign(result,{...arr})
+    delete result.Index
+    delete result.Password
+    delete result.Salt
+    return result
 }

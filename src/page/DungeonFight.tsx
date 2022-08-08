@@ -390,7 +390,6 @@ const DungeonFight = () => {
 id='startbuttons'
 color='#fff'
 onClick={
-  
   penStatus ? () => toggle() : () => toggleExit()}
 >
 {penStatus ? '시작' : '멈춰'}

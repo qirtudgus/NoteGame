@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { db } from '../db.js';
-import checkHashPasswordeck from '../../src/util/checkHashPassword.js';
+import {checkHashPassword} from '../../src/util/checkHashPassword.js';
 import createToken from '../../src/util/createToken.js';
 import checkToken from '../../src/util/checkToken.js';
 import { JwtPayload } from 'jsonwebtoken';
@@ -19,36 +19,30 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
     }
     // db조회값이 있을 시
     else {
+      console.log(rows[0].Password)
+      console.log(rows[0].Salt)
       console.log(`로그인 시간
          ${id}님   ${req.requestTime}`);
-      const userInfo = {
-        Level: rows[0].Level,
-        BasicDamage: rows[0].BasicDamage,
-        BasicHp: rows[0].BasicHp,
-        WeaponDamage: rows[0].WeaponDamage,
-        WeaponHp: rows[0].WeaponHp,
-        Gold: rows[0].Gold,
-        SkillPoint: rows[0].SkillPoint,
-        UpGoldPen: rows[0].UpGoldPen,
-        UpGoldHunt: rows[0].UpGoldHunt,
-        DungeonFloor: rows[0].DungeonFloor,
-        BetterPen: rows[0].BetterPen,
-      };
       const token: unknown = createToken(id);
       // req.decoded = checkToken(token)
 
       //https://bobbyhadz.com/blog/typescript-type-unknown-is-not-assignable-to-type
       const b: string = token as string;
+      const uesrInfo2 = userInfoProcess(rows[0]);
+
+      console.log(rows[0].Password)
+      console.log(rows[0].Salt)
 
       console.log(checkToken(b));
       req.decoded = checkToken(b);
 
-      checkHashPasswordeck(password, rows[0].Password, rows[0].Salt)
+
+      checkHashPassword(password, rows[0].Password, rows[0].Salt)
         ? res.status(200).json({
             code: 200,
             token: token,
             id: id,
-            userInfo: { ...userInfo },
+            userInfo: uesrInfo2,
           })
         : res
             .status(200)
@@ -71,26 +65,14 @@ loginRouter.post('/localstorage', (req, res) => {
       else {
         console.log(`로그인 시간
               ${req.requestTime}`);
-        const userInfo = {
-          Level: rows[0].Level,
-          BasicDamage: rows[0].BasicDamage,
-          BasicHp: rows[0].BasicHp,
-          WeaponDamage: rows[0].WeaponDamage,
-          WeaponHp: rows[0].WeaponHp,
-          Gold: rows[0].Gold,
-          SkillPoint: rows[0].SkillPoint,
-          UpGoldPen: rows[0].UpGoldPen,
-          UpGoldHunt: rows[0].UpGoldHunt,
-          DungeonFloor: rows[0].DungeonFloor,
-          BetterPen: rows[0].BetterPen,
-        };
 
+        const uesrInfo = userInfoProcess(rows[0]);
 
         res.status(200).json({
           code: 200,
           token: req.body.token.token,
           id: id,
-          userInfo: { ...userInfo },
+          userInfo: uesrInfo,
         });
       }
     });
