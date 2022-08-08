@@ -40,16 +40,13 @@ const createMonsterRequest = async (dungeonFloor:number) => {
         monsterDamage,
         monsterGold
       }
-      console.log(monsterInfo)
       return monsterInfo
 
 };
 
 function* createMonsterRequest$(action: any): Generator<any, any, any> {
   try {
-    console.log(action);
     let result = yield call(createMonsterRequest,action.dungeonFloor)
-    console.log(result)
     yield put({ type: CREATE_MONSTER_SUCCESS, monsterInfo:result });
   } catch (E) {
     console.log(E);

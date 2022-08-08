@@ -6,7 +6,6 @@ import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import { useDispatch } from 'react-redux';
 import {PenWrap,Pen,PenEnd,PenHead,gelatine} from "../styledComponents/DungeonFight"
-import $ from 'jquery';
 import { dungeon_request } from '../modules/login';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,7 +36,7 @@ const CharacterBox = styled.div<dungeonAni>`
   z-index: 10;
   ${(props) => props.gelatine &&
     css`
-  animation: ${gelatine} 0.5s;
+  animation: ${gelatine} 0.35s;
 
   `}
 `;
@@ -136,7 +135,11 @@ const Box = styled.div`
   }
 `;
 
-const StartBtn = styled.div`
+interface startBtnSuppressor{
+  supp?:boolean;
+}
+
+const StartBtn = styled.div<startBtnSuppressor>`
   position: absolute;
   right: 40px;
   bottom: 35px;
@@ -149,10 +152,27 @@ const StartBtn = styled.div`
   font-size: 2rem;
   font-weight: bold;
   z-index: 5000;
+
+`;
+const StartBtn2 = styled.div<startBtnSuppressor>`
+  position: absolute;
+  right: 40px;
+  bottom: 35px;
+  width: 175px;
+  height: 175px;
+  background: #333;
+  text-align: center;
+  line-height: 4rem;
+  border-radius: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 5000;
+
 `;
 
+
 const damageTextAni = keyframes`
-from { opacity: 1; top:70px; }             /* left 0px 부터 애니메이션 시작 */
+from { opacity: 1; top:70px; }  
 to { opacity: 0;top:0px;  }
 `
 
@@ -177,6 +197,7 @@ left:850px;
 const DungeonFight = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
   // const [gelatineAni, setGelatineAni] = useState<boolean>(false);
@@ -203,8 +224,6 @@ const DungeonFight = () => {
   const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
   const monsterInfo:any = useSelector((state: RootState) => state.monsterInfo.monsterInfo)
 
-  console.log(monsterInfo)
-
   const randomArr = useCallback(createRandomRewardsArray(6, 'dungeon'), [
     refresh,
   ]);
@@ -228,6 +247,7 @@ const DungeonFight = () => {
 
   const toggleExit = async () => {
     setPenSatus((penStatus) => !penStatus);
+    setSupp(true)
 
     await getReward();
   };
@@ -244,28 +264,29 @@ const DungeonFight = () => {
 
    //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
    function dropClick(x: number, y: number): void {
-    let cb: any = document.elementFromPoint(x, y);
+    const cb: any = document.elementFromPoint(x, y);
+
     let damage = cb.dataset.attacknumber;
     let userDamage = userInfo.BasicDamage;
-    let result = userDamage * (damage / 100);
-    let hp:number = monsterHpBar.nowHp - result;
+    let resultDamage = userDamage * (damage / 100);
+    let hp:number = monsterHpBar.nowHp - resultDamage;
     let hpbar = Math.ceil( (hp / monsterInfo.monsterFullHp) * 100);
     if(hp <= 0){
       setGelatineAni({user:false,monster:true})
       setMonsterHpBar({HpBarWidth:hpbar,nowHp:0})
-      dispatch(dungeon_request(1000, 1000))
-      navigate('/dungeon')
+      dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
+      // navigate(-1)
       return
     }
-    console.log($('#monsterBox'))
-    setDamageText({monster:result,user:monsterInfo.monsterDamage})
+    setDamageText({monster:resultDamage,user:monsterInfo.monsterDamage})
     setMonsterHpBar({HpBarWidth:hpbar,nowHp:hp})
     setRefresh((refresh) => !refresh)
     setGelatineAni({user:false,monster:true})
 
 
-    setTimeout(function(){    monsterAttack()
-    },1500)
+    setTimeout(function(){
+      monsterAttack()
+    },1000)
   }
 
   //몬스터 -> 사용자 공격 함수
@@ -275,10 +296,18 @@ const DungeonFight = () => {
     let resultHp = userHp - damage;
     let resultHpBar = Math.ceil( resultHp / userInfo.BasicHp * 100)
     setGelatineAni({user:true,monster:false})
-
     setUserHpBar({HpBarWidth:resultHpBar, nowHp:resultHp})
+    setSupp(false)
   }
 
+
+ 
+
+  //현재 체력 할당
+  useEffect(()=>{
+    setMonsterHpBar({...monsterHpBar,nowHp: monsterInfo.monsterFullHp})
+    setUserHpBar({HpBarWidth:100, nowHp: userInfo.BasicHp})
+  },[])
 
   const gameStart = useCallback((e: any) => {
     let startBtn = document.getElementById('startbuttons');
@@ -287,23 +316,11 @@ const DungeonFight = () => {
     }
   }, []);
 
-  //현재 체력 할당
-  useEffect(()=>{
-    setMonsterHpBar({...monsterHpBar,nowHp: monsterInfo.monsterFullHp})
-    setUserHpBar({HpBarWidth:100, nowHp: userInfo.BasicHp})
-  },[])
-
-
   useEffect(() => {
     (() => {
-
       document.addEventListener('keypress', gameStart);
-      console.log('이벤트 등록');
     })();
-
     return () => {
-      console.log('이벤트 제거');
-
       document.removeEventListener('keypress', gameStart);
     };
   }, [gameStart]);
@@ -352,12 +369,27 @@ const DungeonFight = () => {
         <PenHead></PenHead>
         <Pen></Pen>
       </PenWrap>
-      <StartBtn
-        id='startbuttons'
-        onClick={penStatus ? () => toggle() : () => toggleExit()}
-      >
-        {penStatus ? '시작' : '멈춰'}
-      </StartBtn>
+
+
+{supp ? 
+ <StartBtn2
+ id='startbuttons'
+
+>
+ {penStatus ? '중지' : '중지'}
+</StartBtn2>
+:
+<StartBtn
+id='startbuttons'
+onClick={
+  
+  penStatus ? () => toggle() : () => toggleExit()}
+>
+{penStatus ? '시작' : '멈춰'}
+</StartBtn>
+}
+     
+     
 
       <BoxWrap>
         {randomArr.map((i: any, index: any) => (
@@ -369,7 +401,7 @@ const DungeonFight = () => {
 
       <BottomBox></BottomBox>
       <BackHistoryBtn corner></BackHistoryBtn>
-    </>
+      </>
   );
 };
 

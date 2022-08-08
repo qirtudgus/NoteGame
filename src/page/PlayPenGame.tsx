@@ -235,7 +235,6 @@ const PlayPenGame = () => {
   useEffect(() => {
     (() => {
       document.addEventListener('keypress', gameStart);
-      console.log('이벤트 등록');
     })();
     return () => {
       document.removeEventListener('keypress', gameStart);

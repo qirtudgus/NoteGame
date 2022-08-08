@@ -13,9 +13,6 @@ const dungeonVictoryRequest = async (monsterGold: number, monsterExp: number) =>
 
 function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
   try {
-    console.log('zzz');
-    console.log(action.payload);
-    console.log(action);
     let result;
     result = yield call(
         dungeonVictoryRequest,
