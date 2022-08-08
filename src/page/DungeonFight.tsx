@@ -209,7 +209,6 @@ const DungeonFight = () => {
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
-  // const [gelatineAni, setGelatineAni] = useState<boolean>(false);
   const [gelatineAni, setGelatineAni] = useState({
     user : false,
     monster: false,

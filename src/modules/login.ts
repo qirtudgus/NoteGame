@@ -204,6 +204,7 @@ type IsLoginState = {
     UpGoldPen?: number;
     UpGoldHunt?: number;
     DungeonFloor?: number;
+    BetterPen?:number;
   };
 };
 
@@ -226,6 +227,7 @@ const LoginState: IsLoginState = {
     UpGoldPen: 0,
     UpGoldHunt: 0,
     DungeonFloor: 0,
+    BetterPen:0,
   },
 };
 

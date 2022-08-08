@@ -33,6 +33,19 @@ const Skill = () => {
       >
         레벨업
       </button>
+      <div>
+        <p>펜은 칼보다 강하다.</p>
+        <p>Lv {userInfo?.BetterPen}</p>
+        던전에서 공격력이 상승합니다.
+      </div>
+      <button
+        onClick={(e) => {
+          dispatch(skill_request('BetterPen', userInfo?.SkillPoint!));
+        }}
+      >
+        레벨업
+      </button>
+      
       <p>남은 스킬 포인트 {userInfo?.SkillPoint}</p>
     </>
   );

@@ -1,0 +1,34 @@
+export const userInfoProcess = (arr:{
+    Index?:number,
+    Id?:string,
+    Password?: string,
+    Salt?: string,
+    Level: number,
+    BasicDamage: number,
+    BasicHp: number,
+    WeaponDamage: number,
+    WeaponHp: number,
+    EquipDamage: number,
+    EquipHp: number,
+    Gold: number,
+    Inventory: null | number,
+    PenCount: number,
+    HuntingCount: number,
+    UpGoldAll: number,
+    UpGoldHunt: number,
+    UpGoldPen: number,
+    UpWeaponDamage: number,
+    UpWeaponHp: number,
+    DoubleAttack: number,
+    Grabber: number,
+    Exp: number,
+    DungeonFloor: number,
+    BetterPen: number,
+    SkillPoint: number}) => {
+    delete arr.Id
+    delete arr.Index
+    delete arr.Password
+    delete arr.Salt
+    
+    return arr
+}

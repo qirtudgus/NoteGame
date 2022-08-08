@@ -30,6 +30,7 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
         UpGoldPen: rows[0].UpGoldPen,
         UpGoldHunt: rows[0].UpGoldHunt,
         DungeonFloor: rows[0].DungeonFloor,
+        BetterPen: rows[0].BetterPen,
       };
       const token: unknown = createToken(id);
       // req.decoded = checkToken(token)
@@ -79,6 +80,7 @@ loginRouter.post('/localstorage', (req, res) => {
           UpGoldPen: rows[0].UpGoldPen,
           UpGoldHunt: rows[0].UpGoldHunt,
           DungeonFloor: rows[0].DungeonFloor,
+          BetterPen: rows[0].BetterPen,
         };
         res.status(200).json({
           code: 200,
