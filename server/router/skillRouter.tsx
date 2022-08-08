@@ -51,7 +51,7 @@ skillRouter.post('/skillup', (req, res, next) => {
     console.log(userInfoProcess(rows[0]))
 
 
-    res.status(200).json({ code: 200, userInfo: { ...userInfo } });
+    res.status(200).json({ code: 200, userInfo: userInfoProcess(rows[0])});
   });
 
   //   db.query(userFindQuery, [userId], (err, result, fields) => {

@@ -10,6 +10,7 @@ export const userInfoProcess = (arr:{
     WeaponHp: number,
     EquipDamage: number,
     EquipHp: number,
+    beforeGold?:number,
     Gold: number,
     Inventory: null | number,
     PenCount: number,
@@ -25,7 +26,6 @@ export const userInfoProcess = (arr:{
     DungeonFloor: number,
     BetterPen: number,
     SkillPoint: number}) => {
-    delete arr.Id
     delete arr.Index
     delete arr.Password
     delete arr.Salt

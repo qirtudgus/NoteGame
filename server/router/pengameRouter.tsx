@@ -1,11 +1,14 @@
+// userInfoProcess를 사용하지만 해당 라우터에서는 beforeGold라는 변수도 사용하기때문에
+// userInfo 객체에 따로 추가하여 응답해줍니다.
+
 import express, { Request, Response, NextFunction } from 'express';
 import { db } from '../db.js';
+import {userInfoProcess} from '../../src/util/userInfoProcess.js'
 
 export const pengameRouter = express.Router();
 
 const userFindQuery = 'SELECT Gold, UpGoldPen FROM users WHERE ID = ?';
 const rewardUpdateQuery = `UPDATE users SET Gold = ?, PenCount = penCount + 1 WHERE ID = ?`;
-
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
 pengameRouter.post('/multiple', (req, res, next) => {
@@ -20,21 +23,9 @@ pengameRouter.post('/multiple', (req, res, next) => {
     );
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
-        const userInfo = {
-          Level: rows[0].Level,
-          BasicDamage: rows[0].BasicDamage,
-          BasicHp: rows[0].BasicHp,
-          WeaponDamage: rows[0].WeaponDamage,
-          WeaponHp: rows[0].WeaponHp,
-          Gold: rows[0].Gold,
-          beforeGold,
-          SkillPoint: rows[0].SkillPoint,
-          UpGoldPen: rows[0].UpGoldPen,
-          UpGoldHunt: rows[0].UpGoldHunt,
-          DungeonFloor: rows[0].DungeonFloor,
-        };
-
-        res.status(200).json({ code: 200, userInfo: { ...userInfo } });
+        const userInfo = userInfoProcess(rows[0])
+        userInfo.beforeGold = beforeGold
+        res.status(200).json({ code: 200, userInfo:userInfo });
       });
     });
   });
@@ -53,7 +44,6 @@ pengameRouter.post('/add', (req, res, next) => {
     //스킬 1당 1%를 보너스로 지급
     let subGold = (speedGold * skillBonus) / 100;
     let BonusGold = speedGold + subGold;
-
     let resultGold = parseInt(result[0].Gold) + BonusGold;
     let beforeGold = parseInt(result[0].Gold);
     console.log(subGold, BonusGold, resultGold);
@@ -62,21 +52,10 @@ pengameRouter.post('/add', (req, res, next) => {
     );
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
-        const userInfo = {
-          Level: rows[0].Level,
-          BasicDamage: rows[0].BasicDamage,
-          BasicHp: rows[0].BasicHp,
-          WeaponDamage: rows[0].WeaponDamage,
-          WeaponHp: rows[0].WeaponHp,
-          Gold: rows[0].Gold,
-          beforeGold,
-          SkillPoint: rows[0].SkillPoint,
-          UpGoldPen: rows[0].UpGoldPen,
-          UpGoldHunt: rows[0].UpGoldHunt,
-          DungeonFloor: rows[0].DungeonFloor,
-        };
+        const userInfo = userInfoProcess(rows[0])
+        userInfo.beforeGold = beforeGold
 
-        res.status(200).json({ code: 200, userInfo: { ...userInfo } });
+        res.status(200).json({ code: 200, userInfo:userInfo});
       });
     });
   });
@@ -101,21 +80,9 @@ pengameRouter.post('/deduct', (req, res, next) => {
 
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
-        const userInfo = {
-          Level: rows[0].Level,
-          BasicDamage: rows[0].BasicDamage,
-          BasicHp: rows[0].BasicHp,
-          WeaponDamage: rows[0].WeaponDamage,
-          WeaponHp: rows[0].WeaponHp,
-          Gold: rows[0].Gold,
-          beforeGold,
-          SkillPoint: rows[0].SkillPoint,
-          UpGoldPen: rows[0].UpGoldPen,
-          UpGoldHunt: rows[0].UpGoldHunt,
-          DungeonFloor: rows[0].DungeonFloor,
-        };
-
-        res.status(200).json({ code: 200, userInfo: { ...userInfo } });
+        const userInfo = userInfoProcess(rows[0])
+        userInfo.beforeGold = beforeGold
+        res.status(200).json({ code: 200, userInfo:userInfo });
       });
     });
   });

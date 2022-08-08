@@ -4,6 +4,8 @@ import checkHashPasswordeck from '../../src/util/checkHashPassword.js';
 import createToken from '../../src/util/createToken.js';
 import checkToken from '../../src/util/checkToken.js';
 import { JwtPayload } from 'jsonwebtoken';
+import {userInfoProcess} from '../../src/util/userInfoProcess.js'
+
 export const loginRouter = express.Router();
 
 loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
@@ -18,7 +20,7 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
     // db조회값이 있을 시
     else {
       console.log(`로그인 시간
-            ${req.requestTime}`);
+         ${id}님   ${req.requestTime}`);
       const userInfo = {
         Level: rows[0].Level,
         BasicDamage: rows[0].BasicDamage,
@@ -82,6 +84,8 @@ loginRouter.post('/localstorage', (req, res) => {
           DungeonFloor: rows[0].DungeonFloor,
           BetterPen: rows[0].BetterPen,
         };
+
+
         res.status(200).json({
           code: 200,
           token: req.body.token.token,

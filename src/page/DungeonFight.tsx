@@ -145,6 +145,7 @@ const Box = styled.div`
 
 interface startBtnSuppressor{
   supp?:boolean;
+  color?:number | string;
 }
 
 const StartBtn = styled.div<startBtnSuppressor>`
@@ -153,30 +154,15 @@ const StartBtn = styled.div<startBtnSuppressor>`
   bottom: 35px;
   width: 175px;
   height: 175px;
-  background: #fff;
+  background: ${(props) =>props.color};
   text-align: center;
   line-height: 4rem;
   border-radius: 20px;
   font-size: 2rem;
   font-weight: bold;
   z-index: 5000;
-
 `;
-const StartBtn2 = styled.div<startBtnSuppressor>`
-  position: absolute;
-  right: 40px;
-  bottom: 35px;
-  width: 175px;
-  height: 175px;
-  background: #333;
-  text-align: center;
-  line-height: 4rem;
-  border-radius: 20px;
-  font-size: 2rem;
-  font-weight: bold;
-  z-index: 5000;
 
-`;
 
 
 const damageTextAni = keyframes`
@@ -393,15 +379,16 @@ const DungeonFight = () => {
 
 
 {supp ? 
- <StartBtn2
+ <StartBtn
  id='startbuttons'
-
+  color='#555'
 >
  ...
-</StartBtn2>
+</StartBtn>
 :
 <StartBtn
 id='startbuttons'
+color='#fff'
 onClick={
   
   penStatus ? () => toggle() : () => toggleExit()}
