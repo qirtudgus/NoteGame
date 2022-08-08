@@ -1,13 +1,15 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React,{ useCallback, useEffect, useRef, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
-import { useDispatch } from 'react-redux';
 import {PenWrap,Pen,PenEnd,PenHead,gelatine} from "../styledComponents/DungeonFight"
-import { dungeon_request } from '../modules/login';
-import { useNavigate } from 'react-router-dom';
+
+import VictoryModal from '../components/VictoryModal';
+import createRandomNum from '../util/createRandomNum';
+import { monsterArr } from '../util/dungeonMonsterList';
+
 
 const BottomBox = styled.div`
   width: 100%;
@@ -18,11 +20,16 @@ const BottomBox = styled.div`
 `;
 
 const Character = styled.div`
+justify-content: center;
+display:flex;
+align-items: flex-end;
   width: 200px;
   height: 250px;
-  background: #555;
   position: relative;
   z-index: 10;
+  & img {
+    width:100%;
+  }
 `;
 
 interface dungeonAni{
@@ -39,6 +46,7 @@ const CharacterBox = styled.div<dungeonAni>`
   animation: ${gelatine} 0.35s;
 
   `}
+
 `;
 
 const CharacterBoxWrap = styled.div`
@@ -195,8 +203,9 @@ left:850px;
 
 
 const DungeonFight = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [monsterCall, setMonsterCall] = useState<number | null>(null)
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [victoryModal, setVictoryModal] = useState<boolean>(false);
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
@@ -210,7 +219,6 @@ const DungeonFight = () => {
     monster: '',
   });
 
-  const [throttle, setThrottle] = useState(false);
   const [userHpBar, setUserHpBar] = useState({
     HpBarWidth : 100,
     nowHp: 100,
@@ -235,20 +243,11 @@ const DungeonFight = () => {
 
   const toggle = () => {
     setPenSatus((penStatus) => !penStatus);
-    //체력 퍼센트 구해서 hp바 너비에 할당
-    // if (throttle) return;
-    // if (!throttle) {
-    //   setThrottle(true);
-    //   setTimeout(async () => {
-    //     setPenSatus((penStatus) => !penStatus);
-    //   }, 0);
-    // }
   };
 
   const toggleExit = async () => {
     setPenSatus((penStatus) => !penStatus);
     setSupp(true)
-
     await getReward();
   };
 
@@ -271,14 +270,18 @@ const DungeonFight = () => {
     let resultDamage = userDamage * (damage / 100);
     let hp:number = monsterHpBar.nowHp - resultDamage;
     let hpbar = Math.ceil( (hp / monsterInfo.monsterFullHp) * 100);
+
+    //유저가 승리 시
     if(hp <= 0){
       setGelatineAni({user:false,monster:true})
       setMonsterHpBar({HpBarWidth:hpbar,nowHp:0})
-      dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
-      // navigate(-1)
+      setVictoryModal( true)
+      setIsModal(true)
+      // dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
       return
     }
-    setDamageText({monster:resultDamage,user:monsterInfo.monsterDamage})
+    //전투
+    setDamageText({...damageText,monster:resultDamage})
     setMonsterHpBar({HpBarWidth:hpbar,nowHp:hp})
     setRefresh((refresh) => !refresh)
     setGelatineAni({user:false,monster:true})
@@ -286,15 +289,29 @@ const DungeonFight = () => {
 
     setTimeout(function(){
       monsterAttack()
-    },1000)
+    },800)
   }
 
   //몬스터 -> 사용자 공격 함수
   const monsterAttack = () => {
     let damage = monsterInfo.monsterDamage;
+    let randomAddDamage = createRandomNum(1, 10)
+    let resultDamage = Math.ceil(damage + (damage * randomAddDamage / 10))
+    setDamageText({...damageText,user:resultDamage})
+
+    console.log(resultDamage)
     let userHp = userHpBar.nowHp;
-    let resultHp = userHp - damage;
+    let resultHp = userHp - resultDamage;
     let resultHpBar = Math.ceil( resultHp / userInfo.BasicHp * 100)
+    //몬스터가 승리 시
+    if(resultHp <= 0) {
+    
+      setGelatineAni({user:true,monster:false})
+      setUserHpBar({HpBarWidth:resultHpBar, nowHp:0})
+      setVictoryModal( false)
+      setIsModal(true)
+      return
+    }
     setGelatineAni({user:true,monster:false})
     setUserHpBar({HpBarWidth:resultHpBar, nowHp:resultHp})
     setSupp(false)
@@ -307,6 +324,7 @@ const DungeonFight = () => {
   useEffect(()=>{
     setMonsterHpBar({...monsterHpBar,nowHp: monsterInfo.monsterFullHp})
     setUserHpBar({HpBarWidth:100, nowHp: userInfo.BasicHp})
+    setMonsterCall(createRandomNum(0,monsterArr.length -1 ))
   },[])
 
   const gameStart = useCallback((e: any) => {
@@ -324,9 +342,9 @@ const DungeonFight = () => {
       document.removeEventListener('keypress', gameStart);
     };
   }, [gameStart]);
-
   return (
     <>
+    {isModal ? <VictoryModal isModal={victoryModal} huntExp={monsterInfo.monsterExp} huntGold={monsterInfo.monsterGold}></VictoryModal>: null}
       <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
       <CharacterBoxWrap>
       {gelatineAni.user? <DamageText>-{damageText.user}</DamageText>: null}
@@ -356,7 +374,11 @@ const DungeonFight = () => {
             <MonsterHpBar width={monsterHpBar.HpBarWidth}></MonsterHpBar>
             <BgBar></BgBar>
           </HpBox>
-          <Character>몬스터</Character>
+          <Character>
+          {monsterArr[monsterCall!]}
+
+
+          </Character>
         </CharacterBox>
       </CharacterBoxWrap>
 
@@ -376,7 +398,7 @@ const DungeonFight = () => {
  id='startbuttons'
 
 >
- {penStatus ? '중지' : '중지'}
+ ...
 </StartBtn2>
 :
 <StartBtn
@@ -405,4 +427,4 @@ onClick={
   );
 };
 
-export default DungeonFight;
+export default React.memo( DungeonFight);
