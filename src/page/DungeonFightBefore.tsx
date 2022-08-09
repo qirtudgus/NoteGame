@@ -9,6 +9,7 @@ import {PenWrap,Pen,PenEnd,PenHead,gelatine} from "../styledComponents/DungeonFi
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
+import { useNavigate } from 'react-router-dom';
 
 
 const BottomBox = styled.div`
@@ -188,7 +189,8 @@ left:850px;
 
 
 
-const DungeonFight = () => {
+const DungeonFightBefore = () => {
+    const navigate = useNavigate()
   const [monsterCall, setMonsterCall] = useState<number | null>(null)
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
@@ -336,8 +338,8 @@ const DungeonFight = () => {
   }, [gameStart]);
   return (
     <>
-    {isModal ? <VictoryModal isModal={victoryModal} huntExp={monsterInfo.monsterExp} huntGold={monsterInfo.monsterGold}></VictoryModal>: null}
-      <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
+    {isModal ? <VictoryModal isModal={victoryModal} huntExp={monsterInfo.monsterExp} huntGold={monsterInfo.monsterGold} before={true}></VictoryModal>: null}
+      <FloorBox>{userInfo?.DungeonFloor - 1}층</FloorBox>
       <CharacterBoxWrap>
       {gelatineAni.user? <DamageText>-{damageText.user}</DamageText>: null}
         <CharacterBox gelatine={gelatineAni.user}>
@@ -419,4 +421,4 @@ onClick={
   );
 };
 
-export default React.memo( DungeonFight);
+export default React.memo( DungeonFightBefore);

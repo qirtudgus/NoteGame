@@ -1,15 +1,3 @@
-// export const rewardsList: any = [
-//   '골드 100 차감',
-//   '골드 200 차감',
-//   '골드 500 차감',
-//   '골드 100 획득',
-//   '골드 200 획득',
-//   '골드 500 획득',
-//   '골드 2배 획득',
-//   '골드 3배 획득',
-//   '골드 5배 획득',
-// ];
-
 const frontText: string = '골드';
 const deductText: string = '차감';
 const addText: string = '획득';

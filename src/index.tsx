@@ -21,6 +21,7 @@ import PlayPenGame from './page/PlayPenGame';
 import Skill from './page/Skill';
 import Dungeon from './page/Dungeon';
 import DungeonFight from './page/DungeonFight';
+import DungeonFightBefore from './page/DungeonFightBefore';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
 //두번째인자에 사용할 미들웨어를 추가해주었다.
@@ -61,6 +62,7 @@ root.render(
           <Route path='/skill' element={<Skill />}></Route>
           <Route path='/dungeon' element={<Dungeon />}></Route>
           <Route path='/dungeonfight' element={<DungeonFight />}></Route>
+          <Route path='/dungeonfightbefore' element={<DungeonFightBefore />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

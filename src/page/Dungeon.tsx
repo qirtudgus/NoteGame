@@ -67,7 +67,12 @@ const Dungeon = () => {
       <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
 
       <MoveBoxWrap>
-        <MoveBox>
+        <MoveBox
+         onClick={() => {
+          dispatch(create_monster_request(userInfo?.DungeonFloor! - 1))
+          navigate('/dungeonfightbefore');
+        }}
+        >
           <img src={arrowLeft} alt="arrow"></img>이전 층으로
         </MoveBox>
         <MoveBox2

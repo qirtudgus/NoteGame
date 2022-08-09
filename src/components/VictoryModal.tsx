@@ -53,13 +53,29 @@ const VictoryModal = (props: any) => {
           <p style={result}>골드 {props.huntGold} 획득</p>
           <BasicButtons
             ClassName={props.cName}
-            ButtonText='다음층으로'
+            ButtonText={props.before ? '돌아가기' :'다음층으로'}
             color='#e5005a'
-            OnClick={()=>{
-                dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
+          OnClick={props.before ? 
+            ()=>{
+              console.log("이전층 클리어")
+              console.log(props.before)
+                    dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp,props.before))
+                    navigate(-1)
+                }
+            :
+            ()=>{
+              console.log("현재층 클리어")
 
-                navigate(-1)
-            }}
+              dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
+              navigate(-1)
+          }
+          }
+
+          //   OnClick={()=>{
+          //       dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
+          //       navigate(-1)
+          //   }
+          // }
           ></BasicButtons>
         </Bg>
       ) : (

@@ -26,9 +26,9 @@ export const DUNGEON_VICTORY = 'login/DUNGEON_VICTORY' as const;
 
 
 
-export const dungeon_request = (monsterGold:number,monsterExp:number) => ({
+export const dungeon_request = (monsterGold:number,monsterExp:number, before?:boolean) => ({
   type: DUNGEON_REQUEST,
-  payload: { monsterGold, monsterExp },
+  payload: { monsterGold, monsterExp,before },
 });
 
 
