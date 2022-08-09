@@ -11,12 +11,17 @@ import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
 
 
-const BottomBox = styled.div`
+const BottomBox = styled.div<dungeonAni>`
   width: 100%;
   height: 300px;
   position: absolute;
   bottom: 0px;
   background: #928282;
+  ${(props) => props.gelatine &&
+    css`
+  animation: ${gelatine} 0.35s;
+
+  `}
 `;
 
 const Character = styled.div`
@@ -413,7 +418,7 @@ onClick={
         ))}
       </BoxWrap>
 
-      <BottomBox></BottomBox>
+      <BottomBox  gelatine={gelatineAni.monster}></BottomBox>
       <BackHistoryBtn corner></BackHistoryBtn>
       </>
   );

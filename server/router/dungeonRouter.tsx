@@ -8,7 +8,7 @@ const VictoryBeforeQuery = `UPDATE users SET Gold = Gold + ? ,Exp = Exp + ? WHER
 const VictoryQuery = `UPDATE users SET DungeonFloor = DungeonFloor + 1, Gold = Gold + ? ,Exp = Exp + ? WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
-const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0 WHERE ID = ?`;
+const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1 WHERE ID = ?`;
 
 dungeonRouter.post('/victory', (req, res, next) => {
   const userId = req.decoded.userId;

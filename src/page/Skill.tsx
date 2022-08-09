@@ -1,14 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { skill_request } from '../modules/login';
+import styled from 'styled-components';
+
+const SkillPageWrap = styled.div`
+width:100%;
+height:100%;
+background:#e5005a;
+`
+
+const SkillTap = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+width:33.3%;
+height:100%;
+background:#eee;
+`
+
+const SkillTabWrap = styled.div`
+display:flex;
+width:100%;
+height:90px;
+background:#555;
+`
+
+const SkillWrap = styled.div`
+display:flex;
+flex-direction: column;
+width:700px;
+height:600px;
+background:#333;
+`
+
+
+
+
 const Skill = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const dispatch = useDispatch();
+  const [isSkillTab, setIsSkillTab] = useState('passive')
+
   return (
     <>
       <BackHistoryBtn corner></BackHistoryBtn>
+      <SkillWrap>
+        <SkillTabWrap>
+          <SkillTap>패시브</SkillTap>
+          <SkillTap>액티브</SkillTap>
+          <SkillTap>케케브</SkillTap>
+          <p>스킬 포인트 {userInfo?.SkillPoint}</p>
+
+        </SkillTabWrap>
+        <SkillPageWrap>{{
+          passive:
+          <>
       <div>
         <p>황금 볼펜</p>
         <p>Lv {userInfo?.UpGoldPen}</p>
@@ -48,9 +96,13 @@ const Skill = () => {
       >
         레벨업
       </button>
-      
-      <p>남은 스킬 포인트 {userInfo?.SkillPoint}</p>
+      </>
+      }[isSkillTab]}
+
+      </SkillPageWrap>
+      </SkillWrap>
     </>
+    
   );
 };
 
