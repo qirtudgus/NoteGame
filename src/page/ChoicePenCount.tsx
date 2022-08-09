@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import BackGround from '../components/BackGround';
 import BackHistoryBtn from '../components/BackHistoryBtn';
-import UserInfo from '../components/userInfo';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { pengame_boxcount_success } from '../modules/pengameBoxCount';
@@ -85,7 +84,6 @@ const ChoicePenCount = () => {
         </PenCountBox>
       </PenCountWrap>
       <BackHistoryBtn corner />
-      <UserInfo></UserInfo>
     </>
   );
 };

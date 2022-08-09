@@ -1,5 +1,4 @@
 import styled, { keyframes, css } from 'styled-components';
-import UserInfo from '../components/userInfo';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';

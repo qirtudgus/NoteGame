@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import BackGround from '../components/BackGround';
-import UserInfo from '../components/userInfo';
+import UserInfo from '../components/UserInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 

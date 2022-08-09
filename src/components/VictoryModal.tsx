@@ -59,12 +59,12 @@ const VictoryModal = (props: any) => {
             color='#e5005a'
           OnClick={props.before ? 
             ()=>{
-                    dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt ,props.before))
+                    dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt , userInfo.Exp, userInfo.Level, props.before))
                     navigate(-1)
                 }
             :
             ()=>{
-              dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt))
+              dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt, userInfo.Exp, userInfo.Level ))
               navigate(-1)
           }
           }

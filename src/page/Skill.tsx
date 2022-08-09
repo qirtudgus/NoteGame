@@ -12,7 +12,7 @@ const Skill = () => {
       <div>
         <p>황금 볼펜</p>
         <p>Lv {userInfo?.UpGoldPen}</p>
-        볼펜 굴리기로 획득하는 골드가 상승합니다.
+        볼펜 굴리기로 획득하는 골드가 {userInfo?.UpGoldPen! * 1}% 상승합니다.
         <button
           onClick={(e) => {
             if(userInfo?.SkillPoint! <= 0) return
@@ -25,7 +25,7 @@ const Skill = () => {
       <div>
         <p>부지런한 학생</p>
         <p>Lv {userInfo?.UpGoldHunt}</p>
-        던전에서 획득하는 골드가 상승합니다.
+        던전에서 획득하는 골드가 {userInfo?.UpGoldHunt! * 1}% 상승합니다.
       </div>
       <button
         onClick={(e) => {
@@ -38,7 +38,7 @@ const Skill = () => {
       <div>
         <p>펜은 칼보다 강하다.</p>
         <p>Lv {userInfo?.BetterPen}</p>
-        던전에서 공격력이 상승합니다.
+        던전에서 공격력이  {userInfo?.BetterPen! * 2}% 상승합니다.
       </div>
       <button
         onClick={(e) => {

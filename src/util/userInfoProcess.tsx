@@ -23,9 +23,11 @@ interface UserInfo {
     DoubleAttack: number,
     Grabber: number,
     Exp: number,
+    NeedExp?:number,
     DungeonFloor: number,
     BetterPen: number,
-    SkillPoint: number
+    SkillPoint: number,
+
 }
 
 export const userInfoProcess = (arr:UserInfo) => {
