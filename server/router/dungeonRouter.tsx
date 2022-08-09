@@ -10,11 +10,11 @@ const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
 dungeonRouter.post('/victory', (req, res, next) => {
   const userId = req.decoded.userId;
-  const { monsterGold, monsterExp } = req.body;
-  console.log(req.body.before)
+  const { monsterGold, monsterExp,UpGoldHunt } = req.body;
+  const resultGold:number = Math.ceil(monsterGold + (monsterGold * UpGoldHunt / 100))
 
   if(req.body.before === true){
-    db.query(VictoryBeforeQuery,[monsterGold,monsterExp,userId],(err,rows,fields) => {
+    db.query(VictoryBeforeQuery,[resultGold,monsterExp,userId],(err,rows,fields) => {
       db.query(loginQuery, [userId], (err, rows, fields) => {
         const userInfo = userInfoProcess(rows[0])
         res.status(200).json({ code: 200, userInfo: userInfo });
@@ -22,7 +22,7 @@ dungeonRouter.post('/victory', (req, res, next) => {
     })
     return
   }else{
-    db.query(VictoryQuery,[monsterGold,monsterExp,userId],(err,rows,fields) => {
+    db.query(VictoryQuery,[resultGold,monsterExp,userId],(err,rows,fields) => {
       db.query(loginQuery, [userId], (err, rows, fields) => {
         const userInfo = userInfoProcess(rows[0])
         res.status(200).json({ code: 200, userInfo: userInfo });

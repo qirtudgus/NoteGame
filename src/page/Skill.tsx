@@ -15,6 +15,7 @@ const Skill = () => {
         볼펜 굴리기로 획득하는 골드가 상승합니다.
         <button
           onClick={(e) => {
+            if(userInfo?.SkillPoint! <= 0) return
             dispatch(skill_request('UpGoldPen', userInfo?.SkillPoint!));
           }}
         >
@@ -28,6 +29,7 @@ const Skill = () => {
       </div>
       <button
         onClick={(e) => {
+          if(userInfo?.SkillPoint! <= 0) return
           dispatch(skill_request('UpGoldHunt', userInfo?.SkillPoint!));
         }}
       >
@@ -40,6 +42,7 @@ const Skill = () => {
       </div>
       <button
         onClick={(e) => {
+          if(userInfo?.SkillPoint! <= 0) return
           dispatch(skill_request('BetterPen', userInfo?.SkillPoint!));
         }}
       >

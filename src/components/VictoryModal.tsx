@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { dungeon_request } from '../modules/login';
 import BasicButtons from './BasicBtn';
 import { RootState } from '../modules/modules_index';
+import { userInfo } from 'os';
 
 
 const BgWrap = styled.div`
@@ -44,38 +45,29 @@ const VictoryModal = (props: any) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const monsterInfo:any = useSelector((state: RootState) => state.monsterInfo.monsterInfo)
+    const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
     return (
     <BgWrap>
       {props.isModal ? (
         <Bg>
           <p style={result}>승리!</p>
           <p style={result}>경험치 {props.huntExp} 획득</p>
-          <p style={result}>골드 {props.huntGold} 획득</p>
+          <p style={result}>골드 {Math.ceil(props.huntGold + (props.huntGold *userInfo.UpGoldHunt / 100 ))} 획득</p>
           <BasicButtons
             ClassName={props.cName}
             ButtonText={props.before ? '돌아가기' :'다음층으로'}
             color='#e5005a'
           OnClick={props.before ? 
             ()=>{
-              console.log("이전층 클리어")
-              console.log(props.before)
-                    dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp,props.before))
+                    dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt ,props.before))
                     navigate(-1)
                 }
             :
             ()=>{
-              console.log("현재층 클리어")
-
-              dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
+              dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt))
               navigate(-1)
           }
           }
-
-          //   OnClick={()=>{
-          //       dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
-          //       navigate(-1)
-          //   }
-          // }
           ></BasicButtons>
         </Bg>
       ) : (

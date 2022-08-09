@@ -40,6 +40,7 @@ pengameRouter.post('/add', (req, res, next) => {
   db.query(userFindQuery, [userId], (err, result, fields) => {
     let skillBonus = result[0].UpGoldPen;
     console.log(skillBonus);
+    //걸린 리워드 x 스피드
     let speedGold = reward * speed;
     //스킬 1당 1%를 보너스로 지급
     let subGold = (speedGold * skillBonus) / 100;
