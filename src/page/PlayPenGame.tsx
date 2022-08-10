@@ -1,6 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import BasicButtons from '../components/BasicBtn';
 import { pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
@@ -121,13 +120,6 @@ const TestInput = styled.div`
   font-weight: bold;
 `;
 
-// document.addEventListener('click', logKey);
-// function logKey(e: any) {
-//   console.log(`
-//     Screen X/Y: ${e.screenX}, ${e.screenY}
-//     Client X/Y: ${e.clientX}, ${e.clientY}`);
-// }
-
 const PlayPenGame = () => {
   const dispatch = useDispatch();
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
@@ -151,10 +143,10 @@ const PlayPenGame = () => {
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
-    let cb: any = document.elementFromPoint(x, y);
-    let reward = cb.dataset.number;
-    let action = cb.dataset.action;
-    if (reward === undefined) {
+    const cb = document.elementFromPoint(x, y) as HTMLElement;
+    let reward: number = parseInt(cb.dataset.number as string);
+    let action = cb.dataset.action as string;
+    if (isNaN(reward)) {
       setIsFalseModal(false);
       setIsModal((isModal) => !isModal);
     } else {
@@ -224,7 +216,7 @@ const PlayPenGame = () => {
   };
 
   const gameStart = useCallback((e: any) => {
-    console.log(e.keyCode)
+    console.log(e.keyCode);
     let startBtn = document.getElementById('startbutton');
     if (e.keyCode === 32) {
       startBtn?.click();

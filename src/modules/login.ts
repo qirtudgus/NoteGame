@@ -22,7 +22,7 @@ export const DUNGEON_REQUEST = 'login/DUNGEON_REQUEST' as const;
 export const DUNGEON_VICTORY = 'login/DUNGEON_VICTORY' as const;
 
 //userInfo 초기값 객체
-let setUesrInfo = {
+export let setUesrInfo = {
   Level: 0,
   BasicDamage: 0,
   BasicHp: 0,
@@ -35,30 +35,32 @@ let setUesrInfo = {
   UpGoldPen: 0,
   UpGoldHunt: 0,
   DungeonFloor: 0,
-  BetterPen:0,
-  Exp:0,
-  NeedExp:0,
-}
+  BetterPen: 0,
+  Exp: 0,
+  NeedExp: 0,
+};
 
-
-
-
-export const dungeon_request = (monsterGold:number,monsterExp:number,UpGoldHunt:number, userExp:number, userLevel:number, before?:boolean ) => ({
+export const dungeon_request = (
+  monsterGold: number,
+  monsterExp: number,
+  UpGoldHunt: number,
+  userExp: number,
+  userLevel: number,
+  before?: boolean,
+) => ({
   type: DUNGEON_REQUEST,
-  payload: { monsterGold, monsterExp,before, UpGoldHunt, userExp, userLevel },
+  payload: { monsterGold, monsterExp, before, UpGoldHunt, userExp, userLevel },
 });
 
-
 export const dungeon_victory = () => ({
-  type:DUNGEON_VICTORY,
+  type: DUNGEON_VICTORY,
   userInfo: setUesrInfo,
-})
+});
 
 export const skill_request = (skillName: string, skillPoint: number) => ({
   type: SKILL_REQUEST,
   payload: { skillName, skillPoint },
 });
-
 
 export const skill_up = () => ({
   type: SKILL_UP,
@@ -92,7 +94,7 @@ export const login_localstorage_success = (token: string | undefined) => ({
   type: LOGIN_LOCALSTORAGE_SUCCESS,
   token: { token },
   id: undefined,
-  userInfo:setUesrInfo,
+  userInfo: setUesrInfo,
 });
 
 export const login_localstorage_failure = () => ({
@@ -117,7 +119,7 @@ export const pengame_request = (
 
 export const pengame_multiple = () => ({
   type: PENGAME_MULTIPLE,
-  userInfo:setUesrInfo,
+  userInfo: setUesrInfo,
 });
 
 // 모든 액션 겍체들에 대한 타입을 준비해줍니다.
@@ -156,9 +158,9 @@ type IsLoginState = {
     UpGoldPen?: number;
     UpGoldHunt?: number;
     DungeonFloor?: number;
-    BetterPen?:number;
-    Exp?:number;
-    NeedExp?:number;
+    BetterPen?: number;
+    Exp?: number;
+    NeedExp?: number;
   };
 };
 
@@ -228,7 +230,7 @@ const LoginRequest = (
       return { ...state, userInfo: action.userInfo };
     }
     case DUNGEON_VICTORY: {
-      return { ...state, userInfo: action.userInfo};
+      return { ...state, userInfo: action.userInfo };
     }
     default:
       return state;
