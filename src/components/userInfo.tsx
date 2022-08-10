@@ -8,7 +8,7 @@ import { expTable } from '../util/expTable';
 import React from 'react';
 
 const BasicBox = styled.div`
-  width: 150px;
+  width: 100%;
   height: 150px;
   position: absolute;
   bottom: 20px;
@@ -42,8 +42,9 @@ const UserInfo = ({ children }: children) => {
       <p>체력 {userInfo?.BasicHp}</p>
       <p>공격력 {userInfo?.BasicDamage}</p>
       <p>골드 {userInfo?.Gold.toLocaleString()}</p>
-      <p>보유 경험치 {userInfo?.Exp}</p>
-      <p>필요 경험치 {expTable[userInfo?.Level!]}</p>
+      <p>
+        경험치 {userInfo?.Exp} / {expTable[userInfo?.Level!]}
+      </p>
       <button onClick={logOutRequest}>로그아웃</button>
     </BasicBox>
   );

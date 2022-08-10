@@ -11,8 +11,11 @@ const min: number = 0;
 const max: number = arr;
 const dungeonMax: number = dungeonArr;
 
-const createRandomNumArray = (boxCount: number | null, useListName:useListName) => {
-  const randomResult: any = [];
+const createRandomNumArray = (
+  boxCount: number | null,
+  useListName: useListName,
+) => {
+  const randomResult: any[] = [];
 
   if (useListName === 'penGame') {
     while (randomResult.length < boxCount!) {

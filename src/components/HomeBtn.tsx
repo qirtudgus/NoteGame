@@ -32,7 +32,7 @@ const Home = styled.div<cornerBtn>`
     props.corner &&
     css`
       position: absolute;
-      top: 20px;
+      top: 90px;
       left: 220px;
     `}
 `;

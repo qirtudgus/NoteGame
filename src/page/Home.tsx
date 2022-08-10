@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../modules/modules_index';
 import { logout } from '../modules/login';
 import BasicBoxs from '../components/userInfo';
-
+import HeaderBtnCollection from '../components/HeaderBtnCollection';
 const Home = () => {
   const isTokenExPired = useSelector(
     (state: RootState) => state.login.tokenExpired,

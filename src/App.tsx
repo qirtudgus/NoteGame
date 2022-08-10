@@ -42,26 +42,24 @@ function App() {
 
   return (
     <>
-      <BackGround>
-        <BasicInputs
-          value={Id}
-          placeholder='아이디'
-          OnChange={onChangeId}
-        ></BasicInputs>
-        <BasicInputs
-          value={Password}
-          placeholder='비밀번호'
-          OnChange={onChangePassword}
-        ></BasicInputs>
-        <BasicButtons
-          ButtonText='로그인'
-          color='#e1550a'
-          OnClick={loginRequest}
-        ></BasicButtons>
-        <Link to='/register'>
-          <BasicButtons ButtonText='회원가입' color='#e1550a'></BasicButtons>
-        </Link>
-      </BackGround>
+      <BasicInputs
+        value={Id}
+        placeholder='아이디'
+        OnChange={onChangeId}
+      ></BasicInputs>
+      <BasicInputs
+        value={Password}
+        placeholder='비밀번호'
+        OnChange={onChangePassword}
+      ></BasicInputs>
+      <BasicButtons
+        ButtonText='로그인'
+        color='#e1550a'
+        OnClick={loginRequest}
+      ></BasicButtons>
+      <Link to='/register'>
+        <BasicButtons ButtonText='회원가입' color='#e1550a'></BasicButtons>
+      </Link>
     </>
   );
 }

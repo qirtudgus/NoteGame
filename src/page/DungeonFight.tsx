@@ -190,6 +190,11 @@ const DamageText = styled.div<HpInterface>`
     `}
 `;
 
+const FloorText = styled.p`
+  font-size: 2rem;
+  font-weight: bold;
+`;
+
 const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -345,7 +350,9 @@ const DungeonFight = () => {
           huntGold={monsterInfo.monsterGold}
         ></VictoryModal>
       ) : null}
-      <FloorBox>{userInfo?.DungeonFloor}층</FloorBox>
+      <FloorBox>
+        <FloorText>{userInfo?.DungeonFloor}층</FloorText>
+      </FloorBox>
       <CharacterBoxWrap>
         {gelatineAni.user ? <DamageText>-{damageText.user}</DamageText> : null}
         <CharacterBox gelatine={gelatineAni.user}>
