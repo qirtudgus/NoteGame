@@ -6,9 +6,11 @@ import 하이테크 from '../img/하이테크.png';
 import { forwardRef } from 'react';
 
 interface penAni {
-  penStatus?: boolean;
+  penStatus: boolean;
   ref?: any;
-  penSpeed?: number;
+  penSpeed: number;
+  //던전에서 사용 시 css
+  isDungeon?: boolean;
 }
 
 const animation = keyframes`
@@ -22,18 +24,30 @@ const animation = keyframes`
       transform:translate(-20em);
     }
   `;
+const animationDungeon = keyframes`
+  0% {
+    transform:translate(-20em);
+  }
+50%{
+  transform:translate(8.5em); 
+ }
+  100%{
+    transform:translate(-20em);
+  }
+`;
 
 const PenWrap = styled.div<penAni>`
-  position: relative;
+  position: absolute;
   height: 370px;
   overflow-y: clip;
   width: 40px;
-  bottom: -183px;
-  left: -130px;
-  z-index: 2;
+  bottom: 0px;
+  left: 350px;
+  z-index: 100;
   animation-fill-mode: both;
   animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
+
   ${(props) =>
     props.penStatus &&
     css`
@@ -50,7 +64,7 @@ const PenEnd = styled.div<penAni>`
   height: 100px;
   background: rgba(0, 0, 0, 1);
   position: absolute;
-  z-index: 3;
+  z-index: 100;
   top: 400px;
   left: 370px;
   margin: none;
@@ -64,19 +78,71 @@ const PenEnd = styled.div<penAni>`
     `}
 `;
 
-const Ballpen = (props: any, ref: any) => {
+const PenWrapDungeon = styled.div<penAni>`
+  position: absolute;
+  height: 150px;
+  overflow-y: clip;
+  width: 40px;
+  bottom: 0px;
+  left: 570px;
+  z-index: 100;
+  animation-fill-mode: both;
+  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out
+    infinite; //1초동안 선형 무한 속성값주기
+  animation-play-state: running;
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+  & img {
+    position: absolute;
+    left: 0;
+  }
+`;
+
+const PenEndDungeon = styled.div<penAni>`
+  width: 1px;
+  height: 100px;
+  background: rgba(0, 0, 0, 1);
+  position: absolute;
+  z-index: 100;
+  top: 600px;
+  left: 590px;
+  margin: none;
+  animation-fill-mode: both;
+  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out
+    infinite; //1초동안 선형 무한 속성값주기
+  animation-play-state: running;
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+`;
+
+const Ballpen = ({ penSpeed, penStatus, isDungeon }: any, ref: any) => {
   return (
     <>
-      <PenEnd
-        penStatus={props.penStatus}
-        ref={ref}
-        penSpeed={props.penSpeed.speed}
-      ></PenEnd>
-      <PenWrap penSpeed={props.penSpeed.speed} penStatus={props.penStatus}>
-        <img src={하이테크}></img>
-        {/* <PenHead></PenHead>
-        <Pen></Pen> */}
-      </PenWrap>
+      {isDungeon ? (
+        <>
+          <PenEndDungeon
+            penStatus={penStatus}
+            ref={ref}
+            penSpeed={penSpeed}
+          ></PenEndDungeon>
+          <PenWrapDungeon penSpeed={penSpeed} penStatus={penStatus}>
+            <img src={모남볼펜} alt='ballpen'></img>
+          </PenWrapDungeon>
+        </>
+      ) : (
+        <>
+          <PenEnd penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEnd>
+          <PenWrap penSpeed={penSpeed} penStatus={penStatus}>
+            <img src={모남볼펜} alt='ballpen'></img>
+          </PenWrap>
+        </>
+      )}
     </>
   );
 };

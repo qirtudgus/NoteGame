@@ -286,8 +286,7 @@ const PlayPenGame = () => {
       ></PenEnd>
       <PenWrap penSpeed={penSpeed.speed} penStatus={penStatus}>
         <img src={하이테크}></img>
-        <PenHead></PenHead>
-        <Pen></Pen>
+
       </PenWrap> */}
       <BoxWrap>
         {boxCount === 0 ? (

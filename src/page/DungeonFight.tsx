@@ -17,6 +17,7 @@ import { monsterArr } from '../util/dungeonMonsterList';
 import CharacterBox from '../components/CharacterBox';
 import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
+import Ballpen from '../components/Ballpen';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -96,7 +97,7 @@ const BoxWrap = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  bottom: 35px;
+  bottom: 70px;
   z-index: 11;
 `;
 const Box = styled.div`
@@ -128,7 +129,7 @@ interface startBtnSuppressor {
 const StartBtn = styled.div<startBtnSuppressor>`
   position: absolute;
   right: 40px;
-  bottom: 35px;
+  bottom: 70px;
   width: 175px;
   height: 175px;
   background: ${(props) => props.color};
@@ -161,11 +162,6 @@ const DamageText = styled.div<HpInterface>`
     css`
       left: 850px;
     `}
-`;
-
-const FloorText = styled.p`
-  font-size: 2rem;
-  font-weight: bold;
 `;
 
 const DungeonFight = () => {
@@ -353,15 +349,12 @@ const DungeonFight = () => {
         </MonsterBox>
       </CharacterBoxWrap>
 
-      <PenEnd
+      <Ballpen
         penStatus={penStatus}
         ref={inputRef}
         penSpeed={penSpeed.speed}
-      ></PenEnd>
-      <PenWrap penSpeed={penSpeed.speed} penStatus={penStatus}>
-        <PenHead></PenHead>
-        <Pen></Pen>
-      </PenWrap>
+        isDungeon={true}
+      ></Ballpen>
 
       {supp ? (
         <StartBtn id='startbuttons' color='#555'>
