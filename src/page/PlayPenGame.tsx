@@ -12,6 +12,7 @@ import ResultModal from '../components/ResultModal';
 import Loading from '../components/Loading';
 import 모남볼펜 from '../img/모남볼펜.png';
 import 하이테크 from '../img/하이테크.png';
+import Ballpen from '../components/Ballpen';
 
 interface penAni {
   penStatus?: boolean;
@@ -271,16 +272,23 @@ const PlayPenGame = () => {
         func={FastForward}
         text={penSpeed.text}
       ></FastForwardBtn>
-      <PenEnd
+
+      <Ballpen
+        penStatus={penStatus}
+        ref={inputRef}
+        penSpeed={penSpeed.speed}
+      ></Ballpen>
+
+      {/* <PenEnd
         penStatus={penStatus}
         ref={inputRef}
         penSpeed={penSpeed.speed}
       ></PenEnd>
       <PenWrap penSpeed={penSpeed.speed} penStatus={penStatus}>
         <img src={하이테크}></img>
-        {/* <PenHead></PenHead>
-        <Pen></Pen> */}
-      </PenWrap>
+        <PenHead></PenHead>
+        <Pen></Pen>
+      </PenWrap> */}
       <BoxWrap>
         {boxCount === 0 ? (
           <div>뒤로 돌아가 다시 박스 갯수를 정해주세요!</div>
