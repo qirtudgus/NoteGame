@@ -9,48 +9,21 @@ import {
   Pen,
   PenEnd,
   PenHead,
-  gelatine,
 } from '../styledComponents/DungeonFight';
 
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
-import { userInfoInterface } from '../util/userInfoProcess';
+import CharacterBox from '../components/CharacterBox';
+import MonsterBox from '../components/MonsterBox';
+import FloorBox from '../components/FloorBox';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
+  border-radius: 0 0 20px 20px;
   position: absolute;
   bottom: 0px;
   background: #928282;
-`;
-
-const Character = styled.div`
-  justify-content: center;
-  display: flex;
-  align-items: flex-end;
-  width: 200px;
-  height: 250px;
-  position: relative;
-  z-index: 10;
-  & img {
-    width: 100%;
-  }
-`;
-
-interface dungeonAni {
-  gelatine: boolean;
-}
-
-const CharacterBox = styled.div<dungeonAni>`
-  width: 200px;
-  height: 300px;
-  position: relative;
-  z-index: 10;
-  ${(props) =>
-    props.gelatine &&
-    css`
-      animation: ${gelatine} 0.35s;
-    `}
 `;
 
 const CharacterBoxWrap = styled.div`
@@ -60,18 +33,19 @@ const CharacterBoxWrap = styled.div`
   justify-content: space-around;
 `;
 
-const FloorBox = styled.div`
-  align-items: center;
-  position: absolute;
-  top: 100px;
-  font-size: 30px;
-  & img {
-    width: 50px;
-  }
-`;
+// const FloorBox = styled.div`
+//   align-items: center;
+//   position: absolute;
+//   top: 100px;
+//   font-size: 30px;
+//   & img {
+//     width: 50px;
+//   }
+// `;
 
 const HpBox = styled.div`
-  position: absoulte;
+  position: absolute;
+  top: -20px;
   width: 200px;
   height: 50px;
 `;
@@ -83,7 +57,6 @@ interface HpInterface {
 
 const HpBar = styled.div<HpInterface>`
   transition: all 0.5s;
-
   position: absolute;
   height: 20px;
   background: #c93c3c;
@@ -270,8 +243,6 @@ const DungeonFight = () => {
     // 리워드로 계산한 최종데미지
     let resultDamage = Math.ceil(addDamage * (damage / 100));
 
-    console.log(`스킬보너스 받은 데미지 ${addDamage}`);
-    console.log(`데미지 결과 ${resultDamage}`);
     let hp: number = monsterHpBar.nowHp - resultDamage;
     let hpbar = Math.ceil((hp / monsterInfo.monsterFullHp) * 100);
 
@@ -301,8 +272,6 @@ const DungeonFight = () => {
     let randomAddDamage = createRandomNum(1, 10);
     let resultDamage = Math.ceil(damage + (damage * randomAddDamage) / 10);
     setDamageText({ ...damageText, user: resultDamage });
-
-    console.log(resultDamage);
     let userHp = userHpBar.nowHp;
     let resultHp = userHp - resultDamage;
     let resultHpBar = Math.ceil((resultHp / userInfo.BasicHp) * 100);
@@ -350,11 +319,10 @@ const DungeonFight = () => {
           huntGold={monsterInfo.monsterGold}
         ></VictoryModal>
       ) : null}
-      <FloorBox>
-        <FloorText>{userInfo?.DungeonFloor}층</FloorText>
-      </FloorBox>
+      <FloorBox></FloorBox>
       <CharacterBoxWrap>
         {gelatineAni.user ? <DamageText>-{damageText.user}</DamageText> : null}
+
         <CharacterBox gelatine={gelatineAni.user}>
           <HpBox>
             <HpText>
@@ -364,27 +332,25 @@ const DungeonFight = () => {
             <HpBar width={userHpBar.HpBarWidth}></HpBar>
             <BgBar></BgBar>
           </HpBox>
-          <Character>캐릭터</Character>
         </CharacterBox>
 
         {gelatineAni.monster ? (
           <DamageText damageText>-{damageText.monster}</DamageText>
         ) : null}
-        <CharacterBox id='monsterBox' gelatine={gelatineAni.monster}>
+        <MonsterBox
+          id='monsterBox'
+          gelatine={gelatineAni.monster}
+          monsterCall={monsterCall as number}
+        >
           <HpBox>
             <HpText>
               <p>{monsterHpBar.nowHp}</p>
               <p>/ {monsterInfo.monsterFullHp}</p>
-              <p>레벨 {monsterInfo.monsterLevel}</p>
-              <p>공격력 {monsterInfo.monsterDamage}</p>
-              <p>경험치 {monsterInfo.monsterExp}</p>
-              <p>골드 {monsterInfo.monsterGold}</p>
             </HpText>
             <MonsterHpBar width={monsterHpBar.HpBarWidth}></MonsterHpBar>
             <BgBar></BgBar>
           </HpBox>
-          <Character>{monsterArr[monsterCall!]}</Character>
-        </CharacterBox>
+        </MonsterBox>
       </CharacterBoxWrap>
 
       <PenEnd

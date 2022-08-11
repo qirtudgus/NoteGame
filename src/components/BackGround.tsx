@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import 배경 from '../img/배경4.png';
+import 배경 from '../img/배경5.png';
 
 const BgWrap = styled.div`
   width: 100%;

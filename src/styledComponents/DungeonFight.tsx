@@ -1,18 +1,17 @@
-import styled,{css,keyframes} from "styled-components";
+import styled, { css, keyframes } from 'styled-components';
 
 interface penAni {
-    penStatus?: boolean;
-    ref?: any;
-    penSpeed?: number;
-  }
-  
-  export const gelatine = keyframes`
+  penStatus?: boolean;
+  ref?: any;
+  penSpeed?: number;
+}
+
+export const gelatine = keyframes`
   from, to { transform: scale(1, 1); }
   25% { transform: scale(0.9, 1.1); }
   50% { transform: scale(1.1, 0.9); }
   75% { transform: scale(0.95, 1.05); }
-  `
-  
+  `;
 
 export const animation = keyframes`
   0% {
@@ -28,7 +27,7 @@ export const animation = keyframes`
 
 export const PenWrap = styled.div<penAni>`
   z-index: 10000;
-  overflow:hidden;
+  overflow: hidden;
   width: 40px;
   height: 135px;
   position: absolute;

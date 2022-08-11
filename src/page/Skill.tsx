@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { skill_request } from '../modules/login';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SkillPiece from '../components/SkillPiece';
 
 const SkillPageWrap = styled.div`
@@ -16,13 +16,48 @@ const SkillPageWrap = styled.div`
   align-items: center;
 `;
 
-const SkillTap = styled.div`
+interface TabColor {
+  active?: number;
+}
+
+const SkillTap = styled.div<TabColor>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 33.3%;
   height: 100%;
   background: #eee;
+  ${(props) =>
+    props.active === 1 &&
+    css`
+      background: #e5005a;
+    `}
+`;
+const SkillTap2 = styled.div<TabColor>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33.3%;
+  height: 100%;
+  background: #eee;
+  ${(props) =>
+    props.active === 2 &&
+    css`
+      background: #e5005a;
+    `}
+`;
+const SkillTap3 = styled.div<TabColor>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33.3%;
+  height: 100%;
+  background: #eee;
+  ${(props) =>
+    props.active === 3 &&
+    css`
+      background: #e5005a;
+    `}
 `;
 
 const SkillTabWrap = styled.div`
@@ -43,34 +78,39 @@ const SkillWrap = styled.div`
 const Skill = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const dispatch = useDispatch();
-  const [isSkillTab, setIsSkillTab] = useState('passive1');
-
+  const [isSkillTab, setIsSkillTab] = useState({
+    passive: 'passive1',
+    TabNum: 0,
+  });
   return (
     <>
       <BackHistoryBtn corner></BackHistoryBtn>
       <SkillWrap>
         <SkillTabWrap>
           <SkillTap
+            active={isSkillTab.TabNum}
             onClick={() => {
-              setIsSkillTab('passive1');
+              setIsSkillTab({ passive: 'passive1', TabNum: 1 });
             }}
           >
             패시브
           </SkillTap>
-          <SkillTap
+          <SkillTap2
+            active={isSkillTab.TabNum}
             onClick={() => {
-              setIsSkillTab('passive2');
+              setIsSkillTab({ passive: 'passive2', TabNum: 2 });
             }}
           >
             액티브
-          </SkillTap>
-          <SkillTap
+          </SkillTap2>
+          <SkillTap3
+            active={isSkillTab.TabNum}
             onClick={() => {
-              setIsSkillTab('passive3');
+              setIsSkillTab({ passive: 'passive3', TabNum: 3 });
             }}
           >
             케케브
-          </SkillTap>
+          </SkillTap3>
           <p>스킬 포인트 {userInfo?.SkillPoint}</p>
         </SkillTabWrap>
         <SkillPageWrap>
@@ -120,7 +160,7 @@ const Skill = () => {
                   <SkillPiece></SkillPiece>
                 </>
               ),
-            }[isSkillTab]
+            }[isSkillTab.passive]
           }
         </SkillPageWrap>
       </SkillWrap>

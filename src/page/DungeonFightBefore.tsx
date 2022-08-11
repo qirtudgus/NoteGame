@@ -23,6 +23,7 @@ const BottomBox = styled.div`
   position: absolute;
   bottom: 0px;
   background: #928282;
+  border-radius: 0 0 20px 20px;
 `;
 
 const Character = styled.div`
