@@ -3,7 +3,7 @@
 
 import express, { Request, Response, NextFunction } from 'express';
 import { db } from '../db.js';
-import {userInfoProcess} from '../../src/util/userInfoProcess.js'
+import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 
 export const pengameRouter = express.Router();
 
@@ -16,16 +16,16 @@ pengameRouter.post('/multiple', (req, res, next) => {
   const { reward } = req.body;
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
-    let resultGold = parseInt(result[0].Gold) * reward;
+    let resultGold: number = parseInt(result[0].Gold) * reward;
     let beforeGold = parseInt(result[0].Gold);
     console.log(
       `${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`,
     );
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
-        const userInfo = userInfoProcess(rows[0])
-        userInfo.beforeGold = beforeGold
-        res.status(200).json({ code: 200, userInfo:userInfo });
+        const userInfo = userInfoProcess(rows[0]);
+        userInfo.beforeGold = beforeGold;
+        res.status(200).json({ code: 200, userInfo: userInfo });
       });
     });
   });
@@ -53,10 +53,10 @@ pengameRouter.post('/add', (req, res, next) => {
     );
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
-        const userInfo = userInfoProcess(rows[0])
-        userInfo.beforeGold = beforeGold
+        const userInfo = userInfoProcess(rows[0]);
+        userInfo.beforeGold = beforeGold;
 
-        res.status(200).json({ code: 200, userInfo:userInfo});
+        res.status(200).json({ code: 200, userInfo: userInfo });
       });
     });
   });
@@ -81,9 +81,9 @@ pengameRouter.post('/deduct', (req, res, next) => {
 
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
-        const userInfo = userInfoProcess(rows[0])
-        userInfo.beforeGold = beforeGold
-        res.status(200).json({ code: 200, userInfo:userInfo });
+        const userInfo = userInfoProcess(rows[0]);
+        userInfo.beforeGold = beforeGold;
+        res.status(200).json({ code: 200, userInfo: userInfo });
       });
     });
   });

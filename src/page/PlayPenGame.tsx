@@ -83,7 +83,7 @@ const PlayPenGame = () => {
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement;
-    let reward: number = parseInt(cb.dataset.number as string);
+    let reward: number = Number(cb.dataset.number as string);
     let action = cb.dataset.action as string;
     if (isNaN(reward)) {
       setIsFalseModal(false);
