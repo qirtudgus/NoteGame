@@ -21,7 +21,7 @@ import PlayPenGame from './page/PlayPenGame';
 import Skill from './page/Skill';
 import Dungeon from './page/Dungeon';
 import DungeonFight from './page/DungeonFight';
-import DungeonFightBefore from './page/DungeonFightBefore';
+// import DungeonFightBefore from './page/DungeonFightBefore';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
 //두번째인자에 사용할 미들웨어를 추가해주었다.

@@ -4,12 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
-import {
-  PenWrap,
-  Pen,
-  PenEnd,
-  PenHead,
-} from '../styledComponents/DungeonFight';
 
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
@@ -33,16 +27,6 @@ const CharacterBoxWrap = styled.div`
   position: relative;
   justify-content: space-around;
 `;
-
-// const FloorBox = styled.div`
-//   align-items: center;
-//   position: absolute;
-//   top: 100px;
-//   font-size: 30px;
-//   & img {
-//     width: 50px;
-//   }
-// `;
 
 const HpBox = styled.div`
   position: absolute;
