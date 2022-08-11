@@ -10,6 +10,9 @@ import BackHistoryBtn from '../components/BackHistoryBtn';
 import RefreshBtn from '../components/RefreshBtn';
 import ResultModal from '../components/ResultModal';
 import Loading from '../components/Loading';
+import 모남볼펜 from '../img/모남볼펜.png';
+import 하이테크 from '../img/하이테크.png';
+
 interface penAni {
   penStatus?: boolean;
   ref?: any;
@@ -30,7 +33,10 @@ const animation = keyframes`
 
 const PenWrap = styled.div<penAni>`
   position: relative;
-  bottom: -205px;
+  height: 370px;
+  overflow-y: clip;
+  width: 40px;
+  bottom: -183px;
   left: -130px;
   z-index: 2;
   animation-fill-mode: both;
@@ -41,6 +47,10 @@ const PenWrap = styled.div<penAni>`
     css`
       animation-play-state: paused;
     `}
+  & img {
+    position: absolute;
+    left: 0;
+  }
 `;
 
 const Pen = styled.div`
@@ -267,8 +277,9 @@ const PlayPenGame = () => {
         penSpeed={penSpeed.speed}
       ></PenEnd>
       <PenWrap penSpeed={penSpeed.speed} penStatus={penStatus}>
-        <PenHead></PenHead>
-        <Pen></Pen>
+        <img src={하이테크}></img>
+        {/* <PenHead></PenHead>
+        <Pen></Pen> */}
       </PenWrap>
       <BoxWrap>
         {boxCount === 0 ? (

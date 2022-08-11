@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
+import { useState } from 'react';
 
 const Floorwrap = styled.div`
   align-items: center;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import BackGround from '../components/BackGround';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
