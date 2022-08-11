@@ -1,4 +1,4 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
@@ -203,8 +203,8 @@ const PlayPenGame = () => {
 
       <Ballpen
         penStatus={penStatus}
-        ref={inputRef}
         penSpeed={penSpeed.speed}
+        ref={inputRef}
       ></Ballpen>
       <BoxWrap>
         {boxCount === 0 ? (

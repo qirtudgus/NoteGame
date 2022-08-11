@@ -23,14 +23,14 @@ export interface userInfoInterface {
   DoubleAttack: number;
   Grabber: number;
   Exp: number;
-  NeedExp?: number;
   DungeonFloor: number;
   BetterPen: number;
   SkillPoint: number;
+  EquipBallpen: string;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {
-  let result: userInfoInterface = {} as userInfoInterface;
+  let result = {} as userInfoInterface;
   Object.assign(result, { ...arr });
   delete result.Index;
   delete result.Password;

@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { create_monster_request } from '../modules/createMonster';
 import CharacterBox from '../components/CharacterBox';
-import { useEffect, useState } from 'react';
 import FloorBox from '../components/FloorBox';
 const BottomBox = styled.div`
   width: 100%;

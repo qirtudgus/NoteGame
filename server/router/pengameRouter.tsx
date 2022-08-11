@@ -16,7 +16,7 @@ pengameRouter.post('/multiple', (req, res, next) => {
   const { reward } = req.body;
 
   db.query(userFindQuery, [userId], (err, result, fields) => {
-    let resultGold: number = parseInt(result[0].Gold) * reward;
+    let resultGold = parseInt(result[0].Gold) * reward;
     let beforeGold = parseInt(result[0].Gold);
     console.log(
       `${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`,

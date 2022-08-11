@@ -1,5 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import 모남볼펜 from '../img/모남볼펜.png';
 import 하이테크 from '../img/하이테크.png';
@@ -11,7 +10,20 @@ import {
   PenEndDungeon,
 } from '../styledComponents/DungeonFight';
 
-const Ballpen = ({ penSpeed, penStatus, isDungeon }: any, ref: any) => {
+//https://yamoo9.gitbook.io/typescript/interface/index-signature
+interface pen {
+  [prop: string]: string;
+}
+const weapon: pen = { weapon1: 모남볼펜, weapon2: 하이테크 };
+interface ballpen {
+  penSpeed: number;
+  penStatus: boolean;
+  isDungeon?: boolean;
+}
+
+const Ballpen = ({ penSpeed, penStatus, isDungeon }: ballpen, ref: any) => {
+  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  let equipBallpen = userInfo?.EquipBallpen as string;
   return (
     <>
       {isDungeon ? (
@@ -22,14 +34,14 @@ const Ballpen = ({ penSpeed, penStatus, isDungeon }: any, ref: any) => {
             penSpeed={penSpeed}
           ></PenEndDungeon>
           <PenWrapDungeon penSpeed={penSpeed} penStatus={penStatus}>
-            <img src={모남볼펜} alt='ballpen'></img>
+            <img src={weapon[equipBallpen]} alt='ballpen'></img>
           </PenWrapDungeon>
         </>
       ) : (
         <>
           <PenEnd penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEnd>
           <PenWrap penSpeed={penSpeed} penStatus={penStatus}>
-            <img src={모남볼펜} alt='ballpen'></img>
+            <img src={equipBallpen} alt='ballpen'></img>
           </PenWrap>
         </>
       )}

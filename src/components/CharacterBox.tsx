@@ -46,7 +46,7 @@ const CharacterBox = ({ children, gelatine }: children) => {
         {children}
         <Character>
           {' '}
-          <img src={캐릭터배경}></img>
+          <img src={캐릭터배경} alt='캐릭터배경'></img>
         </Character>
       </CharacterWrap>
     </>

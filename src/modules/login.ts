@@ -22,6 +22,7 @@ export const DUNGEON_REQUEST = 'login/DUNGEON_REQUEST' as const;
 export const DUNGEON_VICTORY = 'login/DUNGEON_VICTORY' as const;
 
 //userInfo 초기값 객체
+//렌더링할 때 필요한 값들입니다.
 export let setUesrInfo = {
   Level: 0,
   BasicDamage: 0,
@@ -38,6 +39,7 @@ export let setUesrInfo = {
   BetterPen: 0,
   Exp: 0,
   NeedExp: 0,
+  EquipBallpen: '',
 };
 
 export const dungeon_request = (
@@ -161,6 +163,7 @@ type IsLoginState = {
     BetterPen?: number;
     Exp?: number;
     NeedExp?: number;
+    EquipBallpen: string;
   };
 };
 
