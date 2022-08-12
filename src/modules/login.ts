@@ -21,6 +21,10 @@ export const SKILL_UP = 'login/SKILL_UP' as const;
 export const DUNGEON_REQUEST = 'login/DUNGEON_REQUEST' as const;
 export const DUNGEON_VICTORY = 'login/DUNGEON_VICTORY' as const;
 
+//볼펜 장착 관련 액션
+export const EQUIP_BALLPEN_REQUEST = 'login/EQUIP_BALLPEN_REQUEST' as const;
+export const EQUIP_BALLPEN_SUCCESS = 'login/EQUIP_BALLPEN_SUCCESS' as const;
+
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUesrInfo = {
@@ -41,6 +45,16 @@ export let setUesrInfo = {
   NeedExp: 0,
   EquipBallpen: '',
 };
+
+export const equip_ballpen_request = (ballpenName: string) => ({
+  type: EQUIP_BALLPEN_REQUEST,
+  ballpenName,
+});
+
+export const equip_ballpen_success = () => ({
+  type: EQUIP_BALLPEN_SUCCESS,
+  userInfo: setUesrInfo,
+});
 
 export const dungeon_request = (
   monsterGold: number,
@@ -139,7 +153,9 @@ type LoginAction =
   | ReturnType<typeof skill_request>
   | ReturnType<typeof skill_up>
   | ReturnType<typeof dungeon_request>
-  | ReturnType<typeof dungeon_victory>;
+  | ReturnType<typeof dungeon_victory>
+  | ReturnType<typeof equip_ballpen_request>
+  | ReturnType<typeof equip_ballpen_success>;
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
 type IsLoginState = {
@@ -233,6 +249,9 @@ const LoginRequest = (
       return { ...state, userInfo: action.userInfo };
     }
     case DUNGEON_VICTORY: {
+      return { ...state, userInfo: action.userInfo };
+    }
+    case EQUIP_BALLPEN_SUCCESS: {
       return { ...state, userInfo: action.userInfo };
     }
     default:

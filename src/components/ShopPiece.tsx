@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
 import 플러스 from '../img/플러스.svg';
-import { buy_ballpen_request } from '../modules/buyBallpenList';
+import { real_buy_ballpen_request } from '../modules/buyBallpenList';
+import { equip_ballpen_request } from '../modules/login';
 interface shopBoxInterface {
   title?: string;
   level?: number;
@@ -89,7 +90,7 @@ const ShopPiece = (props: any) => {
         <ShopBtn
           buy={props.penname}
           onClick={() => {
-            dispatch(buy_ballpen_request(`${props.penname}`));
+            dispatch(equip_ballpen_request(`${props.penname}`));
           }}
         >
           장착
@@ -97,7 +98,7 @@ const ShopPiece = (props: any) => {
       ) : (
         <ShopBtn
           onClick={() => {
-            dispatch(buy_ballpen_request(`${props.penname}`));
+            dispatch(real_buy_ballpen_request(`${props.penname}`));
           }}
         >
           <img src={플러스} alt='스킬 업그레이드'></img>

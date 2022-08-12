@@ -43,14 +43,12 @@ import {
 } from '../modules/login';
 import customAxios from '../util/axios';
 import axios from 'axios';
-import { BUY_BALLPEN_SUCCESS } from '../modules/buyBallpenList';
+import { UPDATE_BALLPEN_SUCCESS } from '../modules/buyBallpenList';
 
-const buyBallPenListApi = async (ballPenName?: string): Promise<boolean> => {
-  return customAxios('post', '/shop/buyballpen', { ballPenName }).then(
-    (res) => {
-      return res.data;
-    },
-  );
+const updateBallPenListApi = async (): Promise<boolean> => {
+  return await customAxios('post', '/shop/updateballpen').then((res) => {
+    return res.data;
+  });
 };
 
 const loginApi = async (id: string, password: string): Promise<any> => {
@@ -76,13 +74,19 @@ function* loginApi$(action: any): Generator<any, any, any> {
       action.payload.id,
       action.payload.password,
     );
-    if (result.code === 200)
+    //그냥 로그인에도 펜리스트 업데이트
+    const penList = yield call(updateBallPenListApi);
+
+    if (result.code === 200) {
       yield put({
         type: LOGIN_SUCCESS,
         token: result.token,
         id: result.id,
         userInfo: result.userInfo,
       });
+      //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
+      yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList });
+    }
     if (result.code === 201)
       yield put({ type: LOGIN_SUCCESS, token: result.token, id: result.id });
     if (result.code === 404) yield alert(result.message);
@@ -111,7 +115,7 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
   try {
     const result = yield call(loginLocalStorage, action.token);
     //DB의 볼펜리스트를 가져와 업데이트합니다.
-    const penList = yield call(buyBallPenListApi, 'init');
+    const penList = yield call(updateBallPenListApi);
     if (result.code === 200) {
       yield put({
         type: LOGIN_LOCALSTORAGE_SUCCESS,
@@ -120,7 +124,7 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
         userInfo: result.userInfo,
       });
       //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
-      yield put({ type: BUY_BALLPEN_SUCCESS, buyBallpenList: penList });
+      yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList });
     }
     if (result.code === 201)
       yield put({

@@ -4,6 +4,7 @@ import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
 import ShopPiece from '../components/ShopPiece';
 import { useState } from 'react';
+import Notfound from './Notfound';
 
 const SkillPageWrap = styled.div`
   width: 100%;
@@ -67,7 +68,6 @@ const BallpenShop = () => {
   const buyBallpenList = useSelector(
     (state: RootState) => state.buyBallpenList.buyBallpenList,
   );
-  console.log(buyBallpenList.buyBallpenList);
 
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [isSkillTab, setIsSkillTab] = useState({
@@ -76,7 +76,6 @@ const BallpenShop = () => {
   });
 
   //서버에서 구입한 팬목록 배열을 받아온다.
-  const penNameArr = ['weapon1', 'weapon2'];
   const penNameArr2 = buyBallpenList.buyBallpenList;
   console.log(penNameArr2);
   const penObj = [
@@ -109,55 +108,61 @@ const BallpenShop = () => {
 
   return (
     <>
-      <BackHistoryBtn corner></BackHistoryBtn>
-      <SkillWrap>
-        <SkillTabWrap>
-          <SkillTap
-            active={isSkillTab.TabNum}
-            onClick={() => {
-              setIsSkillTab({ passive: 'passive1', TabNum: 1 });
-            }}
-          >
-            무기
-          </SkillTap>
-          <SkillTap2
-            active={isSkillTab.TabNum}
-            onClick={() => {
-              setIsSkillTab({ passive: 'passive2', TabNum: 2 });
-            }}
-          >
-            방어구
-          </SkillTap2>
-          <p>골드 {userInfo?.Gold}</p>
-        </SkillTabWrap>
-        <SkillPageWrap>
-          {
-            {
-              passive1: (
-                <>
-                  {penObj.map((i, index) => (
-                    <ShopPiece
-                      key={i.ballPenName}
-                      penname={i.ballPenName}
-                      title={i.title}
-                      desc={i.desc}
-                      level={i.level}
-                      buyBallPen={penNameArr[index]}
-                    ></ShopPiece>
-                  ))}
-                </>
-              ),
-              passive2: (
-                <>
-                  <ShopPiece title='준비중'></ShopPiece>
-                  <ShopPiece></ShopPiece>
-                  <ShopPiece></ShopPiece>
-                </>
-              ),
-            }[isSkillTab.passive]
-          }
-        </SkillPageWrap>
-      </SkillWrap>
+      {penNameArr2 ? (
+        <>
+          <BackHistoryBtn corner></BackHistoryBtn>
+          <SkillWrap>
+            <SkillTabWrap>
+              <SkillTap
+                active={isSkillTab.TabNum}
+                onClick={() => {
+                  setIsSkillTab({ passive: 'passive1', TabNum: 1 });
+                }}
+              >
+                무기
+              </SkillTap>
+              <SkillTap2
+                active={isSkillTab.TabNum}
+                onClick={() => {
+                  setIsSkillTab({ passive: 'passive2', TabNum: 2 });
+                }}
+              >
+                방어구
+              </SkillTap2>
+              <p>골드 {userInfo?.Gold}</p>
+            </SkillTabWrap>
+            <SkillPageWrap>
+              {
+                {
+                  passive1: (
+                    <>
+                      {penObj.map((i, index) => (
+                        <ShopPiece
+                          key={i.ballPenName}
+                          penname={i.ballPenName}
+                          title={i.title}
+                          desc={i.desc}
+                          level={i.level}
+                          buyBallPen={penNameArr2[index]}
+                        ></ShopPiece>
+                      ))}
+                    </>
+                  ),
+                  passive2: (
+                    <>
+                      <ShopPiece title='준비중'></ShopPiece>
+                      <ShopPiece></ShopPiece>
+                      <ShopPiece></ShopPiece>
+                    </>
+                  ),
+                }[isSkillTab.passive]
+              }
+            </SkillPageWrap>
+          </SkillWrap>
+        </>
+      ) : (
+        <Notfound></Notfound>
+      )}
     </>
   );
 };
