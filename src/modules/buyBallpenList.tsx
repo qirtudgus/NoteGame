@@ -8,7 +8,7 @@ export const buy_ballpen_request = (ballpenName: string) => ({
   ballpenName,
 });
 
-export const buy_ballpen_success = (buyBallpenList: {}) => ({
+export const buy_ballpen_success = (buyBallpenList: any) => ({
   type: BUY_BALLPEN_SUCCESS,
   buyBallpenList,
 });
@@ -18,7 +18,7 @@ type BuyBallpenListAction =
   | ReturnType<typeof buy_ballpen_success>;
 
 type BuyBallpenListStateType = {
-  buyBallpenList: {};
+  buyBallpenList: any;
 };
 
 const BuyBallpenListState: BuyBallpenListStateType = {

@@ -56,6 +56,8 @@ const ShopBox = styled.div<shopBoxInterface>`
   margin-bottom: 20px;
   display: flex;
   padding: 10px;
+
+  //장착한 장비의 css
   ${(props) =>
     props.penname === props.nowEquip &&
     css`
@@ -66,9 +68,10 @@ const ShopBox = styled.div<shopBoxInterface>`
 const ShopPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+
   let equip = userInfo?.EquipBallpen;
 
-  console.log(props.buyBallPen);
+  //   console.log(props.buyBallPen);
   return (
     <ShopBox
       data-penname={props.penname}

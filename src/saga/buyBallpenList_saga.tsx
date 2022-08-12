@@ -5,7 +5,7 @@ import {
 } from '../modules/buyBallpenList';
 import { customAxios } from '../util/axios';
 
-const buyBallPenListApi = async (ballPenName: string): Promise<boolean> => {
+const buyBallPenListApi = async (ballPenName?: string): Promise<boolean> => {
   return customAxios('post', '/shop/buyballpen', { ballPenName }).then(
     (res) => {
       return res.data;
@@ -18,7 +18,7 @@ function* buyBallPenListApi$(action: any): Generator<any> {
     console.log(action);
     const result = yield call(buyBallPenListApi, action.ballpenName);
     console.log(result);
-    yield put({ type: BUY_BALLPEN_SUCCESS, result: result });
+    yield put({ type: BUY_BALLPEN_SUCCESS, buyBallpenList: result });
   } catch (err) {
     console.log(err);
   }

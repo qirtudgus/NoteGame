@@ -21,6 +21,7 @@ import Skill from './page/Skill';
 import Dungeon from './page/Dungeon';
 import DungeonFight from './page/DungeonFight';
 import BallpenShop from './page/BallpenShop';
+import { buy_ballpen_request } from './modules/buyBallpenList';
 // import DungeonFightBefore from './page/DungeonFightBefore';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();

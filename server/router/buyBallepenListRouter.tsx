@@ -16,11 +16,12 @@ buyBallpenListRouter.post('/buyballpen', (req, res, next) => {
   console.log(ballPenName);
   db.query(userFindQuery, [userId], (err, rows, fields) => {
     console.log(rows[0].BuyBallpenList.split(','));
-    const resultList = rows[0].BuyBallpenList.split(',');
+    const resultList: [string] = rows[0].BuyBallpenList.split(',');
+    res.status(200).json({ code: 200, buyBallpenList: resultList });
   });
 
-  db.query(loginQuery, [userId], (err, rows, fields) => {
-    // const uesrInfo = userInfoProcess(rows[0]);
-    res.status(200).json({ code: 200, buyBallpenList: {} });
-  });
+  //   db.query(loginQuery, [userId], (err, rows, fields) => {
+  //     // const uesrInfo = userInfoProcess(rows[0]);
+  //     res.status(200).json({ code: 200, buyBallpenList: {} });
+  //   });
 });

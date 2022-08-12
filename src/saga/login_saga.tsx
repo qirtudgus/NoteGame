@@ -43,6 +43,15 @@ import {
 } from '../modules/login';
 import customAxios from '../util/axios';
 import axios from 'axios';
+import { BUY_BALLPEN_SUCCESS } from '../modules/buyBallpenList';
+
+const buyBallPenListApi = async (ballPenName?: string): Promise<boolean> => {
+  return customAxios('post', '/shop/buyballpen', { ballPenName }).then(
+    (res) => {
+      return res.data;
+    },
+  );
+};
 
 const loginApi = async (id: string, password: string): Promise<any> => {
   return await customAxios('post', '/login/', { id, password })
@@ -101,13 +110,18 @@ const loginLocalStorage = async (token: any): Promise<any> => {
 function* loginLocalStorage$(action: any): Generator<any, any, any> {
   try {
     const result = yield call(loginLocalStorage, action.token);
-    if (result.code === 200)
+    //DB의 볼펜리스트를 가져와 업데이트합니다.
+    const penList = yield call(buyBallPenListApi, 'init');
+    if (result.code === 200) {
       yield put({
         type: LOGIN_LOCALSTORAGE_SUCCESS,
         token: result.token,
         id: result.id.userId,
         userInfo: result.userInfo,
       });
+      //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
+      yield put({ type: BUY_BALLPEN_SUCCESS, buyBallpenList: penList });
+    }
     if (result.code === 201)
       yield put({
         type: LOGIN_LOCALSTORAGE_FAILURE,

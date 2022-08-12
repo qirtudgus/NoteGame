@@ -64,6 +64,11 @@ const SkillWrap = styled.div`
 `;
 
 const BallpenShop = () => {
+  const buyBallpenList = useSelector(
+    (state: RootState) => state.buyBallpenList.buyBallpenList,
+  );
+  console.log(buyBallpenList.buyBallpenList);
+
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [isSkillTab, setIsSkillTab] = useState({
     passive: 'passive1',
@@ -72,7 +77,8 @@ const BallpenShop = () => {
 
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr = ['weapon1', 'weapon2'];
-
+  const penNameArr2 = buyBallpenList.buyBallpenList;
+  console.log(penNameArr2);
   const penObj = [
     { title: '모나미', desc: '그냥볼펜', level: '5', ballPenName: 'weapon1' },
     {
