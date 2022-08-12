@@ -9,9 +9,13 @@ export const REAL_BUY_BALLPEN_REQUEST =
 export const REAL_BUY_BALLPEN_SUCCESS =
   'buyBallpenList/REAL_BUY_BALLPEN_SUCCESS ' as const;
 
-export const real_buy_ballpen_request = (ballpenName: string) => ({
+export const real_buy_ballpen_request = (
+  ballpenName: string,
+  gold: string,
+) => ({
   type: REAL_BUY_BALLPEN_REQUEST,
   ballpenName,
+  gold,
 });
 
 export const real_buy_ballpen_success = (buyBallpenList: any) => ({
@@ -51,7 +55,7 @@ const buyBallpenListRequest = (
       return { buyBallpenList: action.buyBallpenList };
     }
     case REAL_BUY_BALLPEN_SUCCESS: {
-      return { buyBallpenList: action.buyBallpenList };
+      return { buyBallpenList: action };
     }
 
     default:

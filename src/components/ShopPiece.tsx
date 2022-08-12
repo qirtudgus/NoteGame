@@ -62,7 +62,7 @@ const ShopBox = styled.div<shopBoxInterface>`
   ${(props) =>
     props.penname === props.nowEquip &&
     css`
-      background: #000;
+      background: #fff;
     `}
 `;
 
@@ -84,7 +84,10 @@ const ShopPiece = (props: any) => {
         <ShopTitle>
           {props.title} Lv . {props.level}
         </ShopTitle>
-        <ShopDesc>{props.desc}</ShopDesc>
+        <ShopDesc>
+          {props.desc}
+          <p>{props.Gold}골드</p>
+        </ShopDesc>
       </ShopTextWrap>
       {props.buyBallPen ? (
         <ShopBtn
@@ -98,10 +101,17 @@ const ShopPiece = (props: any) => {
       ) : (
         <ShopBtn
           onClick={() => {
-            dispatch(real_buy_ballpen_request(`${props.penname}`));
+            if (userInfo?.Gold! < props.Gold) {
+              alert('골드가 부족해요');
+              return;
+            } else {
+              dispatch(
+                real_buy_ballpen_request(`${props.penname}`, props.Gold),
+              );
+            }
           }}
         >
-          <img src={플러스} alt='스킬 업그레이드'></img>
+          구매
         </ShopBtn>
       )}
     </ShopBox>

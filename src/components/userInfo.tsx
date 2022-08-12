@@ -41,7 +41,7 @@ const UserInfo = ({ children }: children) => {
       <p>레벨 {userInfo?.Level}</p>
       <p>체력 {userInfo?.BasicHp}</p>
       <p>공격력 {userInfo?.BasicDamage}</p>
-      {/* <p>골드 {userInfo?.Gold.toLocaleString()}</p> */}
+      <p>골드 {userInfo?.Gold.toLocaleString()}</p>
       <p>
         경험치 {userInfo?.Exp} / {expTable[userInfo?.Level!]}
       </p>

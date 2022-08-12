@@ -79,30 +79,40 @@ const BallpenShop = () => {
   const penNameArr2 = buyBallpenList.buyBallpenList;
   console.log(penNameArr2);
   const penObj = [
-    { title: '모나미', desc: '그냥볼펜', level: '5', ballPenName: 'weapon1' },
+    {
+      title: '모나미',
+      desc: '그냥볼펜',
+      level: '5',
+      ballPenName: 'weapon1',
+      Gold: 0,
+    },
     {
       title: '하이테크',
       desc: '하이테크입니다.',
       level: '5',
       ballPenName: 'weapon2',
+      Gold: 10000,
     },
     {
       title: '만년필',
       desc: '만년필입니다.',
       level: '5',
       ballPenName: 'weapon3',
+      Gold: 100000,
     },
     {
       title: '5주년 모나미',
       desc: '기념품입니다.',
       level: '5',
       ballPenName: 'weapon4',
+      Gold: 10000,
     },
     {
       title: '6주년 모나미',
       desc: '기념품입니다.',
       level: '5',
       ballPenName: 'weapon5',
+      Gold: 10000000,
     },
   ];
 
@@ -144,6 +154,7 @@ const BallpenShop = () => {
                           desc={i.desc}
                           level={i.level}
                           buyBallPen={penNameArr2[index]}
+                          Gold={i.Gold}
                         ></ShopPiece>
                       ))}
                     </>

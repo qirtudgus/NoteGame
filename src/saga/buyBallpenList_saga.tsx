@@ -5,21 +5,22 @@ import {
   REAL_BUY_BALLPEN_REQUEST,
   REAL_BUY_BALLPEN_SUCCESS,
 } from '../modules/buyBallpenList';
+import { DB_REFRESH_SUCCESS } from '../modules/login';
 import { customAxios } from '../util/axios';
 
-const updateBallPenListApi = async (ballpenName?: string): Promise<boolean> => {
-  return await customAxios('post', '/shop/updateballpen', { ballpenName }).then(
-    (res) => {
-      return res.data;
-    },
-  );
+const updateBallPenListApi = async (): Promise<boolean> => {
+  return await customAxios('post', '/shop/updateballpen').then((res) => {
+    return res.data;
+  });
 };
 
 const realBuyBallPenListApi = async (
-  ballpenName?: string,
+  ballpenName: string,
+  gold: number,
 ): Promise<boolean> => {
   return await customAxios('post', '/shop/realbuyballpen', {
     ballpenName,
+    gold,
   }).then((res) => {
     return res.data;
   });
@@ -28,12 +29,12 @@ const realBuyBallPenListApi = async (
 function* updateBallPenListApi$(action: any): Generator<any, any, any> {
   try {
     console.log(action);
-    const result = yield call(updateBallPenListApi, action.ballpenName);
+    const result = yield call(updateBallPenListApi);
     console.log(result);
     console.log(result.buyBallpenList);
     yield put({
       type: UPDATE_BALLPEN_SUCCESS,
-      buyBallpenList: result.buyBallpenList,
+      buyBallpenList: result.updateBallpenList,
     });
   } catch (err) {
     console.log(err);
@@ -43,13 +44,19 @@ function* updateBallPenListApi$(action: any): Generator<any, any, any> {
 function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
   try {
     console.log(action);
-    const result = yield call(realBuyBallPenListApi, action.ballpenName);
+    const result = yield call(
+      realBuyBallPenListApi,
+      action.ballpenName,
+      action.gold,
+    );
     console.log(result);
     console.log(result.buyBallpenList);
     yield put({
       type: REAL_BUY_BALLPEN_SUCCESS,
-      buyBallpenList: result,
+      buyBallpenList: result.buyBallpenList,
     });
+    //차감된 골드정보를 업데이트하기 위함
+    yield put({ type: DB_REFRESH_SUCCESS, userInfo: result.userInfo });
   } catch (err) {
     console.log(err);
   }
