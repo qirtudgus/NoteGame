@@ -46,7 +46,13 @@ const Home = () => {
             >
               던전
             </li>
-            <li>상점</li>
+            <li
+              onClick={() => {
+                navigate('/ballpenshop');
+              }}
+            >
+              상점
+            </li>
             <li
               onClick={() => {
                 navigate('/skill');

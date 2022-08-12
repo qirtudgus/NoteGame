@@ -80,7 +80,7 @@ const Skill = () => {
   const dispatch = useDispatch();
   const [isSkillTab, setIsSkillTab] = useState({
     passive: 'passive1',
-    TabNum: 0,
+    TabNum: 1,
   });
   return (
     <>

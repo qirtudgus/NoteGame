@@ -20,6 +20,7 @@ import PlayPenGame from './page/PlayPenGame';
 import Skill from './page/Skill';
 import Dungeon from './page/Dungeon';
 import DungeonFight from './page/DungeonFight';
+import BallpenShop from './page/BallpenShop';
 // import DungeonFightBefore from './page/DungeonFightBefore';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -60,6 +61,7 @@ root.render(
           <Route path='/dungeon' element={<Dungeon />}></Route>
           <Route path='/dungeonfight' element={<DungeonFight />}></Route>
           <Route path='/dungeonfightbefore' element={<DungeonFight />}></Route>
+          <Route path='/ballpenshop' element={<BallpenShop />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

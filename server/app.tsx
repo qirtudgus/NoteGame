@@ -21,6 +21,7 @@ import { pengameRouter } from './router/pengameRouter.js';
 import axios from 'axios';
 import { skillRouter } from './router/skillRouter.js';
 import { dungeonRouter } from './router/dungeonRouter.js';
+import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -101,8 +102,8 @@ app.use('/pengame', pengameRouter);
 app.use('/skill', skillRouter);
 //던전 라우터
 app.use('/dungeon', dungeonRouter);
-
-
+//상점 라우터
+app.use('/shop', buyBallpenListRouter);
 
 app.listen('1234', () => {
   console.log(`
