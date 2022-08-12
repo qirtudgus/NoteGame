@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import { buy_ballpen_request } from '../modules/buyBallpenList';
 interface shopBoxInterface {
@@ -9,16 +9,10 @@ interface shopBoxInterface {
   level?: number;
   desc?: string;
   icon?: string;
+  nowEquip?: any;
+  penname?: any;
 }
 
-const ShopBox = styled.div<shopBoxInterface>`
-  width: 600px;
-  height: 150px;
-  background: #888;
-  margin-bottom: 20px;
-  display: flex;
-  padding: 10px;
-`;
 const ShopTextWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,7 +33,10 @@ const ShopIcon = styled.div`
   background: #fff;
 `;
 
-const ShopBtn = styled.div`
+interface buy {
+  buy?: boolean;
+}
+const ShopBtn = styled.div<buy>`
   width: 10%;
   height: 100%;
   border-radius: 10px;
@@ -52,12 +49,32 @@ const ShopBtn = styled.div`
   }
 `;
 
+const ShopBox = styled.div<shopBoxInterface>`
+  width: 600px;
+  height: 150px;
+  background: #888;
+  margin-bottom: 20px;
+  display: flex;
+  padding: 10px;
+  ${(props) =>
+    props.penname === props.nowEquip &&
+    css`
+      background: #000;
+    `}
+`;
+
 const ShopPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  let equip = userInfo?.EquipBallpen;
 
+  console.log(props.buyBallPen);
   return (
-    <ShopBox data-penname={props.penname}>
+    <ShopBox
+      data-penname={props.penname}
+      nowEquip={equip}
+      penname={props.penname}
+    >
       <ShopIcon></ShopIcon>
       <ShopTextWrap>
         <ShopTitle>
@@ -65,13 +82,24 @@ const ShopPiece = (props: any) => {
         </ShopTitle>
         <ShopDesc>{props.desc}</ShopDesc>
       </ShopTextWrap>
-      <ShopBtn
-        onClick={() => {
-          dispatch(buy_ballpen_request(`${props.penname}`));
-        }}
-      >
-        <img src={플러스} alt='스킬 업그레이드'></img>
-      </ShopBtn>
+      {props.buyBallPen ? (
+        <ShopBtn
+          buy={props.penname}
+          onClick={() => {
+            dispatch(buy_ballpen_request(`${props.penname}`));
+          }}
+        >
+          장착
+        </ShopBtn>
+      ) : (
+        <ShopBtn
+          onClick={() => {
+            dispatch(buy_ballpen_request(`${props.penname}`));
+          }}
+        >
+          <img src={플러스} alt='스킬 업그레이드'></img>
+        </ShopBtn>
+      )}
     </ShopBox>
   );
 };

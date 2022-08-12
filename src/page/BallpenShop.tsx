@@ -70,6 +70,9 @@ const BallpenShop = () => {
     TabNum: 1,
   });
 
+  //서버에서 구입한 팬목록 배열을 받아온다.
+  const penNameArr = ['weapon1', 'weapon2'];
+
   const penObj = [
     { title: '모나미', desc: '그냥볼펜', level: '5', ballPenName: 'weapon1' },
     {
@@ -133,6 +136,7 @@ const BallpenShop = () => {
                       title={i.title}
                       desc={i.desc}
                       level={i.level}
+                      buyBallPen={penNameArr[index]}
                     ></ShopPiece>
                   ))}
                 </>

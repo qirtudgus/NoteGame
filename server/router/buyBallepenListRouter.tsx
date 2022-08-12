@@ -16,6 +16,7 @@ buyBallpenListRouter.post('/buyballpen', (req, res, next) => {
   console.log(ballPenName);
   db.query(userFindQuery, [userId], (err, rows, fields) => {
     console.log(rows[0].BuyBallpenList.split(','));
+    const resultList = rows[0].BuyBallpenList.split(',');
   });
 
   db.query(loginQuery, [userId], (err, rows, fields) => {
