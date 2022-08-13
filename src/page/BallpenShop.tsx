@@ -76,12 +76,8 @@ const BallpenShop = () => {
     (state: RootState) => state.buyBallpenList.buyBallpenList,
   );
   // console.log(InView.toString());
-  // console.log(penObj.length);
-
   useEffect(() => {
-    console.log('인뷰가 트루가 되었다. 배열을 불러와라');
-    console.log(list.length);
-    if (InView == true) {
+    if (InView === true) {
       setList((list: any) => [
         ...list,
         ...penObj.slice(list.length, list.length + 2),
@@ -92,7 +88,6 @@ const BallpenShop = () => {
   useEffect(() => {
     setList((list: any) => [...list, ...penObj.slice(0, 4)]);
   }, []);
-
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [isSkillTab, setIsSkillTab] = useState({
     passive: 'passive1',
@@ -101,7 +96,6 @@ const BallpenShop = () => {
 
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr2 = buyBallpenList.buyBallpenList;
-  console.log(penNameArr2);
 
   return (
     <>
@@ -143,7 +137,7 @@ const BallpenShop = () => {
                               title={i.title}
                               desc={i.desc}
                               level={i.level}
-                              buyBallPen={penNameArr2[index]}
+                              // buyBallPen={penNameArr2[index]}
                               Gold={i.Gold}
                             ></ShopPiece>
                           ) : (
@@ -154,7 +148,7 @@ const BallpenShop = () => {
                               title={i.title}
                               desc={i.desc}
                               level={i.level}
-                              buyBallPen={penNameArr2[index]}
+                              // buyBallPen={penNameArr2[index]}
                               Gold={i.Gold}
                             ></ShopPiece>
                           )}

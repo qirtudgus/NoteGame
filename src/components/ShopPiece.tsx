@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
@@ -79,9 +79,17 @@ const ShopPiece = (props: any, ref: any) => {
   // const [ref, inView] = useInView();
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const buyBallpenList = useSelector(
+    (state: RootState) => state.buyBallpenList.buyBallpenList,
+  );
+
+  //서버에서 구입한 팬목록 배열을 받아온다.
+  const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, []);
 
   let equip = userInfo?.EquipBallpen;
-  //   console.log(props.buyBallPen);
+  // console.log(`받아온 볼펜구매 목록 ${props.buyBallPen}`);
+  // console.log(`볼펜 목록 ${props.penname}`);
+
   return (
     <ShopBox
       ref={ref}
@@ -96,34 +104,38 @@ const ShopPiece = (props: any, ref: any) => {
         </ShopTitle>
         <ShopDesc>
           {props.desc}
-          <p>{props.Gold}골드</p>
+          <br />
+          {props.Gold}
         </ShopDesc>
       </ShopTextWrap>
-      {props.buyBallPen ? (
-        <ShopBtn
-          buy={props.penname}
-          onClick={() => {
-            dispatch(equip_ballpen_request(`${props.penname}`));
-          }}
-        >
-          장착
-        </ShopBtn>
-      ) : (
-        <ShopBtn
-          onClick={() => {
-            if (userInfo?.Gold! < props.Gold) {
-              alert('골드가 부족해요');
-              return;
-            } else {
-              dispatch(
-                real_buy_ballpen_request(`${props.penname}`, props.Gold),
-              );
-            }
-          }}
-        >
-          구매
-        </ShopBtn>
-      )}
+      {
+        //렌더링 될 때 구매목록에 해당볼펜의 penname이 들어있는지 체크 후 값을 반환한다.
+        penNameArr2.find((i: Element) => i === props.penname) ? (
+          <ShopBtn
+            buy={props.penname}
+            onClick={() => {
+              dispatch(equip_ballpen_request(`${props.penname}`));
+            }}
+          >
+            장착
+          </ShopBtn>
+        ) : (
+          <ShopBtn
+            onClick={() => {
+              if (userInfo?.Gold! < props.Gold) {
+                alert('골드가 부족해요');
+                return;
+              } else {
+                dispatch(
+                  real_buy_ballpen_request(`${props.penname}`, props.Gold),
+                );
+              }
+            }}
+          >
+            구매
+          </ShopBtn>
+        )
+      }
     </ShopBox>
   );
 };
