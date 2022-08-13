@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
 import ShopPiece from '../components/ShopPiece';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Notfound from './Notfound';
+import { useInView } from 'react-intersection-observer';
+import { penObj } from '../util/shopList';
 
 const SkillPageWrap = styled.div`
   width: 100%;
@@ -65,9 +67,31 @@ const SkillWrap = styled.div`
 `;
 
 const BallpenShop = () => {
+  const [ref, InView] = useInView({
+    threshold: 0.5, //타겟이 화면에 얼만큼 보였을 때 InView를 토글할 것인지
+    // delay: 2000, //로딩되는 딜레이
+  });
+  const [list, setList] = useState<any>([]);
   const buyBallpenList = useSelector(
     (state: RootState) => state.buyBallpenList.buyBallpenList,
   );
+  // console.log(InView.toString());
+  // console.log(penObj.length);
+
+  useEffect(() => {
+    console.log('인뷰가 트루가 되었다. 배열을 불러와라');
+    console.log(list.length);
+    if (InView == true) {
+      setList((list: any) => [
+        ...list,
+        ...penObj.slice(list.length, list.length + 2),
+      ]);
+    }
+  }, [InView]);
+
+  useEffect(() => {
+    setList((list: any) => [...list, ...penObj.slice(0, 4)]);
+  }, []);
 
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [isSkillTab, setIsSkillTab] = useState({
@@ -78,43 +102,6 @@ const BallpenShop = () => {
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr2 = buyBallpenList.buyBallpenList;
   console.log(penNameArr2);
-  const penObj = [
-    {
-      title: '모나미',
-      desc: '그냥볼펜',
-      level: '5',
-      ballPenName: 'weapon1',
-      Gold: 0,
-    },
-    {
-      title: '하이테크',
-      desc: '하이테크입니다.',
-      level: '5',
-      ballPenName: 'weapon2',
-      Gold: 10000,
-    },
-    {
-      title: '만년필',
-      desc: '만년필입니다.',
-      level: '5',
-      ballPenName: 'weapon3',
-      Gold: 100000,
-    },
-    {
-      title: '5주년 모나미',
-      desc: '기념품입니다.',
-      level: '5',
-      ballPenName: 'weapon4',
-      Gold: 10000,
-    },
-    {
-      title: '6주년 모나미',
-      desc: '기념품입니다.',
-      level: '5',
-      ballPenName: 'weapon5',
-      Gold: 10000000,
-    },
-  ];
 
   return (
     <>
@@ -146,16 +133,32 @@ const BallpenShop = () => {
                 {
                   passive1: (
                     <>
-                      {penObj.map((i, index) => (
-                        <ShopPiece
-                          key={i.ballPenName}
-                          penname={i.ballPenName}
-                          title={i.title}
-                          desc={i.desc}
-                          level={i.level}
-                          buyBallPen={penNameArr2[index]}
-                          Gold={i.Gold}
-                        ></ShopPiece>
+                      {list.map((i: any, index: any) => (
+                        <React.Fragment key={index}>
+                          {list.length - 1 === index ? (
+                            <ShopPiece
+                              ref={ref}
+                              // key={i.ballPenName}
+                              penname={i.ballPenName}
+                              title={i.title}
+                              desc={i.desc}
+                              level={i.level}
+                              buyBallPen={penNameArr2[index]}
+                              Gold={i.Gold}
+                            ></ShopPiece>
+                          ) : (
+                            <ShopPiece
+                              // ref={ref}
+                              // key={i.ballPenName}
+                              penname={i.ballPenName}
+                              title={i.title}
+                              desc={i.desc}
+                              level={i.level}
+                              buyBallPen={penNameArr2[index]}
+                              Gold={i.Gold}
+                            ></ShopPiece>
+                          )}
+                        </React.Fragment>
                       ))}
                     </>
                   ),
