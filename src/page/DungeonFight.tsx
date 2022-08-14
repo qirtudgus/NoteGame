@@ -12,6 +12,7 @@ import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation } from 'react-router-dom';
+import { userDamage,monsterDamage } from '../util/createDamage';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -221,15 +222,8 @@ const DungeonFight = (props:any) => {
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement | null;
     if (cb === null) return;
-    let damage: number = parseInt(cb.dataset.attacknumber as string);
-    let userDamage = userInfo.BasicDamage;
-    // 스킬로 인한 추가 데미지
-    let skillDamage = (userDamage * (userInfo.BetterPen * 2)) / 100;
-    let addDamage = userDamage + skillDamage;
-    // 리워드로 계산한 최종데미지
-    let resultDamage = Math.ceil(addDamage * (damage / 100));
-
-    let hp: number = monsterHpBar.nowHp - resultDamage;
+    let userResultDamage = userDamage(parseInt(cb.dataset.attacknumber as string), userInfo.BasicDamage, userInfo.BetterPen)
+    let hp: number = monsterHpBar.nowHp - userResultDamage;
     let hpbar = Math.ceil((hp / monsterInfo.monsterFullHp) * 100);
 
     //유저가 승리 시
@@ -238,11 +232,10 @@ const DungeonFight = (props:any) => {
       setMonsterHpBar({ HpBarWidth: hpbar, nowHp: 0 });
       setVictoryModal(true);
       setIsModal(true);
-      // dispatch(dungeon_request(monsterInfo.monsterGold,monsterInfo.monsterExp))
       return;
     }
     //전투
-    setDamageText({ ...damageText, monster: resultDamage });
+    setDamageText({ ...damageText, monster: userResultDamage });
     setMonsterHpBar({ HpBarWidth: hpbar, nowHp: hp });
     setRefresh((refresh) => !refresh);
     setAttackAni({user:true,monster:false})
@@ -255,9 +248,7 @@ const DungeonFight = (props:any) => {
 
   //몬스터 -> 사용자 공격 함수
   const monsterAttack = () => {
-    let damage = monsterInfo.monsterDamage;
-    let randomAddDamage = createRandomNum(1, 10);
-    let resultDamage = Math.ceil(damage + (damage * randomAddDamage) / 10);
+    let resultDamage = monsterDamage(monsterInfo.monsterDamage)
     setDamageText({ ...damageText, user: resultDamage });
     let userHp = userHpBar.nowHp;
     let resultHp = userHp - resultDamage;
