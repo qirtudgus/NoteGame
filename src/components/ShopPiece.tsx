@@ -82,7 +82,7 @@ const ShopPiece = (props: any, ref: any) => {
   );
 
   //서버에서 구입한 팬목록 배열을 받아온다.
-  const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, []);
+  const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, [buyBallpenList]);
   let equip = userInfo?.EquipBallpen;
 
   return (
@@ -108,7 +108,8 @@ const ShopPiece = (props: any, ref: any) => {
         penNameArr2.find((i: Element) => i === props.penname) ? (
           <ShopBtn
             buy={props.penname}
-            onClick={() => {
+            onClick={
+              () => {
               dispatch(equip_ballpen_request(`${props.penname}`));
             }}
           >

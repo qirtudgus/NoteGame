@@ -12,12 +12,12 @@ const Floorwrap = styled.div`
   }
 `;
 
-const FloorBox = () => {
+const FloorBox = (props:any) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   return (
     <>
-      <Floorwrap>{userInfo?.DungeonFloor}층</Floorwrap>
+      <Floorwrap>{props.before ? `${userInfo?.DungeonFloor! - 1}층` :` ${userInfo?.DungeonFloor}층`}</Floorwrap>
     </>
   );
 };

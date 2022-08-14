@@ -49,6 +49,8 @@ function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
       action.ballpenName,
       action.gold,
     );
+    const resultList = yield call(updateBallPenListApi);
+    console.log(resultList)
     console.log(result);
     console.log(result.buyBallpenList);
     yield put({
@@ -57,6 +59,11 @@ function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
     });
     //차감된 골드정보를 업데이트하기 위함
     yield put({ type: DB_REFRESH_SUCCESS, userInfo: result.userInfo });
+    // 구매 후 볼펜 업데이트 put
+    yield put({
+      type: UPDATE_BALLPEN_SUCCESS,
+      buyBallpenList: resultList,
+    });
   } catch (err) {
     console.log(err);
   }

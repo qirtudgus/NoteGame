@@ -61,7 +61,6 @@ const Home = () => {
               스킬
             </li>
           </ul>
-          <BasicBoxs></BasicBoxs>
         </>
       )}
     </>
