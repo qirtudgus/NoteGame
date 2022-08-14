@@ -3,8 +3,8 @@ import styled, { css, keyframes } from 'styled-components';
 //타격 시 흔들리는 이펙트
 export const gelatine = keyframes`
   from, to { transform: scale(1, 1); }
-  25% { transform: scale(0.9, 1.1); }
-  50% { transform: scale(1.1, 0.9); }
+  25% { transform: scale(0.9, 1.3); }
+  50% { transform: scale(1.3, 0.9); }
   75% { transform: scale(0.95, 1.05); }
   `;
 

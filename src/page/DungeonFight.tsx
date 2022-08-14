@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
-
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
@@ -139,7 +138,7 @@ const DamageText = styled.div<HpInterface>`
   font-weight: bold;
   opacity: 1;
   z-index: 10000;
-  animation: ${damageTextAni} 1s forwards;
+  animation: ${damageTextAni} 1s forwards ;
 
   ${(props) =>
     props.damageText &&
@@ -155,6 +154,11 @@ const DungeonFight = () => {
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
+  const [attackAni, setAttackAni] = useState({
+    user: false,
+    monster: false,
+  });
+
   const [gelatineAni, setGelatineAni] = useState({
     user: false,
     monster: false,
@@ -239,6 +243,7 @@ const DungeonFight = () => {
     setDamageText({ ...damageText, monster: resultDamage });
     setMonsterHpBar({ HpBarWidth: hpbar, nowHp: hp });
     setRefresh((refresh) => !refresh);
+    setAttackAni({user:true,monster:false})
     setGelatineAni({ user: false, monster: true });
 
     setTimeout(function () {
@@ -263,6 +268,7 @@ const DungeonFight = () => {
       setIsModal(true);
       return;
     }
+    setAttackAni({user:false,monster:true})
     setGelatineAni({ user: true, monster: false });
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
     setSupp(false);
@@ -303,7 +309,7 @@ const DungeonFight = () => {
       <CharacterBoxWrap>
         {gelatineAni.user ? <DamageText>-{damageText.user}</DamageText> : null}
 
-        <CharacterBox gelatine={gelatineAni.user}>
+        <CharacterBox gelatine={gelatineAni.user} attack={attackAni.user}>
           <HpBox>
             <HpText>
               <p>{userHpBar.nowHp}</p>
@@ -321,6 +327,7 @@ const DungeonFight = () => {
           id='monsterBox'
           gelatine={gelatineAni.monster}
           monsterCall={monsterCall as number}
+          attack={attackAni.monster}
         >
           <HpBox>
             <HpText>
