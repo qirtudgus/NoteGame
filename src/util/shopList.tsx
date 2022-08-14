@@ -4,7 +4,7 @@ interface pen {
   level:string,
   ballPenName:string,
   Gold:number,
-  weaponDamage?:number
+  weaponDamage:number
 }
 export const penObj:pen[] = [
   {
