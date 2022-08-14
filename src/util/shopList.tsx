@@ -1,4 +1,12 @@
-export const penObj = [
+interface pen {
+  title:string,
+  desc:string,
+  level:string,
+  ballPenName:string,
+  Gold:number,
+  weaponDamage?:number
+}
+export const penObj:pen[] = [
   {
     title: '1',
     desc: '그냥볼펜',
@@ -22,6 +30,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon3',
     Gold: 100000,
+    weaponDamage:500,
+
   },
   {
     title: '4',
@@ -29,6 +39,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon4',
     Gold: 10000,
+    weaponDamage:500,
+
   },
   {
     title: '5',
@@ -36,6 +48,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon5',
     Gold: 10000000,
+    weaponDamage:500,
+
   },
   {
     title: '6',
@@ -43,6 +57,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon6',
     Gold: 10000,
+    weaponDamage:500,
+
   },
   {
     title: '7',
@@ -50,6 +66,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon7',
     Gold: 10000000,
+    weaponDamage:500,
+
   },
   {
     title: '8',
@@ -57,6 +75,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon8',
     Gold: 10000,
+    weaponDamage:500,
+
   },
   {
     title: '9',
@@ -64,6 +84,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon9',
     Gold: 10000000,
+    weaponDamage:500,
+
   },
   {
     title: '10',
@@ -71,68 +93,7 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon10',
     Gold: 10000,
-  },
-  {
-    title: '11',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon11',
-    Gold: 10000000,
-  },
-  {
-    title: '12',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon12',
-    Gold: 10000,
-  },
-  {
-    title: '13',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon13',
-    Gold: 10000000,
-  },
-  {
-    title: '14',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon14',
-    Gold: 10000000,
-  },
-  {
-    title: '15',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon15',
-    Gold: 10000000,
-  },
-  {
-    title: '16',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon16',
-    Gold: 10000000,
-  },
-  {
-    title: '17',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon17',
-    Gold: 10000000,
-  },
-  {
-    title: '18',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon18',
-    Gold: 10000000,
-  },
-  {
-    title: '19',
-    desc: '기념품입니다.',
-    level: '5',
-    ballPenName: 'weapon19',
-    Gold: 10000000,
+    weaponDamage:500,
+
   },
 ];
