@@ -8,6 +8,7 @@ import BackHistoryBtn from '../components/BackHistoryBtn';
 import { create_monster_request } from '../modules/createMonster';
 import CharacterBox from '../components/CharacterBox';
 import FloorBox from '../components/FloorBox';
+import { useState } from 'react';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -49,7 +50,7 @@ const Dungeon = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [before,setBefort] = useState(true)
   return (
     <>
       <FloorBox></FloorBox>
@@ -58,7 +59,7 @@ const Dungeon = () => {
         <MoveBox
           onClick={() => {
             dispatch(create_monster_request(userInfo?.DungeonFloor! - 1));
-            navigate('/dungeonfightbefore');
+            navigate('/dungeonfightbefore',{state:before});
           }}
         >
           <img src={arrowLeft} alt='arrow'></img>이전 층으로

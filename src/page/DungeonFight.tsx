@@ -11,6 +11,7 @@ import CharacterBox from '../components/CharacterBox';
 import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
+import { useLocation } from 'react-router-dom';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -147,13 +148,14 @@ const DamageText = styled.div<HpInterface>`
     `}
 `;
 
-const DungeonFight = () => {
+const DungeonFight = (props:any) => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
+  const {state} = useLocation()
   const [attackAni, setAttackAni] = useState({
     user: false,
     monster: false,
@@ -303,9 +305,10 @@ const DungeonFight = () => {
           isModal={victoryModal}
           huntExp={monsterInfo.monsterExp}
           huntGold={monsterInfo.monsterGold}
+          before={state}
         ></VictoryModal>
       ) : null}
-      <FloorBox></FloorBox>
+      <FloorBox before={state}></FloorBox>
       <CharacterBoxWrap>
         {gelatineAni.user ? <DamageText>-{damageText.user}</DamageText> : null}
 

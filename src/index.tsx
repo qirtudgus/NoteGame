@@ -61,7 +61,7 @@ root.render(
           <Route path='/skill' element={<Skill />}></Route>
           <Route path='/dungeon' element={<Dungeon />}></Route>
           <Route path='/dungeonfight' element={<DungeonFight />}></Route>
-          <Route path='/dungeonfightbefore' element={<DungeonFightBefore />}></Route>
+          <Route path='/dungeonfightbefore' element={<DungeonFight />}></Route>
           <Route path='/ballpenshop' element={<BallpenShop />}></Route>
         </Route>
       </Routes>
