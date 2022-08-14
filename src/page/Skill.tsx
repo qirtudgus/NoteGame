@@ -150,7 +150,7 @@ const Skill = () => {
                                    <SkillPiece
                     skillName='UpMaxHp'
                     title='운동장 열바퀴.'
-                    desc={`체력이 ${
+                    desc={`기본 체력이 ${
                       userInfo?.UpMaxHp! * 100
                     } 상승합니다.`}
                     level={userInfo?.UpMaxHp}

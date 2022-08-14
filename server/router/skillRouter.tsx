@@ -15,7 +15,6 @@ skillRouter.post('/skillup', (req, res, next) => {
   const userId = req.decoded.userId;
   const { skillName, skillPoint } = req.body;
   if (skillPoint <= 0) return;
-  console.log(skillName, skillPoint);
 
   if (skillName === 'UpGoldPen') {
     db.query(UpGoldPenQuery, [userId], (err, result, fields) => {

@@ -94,6 +94,7 @@ const BallpenShop = () => {
     TabNum: 1,
   });
 
+
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr2 = buyBallpenList.buyBallpenList;
 

@@ -5,7 +5,7 @@ import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 export const buyBallpenListRouter = express.Router();
 
 const userFindQuery = 'SELECT BuyBallpenList FROM users WHERE ID = ?';
-const EquipBallpenQuery = `UPDATE users SET EquipBallpen = ? WHERE ID = ?`;
+const EquipBallpenQuery = `UPDATE users SET EquipBallpen = ?, BasicDamage = ? WHERE ID = ?`;
 const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
@@ -50,11 +50,12 @@ buyBallpenListRouter.post('/realbuyballpen', (req, res, next) => {
 
 buyBallpenListRouter.post('/equip', (req, res, next) => {
   const userId = req.decoded.userId;
-  const { ballpenName } = req.body;
-  db.query(EquipBallpenQuery, [ballpenName, userId], (err, rows, fields) => {
+  const { ballpenName, weaponDamage } = req.body;
+  console.log(weaponDamage)
+  db.query(EquipBallpenQuery, [ballpenName,weaponDamage , userId], (err, rows, fields) => {
+  
     db.query(loginQuery, [userId], (err, rows, fields) => {
       let userInfo = userInfoProcess(rows[0]);
-      console.log(userInfo);
       res.status(200).json({ code: 200, userInfo: userInfo });
     });
   });

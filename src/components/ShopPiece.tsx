@@ -5,6 +5,8 @@ import styled, { css } from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import { real_buy_ballpen_request } from '../modules/buyBallpenList';
 import { equip_ballpen_request } from '../modules/login';
+import { penObj } from '../util/shopList';
+
 
 interface shopBoxInterface {
   title?: string;
@@ -74,6 +76,10 @@ const ShopBox = styled.div<shopBoxInterface>`
     `}
 `;
 
+
+
+
+
 const ShopPiece = (props: any, ref: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
@@ -84,6 +90,13 @@ const ShopPiece = (props: any, ref: any) => {
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, [buyBallpenList]);
   let equip = userInfo?.EquipBallpen;
+
+  //장착할 무기의 공격력을 할당
+  const weaponDamage = (equipBallpenName:string):number => {
+    let result = penObj.find(e => e.ballPenName === equipBallpenName)?.weaponDamage!
+    return result
+  }
+
 
   return (
     <ShopBox
@@ -110,7 +123,8 @@ const ShopPiece = (props: any, ref: any) => {
             buy={props.penname}
             onClick={
               () => {
-              dispatch(equip_ballpen_request(`${props.penname}`));
+                console.log(weaponDamage(props.penname))
+              dispatch(equip_ballpen_request(`${props.penname}`,weaponDamage(props.penname)));
             }}
           >
             장착

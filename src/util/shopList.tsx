@@ -5,6 +5,7 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon1',
     Gold: 0,
+    weaponDamage:50,
   },
   {
     title: '2',
@@ -12,6 +13,8 @@ export const penObj = [
     level: '5',
     ballPenName: 'weapon2',
     Gold: 10000,
+    weaponDamage:500,
+
   },
   {
     title: '3',
