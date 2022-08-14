@@ -60,8 +60,4 @@ buyBallpenListRouter.post('/equip', (req, res, next) => {
     });
   });
 
-  //   db.query(loginQuery, [userId], (err, rows, fields) => {
-  //     // const uesrInfo = userInfoProcess(rows[0]);
-  //     res.status(200).json({ code: 200, buyBallpenList: {} });
-  //   });
 });

@@ -8,7 +8,7 @@ interface pen {
 }
 export const penObj:pen[] = [
   {
-    title: '1',
+    title: '모남이 볼펜',
     desc: '그냥볼펜',
     level: '5',
     ballPenName: 'weapon1',
@@ -16,7 +16,7 @@ export const penObj:pen[] = [
     weaponDamage:50,
   },
   {
-    title: '2',
+    title: '하이테크 볼펜',
     desc: '하이테크입니다.',
     level: '5',
     ballPenName: 'weapon2',
@@ -25,12 +25,12 @@ export const penObj:pen[] = [
 
   },
   {
-    title: '3',
+    title: '컴퓨터용 사인펜',
     desc: '만년필입니다.',
     level: '5',
     ballPenName: 'weapon3',
     Gold: 100000,
-    weaponDamage:500,
+    weaponDamage:1000,
 
   },
   {
