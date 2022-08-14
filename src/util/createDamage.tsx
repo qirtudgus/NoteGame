@@ -10,17 +10,14 @@ import createRandomNum from "./createRandomNum";
 // 리워드로 계산한 최종데미지
 
 export const userDamage = ( reward:number, userDamage:number, betterPen:number):number => {
-    console.log(userDamage)
-    console.log(betterPen)
-    console.log(reward)
-
+    // 유저의 기본데미지에 스킬렙만큼(n*2%)의 데미지를 구한다.
     let skillDamage = (userDamage * (betterPen *2)) /100;
+    // 기본데미지에 스킬데미지를 합산
     let addDamage = userDamage + skillDamage;
-    let resultDamage = Math.ceil(addDamage * (reward / 100))
-    
-    console.log(resultDamage)
-    
-    return resultDamage
+    // reward로 뽑은만큼의 데미지를 계산하여 반환
+    let resultUserDamage = Math.ceil(addDamage * (reward / 100))
+
+    return resultUserDamage
 
 }
 //몬스터 데미지 공식

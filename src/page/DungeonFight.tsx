@@ -149,7 +149,7 @@ const DamageText = styled.div<HpInterface>`
     `}
 `;
 
-const DungeonFight = (props:any) => {
+const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
@@ -194,7 +194,7 @@ const DungeonFight = (props:any) => {
   ]);
 
   const [penSpeed, setPenSpeed] = useState<{ speed: number; text: number }>({
-    speed: 0.75,
+    speed: 0.7,
     text: 1,
   });
 
@@ -220,7 +220,7 @@ const DungeonFight = (props:any) => {
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
-    const cb = document.elementFromPoint(x, y) as HTMLElement | null;
+    const cb = document.elementFromPoint(x, y) as HTMLElement;
     if (cb === null) return;
     let userResultDamage = userDamage(parseInt(cb.dataset.attacknumber as string), userInfo.BasicDamage, userInfo.BetterPen)
     let hp: number = monsterHpBar.nowHp - userResultDamage;
@@ -250,8 +250,7 @@ const DungeonFight = (props:any) => {
   const monsterAttack = () => {
     let resultDamage = monsterDamage(monsterInfo.monsterDamage)
     setDamageText({ ...damageText, user: resultDamage });
-    let userHp = userHpBar.nowHp;
-    let resultHp = userHp - resultDamage;
+    let resultHp = userHpBar.nowHp - resultDamage;
     let resultHpBar = Math.ceil((resultHp / userInfo.BasicHp) * 100);
     //몬스터가 승리 시
     if (resultHp <= 0) {

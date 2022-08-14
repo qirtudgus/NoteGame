@@ -40,6 +40,7 @@ export let setUesrInfo = {
   SkillPoint: 0,
   UpGoldPen: 0,
   UpGoldHunt: 0,
+  UpMaxHp:0,
   DungeonFloor: 0,
   BetterPen: 0,
   Exp: 0,
@@ -181,6 +182,7 @@ type IsLoginState = {
     SkillPoint?: number;
     UpGoldPen?: number;
     UpGoldHunt?: number;
+    UpMaxHp?:number;
     DungeonFloor?: number;
     BetterPen?: number;
     Exp?: number;

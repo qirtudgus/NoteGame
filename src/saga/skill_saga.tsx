@@ -13,12 +13,7 @@ const skillUpRequest = async (skillName: string, skillPoint: number) => {
 
 function* skillUpRequest$(action: any): Generator<any, any, any> {
   try {
-    console.log(action);
-    console.log(action.payload.skillName);
-    console.log('zzz');
-
-    let result;
-    result = yield call(
+    let result = yield call(
       skillUpRequest,
       action.payload.skillName,
       action.payload.skillPoint,

@@ -9,11 +9,14 @@ import SkillPiece from '../components/SkillPiece';
 const SkillPageWrap = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 20px;
+
+  overflow-y: scroll;
   background: #999;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+    align-items: center;
 `;
 
 interface TabColor {
@@ -143,6 +146,14 @@ const Skill = () => {
                       userInfo?.BetterPen! * 2
                     }% 상승합니다.`}
                     level={userInfo?.BetterPen}
+                  ></SkillPiece>
+                                   <SkillPiece
+                    skillName='UpMaxHp'
+                    title='운동장 열바퀴.'
+                    desc={`체력이 ${
+                      userInfo?.UpMaxHp! * 100
+                    } 상승합니다.`}
+                    level={userInfo?.UpMaxHp}
                   ></SkillPiece>
                 </>
               ),

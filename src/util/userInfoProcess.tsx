@@ -19,6 +19,7 @@ export interface userInfoInterface {
   UpGoldAll: number;
   UpGoldHunt: number;
   UpGoldPen: number;
+  UpMaxHp:number;
   UpWeaponDamage: number;
   UpWeaponHp: number;
   DoubleAttack: number;

@@ -48,7 +48,6 @@ const Character = styled.div`
 `;
 
 const MonsterBox = ({ children, id, gelatine, monsterCall, attack }: children) => {
-  console.log(attack)
   return (
     <CharacterWrap id={id} gelatine={gelatine} attack={attack}>
       {children}
