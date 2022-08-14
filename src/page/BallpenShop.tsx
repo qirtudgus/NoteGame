@@ -132,23 +132,18 @@ const BallpenShop = () => {
                           {list.length - 1 === index ? (
                             <ShopPiece
                               ref={ref}
-                              // key={i.ballPenName}
                               penname={i.ballPenName}
                               title={i.title}
                               desc={i.desc}
                               level={i.level}
-                              // buyBallPen={penNameArr2[index]}
                               Gold={i.Gold}
                             ></ShopPiece>
                           ) : (
                             <ShopPiece
-                              // ref={ref}
-                              // key={i.ballPenName}
                               penname={i.ballPenName}
                               title={i.title}
                               desc={i.desc}
                               level={i.level}
-                              // buyBallPen={penNameArr2[index]}
                               Gold={i.Gold}
                             ></ShopPiece>
                           )}
@@ -175,4 +170,4 @@ const BallpenShop = () => {
   );
 };
 
-export default BallpenShop;
+export default React.memo(BallpenShop);

@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import { real_buy_ballpen_request } from '../modules/buyBallpenList';
 import { equip_ballpen_request } from '../modules/login';
-// import { useInView } from 'react-intersection-observer';
 
 interface shopBoxInterface {
   title?: string;
@@ -76,7 +75,6 @@ const ShopBox = styled.div<shopBoxInterface>`
 `;
 
 const ShopPiece = (props: any, ref: any) => {
-  // const [ref, inView] = useInView();
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const buyBallpenList = useSelector(
@@ -85,10 +83,7 @@ const ShopPiece = (props: any, ref: any) => {
 
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, []);
-
   let equip = userInfo?.EquipBallpen;
-  // console.log(`받아온 볼펜구매 목록 ${props.buyBallPen}`);
-  // console.log(`볼펜 목록 ${props.penname}`);
 
   return (
     <ShopBox
@@ -105,7 +100,7 @@ const ShopPiece = (props: any, ref: any) => {
         <ShopDesc>
           {props.desc}
           <br />
-          {props.Gold}
+          {props.Gold} 골드
         </ShopDesc>
       </ShopTextWrap>
       {
