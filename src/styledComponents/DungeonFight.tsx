@@ -53,6 +53,7 @@ export const PenWrap = styled.div<penAni>`
   animation-fill-mode: both;
   animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
+  object-fit:cover;
 
   ${(props) =>
     props.penStatus &&

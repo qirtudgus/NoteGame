@@ -26,20 +26,20 @@ export const penObj:pen[] = [
   },
   {
     title: '컴퓨터용 사인펜',
-    desc: '만년필입니다.',
+    desc: 'OMR카드를 가져와',
     level: '5',
     ballPenName: 'weapon3',
-    Gold: 100000,
+    Gold: 10000,
     weaponDamage:1000,
 
   },
   {
-    title: '4',
-    desc: '기념품입니다.',
+    title: '보드마카',
+    desc: '두툼한 보드마카',
     level: '5',
     ballPenName: 'weapon4',
     Gold: 10000,
-    weaponDamage:500,
+    weaponDamage:1000,
 
   },
   {
