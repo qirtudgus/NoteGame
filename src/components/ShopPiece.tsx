@@ -107,9 +107,13 @@ const ShopPiece = (props: any, ref: any) => {
     let result = penObj.find(e => e.ballPenName === equipBallpenName)?.weaponDamage!
     return result
   }
-  const penSpeed = (equipBallpenName:string):number => {
-    let result = penObj.find(e => e.ballPenName === equipBallpenName)?.penSpeed!
-    return result
+
+
+
+  const penSpeed = (equipBallpenName:string) => {
+    let result = penObj.find(e => e.ballPenName === equipBallpenName);
+    let reulstObj = {DungeonPenSpeed:result?.dungeonPenSpeed as number, PenGamePenSpeed:result?.penGamePenSpeed as number};
+    return reulstObj
   }
 
 

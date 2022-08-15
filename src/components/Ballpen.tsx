@@ -2,10 +2,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { forwardRef } from 'react';
 import {
-  PenWrap,
-  PenEnd,
-  PenWrapDungeon,
-  PenEndDungeon,
   PenImg,
   PenImgWrap,
   PenEnd2,
@@ -16,13 +12,14 @@ import {
 import { ballPenList } from '../util/ballPenList';
 
 interface ballpen {
-  penSpeed: number;
+  penSpeed?: number;
   penStatus: boolean;
   isDungeon?: boolean;
 }
 
-const Ballpen = ({ penSpeed, penStatus, isDungeon }: ballpen, ref: any) => {
+const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: any) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+
   let equipBallpen = userInfo?.EquipBallpen as string;
   return (
     <>
@@ -31,8 +28,8 @@ const Ballpen = ({ penSpeed, penStatus, isDungeon }: ballpen, ref: any) => {
 
 
         <PenImgWrapDun>
-        <PenImgDun src={ballPenList[equipBallpen]} penSpeed={penSpeed} penStatus={penStatus}></PenImgDun>
-        <PenEndDun penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEndDun>
+        <PenImgDun src={ballPenList[equipBallpen]} penSpeed={userInfo?.DungeonPenSpeed} penStatus={penStatus}></PenImgDun>
+        <PenEndDun penStatus={penStatus} ref={ref} penSpeed={userInfo?.DungeonPenSpeed}></PenEndDun>
 
         </PenImgWrapDun>
 
@@ -41,8 +38,8 @@ const Ballpen = ({ penSpeed, penStatus, isDungeon }: ballpen, ref: any) => {
       ) : (
         <>
         <PenImgWrap>
-        <PenImg src={ballPenList[equipBallpen]} penSpeed={penSpeed} penStatus={penStatus}></PenImg>
-        <PenEnd2 penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEnd2>
+        <PenImg src={ballPenList[equipBallpen]} penSpeed={userInfo?.PenGamePenSpeed} penStatus={penStatus}></PenImg>
+        <PenEnd2 penStatus={penStatus} ref={ref} penSpeed={userInfo?.PenGamePenSpeed}></PenEnd2>
 
         </PenImgWrap>
         

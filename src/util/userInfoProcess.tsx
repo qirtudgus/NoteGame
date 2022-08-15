@@ -29,6 +29,8 @@ export interface userInfoInterface {
   BetterPen: number;
   SkillPoint: number;
   EquipBallpen: string;
+  DungeonPenSpeed:number;
+  PenGamePenSpeed:number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {

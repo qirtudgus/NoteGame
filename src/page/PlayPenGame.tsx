@@ -4,10 +4,6 @@ import { pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
-import HomeBtn from '../components/HomeBtn';
-import FastForwardBtn from '../components/FastFowardBtn';
-import BackHistoryBtn from '../components/BackHistoryBtn';
-import RefreshBtn from '../components/RefreshBtn';
 import ResultModal from '../components/ResultModal';
 import Loading from '../components/Loading';
 import Ballpen from '../components/Ballpen';
@@ -75,11 +71,15 @@ const PlayPenGame = () => {
     speed: 1,
     text: 1,
   });
+  // const penSpeedInfo: any = useSelector(
+  //   (state: RootState) => state.penSpeed
+  // );
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
   const randomArr = useCallback(createRandomRewardsArray(boxCount, 'penGame'), [
     boxCount,
     refresh,
   ]);
+
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
@@ -129,6 +129,8 @@ const PlayPenGame = () => {
   };
 
   const FastForward = (): void => {
+
+
     if (penSpeed.speed === 1) {
       setPenSpeed({
         speed: 0.5,
@@ -172,6 +174,9 @@ const PlayPenGame = () => {
     };
   }, [gameStart]);
 
+
+
+
   return (
     <>
     <BtnMenu Home BackHistory Refresh RefreshFunc={refreshRewards} FastFoward FastFowardFunc={FastForward} FastFowardText={penSpeed.text} ></BtnMenu>
@@ -203,7 +208,7 @@ const PlayPenGame = () => {
 
       <Ballpen
         penStatus={penStatus}
-        penSpeed={penSpeed.speed}
+        // penSpeed={penSpeed.speed}
         ref={inputRef}
       ></Ballpen>
       <BoxWrap>

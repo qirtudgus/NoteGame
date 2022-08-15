@@ -5,7 +5,7 @@ import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 export const buyBallpenListRouter = express.Router();
 
 const userFindQuery = 'SELECT BuyBallpenList FROM users WHERE ID = ?';
-const EquipBallpenQuery = `UPDATE users SET EquipBallpen = ?, BasicDamage = ? WHERE ID = ?`;
+const EquipBallpenQuery = `UPDATE users SET EquipBallpen = ?, BasicDamage = ?, DungeonPenSpeed = ?, PenGamePenSpeed = ? WHERE ID = ?`;
 const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
@@ -50,9 +50,11 @@ buyBallpenListRouter.post('/realbuyballpen', (req, res, next) => {
 
 buyBallpenListRouter.post('/equip', (req, res, next) => {
   const userId = req.decoded.userId;
-  const { ballpenName, weaponDamage } = req.body;
+  const { ballpenName, weaponDamage, PenSpeed } = req.body;
   console.log(weaponDamage)
-  db.query(EquipBallpenQuery, [ballpenName,weaponDamage , userId], (err, rows, fields) => {
+  console.log(PenSpeed)
+  let arr = [ballpenName,weaponDamage,PenSpeed.DungeonPenSpeed,PenSpeed.PenGamePenSpeed, userId]
+  db.query(EquipBallpenQuery, [ballpenName,weaponDamage,PenSpeed.DungeonPenSpeed,PenSpeed.PenGamePenSpeed, userId], (err, rows, fields) => {
   
     db.query(loginQuery, [userId], (err, rows, fields) => {
       let userInfo = userInfoProcess(rows[0]);

@@ -11,7 +11,8 @@ interface pen {
   Gold:number,
   weaponDamage:number,
   img?:any;
-  penSpeed?:number;
+  dungeonPenSpeed?:number,
+  penGamePenSpeed?:number,
 }
 export const penObj:pen[] = [
   {
@@ -22,7 +23,8 @@ export const penObj:pen[] = [
     Gold: 0,
     weaponDamage:50,
     img:모남볼펜,
-    penSpeed:0.5,
+    dungeonPenSpeed:3.5,
+    penGamePenSpeed:0.5,
   },
   {
     title: '하이테크 볼펜',
@@ -32,7 +34,8 @@ export const penObj:pen[] = [
     Gold: 10000,
     weaponDamage:500,
     img:하이테크,
-    penSpeed:2,
+    dungeonPenSpeed:5,
+    penGamePenSpeed:5,
 
   },
   {
@@ -43,7 +46,6 @@ export const penObj:pen[] = [
     Gold: 10000,
     weaponDamage:1000,
     img:컴퓨터용사인펜,
-    penSpeed:5,
 
   },
   {

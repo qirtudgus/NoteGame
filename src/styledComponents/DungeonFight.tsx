@@ -11,7 +11,7 @@ export const gelatine = keyframes`
 interface penAni {
   penStatus: boolean;
   ref?: any;
-  penSpeed: number;
+  penSpeed?: number;
   //던전에서 사용 시 css
   isDungeon?: boolean;
 }

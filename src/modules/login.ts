@@ -46,17 +46,20 @@ export let setUesrInfo = {
   Exp: 0,
   NeedExp: 0,
   EquipBallpen: '',
+  DungeonPenSpeed:1,
+  PenGamePenSpeed:1,
+
 };
 export const db_refresh_success = () => ({
   type: DB_REFRESH_SUCCESS,
   userInfo: setUesrInfo,
 });
 
-export const equip_ballpen_request = (ballpenName: string, weaponDamage:number, penSpeed:number) => ({
+export const equip_ballpen_request = (ballpenName: string, weaponDamage:number, PenSpeed:{}) => ({
   type: EQUIP_BALLPEN_REQUEST,
   ballpenName,
   weaponDamage,
-  penSpeed,
+  PenSpeed,
 });
 
 export const equip_ballpen_success = () => ({
@@ -190,6 +193,8 @@ type IsLoginState = {
     Exp?: number;
     NeedExp?: number;
     EquipBallpen: string;
+    DungeonPenSpeed:number;
+    PenGamePenSpeed:number;
   };
 };
 
