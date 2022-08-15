@@ -5,6 +5,7 @@ import confirmId from './confirmId';
 import boxCount from './pengameBoxCount';
 import monsterInfo from './createMonster';
 import buyBallpenList from './buyBallpenList';
+import penSpeed from './penSpeed';
 
 const rootReducer = combineReducers({
   login,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   boxCount,
   monsterInfo,
   buyBallpenList,
+  penSpeed
 });
 
 export default rootReducer;

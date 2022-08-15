@@ -52,10 +52,11 @@ export const db_refresh_success = () => ({
   userInfo: setUesrInfo,
 });
 
-export const equip_ballpen_request = (ballpenName: string, weaponDamage:number) => ({
+export const equip_ballpen_request = (ballpenName: string, weaponDamage:number, penSpeed:number) => ({
   type: EQUIP_BALLPEN_REQUEST,
   ballpenName,
   weaponDamage,
+  penSpeed,
 });
 
 export const equip_ballpen_success = () => ({

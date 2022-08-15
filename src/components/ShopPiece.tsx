@@ -42,6 +42,14 @@ const ShopIcon = styled.div`
   width: 100px;
   height: 150px;
   background: #fff;
+  overflow:hidden;
+  object-fit:cover;
+  display:flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  & img {
+    margin:20px 0 20px 0;
+  }
 `;
 
 interface buy {
@@ -82,6 +90,9 @@ const ShopBox = styled.div<shopBoxInterface>`
 
 const ShopPiece = (props: any, ref: any) => {
   const dispatch = useDispatch();
+
+  console.log(props.penThumbnail)
+
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const buyBallpenList = useSelector(
     (state: RootState) => state.buyBallpenList.buyBallpenList,
@@ -92,8 +103,12 @@ const ShopPiece = (props: any, ref: any) => {
   let equip = userInfo?.EquipBallpen;
 
   //장착할 무기의 공격력을 할당
-  const weaponDamage = (equipBallpenName:string):number => {
+  const penDamage = (equipBallpenName:string):number => {
     let result = penObj.find(e => e.ballPenName === equipBallpenName)?.weaponDamage!
+    return result
+  }
+  const penSpeed = (equipBallpenName:string):number => {
+    let result = penObj.find(e => e.ballPenName === equipBallpenName)?.penSpeed!
     return result
   }
 
@@ -105,7 +120,9 @@ const ShopPiece = (props: any, ref: any) => {
       nowEquip={equip}
       penname={props.penname}
     >
-      <ShopIcon></ShopIcon>
+      <ShopIcon>
+        <img src={props.penThumbnail} alt='볼펜 이미지'></img>
+      </ShopIcon>
       <ShopTextWrap>
         <ShopTitle nowEquip={equip} penname={props.penname}>
           {props.title} Lv . {props.level}
@@ -123,8 +140,7 @@ const ShopPiece = (props: any, ref: any) => {
             buy={props.penname}
             onClick={
               () => {
-                console.log(weaponDamage(props.penname))
-              dispatch(equip_ballpen_request(`${props.penname}`,weaponDamage(props.penname)));
+              dispatch(equip_ballpen_request(`${props.penname}`,penDamage(props.penname),penSpeed(props.penname)));
             }}
           >
             장착

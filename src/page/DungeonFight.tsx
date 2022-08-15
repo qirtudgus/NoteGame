@@ -189,6 +189,11 @@ const DungeonFight = () => {
   const monsterInfo: any = useSelector(
     (state: RootState) => state.monsterInfo.monsterInfo,
   );
+  const penSpeedInfo: any = useSelector(
+    (state: RootState) => state.penSpeed.penSpeed
+  );
+  console.log("펜스피드 스토어값")
+  console.log(penSpeedInfo)
 
   const randomArr = useCallback(createRandomRewardsArray(6, 'dungeon'), [
     refresh,
@@ -198,6 +203,13 @@ const DungeonFight = () => {
     speed: 0.7,
     text: 1,
   });
+
+    //현재 낀 볼펜의 penSpeed를 가져오자..
+    useEffect(() => {
+      console.log(userInfo.EquipBallpen)
+      setPenSpeed({...penSpeed,speed:penSpeedInfo})
+    },[])
+  
 
   const toggle = () => {
     setPenSatus((penStatus) => !penStatus);
@@ -299,6 +311,9 @@ const DungeonFight = () => {
       document.removeEventListener('keypress', gameStart);
     };
   }, [gameStart]);
+
+
+
   return (
     <>
       {isModal ? (

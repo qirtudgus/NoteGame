@@ -8,7 +8,7 @@ import Notfound from './Notfound';
 import { useInView } from 'react-intersection-observer';
 import { penObj } from '../util/shopList';
 import BtnMenu from '../components/BtnMenu';
-
+import { ballPenList } from '../util/ballPenList';
 const SkillPageWrap = styled.div`
   width: 100%;
   height: 100%;
@@ -76,7 +76,13 @@ const BallpenShop = () => {
   const buyBallpenList = useSelector(
     (state: RootState) => state.buyBallpenList.buyBallpenList,
   );
-  // console.log(InView.toString());
+  const penNameArr2 = buyBallpenList.buyBallpenList;
+
+  useEffect(() => {
+    setList((list: any) => [...list, ...penObj.slice(0, 4)]);
+  }, []);
+
+
   useEffect(() => {
     if (InView === true) {
       setList((list: any) => [
@@ -86,22 +92,16 @@ const BallpenShop = () => {
     }
   }, [InView]);
 
-  useEffect(() => {
-    setList((list: any) => [...list, ...penObj.slice(0, 4)]);
-  }, []);
+
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [isSkillTab, setIsSkillTab] = useState({
     passive: 'passive1',
     TabNum: 1,
   });
 
-
-  //서버에서 구입한 팬목록 배열을 받아온다.
-  const penNameArr2 = buyBallpenList.buyBallpenList;
-
   return (
     <>
-      {penNameArr2 ? (
+      {buyBallpenList.buyBallpenList ? (
         <>
         <BtnMenu BackHistory></BtnMenu>
           <SkillWrap>
@@ -135,6 +135,7 @@ const BallpenShop = () => {
                             <ShopPiece
                               ref={ref}
                               penname={i.ballPenName}
+                              penThumbnail={ballPenList}
                               title={i.title}
                               desc={i.desc}
                               level={i.level}
@@ -143,6 +144,8 @@ const BallpenShop = () => {
                           ) : (
                             <ShopPiece
                               penname={i.ballPenName}
+                              penThumbnail={i.img}
+
                               title={i.title}
                               desc={i.desc}
                               level={i.level}

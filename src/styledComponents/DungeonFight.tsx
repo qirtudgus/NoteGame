@@ -32,13 +32,13 @@ export const animation = keyframes`
 // DungeonFight에서 사용되는 애니메이션
 export const animationDungeon = keyframes`
     0% {
-      transform:translate(-25em);
+      transform:translate(-22em);
     }
   50%{
     transform:translate(200px); 
    }
     100%{
-      transform:translate(-25em);
+      transform:translate(-22em);
     }
   `;
 

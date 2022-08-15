@@ -22,6 +22,7 @@ const BtnImg = styled.img.attrs({
 
 const Back = styled.div<cornerBtn>`
   cursor: pointer;
+  z-index:100;
   width: 76px;
   height: 76px;
   background-color: #fff;
