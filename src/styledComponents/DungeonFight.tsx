@@ -35,7 +35,7 @@ export const animationDungeon = keyframes`
       transform:translate(-20em);
     }
   50%{
-    transform:translate(8.5em); 
+    transform:translate(9.7em); 
    }
     100%{
       transform:translate(-20em);
@@ -118,8 +118,57 @@ export const PenEndDungeon = styled.div<penAni>`
   left: 590px;
   margin: none;
   animation-fill-mode: both;
+  animation-play-state: running;
   animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out
     infinite; //1초동안 선형 무한 속성값주기
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+`;
+
+export const PenImgWrap = styled.div`
+top:183px;
+left:-120px;
+position:relative;
+height:370px;
+width:auto;
+`
+
+
+export const PenImg = styled.img<penAni>`
+z-index:100;
+display:block;
+position:relative;
+height: auto;
+width:auto;
+top: 0px;
+left: 0px;
+margin: none;
+animation-fill-mode: both;
+  animation-play-state: running;
+  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite;
+    infinite; //1초동안 선형 무한 속성값주기
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+
+`
+
+export const PenEnd2 = styled.div<penAni>`
+  width: 1px;
+  height: 100px;
+  background: rgba(0, 0, 0, 1);
+  position: absolute;
+  z-index: 100;
+  top: -30px;
+  left:50%;
+  transform:translateX(-50%);
+  animation-fill-mode: both;
+  animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
   ${(props) =>
     props.penStatus &&
@@ -127,3 +176,54 @@ export const PenEndDungeon = styled.div<penAni>`
       animation-play-state: paused;
     `}
 `;
+
+
+export const PenImgWrapDun = styled.div`
+top:650px;
+left:550px;
+position:absolute;
+height:153px;
+width:auto;
+`
+
+
+export const PenImgDun = styled.img<penAni>`
+z-index:100;
+display:block;
+position:relative;
+height: auto;
+width:auto;
+top: 0px;
+left: 0px;
+margin: none;
+animation-fill-mode: both;
+  animation-play-state: running;
+  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out infinite;
+    infinite; //1초동안 선형 무한 속성값주기
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+
+`
+
+export const PenEndDun = styled.div<penAni>`
+  width: 1px;
+  height: 100px;
+  background: rgba(0, 0, 0, 1);
+  position: absolute;
+  z-index: 100;
+  top: -30px;
+  left:50%;
+  transform:translateX(-50%);
+  animation-fill-mode: both;
+  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
+  animation-play-state: running;
+  ${(props) =>
+    props.penStatus &&
+    css`
+      animation-play-state: paused;
+    `}
+`;
+

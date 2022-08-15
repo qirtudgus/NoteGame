@@ -6,6 +6,12 @@ import {
   PenEnd,
   PenWrapDungeon,
   PenEndDungeon,
+  PenImg,
+  PenImgWrap,
+  PenEnd2,
+  PenImgDun,
+  PenImgWrapDun,
+  PenEndDun,
 } from '../styledComponents/DungeonFight';
 import { ballPenList } from '../util/ballPenList';
 
@@ -22,21 +28,24 @@ const Ballpen = ({ penSpeed, penStatus, isDungeon }: ballpen, ref: any) => {
     <>
       {isDungeon ? (
         <>
-          <PenEndDungeon
-            penStatus={penStatus}
-            ref={ref}
-            penSpeed={penSpeed}
-          ></PenEndDungeon>
-          <PenWrapDungeon penSpeed={penSpeed} penStatus={penStatus}>
-            <img src={ballPenList[equipBallpen]} alt='ballpen'></img>
-          </PenWrapDungeon>
+
+
+        <PenImgWrapDun>
+        <PenImgDun src={ballPenList[equipBallpen]} penSpeed={penSpeed} penStatus={penStatus}></PenImgDun>
+        <PenEndDun penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEndDun>
+
+        </PenImgWrapDun>
+
+
         </>
       ) : (
         <>
-          <PenEnd penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEnd>
-          <PenWrap penSpeed={penSpeed} penStatus={penStatus}>
-            <img src={ballPenList[equipBallpen]} alt='ballpen'></img>
-          </PenWrap>
+        <PenImgWrap>
+        <PenImg src={ballPenList[equipBallpen]} penSpeed={penSpeed} penStatus={penStatus}></PenImg>
+        <PenEnd2 penStatus={penStatus} ref={ref} penSpeed={penSpeed}></PenEnd2>
+
+        </PenImgWrap>
+        
         </>
       )}
     </>
