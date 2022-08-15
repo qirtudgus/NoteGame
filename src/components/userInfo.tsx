@@ -1,18 +1,16 @@
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSelector} from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { logout } from '../modules/login';
 // import { expTable } from '../util/ExpTable';
 import { expTable } from '../util/expTable';
 import React from 'react';
 
 const BasicBox = styled.div`
   width: 100%;
-  height: 150px;
+  height: 190;
   position: absolute;
   bottom: 20px;
-  left: 50px;
+  left: 35px;
   z-index: 10;
   font-size: 22px;
   font-weight: bold;
@@ -26,13 +24,6 @@ const UserInfo = ({ children }: children) => {
   const userId = useSelector((state: RootState) => state.login.id);
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
-  //   console.log(userInfo);
-
-  const dispatch = useDispatch();
-  const logOutRequest = () => {
-    dispatch(logout());
-  };
-
   return (
     <BasicBox>
       {children}
@@ -45,7 +36,6 @@ const UserInfo = ({ children }: children) => {
       <p>
         경험치 {userInfo?.Exp} / {expTable[userInfo?.Level!]}
       </p>
-      <button onClick={logOutRequest}>로그아웃</button>
     </BasicBox>
   );
 };
