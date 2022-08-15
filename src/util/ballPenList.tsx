@@ -1,7 +1,7 @@
 import 모남볼펜 from '../img/모남볼펜.png';
 import 하이테크 from '../img/하이테크.png';
 import 컴퓨터용사인펜 from '../img/컴퓨터용사인펜.png';
-import 보드마카 from '../img/보드마카.png';
+import 보드마카 from '../img/보드마카2.png';
 //https://yamoo9.gitbook.io/typescript/interface/index-signature
 interface pen {
   [prop: string]: string;

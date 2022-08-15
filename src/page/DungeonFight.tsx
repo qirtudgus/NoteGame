@@ -222,7 +222,17 @@ const DungeonFight = () => {
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement;
-    if (cb === null) return;
+    //빗나갈 시 miss를 띄우고 상대방은 유저를 때린다.
+    if (cb.dataset.attacknumber === undefined) {
+      setDamageText({ ...damageText, monster: 'Miss' });
+      setRefresh((refresh) => !refresh);
+      setAttackAni({user:true,monster:false})
+      setGelatineAni({ user: false, monster: true });
+      setTimeout(function () {
+        monsterAttack();
+      }, 800);
+      return
+    };
     let userResultDamage = userDamage(parseInt(cb.dataset.attacknumber as string), userInfo.BasicDamage, userInfo.BetterPen)
     let hp: number = monsterHpBar.nowHp - userResultDamage;
     let hpbar = Math.ceil((hp / monsterInfo.monsterFullHp) * 100);
