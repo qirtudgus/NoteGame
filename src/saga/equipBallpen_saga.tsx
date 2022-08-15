@@ -11,8 +11,8 @@ const equipBallpenApi = async (ballpenName: string, weaponDamage:number,PenSpeed
 function* equipBallpenApi$(action: any): Generator<any, any, any> {
   try {
     console.log(action)
-    const result = yield call(equipBallpenApi, action.ballpenName, action.weaponDamage, action.PenSpeed);
-    yield put({ type: EQUIP_BALLPEN_SUCCESS, userInfo: result.userInfo });
+    const resultUserInfo = yield call(equipBallpenApi, action.ballpenName, action.weaponDamage, action.PenSpeed);
+    yield put({ type: EQUIP_BALLPEN_SUCCESS, userInfo: resultUserInfo.userInfo });
   } catch (err) {
     console.log(err);
   }

@@ -2,6 +2,7 @@ import 모남볼펜 from '../img/모남볼펜.png';
 import 하이테크 from '../img/하이테크.png';
 import 컴퓨터용사인펜 from '../img/컴퓨터용사인펜.png';
 import 보드마카 from '../img/보드마카2.png';
+import 만년필 from '../img/만년필.png';
 
 interface pen {
   title:string,
@@ -59,12 +60,15 @@ export const penObj:pen[] = [
 
   },
   {
-    title: '5',
+    title: '만년필',
     desc: '기념품입니다.',
     level: '5',
     ballPenName: 'weapon5',
-    Gold: 10000000,
-    weaponDamage:500,
+    Gold: 1000,
+    weaponDamage:5000,
+    img:만년필,
+    dungeonPenSpeed:0.6,
+    penGamePenSpeed:0.6,
 
   },
   {
