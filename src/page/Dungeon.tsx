@@ -9,6 +9,7 @@ import { create_monster_request } from '../modules/createMonster';
 import CharacterBox from '../components/CharacterBox';
 import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
+import BtnMenu from '../components/BtnMenu';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -75,7 +76,7 @@ const Dungeon = () => {
       </MoveBoxWrap>
       <CharacterBox></CharacterBox>
       <BottomBox></BottomBox>
-      <BackHistoryBtn corner></BackHistoryBtn>
+<BtnMenu BackHistory></BtnMenu>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { register } from '../modules/register';
 import { confirm_id_request } from '../modules/confirmId';
 import { RootState } from '../modules/modules_index';
 import { useNavigate } from 'react-router-dom';
+import BtnMenu from '../components/BtnMenu';
 
 const Register = () => {
   const [Name, setName] = useState<string>('');
@@ -93,6 +94,7 @@ const Register = () => {
 
   return (
     <>
+    <BtnMenu BackHistory></BtnMenu>
       {isConfirmId.text}
       <BasicInputs
         placeholder='아이디'

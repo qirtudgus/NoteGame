@@ -18,17 +18,21 @@ interface btn {
     BackHistory?:boolean;
     Home?:boolean;
     FastFoward?:boolean;
+    FastFowardFunc?:any;
+    FastFowardText?:number;
     Refresh?:boolean;
+    RefreshFunc?:any;
     LogOut?:boolean;
+
 }
 
-const BtnMenu = ({BackHistory,Home,FastFoward,Refresh,LogOut}:btn) => {
+const BtnMenu = ({BackHistory,Home,FastFoward,FastFowardFunc,FastFowardText,Refresh,LogOut,RefreshFunc}:btn) => {
     return(
     <BtnWrap>
     {BackHistory && <BackHistoryBtn></BackHistoryBtn>} 
     {Home &&<HomeBtn></HomeBtn>}
-    {FastFoward && <FastFowardBtn></FastFowardBtn>}
-    {Refresh && <RefreshBtn></RefreshBtn>}    
+    {Refresh && <RefreshBtn func={RefreshFunc}></RefreshBtn>}    
+    {FastFoward && <FastFowardBtn func={FastFowardFunc} text={FastFowardText}></FastFowardBtn>}
     {LogOut && <LogOutBtn></LogOutBtn>}    
     </BtnWrap>
     )

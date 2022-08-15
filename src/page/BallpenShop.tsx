@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import Notfound from './Notfound';
 import { useInView } from 'react-intersection-observer';
 import { penObj } from '../util/shopList';
+import BtnMenu from '../components/BtnMenu';
 
 const SkillPageWrap = styled.div`
   width: 100%;
@@ -102,7 +103,7 @@ const BallpenShop = () => {
     <>
       {penNameArr2 ? (
         <>
-          <BackHistoryBtn corner></BackHistoryBtn>
+        <BtnMenu BackHistory></BtnMenu>
           <SkillWrap>
             <SkillTabWrap>
               <SkillTap

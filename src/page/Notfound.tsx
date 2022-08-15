@@ -1,8 +1,9 @@
 import HomeBtn from '../components/HomeBtn';
+import BtnMenu from '../components/BtnMenu';
 const Notfound = () => {
   return (
     <>
-      <HomeBtn corner></HomeBtn>
+    <BtnMenu Home></BtnMenu>
       <p>찾을 수 없는 페이지입니다.</p>
     </>
   );

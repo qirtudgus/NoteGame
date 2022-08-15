@@ -13,6 +13,7 @@ import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation } from 'react-router-dom';
 import { userDamage,monsterDamage } from '../util/createDamage';
+import BtnMenu from '../components/BtnMenu';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -363,7 +364,7 @@ const DungeonFight = () => {
       </BoxWrap>
 
       <BottomBox></BottomBox>
-      <BackHistoryBtn corner></BackHistoryBtn>
+<BtnMenu BackHistory Home></BtnMenu>
     </>
   );
 };

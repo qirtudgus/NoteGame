@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { pengame_boxcount_success } from '../modules/pengameBoxCount';
 import { useState } from 'react';
+import BtnMenu from '../components/BtnMenu';
 const PenCountWrap = styled.div`
   width: 473px;
   height: 293px;
@@ -60,6 +61,8 @@ const ChoicePenCount = () => {
 
   return (
     <>
+          <BtnMenu BackHistory></BtnMenu>
+
       <PenCountWrap>
         <PenCountTitle>
           {' '}
@@ -82,7 +85,6 @@ const ChoicePenCount = () => {
           <button onClick={go}>Go</button>
         </PenCountBox>
       </PenCountWrap>
-      <BackHistoryBtn corner />
     </>
   );
 };

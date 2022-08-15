@@ -11,6 +11,7 @@ import RefreshBtn from '../components/RefreshBtn';
 import ResultModal from '../components/ResultModal';
 import Loading from '../components/Loading';
 import Ballpen from '../components/Ballpen';
+import BtnMenu from '../components/BtnMenu';
 
 const BoxWrap = styled.div`
   position: absolute;
@@ -173,6 +174,7 @@ const PlayPenGame = () => {
 
   return (
     <>
+    <BtnMenu Home BackHistory Refresh RefreshFunc={refreshRewards} FastFoward FastFowardFunc={FastForward} FastFowardText={penSpeed.text} ></BtnMenu>
       {isLoading ? <Loading></Loading> : null}
 
       <TestInput
@@ -191,15 +193,13 @@ const PlayPenGame = () => {
           OnClick={replay}
         ></ResultModal>
       )}
-
-      <BackHistoryBtn corner></BackHistoryBtn>
+{/* 
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
-      <HomeBtn corner></HomeBtn>
       <FastForwardBtn
         corner
         func={FastForward}
         text={penSpeed.text}
-      ></FastForwardBtn>
+      ></FastForwardBtn> */}
 
       <Ballpen
         penStatus={penStatus}

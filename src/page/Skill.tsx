@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import BackHistoryBtn from '../components/BackHistoryBtn';
 import { skill_request } from '../modules/login';
 import styled, { css } from 'styled-components';
 import SkillPiece from '../components/SkillPiece';
+import BtnMenu from '../components/BtnMenu';
 
 const SkillPageWrap = styled.div`
   width: 100%;
@@ -87,7 +87,7 @@ const Skill = () => {
   });
   return (
     <>
-      <BackHistoryBtn corner></BackHistoryBtn>
+    <BtnMenu BackHistory></BtnMenu>
       <SkillWrap>
         <SkillTabWrap>
           <SkillTap
