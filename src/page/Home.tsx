@@ -4,6 +4,7 @@ import { RootState } from '../modules/modules_index';
 import { logout } from '../modules/login';
 import BasicBoxs from '../components/userInfo';
 import HeaderBtnCollection from '../components/HeaderBtnCollection';
+import BtnMenu from '../components/BtnMenu';
 const Home = () => {
   const isTokenExPired = useSelector(
     (state: RootState) => state.login.tokenExpired,
@@ -16,6 +17,7 @@ const Home = () => {
 
   return (
     <>
+    <BtnMenu LogOut></BtnMenu>
       {isTokenExPired ? (
         <div>
           <p>토큰이 만료되었습니다 재로그인해주세요.</p>
