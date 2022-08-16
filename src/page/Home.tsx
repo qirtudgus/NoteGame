@@ -62,6 +62,13 @@ const Home = () => {
             >
               스킬
             </li>
+            <li
+              onClick={() => {
+                navigate('/ranking');
+              }}
+            >
+              랭킹
+            </li>
           </ul>
         </>
       )}
