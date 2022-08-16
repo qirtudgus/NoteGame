@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import BtnMenu from "../components/BtnMenu"
 import customAxios from "../util/axios"
 import styled,{css} from "styled-components"
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../modules/modules_index';
 
 const RankingWrap = styled.div`
  width:800px;
@@ -21,6 +23,7 @@ interface a {
     userList?:any,
     bar?:any,
     active?:boolean,
+    myranking?:boolean,
 }
 
 const RankingTab = styled.div<a>`
@@ -46,10 +49,24 @@ margin-top:20px;
 const RankingList  = styled.tr<a>`
 width:100%;
 height:50px;
-
+display:flex;
+justify-content: space-around;
+align-items:center;
 ${(props) => props.bar && css`
     font-weight:bold;
     font-size:1.3rem;
+`}
+${(props) => props.myranking && css`
+    font-weight:bold;
+    background:#e5005a;
+`}
+
+`
+
+const RankingTh  = styled.th<a>`
+${(props) => props.myranking && css`
+    font-weight:bold;
+    background:#e5005a;
 `}
 `
 
@@ -65,8 +82,17 @@ color:#fff;
 
 `
 
+const PrevBtn = styled.button<a>`
+width:40px;
+height:40px;
+border:1px solid#555;
+`
+
 
 const Ranking = () => {
+    const userInfo = useSelector((state: RootState) => state.login.userInfo);
+    const userId = useSelector((state: RootState) => state.login.id);
+
     //
     const [isNow,setIsNow] = useState(true);
     //리스트에 따른 페이지 갯수
@@ -88,15 +114,45 @@ const Ranking = () => {
         setPages([...pagesNum])
 
     }
+    //첫 데이터를 불러온다.
     useEffect(()=>{
-        //데이터를 불러온다.
         call(currentPageNum)
     },[])
 
-    //페이지 버튼 클릭 시 데이터 요청
-    const requestCall = (e:any) => {
-        let requestNumber = e.currentTarget.dataset.pagenum as number
+    const actionCheck = (el:any,currentNode:any) => {
+        console.log("테스트함수")
+        //뒤로 버튼을 눌렀을 시
+        if(el.dataset.prev === 'backward' ){
+            //1페이지일 경우 함수 종료
+            if(parseInt(currentNode?.dataset.pagenum as string) === 1) return
+            setCurrentPageNum(prev => prev-1)
+            let a:number = parseInt(currentNode?.dataset.pagenum as string)
+            call(a - 1)
+            return
+        }
+        //앞으로 버튼을 눌렀을 시....
+                if(el.dataset.prev === 'forward' ){
+                    //마지막 페이지일 경우 함수 종료
+                    if(parseInt(currentNode?.dataset.pagenum as string) === pages.length) return
+                    let a:number = parseInt(currentNode?.dataset.pagenum as string)
+                    if ( a > pages.length) return
+                    setCurrentPageNum(prev => prev+1)
+                    call(a + 1)
+                    return
+                }
+        // console.log(el)
+        let requestNumber = el.dataset.pagenum as number
         call(requestNumber)
+    }
+    
+
+    //페이지 버튼 클릭 시 데이터 요청
+    const  requestCall = async (e:any) => {
+        let el = e.currentTarget;
+        let currentNode = document.getElementById('active');
+
+        actionCheck(el, currentNode)
+       
     }
 
 
@@ -122,18 +178,34 @@ const Ranking = () => {
             <th>최고층</th>
 </RankingList>
         {list!.map((i :any,index:any) => (
-<RankingList key={i.ID}>
-            <th>{i.ranking}</th>
-            <th>{i.ID}</th>
-            <th>{i.Level}</th>
-            <th>{i.DungeonFloor}</th>
-</RankingList>
+            <>
+            {i.ID === userId ? 
+               
+                <RankingList myranking key={i.ID}>
+                <RankingTh >{i.ranking}</RankingTh>
+                <RankingTh >{i.ID}</RankingTh>
+                <RankingTh >{i.Level}</RankingTh>
+                <RankingTh >{i.DungeonFloor}</RankingTh>
+    </RankingList>
+                :
+                <RankingList key={i.ID}>
+                <RankingTh>{i.ranking}</RankingTh>
+                <RankingTh>{i.ID}</RankingTh>
+                <RankingTh>{i.Level}</RankingTh>
+                <RankingTh>{i.DungeonFloor}</RankingTh>
+    </RankingList>
+            
+            }
+</>
+
+
         ))}
        
-    </RankingTable>
+    </RankingTable><PrevBtn data-prev='backward' onClick={(e) =>{requestCall(e);}}>뒤로</PrevBtn>
     {pages!.map((i:any, index:any) => (
-            <PageBtn data-pagenum={i + 1}  active={currentPageNum === index+1} onClick={(e) =>{requestCall(e); setCurrentPageNum(index+1)}}>{i + 1}</PageBtn>
+            <PageBtn data-pagenum={i + 1}  active={currentPageNum === index+1} id={currentPageNum === index + 1 ? 'active' : ""} onClick={(e) =>{requestCall(e); setCurrentPageNum(index+1)}}>{i + 1}</PageBtn>
         ))}
+        <PrevBtn data-prev='forward' onClick={(e) =>{requestCall(e); }}>앞으로</PrevBtn>
     </RangkingPage>
     </RankingWrap>
     </>)
