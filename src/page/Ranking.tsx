@@ -46,7 +46,7 @@ width:100%;
 height:100%;
 margin-top:20px;
 `
-const RankingList  = styled.tr<a>`
+const RankingTr  = styled.tr<a>`
 width:100%;
 height:50px;
 display:flex;
@@ -171,29 +171,29 @@ const Ranking = () => {
     </RankingTabWrap>
     <RangkingPage>
     <RankingTable>
-    <RankingList bar >
+    <RankingTr bar >
             <th>순위</th>
             <th>닉네임</th>
             <th>레벨</th>
             <th>최고층</th>
-</RankingList>
+</RankingTr>
         {list!.map((i :any,index:any) => (
             <>
             {i.ID === userId ? 
                
-                <RankingList myranking key={i.ID}>
+                <RankingTr myranking key={i.ID}>
                 <RankingTh >{i.ranking}</RankingTh>
                 <RankingTh >{i.ID}</RankingTh>
                 <RankingTh >{i.Level}</RankingTh>
                 <RankingTh >{i.DungeonFloor}</RankingTh>
-    </RankingList>
+    </RankingTr>
                 :
-                <RankingList key={i.ID}>
+                <RankingTr key={i.ID}>
                 <RankingTh>{i.ranking}</RankingTh>
                 <RankingTh>{i.ID}</RankingTh>
                 <RankingTh>{i.Level}</RankingTh>
                 <RankingTh>{i.DungeonFloor}</RankingTh>
-    </RankingList>
+    </RankingTr>
             
             }
 </>
