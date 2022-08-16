@@ -59,13 +59,10 @@ height:30px;
 border:1px solid#555;
 ${(props) => props.active && css`
 border:5px solid#555;
-
+background:#555;
+color:#fff;
 `}
 
-&.active {
-    border:5px solid#555;
-
- }
 `
 
 
@@ -126,7 +123,7 @@ const Ranking = () => {
 </RankingList>
         {list!.map((i :any,index:any) => (
 <RankingList key={i.ID}>
-            <th>{index + 1}</th>
+            <th>{i.ranking}</th>
             <th>{i.ID}</th>
             <th>{i.Level}</th>
             <th>{i.DungeonFloor}</th>

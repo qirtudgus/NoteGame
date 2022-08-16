@@ -14,7 +14,7 @@ const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const rankingQuery = 'SELECT ID, DungeonFloor, Level FROM users'
 
 interface data{
-    data?:{};
+    data?:[];
     listNum?:number;
 }
 
@@ -23,19 +23,26 @@ rankingRouter.post('/allranking', (req, res, next) => {
   const {currentPageNum} = req.body;
 
     db.query(rankingQuery,[],(err,rows,fields) => {
-        console.log(err);
-        console.log(rows);
-        let a = rows.sort(function(a:any,b:any) {
+        // console.log(err);
+        // console.log(rows);
+        let sortRankingArr = rows.sort(function(a:any,b:any) {
             return b.DungeonFloor - a.DungeonFloor;
         })
+        //순위 추가
+        let addRankingNumberArr = sortRankingArr.map((i:any,index:any) => ({
+            ...i, ranking:index+1
+        }))
+        console.log(addRankingNumberArr)
+
         let payload:data = {};
         //페이지넘버를 요청했을 때
-        let b = (currentPageNum - 1) * 10 // 0
-        console.log(currentPageNum)
-        console.log(b)
-        payload.data = a.slice(b, (b + 9 + 1) ); // 0~9 까지 10개를 넘겨준다.
-        payload.listNum = Math.ceil(a.length / 10) // 10으로 나눈 뒤 반올림하여 필요한 페이지 갯수(정수)를 넘겨준다.
-        console.log(a.slice(b, b + 9));
+        let pageNumber = (currentPageNum - 1) * 10 // 0
+        // console.log(currentPageNum)
+        payload.data = addRankingNumberArr.slice(pageNumber, (pageNumber + 9 + 1) ); // 0~9 까지 10개를 넘겨준다.
+
+
+
+        payload.listNum = Math.ceil(addRankingNumberArr.length / 10) // 10으로 나눈 뒤 반올림하여 필요한 페이지 갯수(정수)를 넘겨준다.
 
         res.status(200).json({payload})
     })
