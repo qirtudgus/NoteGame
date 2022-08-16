@@ -21,7 +21,11 @@ rankingRouter.post('/allranking', (req, res, next) => {
     db.query(rankingQuery,[],(err,rows,fields) => {
         console.log(err);
         console.log(rows);
-        res.send(rows[0])
+        let a = rows.sort(function(a:any,b:any) {
+            return b.DungeonFloor - a.DungeonFloor;
+        })
+        console.log(a.slice(0,10));
+        res.send(a.slice(0,10))
     })
 
 
