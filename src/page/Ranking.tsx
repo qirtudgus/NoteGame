@@ -159,7 +159,7 @@ const Ranking = () => {
       <RankingWrap>
         <RankingTabWrap>
           <RankingTab
-            active={show === true}
+            active={show}
             onClick={() => {
               setShow(() => true);
             }}
@@ -167,7 +167,7 @@ const Ranking = () => {
             전체 순위
           </RankingTab>
           <RankingTab
-            active={show === false}
+            active={!show}
             onClick={() => {
               callmyranking(userId);
               setShow(() => false);
