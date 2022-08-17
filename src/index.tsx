@@ -23,6 +23,7 @@ import DungeonFight from './page/DungeonFight';
 import BallpenShop from './page/BallpenShop';
 import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
+// import ZZ from './page/zz';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -66,11 +67,9 @@ root.render(
           <Route path='/ballpenshop' element={<BallpenShop />}></Route>
         </Route>
         <Route element={<LayoutNotInfo />}>
-        <Route path='/ranking' element={<Rangking />}></Route>
+          <Route path='/ranking' element={<Rangking />}></Route>
         </Route>
-
       </Routes>
-    
     </BrowserRouter>
   </Provider>,
 );
