@@ -87,8 +87,11 @@ rankingRouter.post('/myranking', (req, res, next) => {
       ranking: index + 1,
     }));
     let a = addRankingNumberArr.findIndex((e: any) => e.Id === userId);
+    console.log(a);
 
-    let b = addRankingNumberArr.slice(a - 1, a + 2);
+    //3등안에 들 경우 slice 첫번째 인자를 0으로 계산할 수 있게끔 변경
+    if (a <= 2) a = 2;
+    let b = addRankingNumberArr.slice(a - 2, a + 3);
     console.log(b);
 
     res.status(200).json({ b });

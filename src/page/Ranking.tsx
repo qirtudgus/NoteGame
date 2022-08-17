@@ -130,42 +130,6 @@ const Ranking = () => {
     setPages([...pagesNum]);
   };
 
-  const actionCheck = (el: any, currentNode: any) => {
-    console.log(currentPageNum);
-    //뒤로 버튼을 눌렀을 시
-    if (el.dataset.prev === 'backward') {
-      //1페이지일 경우 함수 종료
-      if (parseInt(currentNode?.dataset.pagenum as string) === 1) return;
-      setCurrentPageNum((prev) => prev - 1);
-      let a: number = parseInt(currentNode?.dataset.pagenum as string);
-      call(a - 1);
-      return;
-    }
-    //앞으로 버튼을 눌렀을 시....
-    if (el.dataset.prev === 'forward') {
-      //마지막 페이지일 경우 함수 종료
-      if (parseInt(currentNode?.dataset.pagenum as string) === pages.length)
-        return;
-      let a: number = parseInt(currentNode?.dataset.pagenum as string);
-      if (a > pages.length) return;
-      setCurrentPageNum((prev) => prev + 1);
-      call(a + 1);
-      return;
-    }
-    // console.log(el)
-    let requestNumber = el.dataset.pagenum as number;
-    call(requestNumber);
-  };
-
-  //페이지 버튼 클릭 시 데이터 요청
-  const requestCall = (e: any) => {
-    console.log(pages);
-    let el = e.currentTarget;
-    let currentNode = document.getElementById('active');
-
-    actionCheck(el, currentNode);
-  };
-
   const callmyranking = async (userId: string | number | undefined) => {
     if (userId === undefined) return;
     let result = await customAxios('post', '/ranking/myranking/', {
@@ -180,31 +144,11 @@ const Ranking = () => {
   //첫 데이터를 불러온다.
   useEffect(() => {
     call(currentPageNum);
-  }, []);
+  }, [currentPageNum]);
 
   return (
     <>
       <BtnMenu BackHistory></BtnMenu>
-      <button
-        onClick={() => {
-          callmyranking(userId);
-          console.log(list);
-          console.log(pages);
-          console.log(totalPages);
-        }}
-      >
-        나의 랭킹확인
-      </button>
-      <button
-        onClick={() => {
-          call(currentPageNum);
-          console.log(list);
-          console.log(pages);
-          console.log(totalPages);
-        }}
-      >
-        랭킹확인
-      </button>
       <RankingWrap>
         <RankingTabWrap>
           <RankingTab
@@ -217,7 +161,6 @@ const Ranking = () => {
           <RankingTab
             onClick={() => {
               callmyranking(userId);
-
               setShow(() => false);
             }}
           >
@@ -285,9 +228,11 @@ const Ranking = () => {
           {show ? (
             <>
               <PrevBtn
+                disabled={currentPageNum === 1}
                 data-prev='backward'
-                onClick={(e) => {
-                  requestCall(e);
+                onClick={() => {
+                  if (currentPageNum <= 1) return;
+                  setCurrentPageNum((prev) => prev - 1);
                 }}
               >
                 뒤로
@@ -295,12 +240,9 @@ const Ranking = () => {
 
               {pages!.map((i: any, index: any) => (
                 <PageBtn
-                  data-pagenum={i + 1}
                   key={i}
                   active={currentPageNum === index + 1}
-                  id={currentPageNum === index + 1 ? 'active' : ''}
                   onClick={(e) => {
-                    requestCall(e);
                     setCurrentPageNum(index + 1);
                   }}
                 >
@@ -310,8 +252,10 @@ const Ranking = () => {
 
               <PrevBtn
                 data-prev='forward'
-                onClick={(e) => {
-                  requestCall(e);
+                disabled={currentPageNum === pages.length}
+                onClick={() => {
+                  if (currentPageNum === pages.length) return;
+                  setCurrentPageNum((prev) => prev + 1);
                 }}
               >
                 앞으로
