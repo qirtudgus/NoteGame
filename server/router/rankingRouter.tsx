@@ -80,20 +80,24 @@ rankingRouter.post('/myranking', (req, res, next) => {
   const { userId } = req.body;
   db.query(myrankingQuery, [], (err, rows, fields) => {
     // console.log(row);
-    console.log(userId);
     //순위 추가
     let addRankingNumberArr = rows.map((i: any, index: any) => ({
       ...i,
       ranking: index + 1,
     }));
-    let a = addRankingNumberArr.findIndex((e: any) => e.Id === userId);
-    console.log(a);
+    let userRankingIndex = addRankingNumberArr.findIndex(
+      (e: any) => e.Id === userId,
+    );
+    console.log(userRankingIndex);
 
     //3등안에 들 경우 slice 첫번째 인자를 0으로 계산할 수 있게끔 변경
-    if (a <= 2) a = 2;
-    let b = addRankingNumberArr.slice(a - 2, a + 3);
-    console.log(b);
+    if (userRankingIndex <= 2) userRankingIndex = 2;
+    let rangeArr = addRankingNumberArr.slice(
+      userRankingIndex - 2,
+      userRankingIndex + 3,
+    );
+    console.log(rangeArr);
 
-    res.status(200).json({ b });
+    res.status(200).json({ rangeArr });
   });
 });

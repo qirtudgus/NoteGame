@@ -76,6 +76,7 @@ const RankingTr = styled.tr<a>`
 `;
 
 const RankingTh = styled.th<a>`
+  width: 100%;
   ${(props) =>
     props.myranking &&
     css`
@@ -112,10 +113,13 @@ const Ranking = () => {
   //내 랭킹
   const [myList, setMyList] = useState<[]>([]);
 
+  //페이지 사이즈
+  const PAGE_SIZE = 3;
+
   //관리할 페이지 사이즈 // 현재 12
   const [totalPages, setTotalPages] = useState<number>();
 
-  //리스트에 따른 페이지 갯수 // 0 부터 11 까지의 배열
+  //리스트에 따른 페이지 갯수
   const [pages, setPages] = useState<number[]>([]);
   //전체 랭킹 보여줄 10개의 리스트
   const [list, setList] = useState<[]>([]);
@@ -143,7 +147,7 @@ const Ranking = () => {
       userId,
     }).then((res) => {
       console.log(res.data);
-      return res.data.b;
+      return res.data.rangeArr;
     });
     setMyList(() => result);
   };
