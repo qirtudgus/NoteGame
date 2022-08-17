@@ -99,14 +99,18 @@ const PrevBtn = styled.button<a>`
 const Ranking = () => {
   const userId = useSelector((state: RootState) => state.login.id);
 
-  // 12를 5로 나눠서..그의 첫번째 페이지인 1, 6, 11을 구해야한다.
+  //어떤 순위 보여주는지
+  const [show, setShow] = useState(true);
+
+  //내 랭킹
+  const [myList, setMyList] = useState<[]>([]);
 
   //관리할 페이지 사이즈 // 현재 12
   const [totalPages, setTotalPages] = useState<number>();
 
   //리스트에 따른 페이지 갯수 // 0 부터 11 까지의 배열
   const [pages, setPages] = useState<number[]>([]);
-  //현재 보여줄 10개의 리스트
+  //전체 랭킹 보여줄 10개의 리스트
   const [list, setList] = useState<[]>([]);
   //현재 보여줄 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
@@ -125,10 +129,7 @@ const Ranking = () => {
     let pagesNum = Array.from({ length: payloadObj.listNum }, (v, i) => i);
     setPages([...pagesNum]);
   };
-  //첫 데이터를 불러온다.
-  useEffect(() => {
-    call(currentPageNum);
-  }, []);
+
   const actionCheck = (el: any, currentNode: any) => {
     console.log(currentPageNum);
     //뒤로 버튼을 눌렀을 시
@@ -165,9 +166,35 @@ const Ranking = () => {
     actionCheck(el, currentNode);
   };
 
+  const callmyranking = async (userId: string | number | undefined) => {
+    if (userId === undefined) return;
+    let result = await customAxios('post', '/ranking/myranking/', {
+      userId,
+    }).then((res) => {
+      console.log(res.data);
+      return res.data.b;
+    });
+    setMyList(() => result);
+  };
+
+  //첫 데이터를 불러온다.
+  useEffect(() => {
+    call(currentPageNum);
+  }, []);
+
   return (
     <>
       <BtnMenu BackHistory></BtnMenu>
+      <button
+        onClick={() => {
+          callmyranking(userId);
+          console.log(list);
+          console.log(pages);
+          console.log(totalPages);
+        }}
+      >
+        나의 랭킹확인
+      </button>
       <button
         onClick={() => {
           call(currentPageNum);
@@ -180,8 +207,22 @@ const Ranking = () => {
       </button>
       <RankingWrap>
         <RankingTabWrap>
-          <RankingTab>전체 순위</RankingTab>
-          <RankingTab>나의 순위</RankingTab>
+          <RankingTab
+            onClick={() => {
+              setShow(() => true);
+            }}
+          >
+            전체 순위
+          </RankingTab>
+          <RankingTab
+            onClick={() => {
+              callmyranking(userId);
+
+              setShow(() => false);
+            }}
+          >
+            나의 순위
+          </RankingTab>
         </RankingTabWrap>
         <RangkingPage>
           <RankingTable>
@@ -192,59 +233,91 @@ const Ranking = () => {
                 <th>레벨</th>
                 <th>최고층</th>
               </RankingTr>
-              {list!.map((i: any, index: any) => (
-                <React.Fragment key={index}>
-                  {i.ID === userId ? (
-                    <RankingTr myranking key={i.ID}>
-                      <RankingTh>{i.ranking}</RankingTh>
-                      <RankingTh>{i.ID}</RankingTh>
-                      <RankingTh>{i.Level}</RankingTh>
-                      <RankingTh>{i.DungeonFloor}</RankingTh>
-                    </RankingTr>
-                  ) : (
-                    <RankingTr key={i.ID}>
-                      <RankingTh>{i.ranking}</RankingTh>
-                      <RankingTh>{i.ID}</RankingTh>
-                      <RankingTh>{i.Level}</RankingTh>
-                      <RankingTh>{i.DungeonFloor}</RankingTh>
-                    </RankingTr>
-                  )}
-                </React.Fragment>
-              ))}
+              <>
+                {show ? (
+                  <>
+                    {list!.map((i: any, index: any) => (
+                      <React.Fragment key={index}>
+                        {i.ID === userId ? (
+                          <RankingTr myranking key={i.ID}>
+                            <RankingTh>{i.ranking}</RankingTh>
+                            <RankingTh>{i.ID}</RankingTh>
+                            <RankingTh>{i.Level}</RankingTh>
+                            <RankingTh>{i.DungeonFloor}</RankingTh>
+                          </RankingTr>
+                        ) : (
+                          <RankingTr key={i.ID}>
+                            <RankingTh>{i.ranking}</RankingTh>
+                            <RankingTh>{i.ID}</RankingTh>
+                            <RankingTh>{i.Level}</RankingTh>
+                            <RankingTh>{i.DungeonFloor}</RankingTh>
+                          </RankingTr>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {myList!.map((i: any, index: any) => (
+                      <React.Fragment key={index}>
+                        {i.Id === userId ? (
+                          <RankingTr myranking key={i.Id}>
+                            <RankingTh>{i.ranking}</RankingTh>
+                            <RankingTh>{i.Id}</RankingTh>
+                            <RankingTh>{i.Level}</RankingTh>
+                            <RankingTh>{i.DungeonFloor}</RankingTh>
+                          </RankingTr>
+                        ) : (
+                          <RankingTr key={i.Id}>
+                            <RankingTh>{i.ranking}</RankingTh>
+                            <RankingTh>{i.Id}</RankingTh>
+                            <RankingTh>{i.Level}</RankingTh>
+                            <RankingTh>{i.DungeonFloor}</RankingTh>
+                          </RankingTr>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </>
+                )}
+              </>
             </RankingTbody>
           </RankingTable>
-          <PrevBtn
-            data-prev='backward'
-            onClick={(e) => {
-              requestCall(e);
-            }}
-          >
-            뒤로
-          </PrevBtn>
+          {show ? (
+            <>
+              <PrevBtn
+                data-prev='backward'
+                onClick={(e) => {
+                  requestCall(e);
+                }}
+              >
+                뒤로
+              </PrevBtn>
 
-          {pages!.map((i: any, index: any) => (
-            <PageBtn
-              data-pagenum={i + 1}
-              key={i}
-              active={currentPageNum === index + 1}
-              id={currentPageNum === index + 1 ? 'active' : ''}
-              onClick={(e) => {
-                requestCall(e);
-                setCurrentPageNum(index + 1);
-              }}
-            >
-              {i + 1}
-            </PageBtn>
-          ))}
+              {pages!.map((i: any, index: any) => (
+                <PageBtn
+                  data-pagenum={i + 1}
+                  key={i}
+                  active={currentPageNum === index + 1}
+                  id={currentPageNum === index + 1 ? 'active' : ''}
+                  onClick={(e) => {
+                    requestCall(e);
+                    setCurrentPageNum(index + 1);
+                  }}
+                >
+                  {i + 1}
+                </PageBtn>
+              ))}
 
-          <PrevBtn
-            data-prev='forward'
-            onClick={(e) => {
-              requestCall(e);
-            }}
-          >
-            앞으로
-          </PrevBtn>
+              <PrevBtn
+                data-prev='forward'
+                onClick={(e) => {
+                  requestCall(e);
+                }}
+              >
+                앞으로
+              </PrevBtn>
+            </>
+          ) : null}
         </RangkingPage>
       </RankingWrap>
     </>
