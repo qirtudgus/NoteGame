@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import BackHistoryBtn from './BackHistoryBtn'
@@ -37,4 +38,4 @@ const BtnMenu = ({BackHistory,Home,FastFoward,FastFowardFunc,FastFowardText,Refr
     </BtnWrap>
     )
 }
-export default BtnMenu
+export default React.memo (BtnMenu)

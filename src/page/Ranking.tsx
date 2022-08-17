@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import BtnMenu from "../components/BtnMenu"
 import customAxios from "../util/axios"
 import styled,{css} from "styled-components"
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 
 const RankingWrap = styled.div`
@@ -46,6 +46,9 @@ width:100%;
 height:100%;
 margin-top:20px;
 `
+const RankingTbody = styled.tbody`
+`
+
 const RankingTr  = styled.tr<a>`
 width:100%;
 height:50px;
@@ -93,8 +96,6 @@ const Ranking = () => {
     const userInfo = useSelector((state: RootState) => state.login.userInfo);
     const userId = useSelector((state: RootState) => state.login.id);
 
-    //
-    const [isNow,setIsNow] = useState(true);
     //리스트에 따른 페이지 갯수
     const [pages,setPages] = useState<number[]>([]);
     //현재 보여줄 10개의 리스트
@@ -118,9 +119,7 @@ const Ranking = () => {
     useEffect(()=>{
         call(currentPageNum)
     },[])
-
     const actionCheck = (el:any,currentNode:any) => {
-        console.log("테스트함수")
         //뒤로 버튼을 눌렀을 시
         if(el.dataset.prev === 'backward' ){
             //1페이지일 경우 함수 종료
@@ -147,7 +146,7 @@ const Ranking = () => {
     
 
     //페이지 버튼 클릭 시 데이터 요청
-    const  requestCall = async (e:any) => {
+    const  requestCall = (e:any) => {
         let el = e.currentTarget;
         let currentNode = document.getElementById('active');
 
@@ -171,6 +170,7 @@ const Ranking = () => {
     </RankingTabWrap>
     <RangkingPage>
     <RankingTable>
+        <RankingTbody>
     <RankingTr bar >
             <th>순위</th>
             <th>닉네임</th>
@@ -178,7 +178,7 @@ const Ranking = () => {
             <th>최고층</th>
 </RankingTr>
         {list!.map((i :any,index:any) => (
-            <>
+            <React.Fragment key={index}>
             {i.ID === userId ? 
                
                 <RankingTr myranking key={i.ID}>
@@ -196,14 +196,14 @@ const Ranking = () => {
     </RankingTr>
             
             }
-</>
+</React.Fragment>
 
 
         ))}
-       
+       </RankingTbody>
     </RankingTable><PrevBtn data-prev='backward' onClick={(e) =>{requestCall(e);}}>뒤로</PrevBtn>
     {pages!.map((i:any, index:any) => (
-            <PageBtn data-pagenum={i + 1}  active={currentPageNum === index+1} id={currentPageNum === index + 1 ? 'active' : ""} onClick={(e) =>{requestCall(e); setCurrentPageNum(index+1)}}>{i + 1}</PageBtn>
+            <PageBtn data-pagenum={i + 1} key={i} active={currentPageNum === index+1} id={currentPageNum === index + 1 ? 'active' : ""} onClick={(e) =>{requestCall(e); setCurrentPageNum(index+1)}}>{i + 1}</PageBtn>
         ))}
         <PrevBtn data-prev='forward' onClick={(e) =>{requestCall(e); }}>앞으로</PrevBtn>
     </RangkingPage>
