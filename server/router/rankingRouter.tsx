@@ -120,11 +120,18 @@ rankingRouter.get('/searchid/:searchid', (req, res) => {
       ...i,
       ranking: index + 1,
     }));
-    // console.log(addRankingNumberArr);
     let userRankingIndex = addRankingNumberArr.findIndex(
       (e: any) => e.Id == searchId,
     );
+    // -1이면 유저가 없다는것 이때 분기를 나눠야한다.
     console.log(userRankingIndex);
+    if (userRankingIndex === -1) {
+      res.status(200).json({
+        code: 404,
+        text: '검색 결과가 없어요! 아이디를 다시 확인해보는게 어때요?',
+      });
+      return;
+    }
 
     if (userRankingIndex <= 2) userRankingIndex = 2;
     let searchIdArr = addRankingNumberArr.slice(

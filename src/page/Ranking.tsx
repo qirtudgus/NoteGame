@@ -215,12 +215,16 @@ const Ranking = () => {
     console.log(Id);
     let result = await customAxios('GET', `/ranking/searchid/${Id}`, {}).then(
       (res) => {
-        console.log(res.data.searchIdArr);
-        return res.data.searchIdArr;
+        console.log(res.data);
+
+        // console.log(res.data.searchIdArr);
+        return res.data;
       },
     );
+    //코드가 404일경우 아이디가 없다는 것
+    if (result.code === 404) return;
     setDisabled(false);
-    setList(() => result);
+    setList(() => result.searchIdArr);
   };
 
   const handleChange = ({ target: { value } }: any) => setId(value);
@@ -350,6 +354,7 @@ const Ranking = () => {
               <input disabled={disabled} type='submit' value='검색'></input>
             </form>
             <button
+              disabled={show.btn}
               onClick={() => {
                 call(currentPageNum);
                 setShow({ page: true, btn: true });
