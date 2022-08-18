@@ -118,6 +118,7 @@ const Ranking = () => {
   const [show, setShow] = useState({
     page: true,
     btn: true,
+    userUndifined: false,
   });
   //내 랭킹
   const [myList, setMyList] = useState<[]>([]);
@@ -159,7 +160,7 @@ const Ranking = () => {
     }).then((res) => {
       return res.data.rangeArr;
     });
-    setShow({ page: false, btn: false });
+    setShow({ ...show, page: false, btn: false });
     console.log(result);
     setMyList(() => result);
   };
@@ -209,7 +210,7 @@ const Ranking = () => {
 
   const handleSubmit = async (e: any) => {
     setDisabled(true);
-    setShow({ page: true, btn: false });
+    setShow({ ...show, page: true, btn: false });
     e.preventDefault();
     await new Promise((r) => setTimeout(r, 500));
     console.log(Id);
@@ -221,9 +222,14 @@ const Ranking = () => {
         return res.data;
       },
     );
-    //코드가 404일경우 아이디가 없다는 것
-    if (result.code === 404) return;
     setDisabled(false);
+
+    //코드가 404일경우 아이디가 없다는 것
+    if (result.code === 404) {
+      setShow({ page: false, btn: false, userUndifined: true });
+      return;
+    }
+    setShow({ page: false, btn: false, userUndifined: false });
     setList(() => result.searchIdArr);
   };
 
@@ -237,7 +243,7 @@ const Ranking = () => {
           <RankingTab
             active={show.page}
             onClick={() => {
-              setShow({ page: true, btn: true });
+              setShow({ ...show, page: true, btn: true });
             }}
           >
             전체 순위
@@ -260,6 +266,11 @@ const Ranking = () => {
                 <th>레벨</th>
                 <th>최고층</th>
               </RankingTr>
+              {show.userUndifined && (
+                <div>
+                  '검색 결과가 없어요! 아이디를 다시 확인해보는게 어때요?'
+                </div>
+              )}
               {show.page ? (
                 <>
                   {list!.map((i: any, index: any) => (
@@ -357,7 +368,7 @@ const Ranking = () => {
               disabled={show.btn}
               onClick={() => {
                 call(currentPageNum);
-                setShow({ page: true, btn: true });
+                setShow({ userUndifined: false, page: true, btn: true });
               }}
             >
               취소
