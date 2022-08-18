@@ -105,22 +105,29 @@ const PrevBtn = styled.button<a>`
   border: 1px solid#555;
 `;
 
+const SearchBar = styled.div`
+  display: flex;
+`;
+
 const Ranking = () => {
   const userId = useSelector((state: RootState) => state.login.id);
   //어떤 순위 보여주는지
   const [disabled, setDisabled] = useState(false);
   const [Id, setId] = useState('');
   //어떤 순위 보여주는지
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState({
+    page: true,
+    btn: true,
+  });
   //내 랭킹
   const [myList, setMyList] = useState<[]>([]);
   //페이지 사이즈
-  const PAGE_SIZE = 3;
+  const PAGE_SIZE = 10;
   //총 페이지
   let total: number = 0;
   //리스트에 따른 페이지 갯수
   const [pages, setPages] = useState<number[]>([]);
-  //전체 랭킹 보여줄 10개의 리스트
+  //전체 랭킹을 보여줄 10개의 리스트
   const [list, setList] = useState<[]>([]);
   //현재 보여줄 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
@@ -200,13 +207,18 @@ const Ranking = () => {
 
   const handleSubmit = async (e: any) => {
     setDisabled(true);
+    setShow({ page: true, btn: false });
     e.preventDefault();
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 100));
     console.log(Id);
-    customAxios('GET', `/ranking/searchid/${Id}`, {}).then((res) => {
-      console.log(res.data);
-    });
+    let result = await customAxios('GET', `/ranking/searchid/${Id}`, {}).then(
+      (res) => {
+        console.log(res.data.searchIdArr);
+        return res.data.searchIdArr;
+      },
+    );
     setDisabled(false);
+    setList(() => result);
   };
 
   const handleChange = ({ target: { value } }: any) => setId(value);
@@ -217,18 +229,18 @@ const Ranking = () => {
       <RankingWrap>
         <RankingTabWrap>
           <RankingTab
-            active={show}
+            active={show.page}
             onClick={() => {
-              setShow(() => true);
+              setShow({ page: true, btn: true });
             }}
           >
             전체 순위
           </RankingTab>
           <RankingTab
-            active={!show}
+            active={!show.page}
             onClick={() => {
               callmyranking(userId);
-              setShow(() => false);
+              setShow({ page: false, btn: false });
             }}
           >
             나의 순위
@@ -247,17 +259,17 @@ const Ranking = () => {
                 <>
                   {list!.map((i: any, index: any) => (
                     <React.Fragment key={index}>
-                      {i.ID === userId ? (
-                        <RankingTr myranking key={i.ID}>
+                      {i.Id === userId ? (
+                        <RankingTr myranking key={i.Id}>
                           <RankingTh>{i.ranking}</RankingTh>
-                          <RankingTh>{i.ID}</RankingTh>
+                          <RankingTh>{i.Id}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
                           <RankingTh>{i.DungeonFloor}</RankingTh>
                         </RankingTr>
                       ) : (
-                        <RankingTr key={i.ID}>
+                        <RankingTr key={i.Id}>
                           <RankingTh>{i.ranking}</RankingTh>
-                          <RankingTh>{i.ID}</RankingTh>
+                          <RankingTh>{i.Id}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
                           <RankingTh>{i.DungeonFloor}</RankingTh>
                         </RankingTr>
@@ -290,7 +302,7 @@ const Ranking = () => {
               )}
             </RankingTbody>
           </RankingTable>
-          {show && (
+          {show.btn && (
             <>
               <PrevBtn
                 disabled={currentPageNum === 1}
@@ -325,16 +337,26 @@ const Ranking = () => {
               </PrevBtn>
             </>
           )}
-          <form onSubmit={handleSubmit}>
-            <input
-              type='text'
-              id='searchId'
-              value={Id}
-              onChange={handleChange}
-              placeholder='아이디 검색'
-            ></input>
-            <input disabled={disabled} type='submit' value='검색'></input>
-          </form>
+          <SearchBar>
+            <form onSubmit={handleSubmit}>
+              <input
+                type='text'
+                id='searchId'
+                value={Id}
+                onChange={handleChange}
+                placeholder='아이디 검색'
+              ></input>
+              <input disabled={disabled} type='submit' value='검색'></input>
+            </form>
+            <button
+              onClick={() => {
+                call(currentPageNum);
+                setShow({ page: true, btn: true });
+              }}
+            >
+              취소
+            </button>
+          </SearchBar>
         </RangkingPage>
       </RankingWrap>
     </>

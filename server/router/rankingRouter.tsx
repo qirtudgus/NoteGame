@@ -11,10 +11,14 @@ const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint =
 const UpMaxHpQuery = `UPDATE users SET UpMaxHp = UpMaxHp + 1, SkillPoint = SkillPoint - 1, BasicHp = BasicHp + 100 WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
-const rankingQuery = 'SELECT ID, DungeonFloor, Level FROM users';
-const myrankingQuery = 'SELECT * FROM users ORDER BY DungeonFloor DESC';
+const rankingQuery = 'SELECT Id, DungeonFloor, Level FROM users';
+const myrankingQuery =
+  'SELECT Id, DungeonFloor, Level FROM users ORDER BY DungeonFloor DESC';
 //https://extbrain.tistory.com/51
 //내림차순으로 정렬해서 가져오면 서버에 일을 하나 덜을 수 있다. 이따 적용해보자.
+
+const searchRankingQuery =
+  'SELECT Id, DungeonFloor, Level FROM users ORDER BY DungeonFloor DESC';
 
 interface data {
   data?: [];
@@ -78,6 +82,8 @@ rankingRouter.post('/allranking', (req, res, next) => {
 
 rankingRouter.post('/myranking', (req, res, next) => {
   const { userId } = req.body;
+  console.log(userId);
+
   db.query(myrankingQuery, [], (err, rows, fields) => {
     // console.log(row);
     //순위 추가
@@ -104,7 +110,29 @@ rankingRouter.post('/myranking', (req, res, next) => {
 
 rankingRouter.get('/searchid/:searchid', (req, res) => {
   // console.log(req);
+  const searchId = req.params.searchid;
   console.log(req.params);
-  console.log('id는 ' + req.params.searchid + ' 입니다');
-  res.send('z');
+  console.log('검색한 id는 ' + req.params.searchid + ' 입니다');
+
+  db.query(searchRankingQuery, [], (err, rows, fields) => {
+    //순위 추가
+    let addRankingNumberArr = rows.map((i: any, index: any) => ({
+      ...i,
+      ranking: index + 1,
+    }));
+    // console.log(addRankingNumberArr);
+    let userRankingIndex = addRankingNumberArr.findIndex(
+      (e: any) => e.Id == searchId,
+    );
+    console.log(userRankingIndex);
+
+    if (userRankingIndex <= 2) userRankingIndex = 2;
+    let searchIdArr = addRankingNumberArr.slice(
+      userRankingIndex - 2,
+      userRankingIndex + 3,
+    );
+    console.log(searchIdArr);
+
+    res.status(200).json({ searchIdArr });
+  });
 });
