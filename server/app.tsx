@@ -81,15 +81,17 @@ const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
     console.log('토큰이 없음');
     return next();
   }
-  try {
-    req.decoded = checkToken(token);
-    req.isToken = true;
-    console.log('유효한 토큰');
-    next();
-  } catch (e) {
-    console.log('만료된 토큰');
-    req.isToken = false;
-    next();
+  if (token) {
+    try {
+      req.decoded = checkToken(token);
+      req.isToken = true;
+      console.log('유효한 토큰');
+      next();
+    } catch (e) {
+      console.log('만료된 토큰');
+      req.isToken = false;
+      next();
+    }
   }
 };
 app.use(jwtCheck);

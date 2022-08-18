@@ -81,9 +81,10 @@ rankingRouter.post('/allranking', (req, res, next) => {
 });
 
 rankingRouter.post('/myranking', (req, res, next) => {
-  const { userId } = req.body;
-  console.log(userId);
-
+  let { userId } = req.body;
+  let userId2 = req.decoded.userId;
+  console.log('유저아이디 투');
+  console.log(userId2);
   db.query(myrankingQuery, [], (err, rows, fields) => {
     // console.log(row);
     //순위 추가
@@ -92,19 +93,15 @@ rankingRouter.post('/myranking', (req, res, next) => {
       ranking: index + 1,
     }));
     let userRankingIndex = addRankingNumberArr.findIndex(
-      (e: any) => e.Id === userId,
+      (e: any) => e.Id === userId2,
     );
-    console.log(userRankingIndex);
-
     //3등안에 들 경우 slice 첫번째 인자를 0으로 계산할 수 있게끔 변경
-    if (userRankingIndex <= 2) userRankingIndex = 2;
-    let rangeArr = addRankingNumberArr.slice(
-      userRankingIndex - 2,
-      userRankingIndex + 3,
-    );
-    console.log(rangeArr);
-
-    res.status(200).json({ rangeArr: addRankingNumberArr[userRankingIndex] });
+    // if (userRankingIndex <= 2) userRankingIndex = 2;
+    // let rangeArr = addRankingNumberArr.slice(
+    //   userRankingIndex - 2,
+    //   userRankingIndex + 3,
+    // );
+    res.status(200).json({ myRanking: addRankingNumberArr[userRankingIndex] });
   });
 });
 

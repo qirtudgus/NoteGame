@@ -23,7 +23,7 @@ import DungeonFight from './page/DungeonFight';
 import BallpenShop from './page/BallpenShop';
 import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
-// import ZZ from './page/zz';
+import axios from 'axios';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -36,9 +36,9 @@ sagaMiddleware.run(rootSaga);
 //로그인 유지를 위한 함수, 토큰이 유효할 시 정보를 불러오는 디스패치, 토큰이 없을 시 return
 function loadUser() {
   try {
-    let user = localStorage.getItem('token');
+    let user: string | null = localStorage.getItem('token');
     if (!user) return;
-    console.log(user);
+    axios.defaults.headers.common['Authorization'] = user;
     store.dispatch(login_localstorage(user));
   } catch (e) {
     console.log(e);

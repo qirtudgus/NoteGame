@@ -4,7 +4,6 @@ import customAxios from '../util/axios';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import axios from 'axios';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -109,6 +108,13 @@ const SearchBar = styled.div`
   display: flex;
 `;
 
+const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #888;
+  margin: 10px 0 10px 0;
+`;
+
 const Ranking = () => {
   const userId = useSelector((state: RootState) => state.login.id);
   //어떤 순위 보여주는지
@@ -143,6 +149,7 @@ const Ranking = () => {
       // 10개의 게시글을 불러온다.
       return res.data.payload;
     });
+    console.log(payloadObj.data);
     setList(() => payloadObj.data);
     total = payloadObj.listNum;
     setTotalpages(() => payloadObj.listNum);
@@ -154,21 +161,27 @@ const Ranking = () => {
   };
 
   const callmyranking = async (userId: string | number | undefined) => {
-    if (userId === undefined) return;
+    console.log(userId);
+    // if (userId === undefined) return;
     let result = await customAxios('post', '/ranking/myranking/', {
       userId,
     }).then((res) => {
-      return res.data.rangeArr;
+      return res.data;
     });
-    setShow({ ...show, page: false, btn: false });
-    console.log(result);
-    setMyList(() => result);
+    // setShow({ ...show, page: false, btn: false });
+    console.log(result.myRanking);
+    let a: any = [];
+    a.push(result.myRanking);
+    setMyList(() => a);
   };
 
   //첫 데이터를 불러온다.
   useEffect(() => {
     call(currentPageNum);
   }, [currentPageNum]);
+  useEffect(() => {
+    callmyranking(userId);
+  }, []);
 
   let arr: any = [];
   const foo = (currentPage: number) => {
@@ -216,9 +229,6 @@ const Ranking = () => {
     console.log(Id);
     let result = await customAxios('GET', `/ranking/searchid/${Id}`, {}).then(
       (res) => {
-        console.log(res.data);
-
-        // console.log(res.data.searchIdArr);
         return res.data;
       },
     );
@@ -248,24 +258,27 @@ const Ranking = () => {
           >
             전체 순위
           </RankingTab>
-          {/* <RankingTab
-            active={!show.page}
-            onClick={() => {
-              callmyranking(userId);
-            }}
-          >
-            나의 순위
-          </RankingTab> */}
         </RankingTabWrap>
         <RangkingPage>
           <RankingTable>
             <RankingTbody>
               <RankingTr bar>
-                <th>순위</th>
-                <th>닉네임</th>
-                <th>레벨</th>
-                <th>최고층</th>
+                <RankingTh>순위</RankingTh>
+                <RankingTh>닉네임</RankingTh>
+                <RankingTh>레벨</RankingTh>
+                <RankingTh>최고층</RankingTh>
               </RankingTr>
+              <RankingTr bar>
+                {myList!.map((i: any, index: any) => (
+                  <React.Fragment key={index}>
+                    <RankingTh>{i.ranking}</RankingTh>
+                    <RankingTh>{i.Id}</RankingTh>
+                    <RankingTh>{i.Level}</RankingTh>
+                    <RankingTh>{i.DungeonFloor}</RankingTh>
+                  </React.Fragment>
+                ))}
+              </RankingTr>
+              <Line></Line>
               {show.userUndifined && (
                 <div>
                   '검색 결과가 없어요! 아이디를 다시 확인해보는게 어때요?'
@@ -293,29 +306,6 @@ const Ranking = () => {
                   </React.Fragment>
                 ))}
               </>
-              {/* ) : (
-                <>
-                  {myList!.map((i: any, index: any) => (
-                    <React.Fragment key={index}>
-                      {i.Id === userId ? (
-                        <RankingTr myranking key={i.Id}>
-                          <RankingTh>{i.ranking}</RankingTh>
-                          <RankingTh>{i.Id}</RankingTh>
-                          <RankingTh>{i.Level}</RankingTh>
-                          <RankingTh>{i.DungeonFloor}</RankingTh>
-                        </RankingTr>
-                      ) : (
-                        <RankingTr key={i.Id}>
-                          <RankingTh>{i.ranking}</RankingTh>
-                          <RankingTh>{i.Id}</RankingTh>
-                          <RankingTh>{i.Level}</RankingTh>
-                          <RankingTh>{i.DungeonFloor}</RankingTh>
-                        </RankingTr>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </>
-              )} */}
             </RankingTbody>
           </RankingTable>
           {show.btn && (
