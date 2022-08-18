@@ -101,3 +101,10 @@ rankingRouter.post('/myranking', (req, res, next) => {
     res.status(200).json({ rangeArr });
   });
 });
+
+rankingRouter.get('/searchid/:searchid', (req, res) => {
+  // console.log(req);
+  console.log(req.params);
+  console.log('id는 ' + req.params.searchid + ' 입니다');
+  res.send('z');
+});

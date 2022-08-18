@@ -4,6 +4,7 @@ import customAxios from '../util/axios';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
+import axios from 'axios';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -57,7 +58,7 @@ const RankingTbody = styled.tbody``;
 
 const RankingTr = styled.tr<a>`
   width: 100%;
-  height: 50px;
+  height: 40px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -106,7 +107,9 @@ const PrevBtn = styled.button<a>`
 
 const Ranking = () => {
   const userId = useSelector((state: RootState) => state.login.id);
-
+  //어떤 순위 보여주는지
+  const [disabled, setDisabled] = useState(false);
+  const [Id, setId] = useState('');
   //어떤 순위 보여주는지
   const [show, setShow] = useState(true);
   //내 랭킹
@@ -194,6 +197,20 @@ const Ranking = () => {
       setPageList([...arr]);
     }
   };
+
+  const handleSubmit = async (e: any) => {
+    setDisabled(true);
+    e.preventDefault();
+    await new Promise((r) => setTimeout(r, 1000));
+    console.log(Id);
+    customAxios('GET', `/ranking/searchid/${Id}`, {}).then((res) => {
+      console.log(res.data);
+    });
+    setDisabled(false);
+  };
+
+  const handleChange = ({ target: { value } }: any) => setId(value);
+
   return (
     <>
       <BtnMenu BackHistory></BtnMenu>
@@ -297,21 +314,6 @@ const Ranking = () => {
                 </PageBtn>
               ))}
 
-              {/*
-              끝페이지로 가는 조건부 렌더링 버튼이다.
-              */}
-              {(totalpages > PAGE_SIZE && currentPageNum === totalpages) || (
-                <>
-                  <span
-                    onClick={() => {
-                      setCurrentPageNum((prev) => totalpages);
-                    }}
-                  >
-                    ...{totalpages}
-                  </span>
-                </>
-              )}
-
               <PrevBtn
                 data-prev='forward'
                 disabled={currentPageNum === pages.length}
@@ -323,6 +325,16 @@ const Ranking = () => {
               </PrevBtn>
             </>
           )}
+          <form onSubmit={handleSubmit}>
+            <input
+              type='text'
+              id='searchId'
+              value={Id}
+              onChange={handleChange}
+              placeholder='아이디 검색'
+            ></input>
+            <input disabled={disabled} type='submit' value='검색'></input>
+          </form>
         </RangkingPage>
       </RankingWrap>
     </>
