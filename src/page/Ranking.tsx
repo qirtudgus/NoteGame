@@ -209,7 +209,7 @@ const Ranking = () => {
     setDisabled(true);
     setShow({ page: true, btn: false });
     e.preventDefault();
-    await new Promise((r) => setTimeout(r, 100));
+    await new Promise((r) => setTimeout(r, 500));
     console.log(Id);
     let result = await customAxios('GET', `/ranking/searchid/${Id}`, {}).then(
       (res) => {
