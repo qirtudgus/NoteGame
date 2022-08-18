@@ -159,6 +159,8 @@ const Ranking = () => {
     }).then((res) => {
       return res.data.rangeArr;
     });
+    setShow({ page: false, btn: false });
+    console.log(result);
     setMyList(() => result);
   };
 
@@ -240,7 +242,6 @@ const Ranking = () => {
             active={!show.page}
             onClick={() => {
               callmyranking(userId);
-              setShow({ page: false, btn: false });
             }}
           >
             나의 순위
@@ -255,7 +256,7 @@ const Ranking = () => {
                 <th>레벨</th>
                 <th>최고층</th>
               </RankingTr>
-              {show ? (
+              {show.page ? (
                 <>
                   {list!.map((i: any, index: any) => (
                     <React.Fragment key={index}>
