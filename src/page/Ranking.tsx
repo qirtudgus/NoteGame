@@ -114,13 +114,14 @@ const Ranking = () => {
   //페이지 사이즈
   const PAGE_SIZE = 3;
   //총 페이지
-  let total: number;
+  let total: number = 0;
   //리스트에 따른 페이지 갯수
   const [pages, setPages] = useState<number[]>([]);
   //전체 랭킹 보여줄 10개의 리스트
   const [list, setList] = useState<[]>([]);
   //현재 보여줄 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
+  const [totalpages, setTotalpages] = useState<number>(1);
   //현재 보여줄 페이지리스트들
   const [pageList, setPageList] = useState<number[]>([]);
 
@@ -133,6 +134,7 @@ const Ranking = () => {
     });
     setList(() => payloadObj.data);
     total = payloadObj.listNum;
+    setTotalpages(() => payloadObj.listNum);
     //페이지 정수를 받아와 배열 생성 후 setState해준다.
     //https://hjcode.tistory.com/73
     let pagesNum = Array.from({ length: payloadObj.listNum }, (v, i) => i);
@@ -271,7 +273,7 @@ const Ranking = () => {
               )}
             </RankingTbody>
           </RankingTable>
-          {show ? (
+          {show && (
             <>
               <PrevBtn
                 disabled={currentPageNum === 1}
@@ -295,6 +297,21 @@ const Ranking = () => {
                 </PageBtn>
               ))}
 
+              {/*
+              끝페이지로 가는 조건부 렌더링 버튼이다.
+              */}
+              {(totalpages > PAGE_SIZE && currentPageNum === totalpages) || (
+                <>
+                  <span
+                    onClick={() => {
+                      setCurrentPageNum((prev) => totalpages);
+                    }}
+                  >
+                    ...{totalpages}
+                  </span>
+                </>
+              )}
+
               <PrevBtn
                 data-prev='forward'
                 disabled={currentPageNum === pages.length}
@@ -305,7 +322,7 @@ const Ranking = () => {
                 앞으로
               </PrevBtn>
             </>
-          ) : null}
+          )}
         </RangkingPage>
       </RankingWrap>
     </>
