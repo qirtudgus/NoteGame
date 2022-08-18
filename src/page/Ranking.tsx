@@ -4,7 +4,6 @@ import customAxios from '../util/axios';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { isArrayBindingPattern } from 'typescript';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -110,25 +109,20 @@ const Ranking = () => {
 
   //어떤 순위 보여주는지
   const [show, setShow] = useState(true);
-
   //내 랭킹
   const [myList, setMyList] = useState<[]>([]);
-
   //페이지 사이즈
   const PAGE_SIZE = 3;
-
-  //관리할 페이지 사이즈 // 현재 12
-  const [totalPages, setTotalPages] = useState<number>(0);
-
+  //총 페이지
+  let total: number;
   //리스트에 따른 페이지 갯수
   const [pages, setPages] = useState<number[]>([]);
   //전체 랭킹 보여줄 10개의 리스트
   const [list, setList] = useState<[]>([]);
   //현재 보여줄 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
-
   //현재 보여줄 페이지리스트들
-  const [pageList, setPageList] = useState([1, 2, 3]);
+  const [pageList, setPageList] = useState<number[]>([]);
 
   const call = async (currentPageNum: number): Promise<void> => {
     let payloadObj = await customAxios('post', '/ranking/allranking', {
@@ -138,11 +132,12 @@ const Ranking = () => {
       return res.data.payload;
     });
     setList(() => payloadObj.data);
-    setTotalPages(() => payloadObj.listNum);
+    total = payloadObj.listNum;
     //페이지 정수를 받아와 배열 생성 후 setState해준다.
     //https://hjcode.tistory.com/73
     let pagesNum = Array.from({ length: payloadObj.listNum }, (v, i) => i);
     setPages([...pagesNum]);
+    foo(currentPageNum);
   };
 
   const callmyranking = async (userId: string | number | undefined) => {
@@ -150,7 +145,6 @@ const Ranking = () => {
     let result = await customAxios('post', '/ranking/myranking/', {
       userId,
     }).then((res) => {
-      console.log(res.data);
       return res.data.rangeArr;
     });
     setMyList(() => result);
@@ -159,44 +153,44 @@ const Ranking = () => {
   //첫 데이터를 불러온다.
   useEffect(() => {
     call(currentPageNum);
-    foo(currentPageNum, PAGE_SIZE);
   }, [currentPageNum]);
 
   let arr: any = [];
-  const foo = (currentPage: number, pageSize: number) => {
-    // console.log(currentPage);
-    // console.log(pageSize);
-    // console.log(currentPage % pageSize);
-    // console.log(totalPages);
-    if (currentPage === 1) return;
-    //4 7 10 13 마다 1이남고 이때 페이지를 만들어줘야한다.. 456 789
-    if (currentPage % pageSize === 1) {
-      // alert('1이 남음');
-      //현재 페이지의 +2까지의 번호를 만들어 배열을 생성 후 setList해준다..
+  const foo = (currentPage: number) => {
+    //현재 페이지와 페이즈사이즈를 나눠 1이 남았을 때 이 후 번호의 배열을 생성
+    if (currentPage % PAGE_SIZE === 1) {
       let idx = 1; // 이 수를 current에 더 해준다.
       arr = [currentPage];
-      while (currentPage + idx <= totalPages && arr.length < pageSize) {
+
+      /*
+      아래 두 조건이 거짓이 될 때까지 반복한다.
+      1. 현재 페이지와 idx를 더한 값이 총 페이지보다 작거나 같을 때
+      2. 펼칠 페이지 배열의 길이가 페이지사이즈보다 작을 때
+
+      1번 조건은 배열에 들어갈 페이지값을 구하는것이다.
+      총페이지 7 기준으로 현재 페이지에 1++을 더 했을 때 작거나같으므로 배열에 4,5,6,7이가 추가된다.
+      8(앞의 피연산자)은 7(총페이지)보다 크므로 조건이 거짓이 되고, [ 4,5,6,7 ] 로 1번 조건이 종료된다.
+
+      2번 조건은 1번의 부족한 논리를 보충하여, 펼칠 페이지 사이즈만큼의 배열을 만들기위함이다.
+      우리가 원하는 페이지사이즈는 3인데 1번조건은 4개까지 생성했다.
+      배열의 길이가 페이지 사이즈보다 작을 때까지만 true를 반환하고
+      페이지 사이즈보다 큰 [4,5,6,7]은 거짓으로 연산되어
+      [4,5,6,7]이 아닌 [4,5,6]을 반환하게 된다.
+      */
+      while (currentPage + idx <= total && arr.length < PAGE_SIZE) {
         arr.push(currentPage + idx);
         idx++;
-        console.log(pageSize);
-        console.log(arr.length);
       }
-
-      // const a = currentPage + 1;
-      // const b = currentPage + 2;
-      // console.log(a, b);
-      // arr = [currentPage];
-      // arr.push(a, b);
       setPageList([...arr]);
-    } else if (currentPage % pageSize === 0) {
-      const a = currentPage - 1;
-      const b = currentPage - 2;
+    } else if (currentPage % PAGE_SIZE === 0) {
+      let idx = 1;
       arr = [currentPage];
-      arr.unshift(b, a);
+      while (arr.length < PAGE_SIZE) {
+        arr.unshift(currentPage - idx);
+        idx++;
+      }
       setPageList([...arr]);
     }
-
-    console.log(arr);
   };
   return (
     <>
@@ -283,7 +277,6 @@ const Ranking = () => {
                 disabled={currentPageNum === 1}
                 data-prev='backward'
                 onClick={() => {
-                  if (currentPageNum <= 1) return;
                   setCurrentPageNum((prev) => prev - 1);
                 }}
               >
@@ -306,7 +299,6 @@ const Ranking = () => {
                 data-prev='forward'
                 disabled={currentPageNum === pages.length}
                 onClick={() => {
-                  if (currentPageNum === pages.length) return;
                   setCurrentPageNum((prev) => prev + 1);
                 }}
               >
