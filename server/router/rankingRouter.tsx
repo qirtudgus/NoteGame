@@ -104,7 +104,7 @@ rankingRouter.post('/myranking', (req, res, next) => {
     );
     console.log(rangeArr);
 
-    res.status(200).json({ rangeArr });
+    res.status(200).json({ rangeArr: addRankingNumberArr[userRankingIndex] });
   });
 });
 
