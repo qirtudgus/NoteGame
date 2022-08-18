@@ -4,6 +4,7 @@ import customAxios from '../util/axios';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
+import { isArrayBindingPattern } from 'typescript';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -117,7 +118,7 @@ const Ranking = () => {
   const PAGE_SIZE = 3;
 
   //관리할 페이지 사이즈 // 현재 12
-  const [totalPages, setTotalPages] = useState<number>();
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   //리스트에 따른 페이지 갯수
   const [pages, setPages] = useState<number[]>([]);
@@ -125,6 +126,9 @@ const Ranking = () => {
   const [list, setList] = useState<[]>([]);
   //현재 보여줄 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
+
+  //현재 보여줄 페이지리스트들
+  const [pageList, setPageList] = useState([1, 2, 3]);
 
   const call = async (currentPageNum: number): Promise<void> => {
     let payloadObj = await customAxios('post', '/ranking/allranking', {
@@ -155,8 +159,45 @@ const Ranking = () => {
   //첫 데이터를 불러온다.
   useEffect(() => {
     call(currentPageNum);
+    foo(currentPageNum, PAGE_SIZE);
   }, [currentPageNum]);
 
+  let arr: any = [];
+  const foo = (currentPage: number, pageSize: number) => {
+    // console.log(currentPage);
+    // console.log(pageSize);
+    // console.log(currentPage % pageSize);
+    // console.log(totalPages);
+    if (currentPage === 1) return;
+    //4 7 10 13 마다 1이남고 이때 페이지를 만들어줘야한다.. 456 789
+    if (currentPage % pageSize === 1) {
+      // alert('1이 남음');
+      //현재 페이지의 +2까지의 번호를 만들어 배열을 생성 후 setList해준다..
+      let idx = 1; // 이 수를 current에 더 해준다.
+      arr = [currentPage];
+      while (currentPage + idx <= totalPages && arr.length < pageSize) {
+        arr.push(currentPage + idx);
+        idx++;
+        console.log(pageSize);
+        console.log(arr.length);
+      }
+
+      // const a = currentPage + 1;
+      // const b = currentPage + 2;
+      // console.log(a, b);
+      // arr = [currentPage];
+      // arr.push(a, b);
+      setPageList([...arr]);
+    } else if (currentPage % pageSize === 0) {
+      const a = currentPage - 1;
+      const b = currentPage - 2;
+      arr = [currentPage];
+      arr.unshift(b, a);
+      setPageList([...arr]);
+    }
+
+    console.log(arr);
+  };
   return (
     <>
       <BtnMenu BackHistory></BtnMenu>
@@ -249,15 +290,15 @@ const Ranking = () => {
                 뒤로
               </PrevBtn>
 
-              {pages!.map((i: any, index: any) => (
+              {pageList!.map((i: any, index: any) => (
                 <PageBtn
                   key={i}
-                  active={currentPageNum === index + 1}
+                  active={currentPageNum === i}
                   onClick={(e) => {
-                    setCurrentPageNum(index + 1);
+                    setCurrentPageNum(i);
                   }}
                 >
-                  {i + 1}
+                  {i}
                 </PageBtn>
               ))}
 
