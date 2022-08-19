@@ -152,7 +152,7 @@ const DamageText = styled.div<HpInterface>`
 
 //랜덤한 어택애니메이션 액션을 생성하여 CharacterBox의 애니메이션 호출
 function randomAttack() {
-  let a = createRandomNum(1, 3);
+  let a = createRandomNum(4, 4);
   return 'attack' + a;
 }
 
@@ -167,6 +167,7 @@ const DungeonFight = () => {
   const [attackAni, setAttackAni] = useState({
     user: 'attack' + 0,
     monster: false,
+    moving: false,
   });
 
   const [gelatineAni, setGelatineAni] = useState({
@@ -227,11 +228,11 @@ const DungeonFight = () => {
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
       setRefresh((refresh) => !refresh);
-      setAttackAni({ user: randomAttack(), monster: false });
+      setAttackAni({ user: randomAttack(), monster: false, moving: true });
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
         monsterAttack();
-      }, 800);
+      }, 1000);
       return;
     }
     let userResultDamage = userDamage(
@@ -254,12 +255,12 @@ const DungeonFight = () => {
     setDamageText({ ...damageText, monster: userResultDamage });
     setMonsterHpBar({ HpBarWidth: hpbar, nowHp: hp });
     setRefresh((refresh) => !refresh);
-    setAttackAni({ user: randomAttack(), monster: false });
+    setAttackAni({ user: randomAttack(), monster: false, moving: true });
     setGelatineAni({ user: false, monster: true });
 
     setTimeout(function () {
       monsterAttack();
-    }, 800);
+    }, 1000);
   }
 
   //몬스터 -> 사용자 공격 함수
@@ -277,7 +278,7 @@ const DungeonFight = () => {
       return;
     }
     //몬스터가 때릴 시 애니메이션 호출
-    setAttackAni({ user: 'attack' + 0, monster: true });
+    setAttackAni({ user: 'attack' + 0, monster: true, moving: false });
     setGelatineAni({ user: true, monster: false });
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
     setSupp(false);
@@ -320,7 +321,11 @@ const DungeonFight = () => {
       <CharacterBoxWrap>
         {gelatineAni.user ? <DamageText>-{damageText.user}</DamageText> : null}
 
-        <CharacterBox gelatine={gelatineAni.user} attack={attackAni.user}>
+        <CharacterBox
+          gelatine={gelatineAni.user}
+          attack={attackAni.user}
+          moving={attackAni.moving}
+        >
           <HpBox>
             <HpText>
               <p>{userHpBar.nowHp}</p>
