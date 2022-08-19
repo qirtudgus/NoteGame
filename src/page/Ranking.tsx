@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import 왼쪽화살표 from '../img/왼쪽화살표.svg';
 import 오른쪽화살표 from '../img/오른쪽화살표.svg';
+import 돋보기 from '../img/돋보기.svg';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -47,7 +48,7 @@ const RangkingPage = styled.div`
 
 const RankingTable = styled.table`
   width: 100%;
-  height: 100%;
+  height: 95%;
   margin-top: 20px;
 `;
 const RankingTbody = styled.tbody``;
@@ -86,6 +87,8 @@ const PageBtn = styled.button<a>`
   width: 30px;
   height: 30px;
   border-radius: 10px;
+  background: none;
+
   ${(props) =>
     props.active &&
     css`
@@ -100,10 +103,7 @@ const PageBtn = styled.button<a>`
 
 const BtnWrap = styled.div`
   display: flex;
-`;
-
-const SearchBar = styled.div`
-  display: flex;
+  justify-content: center;
 `;
 
 const Line = styled.div`
@@ -111,6 +111,49 @@ const Line = styled.div`
   height: 1px;
   background: #888;
   margin: 10px 0 10px 0;
+`;
+const SearchBar = styled.div`
+  width: 47%;
+  display: flex;
+  align-items: center;
+`;
+
+const SearchSpan = styled.span`
+  display: flex;
+  background: #fff;
+  border: 1px solid#888;
+  justify-content: center;
+  align-items: center;
+  & img {
+    position: relative;
+    top: 2px;
+    height: 30px;
+  }
+`;
+const SearchInput = styled.input`
+  height: 25px;
+  width: 165px;
+  margin-left: 5px;
+  font-size: 1.2rem;
+  border: none;
+`;
+
+const SearchBtn = styled.button`
+  height: 100%;
+  font-size: 1.2rem;
+  background: none;
+  padding: 0 5px 0 0;
+`;
+
+const SearchBtnWrap = styled.span`
+  display: flex;
+  align-items: center;
+`;
+
+const PageMinWidth = styled.div`
+  display: flex;
+  justify-content: center;
+  min-width: 300px;
 `;
 
 const Ranking = () => {
@@ -243,6 +286,32 @@ const Ranking = () => {
       <RankingWrap>
         <RankingTabWrap>
           <RankingTab>전체 순위</RankingTab>
+          <SearchBar>
+            <SearchSpan>
+              <SearchInput
+                placeholder='닉네임 검색'
+                maxLength={10}
+                type='text'
+                id='searchId'
+                value={Id}
+                onChange={handleChange}
+              ></SearchInput>
+              <SearchBtnWrap>
+                <SearchBtn disabled={disabled} onClick={handleSubmit}>
+                  <img src={돋보기} alt='검색' />
+                </SearchBtn>
+                <SearchBtn
+                  disabled={show.btn}
+                  onClick={() => {
+                    call(currentPageNum);
+                    setShow({ userUndifined: false, page: true, btn: true });
+                  }}
+                >
+                  취소
+                </SearchBtn>
+              </SearchBtnWrap>
+            </SearchSpan>
+          </SearchBar>
         </RankingTabWrap>
         <RangkingPage>
           <RankingTable>
@@ -292,7 +361,9 @@ const Ranking = () => {
                 </>
               )}
             </RankingTbody>
+            <Line></Line>
           </RankingTable>
+
           {show.btn && (
             <BtnWrap>
               <PageBtn
@@ -304,19 +375,19 @@ const Ranking = () => {
               >
                 <img src={왼쪽화살표} alt='뒤로'></img>
               </PageBtn>
-
-              {pageList!.map((i: any, index: any) => (
-                <PageBtn
-                  key={i}
-                  active={currentPageNum === i}
-                  onClick={(e) => {
-                    setCurrentPageNum(i);
-                  }}
-                >
-                  {i}
-                </PageBtn>
-              ))}
-
+              <PageMinWidth>
+                {pageList!.map((i: any, index: any) => (
+                  <PageBtn
+                    key={i}
+                    active={currentPageNum === i}
+                    onClick={(e) => {
+                      setCurrentPageNum(i);
+                    }}
+                  >
+                    {i}
+                  </PageBtn>
+                ))}
+              </PageMinWidth>
               <PageBtn
                 data-prev='forward'
                 disabled={currentPageNum === pages.length}
@@ -328,27 +399,6 @@ const Ranking = () => {
               </PageBtn>
             </BtnWrap>
           )}
-          <SearchBar>
-            <form onSubmit={handleSubmit}>
-              <input
-                type='text'
-                id='searchId'
-                value={Id}
-                onChange={handleChange}
-                placeholder='아이디 검색'
-              ></input>
-              <input disabled={disabled} type='submit' value='검색'></input>
-            </form>
-            <button
-              disabled={show.btn}
-              onClick={() => {
-                call(currentPageNum);
-                setShow({ userUndifined: false, page: true, btn: true });
-              }}
-            >
-              취소
-            </button>
-          </SearchBar>
         </RangkingPage>
       </RankingWrap>
     </>
