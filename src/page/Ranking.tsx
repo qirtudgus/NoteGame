@@ -166,7 +166,7 @@ const PageMinWidth = styled.div`
 
 const UndefinedPage = styled.div`
   width: 100%;
-  height: 40%;
+  height: 65%;
   font-size: 1.4rem;
   display: flex;
   justify-content: center;
@@ -174,10 +174,12 @@ const UndefinedPage = styled.div`
   flex-direction: column;
 `;
 const UndefinedBtn = styled.button`
-  width: 220px;
-  height: 60px;
+  width: 230px;
+  margin-top: 20px;
+  height: 50px;
   background: #555;
   color: #fff;
+  border-radius: 10px;
 `;
 
 const Ranking = () => {
