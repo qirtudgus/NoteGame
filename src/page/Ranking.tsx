@@ -4,6 +4,8 @@ import customAxios from '../util/axios';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
+import 왼쪽화살표 from '../img/왼쪽화살표.svg';
+import 오른쪽화살표 from '../img/오른쪽화살표.svg';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -83,20 +85,21 @@ const RankingTh = styled.th<a>`
 const PageBtn = styled.button<a>`
   width: 30px;
   height: 30px;
-  border: 1px solid#555;
+  border-radius: 10px;
   ${(props) =>
     props.active &&
     css`
-      border: 5px solid#555;
-      background: #555;
+      background: #444;
       color: #fff;
     `}
+  &:hover {
+    outline: 2px solid #444;
+    outline-offset: -3px;
+  }
 `;
 
-const PrevBtn = styled.button<a>`
-  width: 40px;
-  height: 40px;
-  border: 1px solid#555;
+const BtnWrap = styled.div`
+  display: flex;
 `;
 
 const SearchBar = styled.div`
@@ -291,16 +294,16 @@ const Ranking = () => {
             </RankingTbody>
           </RankingTable>
           {show.btn && (
-            <>
-              <PrevBtn
+            <BtnWrap>
+              <PageBtn
                 disabled={currentPageNum === 1}
                 data-prev='backward'
                 onClick={() => {
                   setCurrentPageNum((prev) => prev - 1);
                 }}
               >
-                뒤로
-              </PrevBtn>
+                <img src={왼쪽화살표} alt='뒤로'></img>
+              </PageBtn>
 
               {pageList!.map((i: any, index: any) => (
                 <PageBtn
@@ -314,16 +317,16 @@ const Ranking = () => {
                 </PageBtn>
               ))}
 
-              <PrevBtn
+              <PageBtn
                 data-prev='forward'
                 disabled={currentPageNum === pages.length}
                 onClick={() => {
                   setCurrentPageNum((prev) => prev + 1);
                 }}
               >
-                앞으로
-              </PrevBtn>
-            </>
+                <img src={오른쪽화살표} alt='앞으로'></img>
+              </PageBtn>
+            </BtnWrap>
           )}
           <SearchBar>
             <form onSubmit={handleSubmit}>
