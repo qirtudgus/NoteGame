@@ -132,3 +132,6 @@ table {
 * {
   font-family: 'HandFont' !important;
 }
+button {
+  cursor: pointer;
+}

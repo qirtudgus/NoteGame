@@ -58,6 +58,7 @@ const RankingTbody = styled.tbody``;
 
 const RankingTr = styled.tr<a>`
   width: 100%;
+  border-radius: 5px;
   height: 40px;
   display: flex;
   justify-content: space-around;
@@ -71,8 +72,9 @@ const RankingTr = styled.tr<a>`
   ${(props) =>
     props.myranking &&
     css`
-      font-weight: bold;
-      background: #e5005a;
+      color: #fff;
+
+      background: #444;
     `}
 `;
 
@@ -107,6 +109,7 @@ const PageBtn = styled.button<a>`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 `;
 
 const Line = styled.div`
@@ -123,6 +126,8 @@ const SearchBar = styled.div`
 
 const SearchSpan = styled.span`
   display: flex;
+  border-radius: 5px;
+
   background: #fff;
   border: 1px solid#888;
   justify-content: center;
@@ -157,6 +162,22 @@ const PageMinWidth = styled.div`
   display: flex;
   justify-content: center;
   min-width: 300px;
+`;
+
+const UndefinedPage = styled.div`
+  width: 100%;
+  height: 40%;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+const UndefinedBtn = styled.button`
+  width: 220px;
+  height: 60px;
+  background: #555;
+  color: #fff;
 `;
 
 const Ranking = () => {
@@ -339,9 +360,17 @@ const Ranking = () => {
               </RankingTr>
               <Line></Line>
               {show.userUndifined ? (
-                <div>
-                  '검색 결과가 없어요! 아이디를 다시 확인해보는게 어때요?'
-                </div>
+                <UndefinedPage>
+                  <p>존재하지않는 닉네임이에요...</p>
+                  <UndefinedBtn
+                    onClick={() => {
+                      call(currentPageNum);
+                      setShow({ userUndifined: false, page: true, btn: true });
+                    }}
+                  >
+                    돌아가기
+                  </UndefinedBtn>
+                </UndefinedPage>
               ) : (
                 <>
                   {list!.map((i: any, index: any) => (
