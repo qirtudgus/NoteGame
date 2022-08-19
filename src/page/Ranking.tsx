@@ -161,7 +161,6 @@ const Ranking = () => {
         return res.data;
       },
     );
-    // setShow({ ...show, page: false, btn: false });
     console.log(result.myRanking);
     let a: any = [];
     a.push(result.myRanking);
@@ -171,10 +170,8 @@ const Ranking = () => {
   //첫 데이터를 불러온다.
   useEffect(() => {
     call(currentPageNum);
-  }, [currentPageNum]);
-  useEffect(() => {
     callmyranking();
-  }, []);
+  }, [currentPageNum]);
 
   let arr: any = [];
   const foo = (currentPage: number) => {
@@ -292,7 +289,6 @@ const Ranking = () => {
                   ))}
                 </>
               )}
-              {/* {show.page ? ( */}
             </RankingTbody>
           </RankingTable>
           {show.btn && (
