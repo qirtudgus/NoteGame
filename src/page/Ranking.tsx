@@ -133,7 +133,6 @@ const Ranking = () => {
   const [list, setList] = useState<[]>([]);
   //현재 보여줄 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
-  const [totalpages, setTotalpages] = useState<number>(1);
   //현재 보여줄 페이지리스트들
   const [pageList, setPageList] = useState<number[]>([]);
 
@@ -146,8 +145,8 @@ const Ranking = () => {
     });
     console.log(payloadObj.data);
     setList(() => payloadObj.data);
+    //토탈페이지수를 변수에 할당해준다.
     total = payloadObj.listNum;
-    setTotalpages(() => payloadObj.listNum);
     //페이지 정수를 받아와 배열 생성 후 setState해준다.
     //https://hjcode.tistory.com/73
     let pagesNum = Array.from({ length: payloadObj.listNum }, (v, i) => i);
