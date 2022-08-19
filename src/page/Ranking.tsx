@@ -17,7 +17,7 @@ const RankingWrap = styled.div`
 
 const RankingTabWrap = styled.div`
   display: flex;
-  width: 100%;
+  width: 102%;
   height: auto;
   justify-content: center;
 `;
@@ -38,6 +38,9 @@ const RankingTab = styled.div<a>`
   justify-content: center;
   align-items: center;
   color: #000;
+  & > span {
+    margin-left: 247px;
+  }
 `;
 
 const RangkingPage = styled.div`
@@ -285,7 +288,9 @@ const Ranking = () => {
       <BtnMenu BackHistory></BtnMenu>
       <RankingWrap>
         <RankingTabWrap>
-          <RankingTab>전체 순위</RankingTab>
+          <RankingTab>
+            <span>전체 순위</span>
+          </RankingTab>
           <SearchBar>
             <SearchSpan>
               <SearchInput
