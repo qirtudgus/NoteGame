@@ -152,7 +152,7 @@ const DamageText = styled.div<HpInterface>`
 
 //랜덤한 어택애니메이션 액션을 생성하여 CharacterBox의 애니메이션 호출
 function randomAttack() {
-  let a = createRandomNum(4, 4);
+  let a = createRandomNum(1, 4);
   return 'attack' + a;
 }
 

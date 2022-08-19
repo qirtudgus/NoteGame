@@ -27,19 +27,14 @@ interface a {
 }
 
 const RankingTab = styled.div<a>`
-  width: 50%;
-  height: 70px;
-  background: #eee;
+  width: 100%;
+  height: 50px;
+  font-size: 2rem;
   color: #777;
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props) =>
-    props.active &&
-    css`
-      color: #000;
-      background: #fff;
-    `}
+  color: #000;
 `;
 
 const RangkingPage = styled.div`
@@ -248,14 +243,7 @@ const Ranking = () => {
       <BtnMenu BackHistory></BtnMenu>
       <RankingWrap>
         <RankingTabWrap>
-          <RankingTab
-            active={show.page}
-            onClick={() => {
-              setShow({ ...show, page: true, btn: true });
-            }}
-          >
-            전체 순위
-          </RankingTab>
+          <RankingTab>전체 순위</RankingTab>
         </RankingTabWrap>
         <RangkingPage>
           <RankingTable>
@@ -277,33 +265,34 @@ const Ranking = () => {
                 ))}
               </RankingTr>
               <Line></Line>
-              {show.userUndifined && (
+              {show.userUndifined ? (
                 <div>
                   '검색 결과가 없어요! 아이디를 다시 확인해보는게 어때요?'
                 </div>
+              ) : (
+                <>
+                  {list!.map((i: any, index: any) => (
+                    <React.Fragment key={index}>
+                      {i.Id === userId ? (
+                        <RankingTr myranking key={i.Id}>
+                          <RankingTh>{i.ranking}</RankingTh>
+                          <RankingTh>{i.Id}</RankingTh>
+                          <RankingTh>{i.Level}</RankingTh>
+                          <RankingTh>{i.DungeonFloor}</RankingTh>
+                        </RankingTr>
+                      ) : (
+                        <RankingTr key={i.Id}>
+                          <RankingTh>{i.ranking}</RankingTh>
+                          <RankingTh>{i.Id}</RankingTh>
+                          <RankingTh>{i.Level}</RankingTh>
+                          <RankingTh>{i.DungeonFloor}</RankingTh>
+                        </RankingTr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </>
               )}
               {/* {show.page ? ( */}
-              <>
-                {list!.map((i: any, index: any) => (
-                  <React.Fragment key={index}>
-                    {i.Id === userId ? (
-                      <RankingTr myranking key={i.Id}>
-                        <RankingTh>{i.ranking}</RankingTh>
-                        <RankingTh>{i.Id}</RankingTh>
-                        <RankingTh>{i.Level}</RankingTh>
-                        <RankingTh>{i.DungeonFloor}</RankingTh>
-                      </RankingTr>
-                    ) : (
-                      <RankingTr key={i.Id}>
-                        <RankingTh>{i.ranking}</RankingTh>
-                        <RankingTh>{i.Id}</RankingTh>
-                        <RankingTh>{i.Level}</RankingTh>
-                        <RankingTh>{i.DungeonFloor}</RankingTh>
-                      </RankingTr>
-                    )}
-                  </React.Fragment>
-                ))}
-              </>
             </RankingTbody>
           </RankingTable>
           {show.btn && (
