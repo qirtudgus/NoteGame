@@ -12,7 +12,7 @@ import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation } from 'react-router-dom';
-import { userDamage,monsterDamage } from '../util/createDamage';
+import { userDamage, monsterDamage } from '../util/createDamage';
 import BtnMenu from '../components/BtnMenu';
 const BottomBox = styled.div`
   width: 100%;
@@ -141,7 +141,7 @@ const DamageText = styled.div<HpInterface>`
   font-weight: bold;
   opacity: 1;
   z-index: 10000;
-  animation: ${damageTextAni} 1s forwards ;
+  animation: ${damageTextAni} 1s forwards;
 
   ${(props) =>
     props.damageText &&
@@ -157,9 +157,9 @@ const DungeonFight = () => {
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
-  const {state} = useLocation()
+  const { state } = useLocation();
   const [attackAni, setAttackAni] = useState({
-    user: false,
+    user: 'attack' + 0,
     monster: false,
   });
 
@@ -221,14 +221,18 @@ const DungeonFight = () => {
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
       setRefresh((refresh) => !refresh);
-      setAttackAni({user:true,monster:false})
+      setAttackAni({ user: 'attack' + createRandomNum(1, 3), monster: false });
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
         monsterAttack();
       }, 800);
-      return
-    };
-    let userResultDamage = userDamage(parseInt(cb.dataset.attacknumber as string), userInfo.BasicDamage, userInfo.BetterPen)
+      return;
+    }
+    let userResultDamage = userDamage(
+      parseInt(cb.dataset.attacknumber as string),
+      userInfo.BasicDamage,
+      userInfo.BetterPen,
+    );
     let hp: number = monsterHpBar.nowHp - userResultDamage;
     let hpbar = Math.ceil((hp / monsterInfo.monsterFullHp) * 100);
 
@@ -244,7 +248,7 @@ const DungeonFight = () => {
     setDamageText({ ...damageText, monster: userResultDamage });
     setMonsterHpBar({ HpBarWidth: hpbar, nowHp: hp });
     setRefresh((refresh) => !refresh);
-    setAttackAni({user:true,monster:false})
+    setAttackAni({ user: 'attack' + createRandomNum(1, 3), monster: false });
     setGelatineAni({ user: false, monster: true });
 
     setTimeout(function () {
@@ -254,7 +258,7 @@ const DungeonFight = () => {
 
   //몬스터 -> 사용자 공격 함수
   const monsterAttack = () => {
-    let resultDamage = monsterDamage(monsterInfo.monsterDamage)
+    let resultDamage = monsterDamage(monsterInfo.monsterDamage);
     setDamageText({ ...damageText, user: resultDamage });
     let resultHp = userHpBar.nowHp - resultDamage;
     let resultHpBar = Math.ceil((resultHp / userInfo.BasicHp) * 100);
@@ -266,7 +270,7 @@ const DungeonFight = () => {
       setIsModal(true);
       return;
     }
-    setAttackAni({user:false,monster:true})
+    setAttackAni({ user: 'attack' + 0, monster: true });
     setGelatineAni({ user: true, monster: false });
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
     setSupp(false);
@@ -294,8 +298,6 @@ const DungeonFight = () => {
       document.removeEventListener('keypress', gameStart);
     };
   }, [gameStart]);
-
-
 
   return (
     <>
@@ -342,11 +344,7 @@ const DungeonFight = () => {
         </MonsterBox>
       </CharacterBoxWrap>
 
-      <Ballpen
-        penStatus={penStatus}
-        ref={inputRef}
-        isDungeon={true}
-      ></Ballpen>
+      <Ballpen penStatus={penStatus} ref={inputRef} isDungeon={true}></Ballpen>
 
       {supp ? (
         <StartBtn id='startbuttons' color='#555'>
@@ -371,7 +369,7 @@ const DungeonFight = () => {
       </BoxWrap>
 
       <BottomBox></BottomBox>
-<BtnMenu BackHistory Home></BtnMenu>
+      <BtnMenu BackHistory Home></BtnMenu>
     </>
   );
 };

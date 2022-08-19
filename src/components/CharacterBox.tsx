@@ -1,20 +1,36 @@
 import { useSelector } from 'react-redux';
-import styled, { css ,keyframes} from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import 캐릭터배경 from '../img/캐릭터배경.png';
 import { gelatine } from '../styledComponents/DungeonFight';
 import { ballPenList } from '../util/ballPenList';
 import { RootState } from '../modules/modules_index';
 interface dungeonAni {
   gelatine?: boolean;
-  attack?:boolean;
+  attack?: string;
+  attack1?: string;
+  attack2?: string;
 }
 
-export const attack = keyframes`
+export const attack1 = keyframes`
   from, to { transform: rotate(60deg) ; }
   25% { transform: rotate(-20deg); }
   30% { transform:  rotate(-22deg) ; }
   40% { transform:  rotate(110deg) ; }
   75% { transform:  rotate(100deg); }
+  `;
+
+export const attack2 = keyframes`
+  from, to { transform: rotate(60deg) ; }
+  25% { transform: rotate(-20deg); }
+  30% { transform:  rotate(-22deg) ; }
+  40% { transform:  rotate(110deg) ; }
+  75% { transform:  rotate(150deg); }
+  `;
+export const attack3 = keyframes`
+  from, to { transform: rotate(30deg) ; }
+  25% { transform: rotate(-20deg); }
+  30% { transform:  rotate(-22deg) ; }
+  40% { transform:  rotate(60deg) ; }
   `;
 
 // const WeaponWrap = styled.div<dungeonAni>`
@@ -24,7 +40,6 @@ export const attack = keyframes`
 // width:100%;
 // height:100%;
 // background:#555;
-
 
 // `
 
@@ -67,12 +82,21 @@ const EquipBallpen = styled.div<dungeonAni>`
   }
   animation-timing-function: ease-in;
 
-  
-${(props) =>
-  props.attack &&
-  css`
-    animation: ${attack} 0.8s;
-  `}
+  ${(props) =>
+    props.attack === 'attack1' &&
+    css`
+      animation: ${attack1} 0.8s;
+    `}
+  ${(props) =>
+    props.attack === 'attack2' &&
+    css`
+      animation: ${attack2} 0.8s;
+    `}
+    ${(props) =>
+    props.attack === 'attack3' &&
+    css`
+      animation: ${attack3} 0.8s;
+    `}
 `;
 
 interface children {
@@ -82,7 +106,9 @@ interface children {
   userHpBar?: any;
   userInfo?: any;
   dungeonStart?: any;
-  attack?: boolean;
+  attack?: string;
+  attack1?: string;
+  attack2?: string;
 }
 
 const CharacterBox = ({ children, gelatine, attack }: children) => {
@@ -90,12 +116,11 @@ const CharacterBox = ({ children, gelatine, attack }: children) => {
   const equipBallpen = userInfo.EquipBallpen;
   return (
     <>
-      <CharacterWrap gelatine={gelatine} >
+      <CharacterWrap gelatine={gelatine}>
         {children}
         <Character>
-          <EquipBallpen attack={attack}> 
+          <EquipBallpen attack={attack}>
             <img src={ballPenList[equipBallpen]} alt='무기'></img>
-
           </EquipBallpen>
           <img src={캐릭터배경} alt='캐릭터배경'></img>
         </Character>

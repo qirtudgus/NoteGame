@@ -160,14 +160,12 @@ const Ranking = () => {
     foo(currentPageNum);
   };
 
-  const callmyranking = async (userId: string | number | undefined) => {
-    console.log(userId);
-    // if (userId === undefined) return;
-    let result = await customAxios('post', '/ranking/myranking/', {
-      userId,
-    }).then((res) => {
-      return res.data;
-    });
+  const callmyranking = async () => {
+    let result = await customAxios('post', '/ranking/myranking/', {}).then(
+      (res) => {
+        return res.data;
+      },
+    );
     // setShow({ ...show, page: false, btn: false });
     console.log(result.myRanking);
     let a: any = [];
@@ -180,7 +178,7 @@ const Ranking = () => {
     call(currentPageNum);
   }, [currentPageNum]);
   useEffect(() => {
-    callmyranking(userId);
+    callmyranking();
   }, []);
 
   let arr: any = [];

@@ -40,22 +40,25 @@ export let setUesrInfo = {
   SkillPoint: 0,
   UpGoldPen: 0,
   UpGoldHunt: 0,
-  UpMaxHp:0,
+  UpMaxHp: 0,
   DungeonFloor: 0,
   BetterPen: 0,
   Exp: 0,
   NeedExp: 0,
   EquipBallpen: '',
-  DungeonPenSpeed:1,
-  PenGamePenSpeed:1,
-
+  DungeonPenSpeed: 1,
+  PenGamePenSpeed: 1,
 };
 export const db_refresh_success = () => ({
   type: DB_REFRESH_SUCCESS,
   userInfo: setUesrInfo,
 });
 
-export const equip_ballpen_request = (ballpenName: string, weaponDamage:number, PenSpeed:{}) => ({
+export const equip_ballpen_request = (
+  ballpenName: string,
+  weaponDamage: number,
+  PenSpeed: {},
+) => ({
   type: EQUIP_BALLPEN_REQUEST,
   ballpenName,
   weaponDamage,
@@ -187,14 +190,14 @@ type IsLoginState = {
     SkillPoint?: number;
     UpGoldPen?: number;
     UpGoldHunt?: number;
-    UpMaxHp?:number;
+    UpMaxHp?: number;
     DungeonFloor?: number;
     BetterPen?: number;
     Exp?: number;
     NeedExp?: number;
     EquipBallpen: string;
-    DungeonPenSpeed:number;
-    PenGamePenSpeed:number;
+    DungeonPenSpeed: number;
+    PenGamePenSpeed: number;
   };
 };
 
