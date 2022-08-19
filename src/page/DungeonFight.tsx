@@ -150,6 +150,12 @@ const DamageText = styled.div<HpInterface>`
     `}
 `;
 
+//랜덤한 어택애니메이션 액션을 생성하여 CharacterBox의 애니메이션 호출
+function randomAttack() {
+  let a = createRandomNum(1, 3);
+  return 'attack' + a;
+}
+
 const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -221,7 +227,7 @@ const DungeonFight = () => {
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
       setRefresh((refresh) => !refresh);
-      setAttackAni({ user: 'attack' + createRandomNum(1, 3), monster: false });
+      setAttackAni({ user: randomAttack(), monster: false });
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
         monsterAttack();
@@ -248,7 +254,7 @@ const DungeonFight = () => {
     setDamageText({ ...damageText, monster: userResultDamage });
     setMonsterHpBar({ HpBarWidth: hpbar, nowHp: hp });
     setRefresh((refresh) => !refresh);
-    setAttackAni({ user: 'attack' + createRandomNum(1, 3), monster: false });
+    setAttackAni({ user: randomAttack(), monster: false });
     setGelatineAni({ user: false, monster: true });
 
     setTimeout(function () {
@@ -270,6 +276,7 @@ const DungeonFight = () => {
       setIsModal(true);
       return;
     }
+    //몬스터가 때릴 시 애니메이션 호출
     setAttackAni({ user: 'attack' + 0, monster: true });
     setGelatineAni({ user: true, monster: false });
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
