@@ -35,7 +35,7 @@ rankingRouter.post('/allranking', (req, res, next) => {
       return b.DungeonFloor - a.DungeonFloor;
     });
     //100까지만 자르기
-    let sliceArr = sortRankingArr.slice(0, 100);
+    let sliceArr = sortRankingArr.slice(0, 200);
 
     //순위 추가
     let addRankingNumberArr = sliceArr.map((i: any, index: any) => ({
