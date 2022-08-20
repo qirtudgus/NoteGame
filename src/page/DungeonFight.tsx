@@ -245,10 +245,15 @@ const DungeonFight = () => {
 
     //유저가 승리 시
     if (hp <= 0) {
+      setDamageText({ ...damageText, monster: userResultDamage });
       setGelatineAni({ user: false, monster: true });
       setMonsterHpBar({ HpBarWidth: hpbar, nowHp: 0 });
-      setVictoryModal(true);
-      setIsModal(true);
+      setAttackAni({ user: randomAttack(), monster: false, moving: true });
+      setTimeout(function () {
+        setVictoryModal(true);
+        setIsModal(true);
+      }, 1000);
+
       return;
     }
     //전투
