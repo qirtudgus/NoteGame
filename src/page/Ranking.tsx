@@ -187,7 +187,7 @@ const Ranking = () => {
   //어떤 순위 보여주는지
   const [disabled, setDisabled] = useState(false);
   const [Id, setId] = useState('');
-  //어떤 순위 보여주는지
+  //검색 시 페이지와 버튼을 가리기 위함
   const [show, setShow] = useState({
     page: true,
     btn: true,
@@ -195,17 +195,17 @@ const Ranking = () => {
   });
   //내 랭킹
   const [myList, setMyList] = useState<[]>([]);
-  //페이지 사이즈
+  //보여줄 페이지 사이즈
   const PAGE_SIZE = 10;
-  //총 페이지
+  //총 페이지 수
   let total: number = 0;
   //리스트에 따른 페이지 갯수
   const [pages, setPages] = useState<number[]>([]);
-  //전체 랭킹을 보여줄 10개의 리스트
+  //전체 랭킹에 보여줄 10개의 리스트
   const [list, setList] = useState<[]>([]);
-  //현재 보여줄 페이지번호
+  //현재 보여주고있는 페이지번호
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
-  //현재 보여줄 페이지리스트들
+  //현재 보여주고있는 페이지버튼 리스트
   const [pageList, setPageList] = useState<number[]>([]);
 
   const call = async (currentPageNum: number): Promise<void> => {
