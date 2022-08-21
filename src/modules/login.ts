@@ -26,6 +26,12 @@ export const EQUIP_BALLPEN_REQUEST = 'login/EQUIP_BALLPEN_REQUEST' as const;
 export const EQUIP_BALLPEN_SUCCESS = 'login/EQUIP_BALLPEN_SUCCESS' as const;
 export const DB_REFRESH_SUCCESS = 'login/DB_REFRESH_SUCCESS' as const;
 
+//환생 관련 액션
+export const REVIVAL_REQUSET = 'login/REVIVAL_REQUSET' as const;
+export const REVIVAL_SUCCESS = 'login/REVIVAL_SUCCESS' as const;
+
+
+
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUesrInfo = {
@@ -49,6 +55,16 @@ export let setUesrInfo = {
   DungeonPenSpeed: 1,
   PenGamePenSpeed: 1,
 };
+
+export const revival_request = () => ({
+  type:REVIVAL_REQUSET
+})
+
+export const revival_success = () => ({
+  type:REVIVAL_SUCCESS,
+  userInfo: setUesrInfo,
+})
+
 export const db_refresh_success = () => ({
   type: DB_REFRESH_SUCCESS,
   userInfo: setUesrInfo,
@@ -170,7 +186,9 @@ type LoginAction =
   | ReturnType<typeof dungeon_victory>
   | ReturnType<typeof equip_ballpen_request>
   | ReturnType<typeof equip_ballpen_success>
-  | ReturnType<typeof db_refresh_success>;
+  | ReturnType<typeof db_refresh_success>
+  | ReturnType<typeof revival_request>
+  | ReturnType<typeof revival_success>;
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
 type IsLoginState = {
@@ -274,6 +292,9 @@ const LoginRequest = (
     }
     case DB_REFRESH_SUCCESS: {
       return { ...state, userInfo: action.userInfo };
+    }
+    case REVIVAL_SUCCESS : {
+      return { ...state, userInfo: action.userInfo}
     }
     default:
       return state;

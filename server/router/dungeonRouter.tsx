@@ -9,6 +9,7 @@ const VictoryQuery = `UPDATE users SET DungeonFloor = DungeonFloor + 1, Gold = G
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
 const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1 WHERE ID = ?`;
+const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor FROM users WHERE Id = ?`
 
 dungeonRouter.post('/victory', (req, res, next) => {
   const userId = req.decoded.userId;
@@ -16,23 +17,6 @@ dungeonRouter.post('/victory', (req, res, next) => {
   const resultGold:number = Math.ceil(monsterGold + (monsterGold * UpGoldHunt / 100))
 
   const resultExp = userExp + monsterExp
-  console.log(userExp)
-  console.log(monsterExp)
-  console.log(userLevel)
-
-
-  // db.query(ExpCheckQuery,[userLevel],(err,rows,fields) => {
-  //   let needExp = rows[0].NeedExp
-  //   console.log(rows[0])
-  //   if( resultExp >= needExp){
-  //     db.query(LevelUpQuery,[userId],(err,rows,fields) => {
-  //     })
-  //   }
-  // })
-  
-
-
-
   if(req.body.before === true){
     db.query(VictoryBeforeQuery,[resultGold,monsterExp,userId],(err,rows,fields) => {
 
@@ -87,18 +71,21 @@ dungeonRouter.post('/victory', (req, res, next) => {
           });
         }
       })
-
-
-
-
-
     })
-  
-
   }
-
-
-
-
-
 });
+
+dungeonRouter.post('/revival',(req,res) => {
+  const userId = req.decoded.userId;
+  const {nowFloor, revivalPoint} = req.body;
+
+
+  let addSkillPoint = Math.floor( nowFloor / 50 );
+  let revivalFloor = Math.ceil((nowFloor * revivalPoint / 100));
+
+  db.query(RevivalPointFindQuery,[userId],(err,rows,fields) => {
+    console.log(rows[0])
+  })
+  res.send('gg')
+
+})
