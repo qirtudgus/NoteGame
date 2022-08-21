@@ -3,6 +3,7 @@ import 하이테크 from '../img/하이테크.png';
 import 컴퓨터용사인펜 from '../img/컴퓨터용사인펜.png';
 import 보드마카 from '../img/보드마카2.png';
 import 만년필 from '../img/만년필.png';
+import 유성매직 from '../img/유성매직.png';
 import 몽블랑마릴린먼로 from '../img/몽블랑마릴린먼로.png';
 
 interface pen {
@@ -80,12 +81,15 @@ export const penObj: pen[] = [
     penGamePenSpeed: 0.6,
   },
   {
-    title: '7',
+    title: '유성매직',
     desc: '기념품입니다.',
     level: '5',
     ballPenName: 'weapon7',
     Gold: 10000000,
-    weaponDamage: 500,
+    weaponDamage: 3000,
+    img: 유성매직,
+    dungeonPenSpeed: 0.6,
+    penGamePenSpeed: 0.6,
   },
   {
     title: '8',

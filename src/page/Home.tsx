@@ -14,10 +14,9 @@ const Home = () => {
   const logOutRequest = () => {
     dispatch(logout());
   };
-
   return (
     <>
-    <BtnMenu LogOut></BtnMenu>
+      <BtnMenu LogOut></BtnMenu>
       {isTokenExPired ? (
         <div>
           <p>토큰이 만료되었습니다 재로그인해주세요.</p>
