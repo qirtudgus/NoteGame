@@ -8,6 +8,15 @@ import FastFowardBtn from "./FastFowardBtn";
 import LogOutBtn from "./LogoutBtn";
 import RevivalBtn from "./RevivalBtn";
 
+//props 사용을 위해 인터페이스로 타입 명시
+//https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
+interface cornerBtn {
+    corner?: boolean;
+    url?: string;
+
+  }
+  
+
 const BtnWrap = styled.div`
 display:flex;
 position:absolute;
@@ -18,7 +27,7 @@ top:90px;
 }
 `
 
-export const Back = styled.div`
+export const Back = styled.div<cornerBtn>`
 cursor: pointer;
 width: 76px;
 height: 76px;
@@ -27,6 +36,10 @@ border-radius: 50px;
 display: flex;
 justify-content: center;
 align-items: center;
+&:hover{
+outline:2px solid#555;
+outline-offset:-2px;
+}
 `;
 
 

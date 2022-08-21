@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import BasicButtons from './BasicBtn';
 const BgWrap = styled.div`
   width: 100%;
   height: 100%;
