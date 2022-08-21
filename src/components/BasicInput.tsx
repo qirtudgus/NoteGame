@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import React from "react";
 const BasicInput = styled.input`
 width:13rem;
 height:3rem;
@@ -33,4 +34,4 @@ const BasicInputs = ({placeholder,OnChange,value,type,OnBlur,color}:holder) => {
 
 }
 
-export default BasicInputs
+export default React.memo(BasicInputs)

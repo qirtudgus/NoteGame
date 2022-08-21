@@ -89,7 +89,10 @@ const BoxWrap = styled(ButtonColor)`
   bottom: 70px;
   z-index: 11;
 `;
-const Box = styled.div`
+interface highReword {
+  highReword?:boolean;
+}
+const Box = styled.div<highReword>`
   width: 60px;
   padding: 0 10px 0 10px;
   height: 175px;
@@ -108,6 +111,10 @@ const Box = styled.div`
   &:last-child {
     border-right: 1px solid#000;
   }
+  ${(props) => props.highReword && css`
+  background: #000;
+
+  `}
 `;
 
 interface startBtnSuppressor {
@@ -321,6 +328,8 @@ const DungeonFight = () => {
   //이를 방지하여 렌더링시 체력을 체크하여 dungeon으로 보낸다.
   if(monsterInfo.monsterFullHp === 0) navigate(-1)
 
+  console.log(randomArr.flat(2))
+  console.log(Object.values( Object.values(randomArr)))
 
   return (
     <>
@@ -390,9 +399,17 @@ const DungeonFight = () => {
 
       <BoxWrap as='div'>
         {randomArr.map((i: any, index: any) => (
-          <Box key={index} data-attacknumber={i.attackNumber}>
-            {i.attackNumber}%
-          </Box>
+          <>
+          { Object.values(randomArr) ?
+                    <Box highReword={true} key={index} data-attacknumber={i.attackNumber}>
+                    {i.attackNumber}%
+                  </Box>:
+                            <Box key={index} data-attacknumber={i.attackNumber}>
+                            {i.attackNumber}%
+                          </Box>
+        }
+
+          </>
         ))}
       </BoxWrap>
 

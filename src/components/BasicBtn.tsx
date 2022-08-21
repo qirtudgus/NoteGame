@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ButtonColor } from './BtnMenu';
-
+import React from 'react';
 const BasicButton = styled(ButtonColor)<ButtonText>`
   width: 13rem;
   height: 3rem;
@@ -56,4 +56,4 @@ const BasicButtons = ({
   );
 };
 
-export default BasicButtons;
+export default React.memo(BasicButtons);

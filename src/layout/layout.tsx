@@ -3,7 +3,7 @@ import BackGround from '../components/BackGround';
 import UserInfo from '../components/userInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-
+import React from 'react';
 const Layout = () => {
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
 
@@ -15,4 +15,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default React.memo(Layout);

@@ -9,7 +9,6 @@ const BgWrap = styled.div`
 const Bg = styled.div`
   width: 1026px;
   height: 830px;
-
   background: url(${배경});
   margin: 50px auto;
   position: relative;
