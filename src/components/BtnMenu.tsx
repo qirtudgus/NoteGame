@@ -53,8 +53,7 @@ interface btn {
     RefreshFunc?:any;
     LogOut?:boolean;
     Revival?:boolean;
-    // RevivalDispatch?: { type: "modalState/MODAL_SUCCESS"; } ;
-    RevivalDispatch?:any ;
+    RevivalDispatch?:() => { type: "modalState/MODAL_SUCCESS" } ;
 }
 
 const BtnMenu = ({BackHistory,Home,FastFoward,FastFowardFunc,FastFowardText,Refresh,LogOut,RefreshFunc,Revival,RevivalDispatch}:btn) => {

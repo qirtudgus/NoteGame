@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import arrowRight from '../img/오른쪽화살표.svg';
 import arrowLeft from '../img/왼쪽화살표.svg';
@@ -105,4 +106,4 @@ const Dungeon = () => {
   );
 };
 
-export default Dungeon;
+export default React.memo (Dungeon);

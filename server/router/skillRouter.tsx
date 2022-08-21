@@ -14,26 +14,28 @@ const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 skillRouter.post('/skillup', (req, res, next) => {
   const userId = req.decoded.userId;
   const { skillName, skillPoint } = req.body;
+
   if (skillPoint <= 0) return;
+  console.log(`${userId}님이 ${skillName}스킬을 찍으셨습니다.`)
 
   if (skillName === 'UpGoldPen') {
     db.query(UpGoldPenQuery, [userId], (err, result, fields) => {
-      console.log(err);
+      // console.log(err);
     });
   }
   if (skillName === 'UpGoldHunt') {
     db.query(UpGoldHuntQuery, [userId], (err, result, fields) => {
-      console.log(err);
+      // console.log(err);
     });
   }
   if (skillName === 'BetterPen') {
     db.query(BetterPenQuery, [userId], (err, result, fields) => {
-      console.log(err);
+      // console.log(err);
     });
   }
   if( skillName === 'UpMaxHp') {
     db.query(UpMaxHpQuery, [userId], (err, result, fields) => {
-      console.log(err);
+      // console.log(err);
     });
   }
   db.query(loginQuery, [userId], (err, rows, fields) => {

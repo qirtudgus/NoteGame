@@ -42,9 +42,9 @@ const SkillIcon = styled.div`
   background: #fff;
 `;
 
-const SkillBtn = styled.div`
+const SkillBtn = styled.button`
   width: 10%;
-  height: 100%;
+  height: 100px;
   border-radius: 10px;
   background: #fff;
   display: flex;

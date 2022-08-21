@@ -6,7 +6,7 @@ import { expTable } from '../util/expTable';
 import React from 'react';
 
 const BasicBox = styled.div`
-  width: 100%;
+  width: auto;
   height: 190;
   position: absolute;
   bottom: 20px;
@@ -16,18 +16,13 @@ const BasicBox = styled.div`
   font-weight: bold;
   line-height: 32px;
 `;
-interface children {
-  children?: React.ReactNode;
-}
 
-const UserInfo = ({ children }: children) => {
+const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.login.id);
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   return (
     <BasicBox>
-      {children}
-
       <p>{userId}</p>
       <p>레벨 {userInfo?.Level}</p>
       <p>체력 {userInfo?.BasicHp}</p>
