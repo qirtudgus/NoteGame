@@ -31,11 +31,12 @@ cursor: pointer;
 width: 65px;
 height: 65px;
 background-color:#fff;
-box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+
 border-radius: 10px;
 display: flex;
 justify-content: center;
 align-items: center;
+box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
 outline:1px solid#ddd;
 outline-offset:-1px;
 &:hover{

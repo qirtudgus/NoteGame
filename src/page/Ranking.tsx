@@ -208,6 +208,8 @@ const Ranking = () => {
   //현재 보여주고있는 페이지버튼 리스트
   const [pageList, setPageList] = useState<number[]>([]);
 
+
+
   const call = async (currentPageNum: number): Promise<void> => {
     let payloadObj = await customAxios('post', '/ranking/allranking', {
       currentPageNum,
@@ -226,7 +228,7 @@ const Ranking = () => {
     foo(currentPageNum);
   };
 
-  const callmyranking = async () => {
+  const callmyranking =   async () => {
     let result = await customAxios('post', '/ranking/myranking/', {}).then(
       (res) => {
         return res.data;
