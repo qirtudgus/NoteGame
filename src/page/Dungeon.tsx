@@ -4,12 +4,12 @@ import arrowLeft from '../img/왼쪽화살표.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { useNavigate } from 'react-router-dom';
-import BackHistoryBtn from '../components/BackHistoryBtn';
 import { create_monster_request } from '../modules/createMonster';
 import CharacterBox from '../components/CharacterBox';
 import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
+import { modal_failure, modal_success } from '../modules/modalState';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -49,9 +49,10 @@ const MoveBoxWrap = styled.div`
 
 const Dungeon = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [before,setBefort] = useState(true)
+  const [before, setBefore] = useState(true);
   return (
     <>
       <FloorBox></FloorBox>
@@ -60,7 +61,7 @@ const Dungeon = () => {
         <MoveBox
           onClick={() => {
             dispatch(create_monster_request(userInfo?.DungeonFloor! - 1));
-            navigate('/dungeonfightbefore',{state:before});
+            navigate('/dungeonfightbefore', { state: before });
           }}
         >
           <img src={arrowLeft} alt='arrow'></img>이전 층으로
@@ -75,8 +76,11 @@ const Dungeon = () => {
         </MoveBox2>
       </MoveBoxWrap>
       <CharacterBox></CharacterBox>
-      <BottomBox></BottomBox>
-<BtnMenu BackHistory></BtnMenu>
+      <BottomBox>
+        <div onClick={() => dispatch(modal_success())}>환생하기</div>
+        {isModal && <div onClick={() => dispatch(modal_failure())}>아니요</div>}
+      </BottomBox>
+      <BtnMenu BackHistory></BtnMenu>
     </>
   );
 };
