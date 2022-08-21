@@ -7,7 +7,6 @@ import RefreshBtn from "./RefreshBtn";
 import FastFowardBtn from "./FastFowardBtn";
 import LogOutBtn from "./LogoutBtn";
 import RevivalBtn from "./RevivalBtn";
-
 //props 사용을 위해 인터페이스로 타입 명시
 //https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
 interface cornerBtn {
@@ -23,22 +22,24 @@ position:absolute;
 left:30px;
 top:90px;
 & > div {
-    margin-right:30px;
+    margin-right:5px;
 }
 `
 
 export const Back = styled.div<cornerBtn>`
 cursor: pointer;
-width: 76px;
-height: 76px;
-background-color: #fff;
-border-radius: 50px;
+width: 65px;
+height: 65px;
+background-color:#eee;
+box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+border-radius: 10px;
 display: flex;
 justify-content: center;
 align-items: center;
+outline:1px solid#ddd;
+outline-offset:-1px;
 &:hover{
-outline:2px solid#555;
-outline-offset:-2px;
+filter: invert(80%);
 }
 `;
 
