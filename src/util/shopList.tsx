@@ -57,6 +57,8 @@ export const penObj: pen[] = [
     Gold: 10000,
     weaponDamage: 1000,
     img: 보드마카,
+    dungeonPenSpeed: 0.6,
+    penGamePenSpeed: 0.6,
   },
   {
     title: '만년필',

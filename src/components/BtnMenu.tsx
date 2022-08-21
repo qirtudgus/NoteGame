@@ -21,9 +21,6 @@ display:flex;
 position:absolute;
 left:30px;
 top:90px;
-& > div {
-    margin-right:5px;
-}
 `
 export const ButtonColor = styled.button`
 box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
@@ -41,9 +38,8 @@ border-radius: 10px;
 display: flex;
 justify-content: center;
 align-items: center;
-// box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
-// outline:1px solid#ddd;
-// outline-offset:-1px;
+margin-right:5px;
+
 &:hover{
 filter: invert(80%);
 }

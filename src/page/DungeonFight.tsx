@@ -13,7 +13,8 @@ import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
-import BtnMenu from '../components/BtnMenu';
+import BtnMenu,{ButtonColor} from '../components/BtnMenu';
+
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -78,10 +79,10 @@ const HpText = styled.div`
   top: -50px;
 `;
 
-const BoxWrap = styled.div`
+const BoxWrap = styled(ButtonColor)`
   position: absolute;
   display: flex;
-  width: 100%;
+  width: auto;
   justify-content: center;
   bottom: 70px;
   z-index: 11;
@@ -377,7 +378,7 @@ const DungeonFight = () => {
         </StartBtn>
       )}
 
-      <BoxWrap>
+      <BoxWrap as='div'>
         {randomArr.map((i: any, index: any) => (
           <Box key={index} data-attacknumber={i.attackNumber}>
             {i.attackNumber}%

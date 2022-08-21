@@ -9,16 +9,20 @@ import { useInView } from 'react-intersection-observer';
 import { penObj } from '../util/shopList';
 import BtnMenu from '../components/BtnMenu';
 import { ballPenList } from '../util/ballPenList';
-const SkillPageWrap = styled.div`
+import {ButtonColor} from '../components/BtnMenu';
+
+const SkillPageWrap = styled(ButtonColor)`
   width: 100%;
   height: 100%;
-  padding-top: 20px;
-  background: #999;
+  padding: 20px 0 20px 0;
+  background: #eaeaea;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  border-radius: 0px 0px 20px 20px;
+
 `;
 
 interface TabColor {
@@ -64,7 +68,8 @@ const SkillWrap = styled.div`
   flex-direction: column;
   width: 700px;
   height: 600px;
-  background: #333;
+
+
 `;
 
 const BallpenShop = () => {
@@ -124,7 +129,7 @@ const BallpenShop = () => {
               </SkillTap2>
               <p>골드 {userInfo?.Gold}</p>
             </SkillTabWrap>
-            <SkillPageWrap>
+            <SkillPageWrap as='div'>
               {
                 {
                   passive1: (

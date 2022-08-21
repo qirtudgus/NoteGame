@@ -6,8 +6,7 @@ import 플러스 from '../img/플러스.svg';
 import { real_buy_ballpen_request } from '../modules/buyBallpenList';
 import { equip_ballpen_request } from '../modules/login';
 import { penObj } from '../util/shopList';
-
-
+import {ButtonColor} from './BtnMenu';
 interface shopBoxInterface {
   title?: string;
   level?: number;
@@ -38,10 +37,12 @@ const ShopTitle = styled.p<shopBoxInterface>`
 const ShopDesc = styled.p`
   font-size: 16px;
 `;
-const ShopIcon = styled.div`
+const ShopIcon = styled(ButtonColor)`
   width: 100px;
   height: 150px;
   background: #fff;
+  border-radius: 10px;
+
   overflow:hidden;
   object-fit:cover;
   display:flex;
@@ -55,7 +56,7 @@ const ShopIcon = styled.div`
 interface buy {
   buy?: boolean;
 }
-const ShopBtn = styled.div<buy>`
+const ShopBtn = styled(ButtonColor)<buy>`
   width: 10%;
   height: 100%;
   border-radius: 10px;
@@ -68,19 +69,21 @@ const ShopBtn = styled.div<buy>`
   }
 `;
 
-const ShopBox = styled.div<shopBoxInterface>`
+const ShopBox = styled(ButtonColor)<shopBoxInterface>`
   width: 600px;
   height: 150px;
-  background: #888;
+  background: #fff;
   margin-bottom: 20px;
   display: flex;
   padding: 10px;
-
+  border-radius:10px;
   //장착한 장비의 css
   ${(props) =>
     props.penname === props.nowEquip &&
     css`
       background: #fff;
+      outline:3px solid#555;
+      outline-offset:-3px;
     `}
 `;
 
@@ -119,12 +122,13 @@ const ShopPiece = (props: any, ref: any) => {
 
   return (
     <ShopBox
+    as='div'
       ref={ref}
       data-penname={props.penname}
       nowEquip={equip}
       penname={props.penname}
     >
-      <ShopIcon>
+      <ShopIcon as='div'>
         <img src={props.penThumbnail} alt='볼펜 이미지'></img>
       </ShopIcon>
       <ShopTextWrap>
@@ -141,6 +145,7 @@ const ShopPiece = (props: any, ref: any) => {
         //렌더링 될 때 구매목록에 해당볼펜의 penname이 들어있는지 체크 후 값을 반환한다.
         penNameArr2.find((i: Element) => i === props.penname) ? (
           <ShopBtn
+          as='div'
             buy={props.penname}
             onClick={
               () => {
@@ -151,6 +156,7 @@ const ShopPiece = (props: any, ref: any) => {
           </ShopBtn>
         ) : (
           <ShopBtn
+          as='div'
             onClick={() => {
               if (userInfo?.Gold! < props.Gold) {
                 alert('골드가 부족해요');
