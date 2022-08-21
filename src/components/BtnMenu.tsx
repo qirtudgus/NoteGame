@@ -25,20 +25,25 @@ top:90px;
     margin-right:5px;
 }
 `
+export const ButtonColor = styled.button`
+box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+outline:1px solid#ddd;
+outline-offset:-1px;
+`
 
-export const Back = styled.div<cornerBtn>`
+
+export const Back = styled(ButtonColor)<cornerBtn>`
 cursor: pointer;
 width: 65px;
 height: 65px;
 background-color:#fff;
-
 border-radius: 10px;
 display: flex;
 justify-content: center;
 align-items: center;
-box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
-outline:1px solid#ddd;
-outline-offset:-1px;
+// box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
+// outline:1px solid#ddd;
+// outline-offset:-1px;
 &:hover{
 filter: invert(80%);
 }

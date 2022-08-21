@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { ButtonColor } from './BtnMenu';
 
-const BasicButton = styled.button<ButtonText>`
+const BasicButton = styled(ButtonColor)<ButtonText>`
   width: 13rem;
   height: 3rem;
   font-size: 1.5rem;
@@ -12,9 +13,6 @@ const BasicButton = styled.button<ButtonText>`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
-outline:1px solid#ddd;
-outline-offset:-1px;
 &:hover{
 filter: invert(100%);
 }

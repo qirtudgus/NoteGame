@@ -37,7 +37,6 @@ const Home = () => {
             >
               볼펜 굴리기
             </li>
-            <li>인벤토리</li>
             <li
               onClick={() => {
                 navigate('/dungeon');
