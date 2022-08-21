@@ -32,9 +32,6 @@ const modalRequest = (
   action: ModalAction,
 ): ModalStateType => {
   switch (action.type) {
-    // case CONFIRM_ID_REQUEST: {
-    //     return {confirmId : action.id}
-    // }
     case MODAL_SUCCESS: {
       return { isModal: true };
     }
