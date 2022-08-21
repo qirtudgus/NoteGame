@@ -55,6 +55,12 @@ const Dungeon = () => {
   const dispatch = useDispatch();
   const [before, setBefore] = useState(true);
 
+
+  //환생 후 받을 스킬포인트
+  let addSkillPoint = Math.floor( userInfo?.DungeonFloor as number / 50 );
+  //환생 후 돌아갈 층
+  let revivalFloor = Math.ceil(((userInfo?.DungeonFloor as number) * (userInfo?.RevivalPoint as number )  / 100));
+
   const revival = () => {
 
   }
@@ -84,6 +90,12 @@ const Dungeon = () => {
       <CharacterBox></CharacterBox>
       <BottomBox>
         <div onClick={() => dispatch(modal_success())}>환생하기</div>
+        {isModal && <>
+        받을 스킬 포인트입니다.
+        {addSkillPoint}<br/>
+        환생 시 시작하는 층입니다.
+        {revivalFloor}
+        </>}
         {isModal && <div onClick={() =>{ dispatch(revival_request())}}>예</div>}
         {isModal && <div onClick={() => dispatch(modal_failure())}>아니요</div>}
       </BottomBox>

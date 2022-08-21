@@ -54,6 +54,7 @@ export let setUesrInfo = {
   EquipBallpen: '',
   DungeonPenSpeed: 1,
   PenGamePenSpeed: 1,
+  RevivalPoint:0,
 };
 
 export const revival_request = () => ({
@@ -216,6 +217,7 @@ type IsLoginState = {
     EquipBallpen: string;
     DungeonPenSpeed: number;
     PenGamePenSpeed: number;
+    RevivalPoint: number;
   };
 };
 
