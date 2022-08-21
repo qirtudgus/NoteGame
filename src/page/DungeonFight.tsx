@@ -11,9 +11,11 @@ import CharacterBox from '../components/CharacterBox';
 import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
 import BtnMenu,{ButtonColor} from '../components/BtnMenu';
+import Notfound from './Notfound';
+import RevivalModal from '../components/RevivalModal';
 
 const BottomBox = styled.div`
   width: 100%;
@@ -202,6 +204,8 @@ const DungeonFight = () => {
     refresh,
   ]);
 
+  const navigate = useNavigate();
+
   const toggle = () => {
     setPenSatus((penStatus) => !penStatus);
   };
@@ -313,8 +317,14 @@ const DungeonFight = () => {
     };
   }, [gameStart]);
 
+  //새로고침 시 몬스터체력이 0이되어 바로 다음층으로 진입이 가능하다.
+  //이를 방지하여 렌더링시 체력을 체크하여 dungeon으로 보낸다.
+  if(monsterInfo.monsterFullHp === 0) navigate(-1)
+
+
   return (
     <>
+    {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null }
       {isModal ? (
         <VictoryModal
           isModal={victoryModal}
