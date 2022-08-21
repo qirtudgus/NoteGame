@@ -9,12 +9,12 @@ export const dungeonRewardsListObj: any[] = [
     attackNumber: 100,
   },
   {
-    attackNumber: 75,
+    attackNumber: 50,
   },
   {
-    attackNumber: 75,
+    attackNumber: 100,
   },
   {
-    attackNumber: 150,
+    attackNumber: 300,
   },
 ];
