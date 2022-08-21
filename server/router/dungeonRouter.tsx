@@ -10,7 +10,7 @@ const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
 const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1 WHERE ID = ?`;
 const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor FROM users WHERE Id = ?`
-
+const RevivalUpdateQuery = 'UPDATE users SET DungeonFloor = ?, SkillPoint = SkillPoint + ?, RevivalCount = RevivalCount + 1 ID = ?';
 dungeonRouter.post('/victory', (req, res, next) => {
   const userId = req.decoded.userId;
   const { monsterGold, monsterExp,UpGoldHunt, userExp, userLevel } = req.body;
@@ -77,15 +77,25 @@ dungeonRouter.post('/victory', (req, res, next) => {
 
 dungeonRouter.post('/revival',(req,res) => {
   const userId = req.decoded.userId;
-  const {nowFloor, revivalPoint} = req.body;
 
 
-  let addSkillPoint = Math.floor( nowFloor / 50 );
-  let revivalFloor = Math.ceil((nowFloor * revivalPoint / 100));
 
   db.query(RevivalPointFindQuery,[userId],(err,rows,fields) => {
-    console.log(rows[0])
-  })
-  res.send('gg')
+  let nowFloor = rows[0].DungeonFloor;
+  let revivalPoint = rows[0].RevivalPoint;
+  //환생 후 받을 스킬포인트
+  let addSkillPoint = Math.floor( nowFloor / 50 );
+  //환생 후 돌아갈 층
+  let revivalFloor = Math.ceil((nowFloor * revivalPoint / 100));
 
+  db.query(RevivalUpdateQuery,[revivalFloor,addSkillPoint,userId],(err,rows,fields) => {
+    console.log(rows)
+  })
+
+
+    db.query(loginQuery, [userId], (err, rows, fields) => {
+      const userInfo = userInfoProcess(rows[0])
+      res.status(200).json({ code: 200, userInfo: userInfo });
+    });
+  })
 })

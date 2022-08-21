@@ -1,3 +1,4 @@
+// DB쿼리에서 uesrInfo를 전부 불러오고 리덕스에 상태를 업데이트하기전
 // userInfo의 필요하지않은 값을 삭제하는 모듈입니다.
 export interface userInfoInterface {
   Index?: number;

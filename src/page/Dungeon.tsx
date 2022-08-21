@@ -10,6 +10,7 @@ import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
+import {revival_request,revival_success } from '../modules/login';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -53,6 +54,11 @@ const Dungeon = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [before, setBefore] = useState(true);
+
+  const revival = () => {
+
+  }
+
   return (
     <>
       <FloorBox></FloorBox>
@@ -78,6 +84,7 @@ const Dungeon = () => {
       <CharacterBox></CharacterBox>
       <BottomBox>
         <div onClick={() => dispatch(modal_success())}>환생하기</div>
+        {isModal && <div onClick={() =>{ dispatch(revival_request())}}>예</div>}
         {isModal && <div onClick={() => dispatch(modal_failure())}>아니요</div>}
       </BottomBox>
       <BtnMenu BackHistory></BtnMenu>
