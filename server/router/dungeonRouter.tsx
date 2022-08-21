@@ -66,8 +66,11 @@ dungeonRouter.post('/victory', (req, res, next) => {
 
             //맥스층을 뚫었는지 dB갱신 후 체크하여 현재 층이 맥스층보다 높으면 맥스층에 현재층 값을 할당한다.
             db.query(MaxFloorFindQuery,[userId],(err,rows,fields) => {
-              console.log(err);
-              console.log(rows);
+              if(rows[0].MaxDungeonFloor < rows[0].DungeonFloor){
+                db.query(VictoryMaxFloorQuery,[rows[0].DungeonFloor, userId],(err,rows,fields) => {
+                console.log(rows);
+                })
+                }
 
               //마지막에는 유저정보 업데이트
               db.query(loginQuery, [userId], (err, rows, fields) => {
@@ -86,7 +89,6 @@ dungeonRouter.post('/victory', (req, res, next) => {
 
           })
         }else{
-            //맥스층을 뚫었는지 dB갱신 후 체크하여 현재 층이 맥스층보다 높으면 맥스층에 현재층 값을 할당한다.
 
             //맥스층을 뚫었는지 dB갱신 후 체크하여 현재 층이 맥스층보다 높으면 맥스층에 현재층 값을 할당한다.
             db.query(MaxFloorFindQuery,[userId],(err,rows,fields) => {

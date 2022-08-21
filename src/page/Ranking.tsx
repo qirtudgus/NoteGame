@@ -356,7 +356,7 @@ const Ranking = () => {
                     <RankingTh>{i.ranking}</RankingTh>
                     <RankingTh>{i.Id}</RankingTh>
                     <RankingTh>{i.Level}</RankingTh>
-                    <RankingTh>{i.DungeonFloor}</RankingTh>
+                    <RankingTh>{i.MaxDungeonFloor}</RankingTh>
                   </React.Fragment>
                 ))}
               </RankingTr>
@@ -382,14 +382,14 @@ const Ranking = () => {
                           <RankingTh>{i.ranking}</RankingTh>
                           <RankingTh>{i.Id}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
-                          <RankingTh>{i.DungeonFloor}</RankingTh>
+                          <RankingTh>{i.MaxDungeonFloor}</RankingTh>
                         </RankingTr>
                       ) : (
                         <RankingTr key={i.Id}>
                           <RankingTh>{i.ranking}</RankingTh>
                           <RankingTh>{i.Id}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
-                          <RankingTh>{i.DungeonFloor}</RankingTh>
+                          <RankingTh>{i.MaxDungeonFloor}</RankingTh>
                         </RankingTr>
                       )}
                     </React.Fragment>

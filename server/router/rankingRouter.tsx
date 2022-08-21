@@ -1,24 +1,18 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { db } from '../db.js';
-import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 import { dummyUserObj } from './_dummyUser.js';
 export const rankingRouter = express.Router();
 
-const userFindQuery = 'SELECT SkillPoint, ? FROM users WHERE ID = ?';
-const UpGoldPenQuery = `UPDATE users SET UpGoldPen = UpGoldPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
-const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
-const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
-const UpMaxHpQuery = `UPDATE users SET UpMaxHp = UpMaxHp + 1, SkillPoint = SkillPoint - 1, BasicHp = BasicHp + 100 WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
-const rankingQuery = 'SELECT Id, DungeonFloor, Level FROM users';
+const rankingQuery = 'SELECT Id, MaxDungeonFloor, Level FROM users';
 const myrankingQuery =
-  'SELECT Id, DungeonFloor, Level FROM users ORDER BY DungeonFloor DESC';
+  'SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC';
 //https://extbrain.tistory.com/51
 //내림차순으로 정렬해서 가져오면 서버에 일을 하나 덜을 수 있다. 이따 적용해보자.
 
 const searchRankingQuery =
-  'SELECT Id, DungeonFloor, Level FROM users ORDER BY DungeonFloor DESC';
+  'SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC';
 
 interface data {
   data?: [];
@@ -32,7 +26,7 @@ rankingRouter.post('/allranking', (req, res, next) => {
   db.query(rankingQuery, [], (err, rows, fields) => {
     //던전높은순으로 정렬
     let sortRankingArr = rows.sort(function (a: any, b: any) {
-      return b.DungeonFloor - a.DungeonFloor;
+      return b.MaxDungeonFloor - a.MaxDungeonFloor;
     });
     //100까지만 자르기
     let sliceArr = sortRankingArr.slice(0, 200);
