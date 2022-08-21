@@ -18,11 +18,11 @@ const Bg = styled.div`
   width: 600px;
   height: 300px;
   background: ${(props) => props.color || '#eee'};
-  margin: 50px auto;
+  margin:  50px auto;
   position: relative;
   z-index: 1;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
 
@@ -52,7 +52,6 @@ const ResultModal = (props: any) => {
           <BasicButtons
             ClassName={props.cName}
             ButtonText='이어서'
-            color='#e5005a'
             OnClick={props.OnClick}
           ></BasicButtons>
         </Bg>
@@ -63,7 +62,6 @@ const ResultModal = (props: any) => {
           <BasicButtons
             ClassName={props.cName}
             ButtonText='이어서'
-            color='#e5005a'
             OnClick={props.OnClick}
           ></BasicButtons>
         </Bg>

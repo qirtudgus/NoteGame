@@ -21,8 +21,8 @@ const Bg = styled.div`
   position: relative;
   z-index: 1;
   display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
+  justify-content: center;
+    flex-direction: column;
   align-items: center;
   user-select: none;
 `;

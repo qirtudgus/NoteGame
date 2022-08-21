@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import 배경 from '../img/배경5.png';
-
+import React from 'react';
 const BgWrap = styled.div`
   width: 100%;
   height: 800px;
@@ -48,4 +48,4 @@ const BackGround = ({ children }: children) => {
   );
 };
 
-export default BackGround;
+export default React.memo (BackGround);

@@ -30,7 +30,7 @@ export const Back = styled.div<cornerBtn>`
 cursor: pointer;
 width: 65px;
 height: 65px;
-background-color:#eee;
+background-color:#fff;
 box-shadow:inset 0px 0px 4px 0px rgba(0,0,0,0.4);
 border-radius: 10px;
 display: flex;

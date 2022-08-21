@@ -13,6 +13,7 @@ import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
 import {revival_request,revival_success } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
+import BasicButtons from '../components/BasicBtn';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -93,11 +94,12 @@ const Dungeon = () => {
       </BottomBox>
       {isModal &&
           <RevivalModal>
-        <p>환생하시겠습니까?</p>
+
         스킬포인트 {addSkillPoint} 획득<br/>
         던전 {revivalFloor} 층에서 시작
-        <div onClick={() => dispatch(revival_request())}>예</div>
-        <div onClick={() => dispatch(modal_failure())}>아니요</div>
+        <p>환생하시겠습니까?</p>
+        <BasicButtons margin='5px 5px 5px 5px' ButtonText='예' OnClick={() => dispatch(revival_request())}></BasicButtons>
+        <BasicButtons margin='5px 5px 5px 5px' ButtonText='아니요' OnClick={() => dispatch(modal_failure())}></BasicButtons>
 
           </RevivalModal>
 
