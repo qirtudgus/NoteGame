@@ -2,8 +2,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../modules/modules_index';
 import { logout } from '../modules/login';
-import BasicBoxs from '../components/userInfo';
-import HeaderBtnCollection from '../components/HeaderBtnCollection';
 import BtnMenu from '../components/BtnMenu';
 const Home = () => {
   const isTokenExPired = useSelector(
