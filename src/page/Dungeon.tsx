@@ -11,6 +11,7 @@ import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
 import {revival_request,revival_success } from '../modules/login';
+import RevivalModal from '../components/RevivalModal';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -48,6 +49,7 @@ const MoveBoxWrap = styled.div`
   display: flex;
 `;
 
+
 const Dungeon = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
@@ -61,12 +63,10 @@ const Dungeon = () => {
   //환생 후 돌아갈 층
   let revivalFloor = Math.ceil(((userInfo?.DungeonFloor as number) * (userInfo?.RevivalPoint as number )  / 100));
 
-  const revival = () => {
-
-  }
-
   return (
     <>
+          <BtnMenu BackHistory Revival RevivalDispatch={() => dispatch(modal_success())} ></BtnMenu>
+
       <FloorBox></FloorBox>
 
       <MoveBoxWrap>
@@ -89,17 +89,18 @@ const Dungeon = () => {
       </MoveBoxWrap>
       <CharacterBox></CharacterBox>
       <BottomBox>
-        <div onClick={() => dispatch(modal_success())}>환생하기</div>
-        {isModal && <>
-        받을 스킬 포인트입니다.
-        {addSkillPoint}<br/>
-        환생 시 시작하는 층입니다.
-        {revivalFloor}
-        </>}
-        {isModal && <div onClick={() =>{ dispatch(revival_request())}}>예</div>}
-        {isModal && <div onClick={() => dispatch(modal_failure())}>아니요</div>}
       </BottomBox>
-      <BtnMenu BackHistory></BtnMenu>
+      {isModal &&
+          <RevivalModal>
+        <p>환생하시겠습니까?</p>
+        스킬포인트 {addSkillPoint} 획득<br/>
+        던전 {revivalFloor} 층에서 시작
+        <div onClick={() => dispatch(revival_request())}>예</div>
+        <div onClick={() => dispatch(modal_failure())}>아니요</div>
+
+          </RevivalModal>
+
+        }
     </>
   );
 };

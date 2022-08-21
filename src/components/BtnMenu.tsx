@@ -1,11 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled,{css} from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import BackHistoryBtn from './BackHistoryBtn'
 import HomeBtn from "./HomeBtn";
 import RefreshBtn from "./RefreshBtn";
 import FastFowardBtn from "./FastFowardBtn";
 import LogOutBtn from "./LogoutBtn";
+import RevivalBtn from "./RevivalBtn";
+
 const BtnWrap = styled.div`
 display:flex;
 position:absolute;
@@ -15,6 +17,19 @@ top:90px;
     margin-right:30px;
 }
 `
+
+export const Back = styled.div`
+cursor: pointer;
+width: 76px;
+height: 76px;
+background-color: #fff;
+border-radius: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+`;
+
+
 interface btn {
     BackHistory?:boolean;
     Home?:boolean;
@@ -24,10 +39,12 @@ interface btn {
     Refresh?:boolean;
     RefreshFunc?:any;
     LogOut?:boolean;
-
+    Revival?:boolean;
+    // RevivalDispatch?: { type: "modalState/MODAL_SUCCESS"; } ;
+    RevivalDispatch?:any ;
 }
 
-const BtnMenu = ({BackHistory,Home,FastFoward,FastFowardFunc,FastFowardText,Refresh,LogOut,RefreshFunc}:btn) => {
+const BtnMenu = ({BackHistory,Home,FastFoward,FastFowardFunc,FastFowardText,Refresh,LogOut,RefreshFunc,Revival,RevivalDispatch}:btn) => {
     return(
     <BtnWrap>
     {BackHistory && <BackHistoryBtn></BackHistoryBtn>} 
@@ -35,6 +52,7 @@ const BtnMenu = ({BackHistory,Home,FastFoward,FastFowardFunc,FastFowardText,Refr
     {Refresh && <RefreshBtn func={RefreshFunc}></RefreshBtn>}    
     {FastFoward && <FastFowardBtn func={FastFowardFunc} text={FastFowardText}></FastFowardBtn>}
     {LogOut && <LogOutBtn></LogOutBtn>}    
+    {Revival && <RevivalBtn OnClick={RevivalDispatch}></RevivalBtn>}    
     </BtnWrap>
     )
 }

@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import backArrow from '../img/뒤로가기.svg';
-import {Back} from './BtnMenu';
 
 //props 사용을 위해 인터페이스로 타입 명시
 //https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
 interface cornerBtn {
-  corner: string;
+  corner?: string;
   url?: string;
 }
 
@@ -19,24 +18,40 @@ const ArrowImg = styled.img.attrs({
   height: 30px;
 `;
 
+const Back = styled.div<cornerBtn>`
+  cursor: pointer;
+  width: 76px;
+  height: 76px;
+  background-color: #fff;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${(props) =>
+    props.corner &&
+    css`
+      position: absolute;
+      top: 90px;
+      left: 20px;
+    `}
+`;
+const ReP = styled.p`
+font-weight:bold;
+font-size:1.7rem;
+`
 
-
-const BackHistoryBtn = (props: any) => {
-  const navigate = useNavigate();
+const RevivalBtn = (props: any) => {
 
   return (
     <>
       <Back
-        {...props}
-        onClick={() => {
-          navigate(-1);
-        }}
-        title='뒤로가기'
+        onClick={props.OnClick}
+        title='환생하기'
       >
-        <ArrowImg alt='뒤로가기' />
+        <ReP>환생</ReP>
       </Back>
     </>
   );
 };
 
-export default BackHistoryBtn;
+export default RevivalBtn;
