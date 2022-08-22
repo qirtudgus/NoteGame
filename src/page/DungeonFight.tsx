@@ -92,6 +92,42 @@ const BoxWrap = styled(ButtonColor)`
 interface highReword {
   highReword?:boolean;
 }
+
+const effect = keyframes`
+from {  display: block;
+  position: absolute;
+  border-radius: none;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px white; }
+50% {    box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: none;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s; }
+  100%{
+    display: block;
+  position: absolute;
+  border-radius: none;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px white; 
+
+  }
+`
+
+
+
 const Box = styled.div<highReword>`
   width: 60px;
   padding: 0 10px 0 10px;
@@ -105,26 +141,15 @@ const Box = styled.div<highReword>`
   text-align: center;
   word-break: keep-all;
   line-height: 35px;
+
   &:nth-child(n) {
     border-right: none;
   }
   &:last-child {
     border-right: 1px solid#000;
   }
-  //가장 높은 리워드값에 css 부여
-  ${(props) => props.highReword && css`
-  background: #aaa;
-  `}
-  &:active:after{
-    box-shadow: 0 0 0 0 white;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  opacity: 1;
-  transition: 0s;
 
-  }
+
   &:after {
   content: "";
   display: block;
@@ -135,10 +160,26 @@ const Box = styled.div<highReword>`
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: all 0.4s;
-  box-shadow: 0 0 10px 40px white;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 50px white;
 }
+&:active:after{
+    box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: none;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s;
+
+  }
+
+  //가장 높은 리워드값에 css 부여
+  ${(props) => props.highReword && css`
+  background: #aaa;
+  `}
 `;
+
 
 interface startBtnSuppressor {
   supp?: boolean;
@@ -246,13 +287,13 @@ const DungeonFight = () => {
     await getReward();
   };
 
-  function clickMouse(x:any,y:any){
-
-    var evt = document.createEvent("MouseEvents");
-    evt.initMouseEvent("click", true, true, window, x,y,0,0,0,false, false, false, false,0, null);
-    return evt
-    /* 특정 좌표에 위치한 객체 강제로 클릭 이벤트 발생 수행 */
-  }
+  // function clickMouse(x:any,y:any){
+    
+  //   var evt = document.createEvent("MouseEvents");
+  //   evt.initMouseEvent("click", true, true, window, x,y,0,0,0,false, false, false, false,0, null);
+  //   return evt
+  //   /* 특정 좌표에 위치한 객체 강제로 클릭 이벤트 발생 수행 */
+  // }
 
   const getReward = async (): Promise<void> => {
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
@@ -267,11 +308,12 @@ const DungeonFight = () => {
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement;
-    cb.dispatchEvent(clickMouse(x,y));
+    // cb.dispatchEvent(clickMouse(x,y));
+    // cb.click()
     //빗나갈 시 miss를 띄우고 상대방은 유저를 때린다.
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
-      setRefresh((refresh) => !refresh);
+      // setRefresh((refresh) => !refresh);
       setAttackAni({ user: randomAttack(), monster: false, moving: true });
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
@@ -291,6 +333,7 @@ const DungeonFight = () => {
     if (hp <= 0) {
       setDamageText({ ...damageText, monster: userResultDamage });
       setGelatineAni({ user: false, monster: true });
+
       setMonsterHpBar({ HpBarWidth: hpbar, nowHp: 0 });
       setAttackAni({ user: randomAttack(), monster: false, moving: true });
       setTimeout(function () {
@@ -341,9 +384,9 @@ const DungeonFight = () => {
   }, []);
 
   const gameStart = useCallback((e: any) => {
-    let startBtn = document.getElementById('startbuttons');
+    let startBtn:HTMLElement = document.getElementById('startbuttons') as HTMLElement;
     if (e.keyCode === 32) {
-      startBtn?.click();
+      startBtn.click();
     }
   }, []);
 
@@ -438,7 +481,10 @@ const DungeonFight = () => {
                     <Box highReword={true} key={index} data-attacknumber={i.attackNumber}>
                     {i.attackNumber}%
                   </Box>:
-                            <Box key={index} data-attacknumber={i.attackNumber}>
+                            <Box
+                            //클릭 호출되는지 테스트
+                            onClick={() => console.log("클릭")}
+                            key={index} data-attacknumber={i.attackNumber}>
                             {i.attackNumber}%
                           </Box>
         }

@@ -7,6 +7,9 @@ import { real_buy_ballpen_request } from '../modules/buyBallpenList';
 import { equip_ballpen_request } from '../modules/login';
 import { penObj } from '../util/shopList';
 import {ButtonColor} from './BtnMenu';
+import { modal_failure, modal_success } from '../modules/modalState';
+import RevivalModal from './RevivalModal';
+import BasicBtn from './BasicBtn';
 interface shopBoxInterface {
   title?: string;
   level?: number;
@@ -94,9 +97,9 @@ const ShopBox = styled(ButtonColor)<shopBoxInterface>`
 const ShopPiece = (props: any, ref: any) => {
   const dispatch = useDispatch();
 
-  console.log(props.penThumbnail)
 
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const buyBallpenList = useSelector(
     (state: RootState) => state.buyBallpenList.buyBallpenList,
   );
@@ -119,8 +122,19 @@ const ShopPiece = (props: any, ref: any) => {
     return reulstObj
   }
 
-
   return (
+    <>
+    {/* {isModal && <RevivalModal>구매하시겠습니까?
+      <BasicBtn ButtonText='예' OnClick={ () =>  {
+        console.log(props.penname)
+        
+        dispatch(real_buy_ballpen_request(`${props.penname}`, props.Gold));
+            dispatch(modal_failure()          )
+    }}></BasicBtn>
+      <BasicBtn ButtonText='아니요' OnClick={() => {
+        dispatch(modal_failure()          )
+      }}></BasicBtn>
+      </RevivalModal>} */}
     <ShopBox
     as='div'
       ref={ref}
@@ -149,6 +163,7 @@ const ShopPiece = (props: any, ref: any) => {
             buy={props.penname}
             onClick={
               () => {
+                console.log(props.penname)
               dispatch(equip_ballpen_request(`${props.penname}`,penDamage(props.penname),penSpeed(props.penname)));
             }}
           >
@@ -162,9 +177,12 @@ const ShopPiece = (props: any, ref: any) => {
                 alert('골드가 부족해요');
                 return;
               } else {
-                dispatch(
-                  real_buy_ballpen_request(`${props.penname}`, props.Gold),
-                );
+// dispatch(modal_success())
+
+dispatch(
+  real_buy_ballpen_request(`${props.penname}`, props.Gold),
+)          
+
               }
             }}
           >
@@ -173,6 +191,7 @@ const ShopPiece = (props: any, ref: any) => {
         )
       }
     </ShopBox>
+    </>
   );
 };
 

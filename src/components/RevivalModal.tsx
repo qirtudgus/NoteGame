@@ -27,18 +27,6 @@ const Bg = styled.div`
   user-select: none;
 `;
 
-
-const result = {
-  fontSize: '30px',
-  fontWeight: 'bold',
-};
-const resultGold = {
-  fontSize: '20px',
-  fontWeight: 'bold',
-};
-const falseGold = {
-  fontSize: '20px',
-};
 const RevivalModal = (props: any) => {
   return (
     <BgWrap>

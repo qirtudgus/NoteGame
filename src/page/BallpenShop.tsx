@@ -1,4 +1,3 @@
-import BackHistoryBtn from '../components/BackHistoryBtn';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
@@ -74,14 +73,13 @@ const SkillWrap = styled.div`
 
 const BallpenShop = () => {
   const [ref, InView] = useInView({
-    threshold: 0.5, //타겟이 화면에 얼만큼 보였을 때 InView를 토글할 것인지
+    threshold: 0.8, //타겟이 화면에 얼만큼 보였을 때 InView를 토글할 것인지
     // delay: 2000, //로딩되는 딜레이
   });
   const [list, setList] = useState<any>([]);
   const buyBallpenList = useSelector(
     (state: RootState) => state.buyBallpenList.buyBallpenList,
   );
-  const penNameArr2 = buyBallpenList.buyBallpenList;
 
   useEffect(() => {
     setList((list: any) => [...list, ...penObj.slice(0, 4)]);
@@ -136,11 +134,12 @@ const BallpenShop = () => {
                     <>
                       {list.map((i: any, index: any) => (
                         <React.Fragment key={index}>
-                          {list.length - 1 === index ? (
+                         {/* 마지막 요소에는 ref로 InView를 감지할 수 있는 요소로 렌더링 */}
+                          {list.length -1 === index ? (
                             <ShopPiece
                               ref={ref}
                               penname={i.ballPenName}
-                              penThumbnail={ballPenList}
+                              penThumbnail={i.img}
                               title={i.title}
                               desc={i.desc}
                               level={i.level}
@@ -150,7 +149,6 @@ const BallpenShop = () => {
                             <ShopPiece
                               penname={i.ballPenName}
                               penThumbnail={i.img}
-
                               title={i.title}
                               desc={i.desc}
                               level={i.level}

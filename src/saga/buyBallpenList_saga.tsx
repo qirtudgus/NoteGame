@@ -64,6 +64,7 @@ function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
       type: UPDATE_BALLPEN_SUCCESS,
       buyBallpenList: resultList,
     });
+
   } catch (err) {
     console.log(err);
   }
