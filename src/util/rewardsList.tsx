@@ -3,7 +3,7 @@ const deductText: string = '차감';
 const addText: string = '획득';
 const multipleText: string = '배';
 
-interface rewardsList {
+export interface rewardsList {
   front:string,
   number:number,
   back:string,
