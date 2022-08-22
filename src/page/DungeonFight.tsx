@@ -114,8 +114,30 @@ const Box = styled.div<highReword>`
   //가장 높은 리워드값에 css 부여
   ${(props) => props.highReword && css`
   background: #aaa;
-
   `}
+  &:active:after{
+    box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: none;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s;
+
+  }
+  &:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: none;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.4s;
+  box-shadow: 0 0 10px 40px white;
+}
 `;
 
 interface startBtnSuppressor {
@@ -136,6 +158,7 @@ const StartBtn = styled.div<startBtnSuppressor>`
   font-size: 2rem;
   font-weight: bold;
   z-index: 5000;
+  
 `;
 
 const damageTextAni = keyframes`
@@ -153,7 +176,6 @@ const DamageText = styled.div<HpInterface>`
   opacity: 1;
   z-index: 10000;
   animation: ${damageTextAni} 1s forwards;
-
   ${(props) =>
     props.damageText &&
     css`
@@ -224,6 +246,14 @@ const DungeonFight = () => {
     await getReward();
   };
 
+  function clickMouse(x:any,y:any){
+
+    var evt = document.createEvent("MouseEvents");
+    evt.initMouseEvent("click", true, true, window, x,y,0,0,0,false, false, false, false,0, null);
+    return evt
+    /* 특정 좌표에 위치한 객체 강제로 클릭 이벤트 발생 수행 */
+  }
+
   const getReward = async (): Promise<void> => {
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
     setTimeout(function () {
@@ -237,6 +267,7 @@ const DungeonFight = () => {
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement;
+    cb.dispatchEvent(clickMouse(x,y));
     //빗나갈 시 miss를 띄우고 상대방은 유저를 때린다.
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
