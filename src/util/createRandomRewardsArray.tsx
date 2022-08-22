@@ -1,14 +1,15 @@
-import { rewardsListObj } from './rewardsList';
+import { rewardsListObj,rewardsList } from './rewardsList';
 import createRandomNumArray from './createRandomNumArray';
 import { dungeonRewardsListObj } from './dungeonRewardList';
 
 export type useListName = 'penGame' | 'dungeon';
 
+
 export const createRandomRewardsArray = (
   boxCount: number | null,
   useListName: useListName,
 ) => {
-  const rewards: any = [];
+  let rewards:rewardsList[] = [];
  
 
   const randomResult = createRandomNumArray(boxCount, useListName);
