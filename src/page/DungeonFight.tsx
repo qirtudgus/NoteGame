@@ -218,9 +218,9 @@ const DungeonFight = () => {
     (state: RootState) => state.monsterInfo.monsterInfo,
   );
 
-  const randomArr = useCallback(createRandomRewardsArray(6, 'dungeon'), [
-    refresh,
-  ]);
+  const randomArr = useCallback(()=>{
+    createRandomRewardsArray(6, 'dungeon')
+  }, [refresh]);
 
   const navigate = useNavigate();
 
