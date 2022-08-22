@@ -111,8 +111,9 @@ const Box = styled.div<highReword>`
   &:last-child {
     border-right: 1px solid#000;
   }
+  //가장 높은 리워드값에 css 부여
   ${(props) => props.highReword && css`
-  background: #000;
+  background: #aaa;
 
   `}
 `;
@@ -328,9 +329,11 @@ const DungeonFight = () => {
   //이를 방지하여 렌더링시 체력을 체크하여 dungeon으로 보낸다.
   if(monsterInfo.monsterFullHp === 0) navigate(-1)
 
-  console.log(randomArr.flat(2))
-  console.log(Object.values( Object.values(randomArr)))
-
+  //공격 리워드중 높은 값을 리턴하여 스타일드컴포넌트 조건부렌더링에 사용
+  function highRewordNum():number{
+   let result =  Math.max(...randomArr.map((i:any) => i['attackNumber']))
+   return result
+  }
   return (
     <>
     {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null }
@@ -400,7 +403,7 @@ const DungeonFight = () => {
       <BoxWrap as='div'>
         {randomArr.map((i: any, index: any) => (
           <>
-          { Object.values(randomArr) ?
+          { highRewordNum() === i.attackNumber ?
                     <Box highReword={true} key={index} data-attacknumber={i.attackNumber}>
                     {i.attackNumber}%
                   </Box>:
