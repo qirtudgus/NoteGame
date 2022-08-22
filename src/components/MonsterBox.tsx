@@ -1,19 +1,15 @@
 import styled, { css,keyframes } from 'styled-components';
-import { gelatine } from '../styledComponents/DungeonFight';
+import { gelatine,monsterAttack,monsetKillEffect,monsterAppearEffect } from '../styledComponents/DungeonFight_Effect';
 import { monsterArr } from '../util/dungeonMonsterList';
 
 
-export const attack = keyframes`
-  from, to { transform: translateX(0) ; }
-  25% { transform: translateX(30px); }
-  75% { transform:  translateX(-100px); }
-  `;
 
 const CharacterWrap = styled.div<children>`
   width: 200px;
   height: 300px;
   position: relative;
   z-index: 10;
+
   ${(props) =>
     props.gelatine &&
     css`
@@ -22,7 +18,7 @@ const CharacterWrap = styled.div<children>`
     ${(props) =>
       props.attack &&
       css`
-        animation: ${attack} 0.35s 0.1s;
+        animation: ${monsterAttack} 0.35s 0.1s;
       `}
 `;
 interface children {
@@ -31,14 +27,19 @@ interface children {
   gelatine?: boolean;
   monsterCall?: number;
   attack?:boolean;
+  monsterKill?:boolean;
 }
 
-const Character = styled.div`
+const Character = styled.div<children>`
   justify-content: center;
+  animation: ${monsterAppearEffect} 0.7s;
+  ${props => props.monsterKill && css`
+   & > img {  animation: ${monsetKillEffect} 0.9s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;}
+  `}
   display: flex;
   align-items: flex-end;
   width: 200px;
-  height: 280px;
+  height: 290px;
   top: 0;
   position: absolute;
   z-index: 10;
@@ -47,11 +48,11 @@ const Character = styled.div`
   }
 `;
 
-const MonsterBox = ({ children, id, gelatine, monsterCall, attack }: children) => {
+const MonsterBox = ({ children, id, gelatine, monsterCall, attack, monsterKill }: children) => {
   return (
     <CharacterWrap id={id} gelatine={gelatine} attack={attack}>
       {children}
-      <Character>{monsterArr[monsterCall!]}</Character>
+      <Character monsterKill={monsterKill}>{monsterArr[monsterCall!]}</Character>
     </CharacterWrap>
   );
 };

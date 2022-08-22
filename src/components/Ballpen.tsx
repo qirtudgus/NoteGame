@@ -8,7 +8,7 @@ import {
   PenImgDun,
   PenImgWrapDun,
   PenEndDun,
-} from '../styledComponents/DungeonFight';
+} from '../styledComponents/DungeonFight_Effect';
 import { ballPenList } from '../util/ballPenList';
 
 interface ballpen {

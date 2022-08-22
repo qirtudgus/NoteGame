@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import styled, { css } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import FastArrow from '../img/빠른재생.svg';
 import {Back} from './BtnMenu';
 

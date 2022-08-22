@@ -2,14 +2,11 @@ import React, { forwardRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
-import 플러스 from '../img/플러스.svg';
 import { real_buy_ballpen_request } from '../modules/buyBallpenList';
 import { equip_ballpen_request } from '../modules/login';
 import { penObj } from '../util/shopList';
 import {ButtonColor} from './BtnMenu';
-import { modal_failure, modal_success } from '../modules/modalState';
-import RevivalModal from './RevivalModal';
-import BasicBtn from './BasicBtn';
+
 interface shopBoxInterface {
   title?: string;
   level?: number;
@@ -123,18 +120,7 @@ const ShopPiece = (props: any, ref: any) => {
   }
 
   return (
-    <>
-    {/* {isModal && <RevivalModal>구매하시겠습니까?
-      <BasicBtn ButtonText='예' OnClick={ () =>  {
-        console.log(props.penname)
-        
-        dispatch(real_buy_ballpen_request(`${props.penname}`, props.Gold));
-            dispatch(modal_failure()          )
-    }}></BasicBtn>
-      <BasicBtn ButtonText='아니요' OnClick={() => {
-        dispatch(modal_failure()          )
-      }}></BasicBtn>
-      </RevivalModal>} */}
+
     <ShopBox
     as='div'
       ref={ref}
@@ -177,8 +163,6 @@ const ShopPiece = (props: any, ref: any) => {
                 alert('골드가 부족해요');
                 return;
               } else {
-// dispatch(modal_success())
-
 dispatch(
   real_buy_ballpen_request(`${props.penname}`, props.Gold),
 )          
@@ -191,7 +175,6 @@ dispatch(
         )
       }
     </ShopBox>
-    </>
   );
 };
 

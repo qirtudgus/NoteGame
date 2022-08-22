@@ -1,6 +1,5 @@
 import React from "react";
-import styled,{css} from "styled-components";
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
 import BackHistoryBtn from './BackHistoryBtn'
 import HomeBtn from "./HomeBtn";
 import RefreshBtn from "./RefreshBtn";

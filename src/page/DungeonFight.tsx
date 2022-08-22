@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import styled, {css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import BackHistoryBtn from '../components/BackHistoryBtn';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
@@ -14,8 +13,8 @@ import Ballpen from '../components/Ballpen';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
 import BtnMenu,{ButtonColor} from '../components/BtnMenu';
-import Notfound from './Notfound';
 import RevivalModal from '../components/RevivalModal';
+import { highRewordEffect,damageTextAni } from '../styledComponents/DungeonFight_Effect';
 
 const BottomBox = styled.div`
   width: 100%;
@@ -81,7 +80,7 @@ const HpText = styled.div`
   top: -50px;
 `;
 
-const BoxWrap = styled(ButtonColor)`
+const BoxWrap = styled.div`
   position: absolute;
   display: flex;
   width: auto;
@@ -92,39 +91,6 @@ const BoxWrap = styled(ButtonColor)`
 interface highReword {
   highReword?:boolean;
 }
-
-const effect = keyframes`
-from {  display: block;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: all 0.5s;
-  box-shadow: 0 0 10px 40px white; }
-50% {    box-shadow: 0 0 0 0 white;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  opacity: 1;
-  transition: 0s; }
-  100%{
-    display: block;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: all 0.5s;
-  box-shadow: 0 0 10px 40px white; 
-
-  }
-`
 
 
 
@@ -141,6 +107,7 @@ const Box = styled.div<highReword>`
   text-align: center;
   word-break: keep-all;
   line-height: 35px;
+  transition:0.5s all;
 
   &:nth-child(n) {
     border-right: none;
@@ -149,36 +116,17 @@ const Box = styled.div<highReword>`
     border-right: 1px solid#000;
   }
 
-
-  &:after {
-  content: "";
-  display: block;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: all 0.5s;
-  box-shadow: 0 0 10px 50px white;
-}
-&:active:after{
-    box-shadow: 0 0 0 0 white;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  opacity: 1;
-  transition: 0s;
-
-  }
+  
+  &.active {
+    animation: ${highRewordEffect} 0.9s;
+  }  
 
   //가장 높은 리워드값에 css 부여
   ${(props) => props.highReword && css`
-  background: #aaa;
+  /* background: #aaa; */
+  animation: ${highRewordEffect} 1s infinite;
   `}
-`;
+`
 
 
 interface startBtnSuppressor {
@@ -202,10 +150,7 @@ const StartBtn = styled.div<startBtnSuppressor>`
   
 `;
 
-const damageTextAni = keyframes`
-from { opacity: 1; top:70px; }  
-to { opacity: 0;top:0px;  }
-`;
+
 
 const DamageText = styled.div<HpInterface>`
   position: absolute;
@@ -232,6 +177,8 @@ function randomAttack() {
 
 const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
+  const [monsterKill, setMonsterKill] = useState<boolean>(false);
+  const [highReword, setHighReword] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
   const [supp, setSupp] = useState<boolean>(false);
@@ -287,15 +234,12 @@ const DungeonFight = () => {
     await getReward();
   };
 
-  // function clickMouse(x:any,y:any){
-    
-  //   var evt = document.createEvent("MouseEvents");
-  //   evt.initMouseEvent("click", true, true, window, x,y,0,0,0,false, false, false, false,0, null);
-  //   return evt
-  //   /* 특정 좌표에 위치한 객체 강제로 클릭 이벤트 발생 수행 */
-  // }
+  //애니메이션 삭제용
+  let box = document.querySelectorAll('.active');
 
   const getReward = async (): Promise<void> => {
+    setHighReword(() => false)
+
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
     setTimeout(function () {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
@@ -308,16 +252,17 @@ const DungeonFight = () => {
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement;
-    // cb.dispatchEvent(clickMouse(x,y));
-    // cb.click()
+    cb.classList.add('active')
+
     //빗나갈 시 miss를 띄우고 상대방은 유저를 때린다.
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
-      // setRefresh((refresh) => !refresh);
+      setRefresh((refresh) => !refresh);
       setAttackAni({ user: randomAttack(), monster: false, moving: true });
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
         monsterAttack();
+        
       }, 1000);
       return;
     }
@@ -336,9 +281,11 @@ const DungeonFight = () => {
 
       setMonsterHpBar({ HpBarWidth: hpbar, nowHp: 0 });
       setAttackAni({ user: randomAttack(), monster: false, moving: true });
+
       setTimeout(function () {
         setVictoryModal(true);
         setIsModal(true);
+        setMonsterKill(true)
       }, 1000);
 
       return;
@@ -346,7 +293,6 @@ const DungeonFight = () => {
     //전투
     setDamageText({ ...damageText, monster: userResultDamage });
     setMonsterHpBar({ HpBarWidth: hpbar, nowHp: hp });
-    setRefresh((refresh) => !refresh);
     setAttackAni({ user: randomAttack(), monster: false, moving: true });
     setGelatineAni({ user: false, monster: true });
 
@@ -357,6 +303,9 @@ const DungeonFight = () => {
 
   //몬스터 -> 사용자 공격 함수
   const monsterAttack = () => {
+    for(let value of box){
+      value.classList.remove('active')
+    };
     let resultDamage = monsterDamage(monsterInfo.monsterDamage);
     setDamageText({ ...damageText, user: resultDamage });
     let resultHp = userHpBar.nowHp - resultDamage;
@@ -374,6 +323,10 @@ const DungeonFight = () => {
     setGelatineAni({ user: true, monster: false });
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
     setSupp(false);
+    //다시 하이리워드에 효과주기
+    setHighReword(() => true)
+    setRefresh((refresh) => !refresh);
+
   };
 
   //현재 체력 할당
@@ -383,12 +336,15 @@ const DungeonFight = () => {
     setMonsterCall(createRandomNum(0, monsterArr.length - 1));
   }, []);
 
-  const gameStart = useCallback((e: any) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const gameStart = useCallback( (e: any) => {
+    console.log("이벤트")
     let startBtn:HTMLElement = document.getElementById('startbuttons') as HTMLElement;
     if (e.keyCode === 32) {
+
       startBtn.click();
     }
-  }, []);
+  },[])
 
   useEffect(() => {
     (() => {
@@ -444,6 +400,7 @@ const DungeonFight = () => {
         <MonsterBox
           id='monsterBox'
           gelatine={gelatineAni.monster}
+          monsterKill={monsterKill}
           monsterCall={monsterCall as number}
           attack={attackAni.monster}
         >
@@ -478,12 +435,10 @@ const DungeonFight = () => {
         {randomArr.map((i: any, index: any) => (
           <>
           { highRewordNum() === i.attackNumber ?
-                    <Box highReword={true} key={index} data-attacknumber={i.attackNumber}>
+                    <Box highReword={highReword} key={index} data-attacknumber={i.attackNumber}>
                     {i.attackNumber}%
                   </Box>:
                             <Box
-                            //클릭 호출되는지 테스트
-                            onClick={() => console.log("클릭")}
                             key={index} data-attacknumber={i.attackNumber}>
                             {i.attackNumber}%
                           </Box>

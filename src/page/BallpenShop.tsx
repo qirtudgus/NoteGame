@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
 import ShopPiece from '../components/ShopPiece';
@@ -7,7 +7,6 @@ import Notfound from './Notfound';
 import { useInView } from 'react-intersection-observer';
 import { penObj } from '../util/shopList';
 import BtnMenu from '../components/BtnMenu';
-import { ballPenList } from '../util/ballPenList';
 import {ButtonColor} from '../components/BtnMenu';
 
 const SkillPageWrap = styled(ButtonColor)`

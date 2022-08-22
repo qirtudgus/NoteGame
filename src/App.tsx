@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import './App.css';
 import './Reset.css';
-import BackGround from './components/BackGround';
 import BasicInputs from './components/BasicInput';
 import BasicButtons from './components/BasicBtn';
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,11 +26,6 @@ function App() {
 
   const onChangePassword = (e: any) => {
     setPassword(e.currentTarget.value);
-  };
-
-  const logoutRequest = () => {
-    localStorage.removeItem('token');
-    window.location.replace('/');
   };
 
   useEffect(() => {

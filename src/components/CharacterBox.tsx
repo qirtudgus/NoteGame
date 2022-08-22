@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 import 캐릭터배경 from '../img/캐릭터배경.png';
-import { gelatine } from '../styledComponents/DungeonFight';
+import { gelatine } from '../styledComponents/DungeonFight_Effect';
 import { ballPenList } from '../util/ballPenList';
 import { RootState } from '../modules/modules_index';
 interface dungeonAni {

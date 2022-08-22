@@ -136,42 +136,4 @@ button {
   cursor: pointer;
 }
 
-.ani{
-  width: 60px;
-  padding: 0 10px 0 10px;
-  height: 175px;
-  background: #fff;
-  border: 1px solid#000;
-  position: relative;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  word-break: keep-all;
-  line-height: 35px;
-}
 
-
-.ani:active:after{
-  box-shadow: 0 0 0 0 white;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  opacity: 1;
-  transition: 0s;
-
-}
-.ani:after {
-  display: block;
-  position: absolute;
-  border-radius: none;
-  left: 0;
-  top:0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: all 0.5s;
-  box-shadow: 0 0 10px 40px white;
-
-}

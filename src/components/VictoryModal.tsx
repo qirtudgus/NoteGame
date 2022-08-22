@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { dungeon_request } from '../modules/login';
 import BasicButtons from './BasicBtn';
 import { RootState } from '../modules/modules_index';
-import { userInfo } from 'os';
 
 
 const BgWrap = styled.div`
