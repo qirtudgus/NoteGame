@@ -15,7 +15,7 @@ const createRandomNumArray = (
   boxCount: number | null,
   useListName: useListName,
 ) => {
-  const randomResult: any[] = [];
+  const randomResult:number[] = [];
 
   if (useListName === 'penGame') {
     while (randomResult.length < boxCount!) {
