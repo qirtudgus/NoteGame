@@ -21,6 +21,7 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: any) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   let equipBallpen = userInfo?.EquipBallpen as string;
+  
   return (
     <>
       {isDungeon ? (
