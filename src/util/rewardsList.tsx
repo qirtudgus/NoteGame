@@ -2,7 +2,16 @@ const frontText: string = '골드';
 const deductText: string = '차감';
 const addText: string = '획득';
 const multipleText: string = '배';
-export const rewardsListObj: any[] = [
+
+interface rewardsList {
+  front:string,
+  number:number,
+  back:string,
+  action:string,
+  color?:string
+}
+
+export const rewardsListObj: rewardsList[] = [
   {
     front: frontText,
     number: 100,
