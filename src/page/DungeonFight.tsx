@@ -206,7 +206,7 @@ const DungeonFight = () => {
     HpBarWidth: 100,
     nowHp: 100,
   });
-  const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
+  const inputRef = useRef() as React.MutableRefObject<HTMLElement>;
 
   const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);

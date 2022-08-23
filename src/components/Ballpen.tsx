@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { forwardRef } from 'react';
+import { ForwardedRef, forwardRef, ForwardRefRenderFunction, MutableRefObject } from 'react';
 import {
   PenImg,
   PenImgWrap,
@@ -17,7 +17,7 @@ interface ballpen {
   isDungeon?: boolean;
 }
 
-const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: any) => {
+const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElement>) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   let equipBallpen = userInfo?.EquipBallpen as string;

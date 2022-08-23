@@ -74,7 +74,7 @@ const PlayPenGame = () => {
   // const penSpeedInfo: any = useSelector(
   //   (state: RootState) => state.penSpeed
   // );
-  const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
+  const inputRef = useRef() as React.MutableRefObject<HTMLElement>;
 
   //useMemo를 사용하여 해결!!!!!!
   const ran = useMemo(() => {
