@@ -82,11 +82,7 @@ const EquipBallpen = styled.div<dungeonAni>`
 
 interface children {
   children?: React.ReactNode;
-  id?: string | undefined;
   gelatine?: boolean;
-  userHpBar?: any;
-  userInfo?: any;
-  dungeonStart?: any;
   attack?: string;
   moving?: boolean;
 }
