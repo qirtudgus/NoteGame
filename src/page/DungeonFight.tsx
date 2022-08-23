@@ -212,7 +212,7 @@ const DungeonFight = () => {
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
 
   //useMemo를 사용하여 해결!!!!!!
-  const ran = useMemo(() => {
+  const randomRewardArray = useMemo(() => {
     return createRandomRewardsArray(6, 'dungeon');
   }, [refresh]);
 
@@ -360,7 +360,7 @@ const DungeonFight = () => {
 
   //공격 리워드중 높은 값을 리턴하여 스타일드컴포넌트 조건부렌더링에 사용
   function highRewordNum(): number {
-    let result = Math.max(...ran?.map((i: any) => i['attackNumber']));
+    let result = Math.max(...randomRewardArray.map((i: any) => i['attackNumber']));
     return result;
   }
   return (
@@ -436,7 +436,7 @@ const DungeonFight = () => {
       )}
 
       <BoxWrap as='div'>
-        {ran.map((i: any, index: any) => (
+        {randomRewardArray.map((i: any, index: any) => (
           <>
             {highRewordNum() === i.attackNumber ? (
               <Box

@@ -71,20 +71,13 @@ const PlayPenGame = () => {
     speed: 1,
     text: 1,
   });
-  // const penSpeedInfo: any = useSelector(
-  //   (state: RootState) => state.penSpeed
-  // );
+
   const inputRef = useRef() as React.MutableRefObject<HTMLElement>;
 
   //useMemo를 사용하여 해결!!!!!!
-  const ran = useMemo(() => {
+  const randomRewardArray = useMemo(() => {
     return createRandomRewardsArray(boxCount, 'penGame');
   }, [refresh]);
-
-  // const randomArr = useCallback(createRandomRewardsArray(boxCount, 'penGame'), [
-  //   boxCount,
-  //   refresh,
-  // ]);
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
@@ -224,7 +217,7 @@ const PlayPenGame = () => {
           <div>뒤로 돌아가 다시 박스 갯수를 정해주세요!</div>
         ) : (
           <>
-            {ran.map((i: any, index: any) => (
+            {randomRewardArray.map((i: any, index: any) => (
               <Box
                 red={i.color}
                 key={index}
