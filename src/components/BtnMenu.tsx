@@ -6,12 +6,6 @@ import RefreshBtn from './RefreshBtn';
 import FastFowardBtn from './FastFowardBtn';
 import LogOutBtn from './LogoutBtn';
 import RevivalBtn from './RevivalBtn';
-//props 사용을 위해 인터페이스로 타입 명시
-//https://blog.devgenius.io/using-styled-components-and-props-with-typescript-react-a3c32a496f47
-interface cornerBtn {
-  corner?: boolean;
-  url?: string;
-}
 
 const BtnWrap = styled.div`
   display: flex;
@@ -25,7 +19,7 @@ export const ButtonColor = styled.button`
   outline-offset: -1px;
 `;
 
-export const Back = styled(ButtonColor)<cornerBtn>`
+export const Back = styled(ButtonColor)`
   cursor: pointer;
   width: 65px;
   height: 65px;
@@ -45,7 +39,7 @@ interface btn {
   BackHistory?: boolean;
   Home?: boolean;
   FastFoward?: boolean;
-  FastFowardFunc?: any;
+  FastFowardFunc?: () => void;
   FastFowardText?: number;
   Refresh?: boolean;
   RefreshFunc?: () => void;
