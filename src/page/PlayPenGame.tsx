@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
@@ -75,10 +75,17 @@ const PlayPenGame = () => {
   //   (state: RootState) => state.penSpeed
   // );
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
-  const randomArr = useCallback(createRandomRewardsArray(boxCount, 'penGame'), [
-    boxCount,
-    refresh,
-  ]);
+
+  //useMemo를 사용하여 해결!!!!!!
+  const ran = 
+  useMemo(()=> {
+    return createRandomRewardsArray(boxCount, 'penGame')
+  },[refresh])
+
+  // const randomArr = useCallback(createRandomRewardsArray(boxCount, 'penGame'), [
+  //   boxCount,
+  //   refresh,
+  // ]);
 
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
@@ -216,7 +223,7 @@ const PlayPenGame = () => {
           <div>뒤로 돌아가 다시 박스 갯수를 정해주세요!</div>
         ) : (
           <>
-            {randomArr.map((i: any, index: any) => (
+            {ran.map((i: any, index: any) => (
               <Box
                 red={i.color}
                 key={index}
