@@ -94,7 +94,7 @@ const BallpenShop = () => {
 
   return (
     <>
-      {buyBallpenList.buyBallpenList ? (
+      {buyBallpenList ? (
         <>
           <BtnMenu BackHistory></BtnMenu>
           <SkillWrap>

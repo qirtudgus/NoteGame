@@ -73,7 +73,7 @@ function* loginApi$(action: any): Generator<any, any, any> {
         userInfo: result.userInfo,
       });
       //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
-      yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList });
+      yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList.buyBallpenList });
     }
     if (result.code === 201) yield put({ type: LOGIN_SUCCESS, token: result.token, id: result.id });
     if (result.code === 404) yield alert(result.message);
@@ -101,6 +101,7 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
     const result = yield call(loginLocalStorage, action.token);
     //DB의 볼펜리스트를 가져와 업데이트합니다.
     const penList = yield call(updateBallPenListApi);
+    console.log(penList);
     if (result.code === 200) {
       yield put({
         type: LOGIN_LOCALSTORAGE_SUCCESS,
@@ -109,7 +110,7 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
         userInfo: result.userInfo,
       });
       //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
-      yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList });
+      yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList.buyBallpenList });
     }
     if (result.code === 201)
       yield put({

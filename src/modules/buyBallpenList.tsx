@@ -9,7 +9,7 @@ export const real_buy_ballpen_request = (ballpenName: string, gold: string) => (
   gold,
 });
 
-export const real_buy_ballpen_success = (buyBallpenList: any) => ({
+export const real_buy_ballpen_success = (buyBallpenList: string[]) => ({
   type: REAL_BUY_BALLPEN_SUCCESS,
   buyBallpenList,
 });
@@ -18,7 +18,7 @@ export const update_ballpen_request = () => ({
   type: UPDATE_BALLPEN_REQUEST,
 });
 
-export const update_ballpen_success = (buyBallpenList: any) => ({
+export const update_ballpen_success = (buyBallpenList: string[]) => ({
   type: UPDATE_BALLPEN_SUCCESS,
   buyBallpenList,
 });
@@ -30,11 +30,11 @@ type BuyBallpenListAction =
   | ReturnType<typeof real_buy_ballpen_success>;
 
 type BuyBallpenListStateType = {
-  buyBallpenList: any;
+  buyBallpenList: string[];
 };
 
 const BuyBallpenListState: BuyBallpenListStateType = {
-  buyBallpenList: {},
+  buyBallpenList: [],
 };
 
 const buyBallpenListRequest = (
@@ -46,7 +46,7 @@ const buyBallpenListRequest = (
       return { buyBallpenList: action.buyBallpenList };
     }
     case REAL_BUY_BALLPEN_SUCCESS: {
-      return { buyBallpenList: action };
+      return { buyBallpenList: action.buyBallpenList };
     }
 
     default:

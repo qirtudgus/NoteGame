@@ -95,7 +95,10 @@ const ShopPiece = (props: any, ref: any) => {
   const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
 
   //서버에서 구입한 팬목록 배열을 받아온다.
-  const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, [buyBallpenList]);
+  // const penNameArr2 = useMemo(() => buyBallpenList, []);
+
+  console.log(buyBallpenList);
+
   let equip = userInfo.EquipBallpen;
 
   //장착할 무기의 공격력을 할당
@@ -142,7 +145,7 @@ const ShopPiece = (props: any, ref: any) => {
       </ShopTextWrap>
       {
         //렌더링 될 때 구매목록에 해당볼펜의 penname이 들어있는지 체크 후 값을 반환한다.
-        penNameArr2.find((i: Element) => i === props.penname) ? (
+        buyBallpenList.find((i: string) => i === props.penname) ? (
           <ShopBtn
             as='div'
             buy={props.penname}

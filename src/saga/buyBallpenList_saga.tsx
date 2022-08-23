@@ -38,14 +38,18 @@ function* updateBallPenListApi$(action: any): Generator<any, any, any> {
   }
 }
 
-function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
+function* realBuyBallPenListApi$(action: {
+  type: string;
+  ballpenName: string;
+  gold: number;
+}): Generator<any, any, any> {
   try {
     console.log(action);
     const result = yield call(realBuyBallPenListApi, action.ballpenName, action.gold);
     const resultList = yield call(updateBallPenListApi);
-    console.log(resultList);
     console.log(result);
-    console.log(result.buyBallpenList);
+    console.log(resultList);
+
     yield put({
       type: REAL_BUY_BALLPEN_SUCCESS,
       buyBallpenList: result.buyBallpenList,
@@ -55,7 +59,7 @@ function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
     // 구매 후 볼펜 업데이트 put
     yield put({
       type: UPDATE_BALLPEN_SUCCESS,
-      buyBallpenList: resultList,
+      buyBallpenList: resultList.buyBallpenList,
     });
   } catch (err) {
     console.log(err);
