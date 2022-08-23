@@ -33,32 +33,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// app.post("/tistory", async (req,res) => {
-//   const  html = await axios.get("https://sott120.tistory.com/")
-//   const $ = cheerio.load(html.data);
-//   // const title = $("#container > main > div > div.area-common > article > div > a > strong");
-//   const title = $("#main > div > div > ul > li > div > div.box_contents > a.link_title > strong");
-
-// const img = $("#main > div > div > ul > li > div > div.thumbnail_zone > a");
-// let imgList:any = [];
-// img.each((idx, el) => {
-//     imgList[idx] = {
-//         img: $(el).attr("style")?.substring(22).split(`')`)[0]
-//     };
-// });
-// console.log(typeof img.attr("style"))
-// console.log(imgList)
-
-//   let titleList: any = [];
-//   title.each((idx, el) => {
-//           titleList[idx] = {
-//            title: $(el).text(),
-//         };
-//   });
-//   // console.log(titleList)
-//   res.send("zz")
-// })
-
 //express req 속성 추가
 declare module 'express-serve-static-core' {
   interface Request {

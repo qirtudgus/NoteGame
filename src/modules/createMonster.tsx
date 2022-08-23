@@ -2,6 +2,17 @@ export const CREATE_MONSTER_REQUEST = 'createMonster/CREATE_MONSTER_REQUEST' as 
 export const CREATE_MONSTER_SUCCESS = 'createMonster/CREATE_MONSTER_SUCCESS' as const;
 export const CREATE_MONSTER_FAILURE = 'createMonster/CREATE_MONSTER_FAILURE' as const;
 
+interface MonsterInfo {
+  monsterInfo: {
+    monsterLevel: number | null;
+    monsterFullHp: number | null;
+    monsterNowHp?: number | null;
+    monsterExp: number | null;
+    monsterDamage: number | null;
+    monsterGold: number | null;
+  };
+}
+
 export const create_monster_request = (dungeonFloor: number | undefined) => ({
   type: CREATE_MONSTER_REQUEST,
   dungeonFloor,
@@ -16,17 +27,6 @@ export const create_monster_failure = (monsterInfo: MonsterInfo) => ({
   type: CREATE_MONSTER_FAILURE,
   ...monsterInfo,
 });
-
-interface MonsterInfo {
-  monsterInfo: {
-    monsterLevel: number | null;
-    monsterFullHp: number | null;
-    monsterNowHp?: number | null;
-    monsterExp: number | null;
-    monsterDamage: number | null;
-    monsterGold: number | null;
-  };
-}
 
 type CreateMonsterAction =
   | ReturnType<typeof create_monster_request>
