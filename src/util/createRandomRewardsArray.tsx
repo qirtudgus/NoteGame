@@ -12,12 +12,12 @@ export function createRandomRewardsArray(boxCount: number | null, useListName: u
   switch (useListName) {
     case 'penGame':
       randomResult.map((i: number) => {
-        rewards.push(rewardsListObj[i]);
+        return rewards.push(rewardsListObj[i]);
       });
       break;
     case 'dungeon':
       randomResult.map((i: number) => {
-        rewards.push(dungeonRewardsListObj[i]);
+        return rewards.push(dungeonRewardsListObj[i]);
       });
   }
   return rewards;
