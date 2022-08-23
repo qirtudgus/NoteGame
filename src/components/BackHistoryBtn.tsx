@@ -12,13 +12,12 @@ const ArrowImg = styled.img.attrs({
   height: 30px;
 `;
 
-const BackHistoryBtn = (props: any) => {
+const BackHistoryBtn = () => {
   const navigate = useNavigate();
 
   return (
     <>
       <Back
-        {...props}
         onClick={() => {
           navigate(-1);
         }}
