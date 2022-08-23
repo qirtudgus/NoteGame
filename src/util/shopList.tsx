@@ -16,6 +16,7 @@ interface pen {
   img?: any;
   dungeonPenSpeed?: number;
   penGamePenSpeed?: number;
+  rewardList?: number[];
 }
 export const penObj: pen[] = [
   {
@@ -28,6 +29,7 @@ export const penObj: pen[] = [
     img: 모남볼펜,
     dungeonPenSpeed: 3.5,
     penGamePenSpeed: 0.5,
+    rewardList: [11, 22, 33, 44, 55, 66],
   },
   {
     title: '하이테크 볼펜',
