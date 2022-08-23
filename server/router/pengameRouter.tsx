@@ -18,9 +18,7 @@ pengameRouter.post('/multiple', (req, res, next) => {
   db.query(userFindQuery, [userId], (err, result, fields) => {
     let resultGold = parseInt(result[0].Gold) * reward;
     let beforeGold = parseInt(result[0].Gold);
-    console.log(
-      `${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`,
-    );
+    console.log(`${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`);
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
         const userInfo = userInfoProcess(rows[0]);
@@ -48,9 +46,7 @@ pengameRouter.post('/add', (req, res, next) => {
     let resultGold = parseInt(result[0].Gold) + BonusGold;
     let beforeGold = parseInt(result[0].Gold);
     console.log(subGold, BonusGold, resultGold);
-    console.log(
-      `${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`,
-    );
+    console.log(`${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`);
     db.query(rewardUpdateQuery, [resultGold, userId], (err, result, fields) => {
       db.query(loginQuery, [userId], function (err, rows, fields) {
         const userInfo = userInfoProcess(rows[0]);
@@ -70,9 +66,7 @@ pengameRouter.post('/deduct', (req, res, next) => {
     let resultGold = parseInt(result[0].Gold) - parseInt(reward) * speed;
     let beforeGold = parseInt(result[0].Gold);
 
-    console.log(
-      `${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`,
-    );
+    console.log(`${userId}님께서 ${result[0].Gold}에서  ${resultGold}가 되었습니다.`);
     console.log(Math.sign(resultGold));
     //음수 방지
     if (Math.sign(resultGold) === -1) {

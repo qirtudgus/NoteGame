@@ -23,15 +23,7 @@
 
 // 8.api통신 시 토큰을 담아보내어 해당 유저의 db 조회 및 데이터 획득
 
-import {
-  takeLatest,
-  fork,
-  all,
-  put,
-  call,
-  take,
-  delay,
-} from 'redux-saga/effects';
+import { takeLatest, fork, all, put, call, take, delay } from 'redux-saga/effects';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -69,11 +61,7 @@ const loginApi = async (id: string, password: string): Promise<any> => {
 
 function* loginApi$(action: any): Generator<any, any, any> {
   try {
-    const result = yield call(
-      loginApi,
-      action.payload.id,
-      action.payload.password,
-    );
+    const result = yield call(loginApi, action.payload.id, action.payload.password);
     //그냥 로그인에도 펜리스트 업데이트
     const penList = yield call(updateBallPenListApi);
 
@@ -87,8 +75,7 @@ function* loginApi$(action: any): Generator<any, any, any> {
       //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
       yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList });
     }
-    if (result.code === 201)
-      yield put({ type: LOGIN_SUCCESS, token: result.token, id: result.id });
+    if (result.code === 201) yield put({ type: LOGIN_SUCCESS, token: result.token, id: result.id });
     if (result.code === 404) yield alert(result.message);
     if (result.code === 405) yield alert(result.message);
   } catch (err) {
@@ -97,18 +84,16 @@ function* loginApi$(action: any): Generator<any, any, any> {
 }
 
 const loginLocalStorage = async (token: any): Promise<any> => {
-  return await customAxios('post', '/login/localstorage', { token }).then(
-    (res) => {
-      axios.defaults.headers.common['Authorization'] = res.data.token;
-      // if(res.data.code === 200){
-      //     console.log("200이군")
-      //     axios.defaults.headers.common[
-      //         'Authorization'
-      //       ] = `Bearer ${res.data.token}`; //앞으로 api통신에 토큰이 들어가있음
-      // }
-      return res.data;
-    },
-  );
+  return await customAxios('post', '/login/localstorage', { token }).then((res) => {
+    axios.defaults.headers.common['Authorization'] = res.data.token;
+    // if(res.data.code === 200){
+    //     console.log("200이군")
+    //     axios.defaults.headers.common[
+    //         'Authorization'
+    //       ] = `Bearer ${res.data.token}`; //앞으로 api통신에 토큰이 들어가있음
+    // }
+    return res.data;
+  });
 };
 
 function* loginLocalStorage$(action: any): Generator<any, any, any> {

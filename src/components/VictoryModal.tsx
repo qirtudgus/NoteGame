@@ -6,7 +6,6 @@ import { dungeon_request } from '../modules/login';
 import BasicButtons from './BasicBtn';
 import { RootState } from '../modules/modules_index';
 
-
 const BgWrap = styled.div`
   width: 100%;
   height: 100%;
@@ -41,32 +40,49 @@ const result = {
 };
 
 const VictoryModal = (props: any) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const monsterInfo:any = useSelector((state: RootState) => state.monsterInfo.monsterInfo)
-    const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
-    return (
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
+  const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
+  return (
     <BgWrap>
       {props.isModal ? (
         <Bg>
           <p style={result}>승리!</p>
           <p style={result}>경험치 {props.huntExp} 획득</p>
-          <p style={result}>골드 {Math.ceil(props.huntGold + (props.huntGold *userInfo.UpGoldHunt / 100 ))} 획득</p>
+          <p style={result}>골드 {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)} 획득</p>
           <BasicButtons
             ClassName={props.cName}
-            ButtonText={props.before ? '돌아가기' :'다음층으로'}
+            ButtonText={props.before ? '돌아가기' : '다음층으로'}
             color='#e5005a'
-          OnClick={props.before ? 
-            ()=>{
-                    dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt , userInfo.Exp, userInfo.Level, props.before))
-                    navigate(-1)
-                }
-            :
-            ()=>{
-              dispatch(dungeon_request(monsterInfo.monsterGold, monsterInfo.monsterExp, userInfo.UpGoldHunt, userInfo.Exp, userInfo.Level ))
-              navigate(-1)
-          }
-          }
+            OnClick={
+              props.before
+                ? () => {
+                    dispatch(
+                      dungeon_request(
+                        monsterInfo.monsterGold,
+                        monsterInfo.monsterExp,
+                        userInfo.UpGoldHunt,
+                        userInfo.Exp,
+                        userInfo.Level,
+                        props.before,
+                      ),
+                    );
+                    navigate(-1);
+                  }
+                : () => {
+                    dispatch(
+                      dungeon_request(
+                        monsterInfo.monsterGold,
+                        monsterInfo.monsterExp,
+                        userInfo.UpGoldHunt,
+                        userInfo.Exp,
+                        userInfo.Level,
+                      ),
+                    );
+                    navigate(-1);
+                  }
+            }
           ></BasicButtons>
         </Bg>
       ) : (
@@ -76,7 +92,9 @@ const VictoryModal = (props: any) => {
             ClassName={props.cName}
             ButtonText='돌아가기'
             color='#e5005a'
-            OnClick={()=>{navigate(-1)}}
+            OnClick={() => {
+              navigate(-1);
+            }}
           ></BasicButtons>
         </Bg>
       )}

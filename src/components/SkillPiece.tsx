@@ -72,12 +72,13 @@ const SkillPiece = (props: any) => {
         <SkillBtn
           onClick={() => {
             if (userInfo?.SkillPoint! <= 0) return;
-            dispatch(
-              skill_request(`${props.skillName}`, userInfo?.SkillPoint!),
-            );
+            dispatch(skill_request(`${props.skillName}`, userInfo?.SkillPoint!));
           }}
         >
-          <img src={플러스} alt='스킬 업그레이드'></img>
+          <img
+            src={플러스}
+            alt='스킬 업그레이드'
+          ></img>
         </SkillBtn>
       </SkillBox>
     </>

@@ -4,18 +4,18 @@ import BasicButtons from './BasicBtn';
 const BgWrap = styled.div`
   width: 100%;
   height: 100%;
-  position:fixed;
-  display:flex;
-  justify-content:center;
+  position: fixed;
+  display: flex;
+  justify-content: center;
   align-items: center;
-    z-index:100;
-  background:rgba(0,0,0,0.5);
-  left:0;
-  top:0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
 `;
 
 const Bg = styled.div`
-border-radius:20px;
+  border-radius: 20px;
   width: 600px;
   height: 400px;
   background: ${(props) => props.color || '#eee'};
@@ -34,19 +34,24 @@ interface children {
   children?: React.ReactNode;
 }
 const re = {
-    padding:"20px 0 20px 0",
-    fontSize:"30px",
-    fontWeight:"bold",
-}
+  padding: '20px 0 20px 0',
+  fontSize: '30px',
+  fontWeight: 'bold',
+};
 
-const ResultFalseModal = (props: any,{ children }: children) => {
+const ResultFalseModal = (props: any, { children }: children) => {
   return (
     <BgWrap>
       <Bg>
         <p style={re}>열심히 멈춘 결과</p>
         <p>꽝입니다...</p>
-        <BasicButtons ClassName={props.cName} ButtonText='이어서' color="#e5005a" OnClick={props.OnClick}></BasicButtons>
-        </Bg>
+        <BasicButtons
+          ClassName={props.cName}
+          ButtonText='이어서'
+          color='#e5005a'
+          OnClick={props.OnClick}
+        ></BasicButtons>
+      </Bg>
     </BgWrap>
   );
 };

@@ -27,10 +27,7 @@ const confirmIdState: ModalStateType = {
   isModal: false,
 };
 
-const modalRequest = (
-  state: ModalStateType = confirmIdState,
-  action: ModalAction,
-): ModalStateType => {
+const modalRequest = (state: ModalStateType = confirmIdState, action: ModalAction): ModalStateType => {
   switch (action.type) {
     case MODAL_SUCCESS: {
       return { isModal: true };

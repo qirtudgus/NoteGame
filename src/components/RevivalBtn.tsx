@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 import backArrow from '../img/뒤로가기.svg';
-import {Back} from './BtnMenu';
-
-
-
+import { Back } from './BtnMenu';
 
 const ReP = styled.p`
-font-weight:bold;
-font-size:1.7rem;
-`
+  font-weight: bold;
+  font-size: 1.7rem;
+`;
 
 const RevivalBtn = (props: any) => {
-
   return (
     <>
       <Back

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 // import { expTable } from '../util/ExpTable';
 import { expTable } from '../util/expTable';

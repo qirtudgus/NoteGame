@@ -34,10 +34,7 @@ const confirmIdState: ConfirmIdStateType = {
   text: '아이디를 입력해주세요.',
 };
 
-const confirmIdRequest = (
-  state: ConfirmIdStateType = confirmIdState,
-  action: ConfirmIdAction,
-): ConfirmIdStateType => {
+const confirmIdRequest = (state: ConfirmIdStateType = confirmIdState, action: ConfirmIdAction): ConfirmIdStateType => {
   switch (action.type) {
     // case CONFIRM_ID_REQUEST: {
     //     return {confirmId : action.id}

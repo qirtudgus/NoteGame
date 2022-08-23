@@ -1,18 +1,9 @@
-export const UPDATE_BALLPEN_REQUEST =
-  'buyBallpenList/UPDATE_BALLPEN_REQUEST ' as const;
-export const UPDATE_BALLPEN_SUCCESS =
-  'buyBallpenList/UPDATE_BALLPEN_SUCCESS ' as const;
+export const UPDATE_BALLPEN_REQUEST = 'buyBallpenList/UPDATE_BALLPEN_REQUEST ' as const;
+export const UPDATE_BALLPEN_SUCCESS = 'buyBallpenList/UPDATE_BALLPEN_SUCCESS ' as const;
+export const REAL_BUY_BALLPEN_REQUEST = 'buyBallpenList/REAL_BUY_BALLPEN_REQUEST ' as const;
+export const REAL_BUY_BALLPEN_SUCCESS = 'buyBallpenList/REAL_BUY_BALLPEN_SUCCESS ' as const;
 
-export const REAL_BUY_BALLPEN_REQUEST =
-  'buyBallpenList/REAL_BUY_BALLPEN_REQUEST ' as const;
-
-export const REAL_BUY_BALLPEN_SUCCESS =
-  'buyBallpenList/REAL_BUY_BALLPEN_SUCCESS ' as const;
-
-export const real_buy_ballpen_request = (
-  ballpenName: string,
-  gold: string,
-) => ({
+export const real_buy_ballpen_request = (ballpenName: string, gold: string) => ({
   type: REAL_BUY_BALLPEN_REQUEST,
   ballpenName,
   gold,

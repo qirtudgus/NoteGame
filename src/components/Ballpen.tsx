@@ -21,29 +21,38 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: any) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
 
   let equipBallpen = userInfo?.EquipBallpen as string;
-  
+
   return (
     <>
       {isDungeon ? (
         <>
-
-
-        <PenImgWrapDun>
-        <PenImgDun src={ballPenList[equipBallpen]} penSpeed={userInfo?.DungeonPenSpeed} penStatus={penStatus}></PenImgDun>
-        <PenEndDun penStatus={penStatus} ref={ref} penSpeed={userInfo?.DungeonPenSpeed}></PenEndDun>
-
-        </PenImgWrapDun>
-
-
+          <PenImgWrapDun>
+            <PenImgDun
+              src={ballPenList[equipBallpen]}
+              penSpeed={userInfo?.DungeonPenSpeed}
+              penStatus={penStatus}
+            ></PenImgDun>
+            <PenEndDun
+              penStatus={penStatus}
+              ref={ref}
+              penSpeed={userInfo?.DungeonPenSpeed}
+            ></PenEndDun>
+          </PenImgWrapDun>
         </>
       ) : (
         <>
-        <PenImgWrap>
-        <PenImg src={ballPenList[equipBallpen]} penSpeed={userInfo?.PenGamePenSpeed} penStatus={penStatus}></PenImg>
-        <PenEnd2 penStatus={penStatus} ref={ref} penSpeed={userInfo?.PenGamePenSpeed}></PenEnd2>
-
-        </PenImgWrap>
-        
+          <PenImgWrap>
+            <PenImg
+              src={ballPenList[equipBallpen]}
+              penSpeed={userInfo?.PenGamePenSpeed}
+              penStatus={penStatus}
+            ></PenImg>
+            <PenEnd2
+              penStatus={penStatus}
+              ref={ref}
+              penSpeed={userInfo?.PenGamePenSpeed}
+            ></PenEnd2>
+          </PenImgWrap>
         </>
       )}
     </>

@@ -132,9 +132,15 @@ const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
         {children}
         <Character moving={moving}>
           <EquipBallpen attack={attack}>
-            <img src={ballPenList[equipBallpen]} alt='무기'></img>
+            <img
+              src={ballPenList[equipBallpen]}
+              alt='무기'
+            ></img>
           </EquipBallpen>
-          <img src={캐릭터배경} alt='캐릭터배경'></img>
+          <img
+            src={캐릭터배경}
+            alt='캐릭터배경'
+          ></img>
         </Character>
       </CharacterWrap>
     </>

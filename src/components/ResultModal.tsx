@@ -18,7 +18,7 @@ const Bg = styled.div`
   width: 600px;
   height: 300px;
   background: ${(props) => props.color || '#eee'};
-  margin:  50px auto;
+  margin: 50px auto;
   position: relative;
   z-index: 1;
   display: flex;

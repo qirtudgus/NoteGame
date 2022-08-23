@@ -3,10 +3,8 @@ export const LOGIN_REQUEST = 'login/LOGIN_REQUEST' as const;
 export const LOGIN_SUCCESS = 'login/LOGIN_SUCCESS' as const;
 export const LOGIN_FAILURE = 'login/LOGIN_FAILURE' as const;
 export const LOGIN_LOCALSTORAGE = 'login/LOGIN_LOCALSTORAGE' as const;
-export const LOGIN_LOCALSTORAGE_SUCCESS =
-  'login/LOGIN_LOCALSTORAGE_SUCCESS' as const;
-export const LOGIN_LOCALSTORAGE_FAILURE =
-  'login/LOGIN_LOCALSTORAGE_FAILURE' as const;
+export const LOGIN_LOCALSTORAGE_SUCCESS = 'login/LOGIN_LOCALSTORAGE_SUCCESS' as const;
+export const LOGIN_LOCALSTORAGE_FAILURE = 'login/LOGIN_LOCALSTORAGE_FAILURE' as const;
 export const LOGOUT_REQUSET = 'login/LOGOUT_REQUEST' as const;
 
 //볼펜 굴리기 관련 액션
@@ -30,8 +28,6 @@ export const DB_REFRESH_SUCCESS = 'login/DB_REFRESH_SUCCESS' as const;
 export const REVIVAL_REQUSET = 'login/REVIVAL_REQUSET' as const;
 export const REVIVAL_SUCCESS = 'login/REVIVAL_SUCCESS' as const;
 
-
-
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUesrInfo = {
@@ -54,28 +50,24 @@ export let setUesrInfo = {
   EquipBallpen: '',
   DungeonPenSpeed: 1,
   PenGamePenSpeed: 1,
-  RevivalPoint:0,
+  RevivalPoint: 0,
 };
 
 export const revival_request = () => ({
-  type:REVIVAL_REQUSET
-})
+  type: REVIVAL_REQUSET,
+});
 
 export const revival_success = () => ({
-  type:REVIVAL_SUCCESS,
+  type: REVIVAL_SUCCESS,
   userInfo: setUesrInfo,
-})
+});
 
 export const db_refresh_success = () => ({
   type: DB_REFRESH_SUCCESS,
   userInfo: setUesrInfo,
 });
 
-export const equip_ballpen_request = (
-  ballpenName: string,
-  weaponDamage: number,
-  PenSpeed: {},
-) => ({
+export const equip_ballpen_request = (ballpenName: string, weaponDamage: number, PenSpeed: {}) => ({
   type: EQUIP_BALLPEN_REQUEST,
   ballpenName,
   weaponDamage,
@@ -153,11 +145,7 @@ export const logout = () => ({
   type: LOGOUT_REQUSET,
 });
 
-export const pengame_request = (
-  reward: number,
-  act: string,
-  speed: number,
-) => ({
+export const pengame_request = (reward: number, act: string, speed: number) => ({
   type: PENGAME_REQUEST,
   act,
   reward,
@@ -230,10 +218,7 @@ const LoginState: IsLoginState = {
   userInfo: setUesrInfo,
 };
 
-const LoginRequest = (
-  state: IsLoginState = LoginState,
-  action: LoginAction,
-): IsLoginState => {
+const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): IsLoginState => {
   switch (action.type) {
     // case LOGIN_REQUEST:{
     //     return { isLogin : true, }
@@ -295,8 +280,8 @@ const LoginRequest = (
     case DB_REFRESH_SUCCESS: {
       return { ...state, userInfo: action.userInfo };
     }
-    case REVIVAL_SUCCESS : {
-      return { ...state, userInfo: action.userInfo}
+    case REVIVAL_SUCCESS: {
+      return { ...state, userInfo: action.userInfo };
     }
     default:
       return state;

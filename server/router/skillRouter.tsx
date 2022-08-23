@@ -16,7 +16,7 @@ skillRouter.post('/skillup', (req, res, next) => {
   const { skillName, skillPoint } = req.body;
 
   if (skillPoint <= 0) return;
-  console.log(`${userId}님이 ${skillName}스킬을 찍으셨습니다.`)
+  console.log(`${userId}님이 ${skillName}스킬을 찍으셨습니다.`);
 
   if (skillName === 'UpGoldPen') {
     db.query(UpGoldPenQuery, [userId], (err, result, fields) => {
@@ -33,7 +33,7 @@ skillRouter.post('/skillup', (req, res, next) => {
       // console.log(err);
     });
   }
-  if( skillName === 'UpMaxHp') {
+  if (skillName === 'UpMaxHp') {
     db.query(UpMaxHpQuery, [userId], (err, result, fields) => {
       // console.log(err);
     });

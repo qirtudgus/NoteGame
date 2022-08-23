@@ -1,4 +1,4 @@
-import { takeLatest, put, call, fork, all, } from 'redux-saga/effects';
+import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import {
   UPDATE_BALLPEN_REQUEST,
   UPDATE_BALLPEN_SUCCESS,
@@ -14,10 +14,7 @@ const updateBallPenListApi = async (): Promise<boolean> => {
   });
 };
 
-const realBuyBallPenListApi = async (
-  ballpenName: string,
-  gold: number,
-): Promise<boolean> => {
+const realBuyBallPenListApi = async (ballpenName: string, gold: number): Promise<boolean> => {
   return await customAxios('post', '/shop/realbuyballpen', {
     ballpenName,
     gold,
@@ -44,13 +41,9 @@ function* updateBallPenListApi$(action: any): Generator<any, any, any> {
 function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
   try {
     console.log(action);
-    const result = yield call(
-      realBuyBallPenListApi,
-      action.ballpenName,
-      action.gold,
-    );
+    const result = yield call(realBuyBallPenListApi, action.ballpenName, action.gold);
     const resultList = yield call(updateBallPenListApi);
-    console.log(resultList)
+    console.log(resultList);
     console.log(result);
     console.log(result.buyBallpenList);
     yield put({
@@ -64,7 +57,6 @@ function* realBuyBallPenListApi$(action: any): Generator<any, any, any> {
       type: UPDATE_BALLPEN_SUCCESS,
       buyBallpenList: resultList,
     });
-
   } catch (err) {
     console.log(err);
   }

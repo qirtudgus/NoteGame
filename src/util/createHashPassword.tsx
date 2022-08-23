@@ -2,14 +2,14 @@
 import CryptoJS from 'crypto-js';
 
 interface passwordSet {
-    salt: string,
-    hashPassword: string
+  salt: string;
+  hashPassword: string;
 }
 
-export const createHashPassword = (password :string):passwordSet => {
-    const salt :string = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
-    const hashPassword :string = CryptoJS.HmacSHA256(password, salt).toString();
-    return { salt : salt, hashPassword : hashPassword}
-  }
+export const createHashPassword = (password: string): passwordSet => {
+  const salt: string = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+  const hashPassword: string = CryptoJS.HmacSHA256(password, salt).toString();
+  return { salt: salt, hashPassword: hashPassword };
+};
 
 export default createHashPassword;

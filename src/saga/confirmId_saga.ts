@@ -1,9 +1,5 @@
 import { takeLatest, put, call, fork, all, take } from 'redux-saga/effects';
-import {
-  CONFIRM_ID_REQUEST,
-  CONFIRM_ID_SUCCESS,
-  CONFIRM_ID_FAILURE,
-} from '../modules/confirmId';
+import { CONFIRM_ID_REQUEST, CONFIRM_ID_SUCCESS, CONFIRM_ID_FAILURE } from '../modules/confirmId';
 import { customAxios } from '../util/axios';
 
 const confirmIdApi = async (id: string): Promise<any> => {

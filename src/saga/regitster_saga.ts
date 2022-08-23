@@ -1,9 +1,5 @@
 import { takeLatest, put, call, fork, all, take } from 'redux-saga/effects';
-import {
-  REGISTER,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-} from '../modules/register';
+import { REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE } from '../modules/register';
 import { customAxios } from '../util/axios';
 //리덕스 사가 참고 페이지
 //https://kyounghwan01.github.io/blog/React/redux/redux-saga/#react%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-saga-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5
@@ -34,18 +30,12 @@ function* registerApi$(action: any): Generator<any, any, any> {
   try {
     console.log(action);
     //api통신의 결과값이 들어있는 변수다.
-    const memos = yield call(
-      registerApi,
-      action.payload.id,
-      action.payload.password,
-    );
+    const memos = yield call(registerApi, action.payload.id, action.payload.password);
     console.log(memos); // api 결과값이 정상적으로 들어있음
     //put은 dispatch를 해주는 기능이다.
     //REGISTER액션을 감지하여 REGISTER_SUCCESS 액션까지 디스패치할 수 있는 것이다.
-    if (memos.code === 404)
-      yield put({ type: REGISTER_FAILURE, payload: memos });
-    if (memos.code === 200)
-      yield put({ type: REGISTER_SUCCESS, payload: memos });
+    if (memos.code === 404) yield put({ type: REGISTER_FAILURE, payload: memos });
+    if (memos.code === 200) yield put({ type: REGISTER_SUCCESS, payload: memos });
   } catch (err) {
     console.log(err);
   }

@@ -53,7 +53,7 @@ export const PenWrap = styled.div<penAni>`
   animation-fill-mode: both;
   animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
-  object-fit:cover;
+  object-fit: cover;
 
   ${(props) =>
     props.penStatus &&
@@ -94,8 +94,7 @@ export const PenWrapDungeon = styled.div<penAni>`
   left: 570px;
   z-index: 100;
   animation-fill-mode: both;
-  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out
-    infinite; //1초동안 선형 무한 속성값주기
+  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
   ${(props) =>
     props.penStatus &&
@@ -119,8 +118,7 @@ export const PenEndDungeon = styled.div<penAni>`
   margin: none;
   animation-fill-mode: both;
   animation-play-state: running;
-  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out
-    infinite; //1초동안 선형 무한 속성값주기
+  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   ${(props) =>
     props.penStatus &&
     css`
@@ -129,13 +127,12 @@ export const PenEndDungeon = styled.div<penAni>`
 `;
 
 export const PenImgWrap = styled.div`
-top:183px;
-left:-120px;
-position:relative;
-height:370px;
-width:auto;
-`
-
+  top: 183px;
+  left: -120px;
+  position: relative;
+  height: 370px;
+  width: auto;
+`;
 
 export const PenImg = styled.img<penAni>`
 z-index:100;
@@ -156,7 +153,7 @@ animation-fill-mode: both;
       animation-play-state: paused;
     `}
 
-`
+`;
 
 export const PenEnd2 = styled.div<penAni>`
   width: 1px;
@@ -165,8 +162,8 @@ export const PenEnd2 = styled.div<penAni>`
   position: absolute;
   z-index: 100;
   top: -30px;
-  left:50%;
-  transform:translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   animation-fill-mode: both;
   animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
@@ -177,15 +174,13 @@ export const PenEnd2 = styled.div<penAni>`
     `}
 `;
 
-
 export const PenImgWrapDun = styled.div`
-top:650px;
-left:550px;
-position:absolute;
-height:153px;
-width:auto;
-`
-
+  top: 650px;
+  left: 550px;
+  position: absolute;
+  height: 153px;
+  width: auto;
+`;
 
 export const PenImgDun = styled.img<penAni>`
 z-index:100;
@@ -206,7 +201,7 @@ animation-fill-mode: both;
       animation-play-state: paused;
     `}
 
-`
+`;
 
 export const PenEndDun = styled.div<penAni>`
   width: 1px;
@@ -215,8 +210,8 @@ export const PenEndDun = styled.div<penAni>`
   position: absolute;
   z-index: 100;
   top: -30px;
-  left:50%;
-  transform:translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   animation-fill-mode: both;
   animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
   animation-play-state: running;
@@ -226,7 +221,6 @@ export const PenEndDun = styled.div<penAni>`
       animation-play-state: paused;
     `}
 `;
-
 
 export const monsterAttack = keyframes`
   from, to { transform: translateX(0) ; }
@@ -285,7 +279,7 @@ export const monsterAppearEffect = keyframes`
     -webkit-animation-timing-function: ease-out;
             animation-timing-function: ease-out;
   }
-`
+`;
 export const monsetKillEffect = keyframes`
  0% {
     -webkit-transform: scale(1);
@@ -301,7 +295,7 @@ export const monsetKillEffect = keyframes`
             filter: blur(4px);
     opacity: 0;
   }
-`
+`;
 
 export const highRewordEffect = keyframes`
   0% {
@@ -333,7 +327,7 @@ export const highRewordEffect = keyframes`
             transform: scale3d(1, 1, 1);
   }
 
-`
+`;
 
 export const damageTextAni = keyframes`
 from { opacity: 1; top:70px; }  

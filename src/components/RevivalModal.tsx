@@ -22,7 +22,7 @@ const Bg = styled.div`
   z-index: 1;
   display: flex;
   justify-content: center;
-    flex-direction: column;
+  flex-direction: column;
   align-items: center;
   user-select: none;
 `;
@@ -30,10 +30,7 @@ const Bg = styled.div`
 const RevivalModal = (props: any) => {
   return (
     <BgWrap>
-        <Bg>
-            {props.children}
-        </Bg>
-
+      <Bg>{props.children}</Bg>
     </BgWrap>
   );
 };

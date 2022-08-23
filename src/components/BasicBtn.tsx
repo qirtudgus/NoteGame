@@ -5,17 +5,17 @@ const BasicButton = styled(ButtonColor)<ButtonText>`
   width: 13rem;
   height: 3rem;
   font-size: 1.5rem;
-  background:#fff;
+  background: #fff;
   position: relative;
   z-index: 2;
   margin-bottom: 3rem;
-  margin:${props => props.margin || '1rem'};
+  margin: ${(props) => props.margin || '1rem'};
   border: none;
   border-radius: 5px;
   cursor: pointer;
-&:hover{
-filter: invert(100%);
-}
+  &:hover {
+    filter: invert(100%);
+  }
 `;
 interface ButtonText {
   ButtonText?: string;
@@ -26,7 +26,7 @@ interface ButtonText {
   OnKeyPress?: any;
   TabIndex?: any;
   ClassName?: any;
-  margin?:string;
+  margin?: string;
 }
 
 const BasicButtons = ({

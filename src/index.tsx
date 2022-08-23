@@ -46,28 +46,62 @@ function loadUser() {
 }
 loadUser();
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path='/' element={<App />}></Route>
-          <Route path='/register' element={<Register />}></Route>
-          <Route path='/home' element={<Home />}></Route>
-          <Route path='/choicepencount' element={<ChoicePenCount />}></Route>
-          <Route path='*' element={<Notfound />}></Route>
-          <Route path='/playpengame' element={<PlayPenGame />}></Route>
-          <Route path='/skill' element={<Skill />}></Route>
-          <Route path='/dungeon' element={<Dungeon />}></Route>
-          <Route path='/dungeonfight' element={<DungeonFight />}></Route>
-          <Route path='/dungeonfightbefore' element={<DungeonFight />}></Route>
-          <Route path='/ballpenshop' element={<BallpenShop />}></Route>
+          <Route
+            path='/'
+            element={<App />}
+          ></Route>
+          <Route
+            path='/register'
+            element={<Register />}
+          ></Route>
+          <Route
+            path='/home'
+            element={<Home />}
+          ></Route>
+          <Route
+            path='/choicepencount'
+            element={<ChoicePenCount />}
+          ></Route>
+          <Route
+            path='*'
+            element={<Notfound />}
+          ></Route>
+          <Route
+            path='/playpengame'
+            element={<PlayPenGame />}
+          ></Route>
+          <Route
+            path='/skill'
+            element={<Skill />}
+          ></Route>
+          <Route
+            path='/dungeon'
+            element={<Dungeon />}
+          ></Route>
+          <Route
+            path='/dungeonfight'
+            element={<DungeonFight />}
+          ></Route>
+          <Route
+            path='/dungeonfightbefore'
+            element={<DungeonFight />}
+          ></Route>
+          <Route
+            path='/ballpenshop'
+            element={<BallpenShop />}
+          ></Route>
         </Route>
         <Route element={<LayoutNotInfo />}>
-          <Route path='/ranking' element={<Rangking />}></Route>
+          <Route
+            path='/ranking'
+            element={<Rangking />}
+          ></Route>
         </Route>
       </Routes>
     </BrowserRouter>

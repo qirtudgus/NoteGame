@@ -43,9 +43,7 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
             id: id,
             userInfo: uesrInfo2,
           })
-        : res
-            .status(200)
-            .json({ code: 405, message: '비밀번호가 틀렸습니다.' });
+        : res.status(200).json({ code: 405, message: '비밀번호가 틀렸습니다.' });
     }
   });
 });

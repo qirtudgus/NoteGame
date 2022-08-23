@@ -1,9 +1,6 @@
-export const PENGAME_BOXCOUNT_REQUSET =
-  'pengameBoxCount/PENGAME_BOXCOUNT_REQUSET' as const;
-export const PENGAME_BOXCOUNT_SUCCESS =
-  'pengameBoxCount/PENGAME_BOXCOUNT_SUCCESS' as const;
-export const PENGAME_BOXCOUNT_FAILURE =
-  'pengameBoxCount/PENGAME_BOXCOUNT_FAILURE' as const;
+export const PENGAME_BOXCOUNT_REQUSET = 'pengameBoxCount/PENGAME_BOXCOUNT_REQUSET' as const;
+export const PENGAME_BOXCOUNT_SUCCESS = 'pengameBoxCount/PENGAME_BOXCOUNT_SUCCESS' as const;
+export const PENGAME_BOXCOUNT_FAILURE = 'pengameBoxCount/PENGAME_BOXCOUNT_FAILURE' as const;
 
 export const pengame_boxcount_request = () => ({
   type: PENGAME_BOXCOUNT_REQUSET,

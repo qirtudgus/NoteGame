@@ -25,41 +25,39 @@ buyBallpenListRouter.post('/realbuyballpen', (req, res, next) => {
   const userId = req.decoded.userId;
   const { ballpenName, gold } = req.body;
   db.query(BuyAfterGoldQuery, [gold, userId], (err, rows, fields) => {
-    db.query(
-      ConcatBuyBallpenList,
-      [ballpenName, userId],
-      (err, rows, fields) => {
-        db.query(userFindQuery, [userId], (err, rows, fields) => {
-          console.log(rows[0].BuyBallpenList.split(','));
-          const resultList: [string] = rows[0].BuyBallpenList.split(',');
+    db.query(ConcatBuyBallpenList, [ballpenName, userId], (err, rows, fields) => {
+      db.query(userFindQuery, [userId], (err, rows, fields) => {
+        console.log(rows[0].BuyBallpenList.split(','));
+        const resultList: [string] = rows[0].BuyBallpenList.split(',');
 
-          db.query(loginQuery, [userId], (err, rows, fields) => {
-            let userInfo = userInfoProcess(rows[0]);
-            console.log(userInfo);
-            res.status(200).json({
-              code: 200,
-              userInfo: userInfo,
-              buyBallpenList: resultList,
-            });
+        db.query(loginQuery, [userId], (err, rows, fields) => {
+          let userInfo = userInfoProcess(rows[0]);
+          console.log(userInfo);
+          res.status(200).json({
+            code: 200,
+            userInfo: userInfo,
+            buyBallpenList: resultList,
           });
         });
-      },
-    );
+      });
+    });
   });
 });
 
 buyBallpenListRouter.post('/equip', (req, res, next) => {
   const userId = req.decoded.userId;
   const { ballpenName, weaponDamage, PenSpeed } = req.body;
-  console.log(weaponDamage)
-  console.log(PenSpeed)
-  let arr = [ballpenName,weaponDamage,PenSpeed.DungeonPenSpeed,PenSpeed.PenGamePenSpeed, userId]
-  db.query(EquipBallpenQuery, [ballpenName,weaponDamage,PenSpeed.DungeonPenSpeed,PenSpeed.PenGamePenSpeed, userId], (err, rows, fields) => {
-  
-    db.query(loginQuery, [userId], (err, rows, fields) => {
-      let userInfo = userInfoProcess(rows[0]);
-      res.status(200).json({ code: 200, userInfo: userInfo });
-    });
-  });
-
+  console.log(weaponDamage);
+  console.log(PenSpeed);
+  let arr = [ballpenName, weaponDamage, PenSpeed.DungeonPenSpeed, PenSpeed.PenGamePenSpeed, userId];
+  db.query(
+    EquipBallpenQuery,
+    [ballpenName, weaponDamage, PenSpeed.DungeonPenSpeed, PenSpeed.PenGamePenSpeed, userId],
+    (err, rows, fields) => {
+      db.query(loginQuery, [userId], (err, rows, fields) => {
+        let userInfo = userInfoProcess(rows[0]);
+        res.status(200).json({ code: 200, userInfo: userInfo });
+      });
+    },
+  );
 });

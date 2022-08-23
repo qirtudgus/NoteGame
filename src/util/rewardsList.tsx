@@ -4,11 +4,11 @@ const addText: string = '획득';
 const multipleText: string = '배';
 
 export interface rewardsList {
-  front:string,
-  number:number,
-  back:string,
-  action:string,
-  color?:string
+  front: string;
+  number: number;
+  back: string;
+  action: string;
+  color?: string;
 }
 
 export const rewardsListObj: rewardsList[] = [

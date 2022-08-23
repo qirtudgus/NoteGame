@@ -20,7 +20,7 @@ export interface userInfoInterface {
   UpGoldAll: number;
   UpGoldHunt: number;
   UpGoldPen: number;
-  UpMaxHp:number;
+  UpMaxHp: number;
   UpWeaponDamage: number;
   UpWeaponHp: number;
   DoubleAttack: number;
@@ -30,9 +30,9 @@ export interface userInfoInterface {
   BetterPen: number;
   SkillPoint: number;
   EquipBallpen: string;
-  DungeonPenSpeed:number;
-  PenGamePenSpeed:number;
-  RevivalPoint:number;
+  DungeonPenSpeed: number;
+  PenGamePenSpeed: number;
+  RevivalPoint: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {

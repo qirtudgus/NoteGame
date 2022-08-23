@@ -3,22 +3,21 @@ import { DUNGEON_REQUEST, DUNGEON_VICTORY, REVIVAL_REQUSET, REVIVAL_SUCCESS } fr
 import { MODAL_FAILURE } from '../modules/modalState';
 import customAxios from '../util/axios';
 
-const revivalRequest = async() => {
-  return await customAxios('post','/dungeon/revival').then(res => {
-    return res.data
-  })
+const revivalRequest = async () => {
+  return await customAxios('post', '/dungeon/revival').then((res) => {
+    return res.data;
+  });
+};
+function* revivalRequest$(): Generator<any, any, any> {
+  try {
+    let result = yield call(revivalRequest);
+    console.log(result);
+    yield put({ type: REVIVAL_SUCCESS, userInfo: result.userInfo });
+    yield put({ type: MODAL_FAILURE });
+  } catch (e) {
+    console.log(e);
+  }
 }
-function* revivalRequest$():Generator<any,any,any>{
-  try{
-  let result = yield call(revivalRequest);
-  console.log(result);
-  yield put({type:REVIVAL_SUCCESS, userInfo:result.userInfo})
-  yield put({type:MODAL_FAILURE})
-}catch(e){
-  console.log(e)
-}
-}
-
 
 function* getRevivalRequest() {
   yield takeLatest(REVIVAL_REQUSET, revivalRequest$);
@@ -70,6 +69,5 @@ function* getDungeonVictoryRequest() {
 }
 
 export default function* getDungeonVictorySaga() {
-  yield all([fork(getDungeonVictoryRequest),fork(getRevivalRequest)]);
+  yield all([fork(getDungeonVictoryRequest), fork(getRevivalRequest)]);
 }
-

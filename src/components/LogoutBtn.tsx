@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import logOut from '../img/로그아웃.svg';
 import { useDispatch } from 'react-redux';
 import { logout } from '../modules/login';
-import {Back} from './BtnMenu';
-
+import { Back } from './BtnMenu';
 
 //이미지 사용
 //https://velog.io/@shinwonse/React-styled-components%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80
@@ -15,8 +14,6 @@ const BtnImg = styled.img.attrs({
   height: 30px;
 `;
 
-
-
 const LogOutBtn = () => {
   const dispatch = useDispatch();
   const logOutRequest = () => {
@@ -26,9 +23,9 @@ const LogOutBtn = () => {
   return (
     <>
       <Back
-      corner={true}
+        corner={true}
         onClick={() => {
-            logOutRequest()
+          logOutRequest();
         }}
         title='로그아웃'
       >

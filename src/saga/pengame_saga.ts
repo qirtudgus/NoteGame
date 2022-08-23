@@ -2,26 +2,22 @@ import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
 import customAxios from '../util/axios';
 
-const penGameTakeGoldAdd = async (reward: number, speed:number) => {
+const penGameTakeGoldAdd = async (reward: number, speed: number) => {
   return await customAxios('post', '/pengame/add', { reward, speed }).then((res) => {
     return res.data;
   });
 };
 
-const penGameTakeGoldDeduct = async (reward: number,speed:number) => {
-  return await customAxios('post', '/pengame/deduct', { reward, speed }).then(
-    (res) => {
-      return res.data;
-    },
-  );
+const penGameTakeGoldDeduct = async (reward: number, speed: number) => {
+  return await customAxios('post', '/pengame/deduct', { reward, speed }).then((res) => {
+    return res.data;
+  });
 };
 
-const penGameTakeGoldMultiple = async (reward: number,speed:number) => {
-  return await customAxios('post', '/pengame/multiple', { reward, speed}).then(
-    (res) => {
-      return res.data;
-    },
-  );
+const penGameTakeGoldMultiple = async (reward: number, speed: number) => {
+  return await customAxios('post', '/pengame/multiple', { reward, speed }).then((res) => {
+    return res.data;
+  });
 };
 
 function* penGameTakeGold$(action: any): Generator<any, any, any> {
