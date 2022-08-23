@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import 캐릭터배경 from '../img/캐릭터배경.png';
-import { gelatine } from '../styledComponents/DungeonFight_Effect';
+import { gelatine, attack1, attack2, attack3, attack4, movingAni } from '../styledComponents/DungeonFight_Effect';
 import { ballPenList } from '../util/ballPenList';
 import { RootState } from '../modules/modules_index';
 interface dungeonAni {
@@ -9,38 +9,6 @@ interface dungeonAni {
   attack?: string;
   moving?: boolean;
 }
-
-export const attack1 = keyframes`
-  from, to { transform: rotate(60deg) ; }
-  25% { transform: rotate(-20deg); }
-  30% { transform:  rotate(-22deg) ; }
-  40% { transform:  rotate(110deg) ; }
-  75% { transform:  rotate(100deg); }
-  `;
-
-export const attack2 = keyframes`
-  from, to { transform: rotate(60deg) ; }
-  15% { transform: rotate(-60deg); }
-  50% { transform: rotate(230deg); }
-  `;
-export const attack3 = keyframes`
-  from, to { transform: rotate(30deg) ; }
-  25% { transform: rotate(-20deg); }
-  30% { transform:  rotate(-22deg) ; }
-  40% { transform:  rotate(60deg) ; }
-  `;
-
-export const attack4 = keyframes`
-  from, to { transform: rotate(30deg) ; }
-  40% { transform: rotate(150deg); }
-
-  `;
-
-export const movingAni = keyframes`
-from, to { transform: translate(0px, 0px) ; }
-25% { transform: translate(270px, 0px); }
-75% { transform: translate(270px, 0px); }
-`;
 
 const CharacterWrap = styled.div<dungeonAni>`
   width: 200px;
