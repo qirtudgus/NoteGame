@@ -179,33 +179,35 @@ type LoginAction =
   | ReturnType<typeof revival_request>
   | ReturnType<typeof revival_success>;
 
+export interface userInfoInterface {
+  Level: number;
+  BasicDamage: number;
+  BasicHp: number;
+  WeaponDamage: number;
+  WeaponHp: number;
+  Gold: number;
+  beforeGold: number;
+  PenCount: number;
+  SkillPoint: number;
+  UpGoldPen: number;
+  UpGoldHunt: number;
+  UpMaxHp: number;
+  DungeonFloor: number;
+  BetterPen: number;
+  Exp: number;
+  EquipBallpen: string;
+  DungeonPenSpeed: number;
+  PenGamePenSpeed: number;
+  RevivalPoint: number;
+}
+
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
 type IsLoginState = {
   isLogin: boolean;
   token: string | undefined | any;
   id?: string | number | undefined;
   tokenExpired?: boolean;
-  userInfo?: {
-    Level: number;
-    BasicDamage: number;
-    BasicHp: number;
-    WeaponDamage: number;
-    WeaponHp: number;
-    Gold: number;
-    beforeGold: number;
-    PenCount: number;
-    SkillPoint: number;
-    UpGoldPen: number;
-    UpGoldHunt: number;
-    UpMaxHp: number;
-    DungeonFloor: number;
-    BetterPen: number;
-    Exp: number;
-    EquipBallpen: string;
-    DungeonPenSpeed: number;
-    PenGamePenSpeed: number;
-    RevivalPoint: number;
-  };
+  userInfo?: userInfoInterface;
 };
 
 // 초기상태를 선언합니다.
