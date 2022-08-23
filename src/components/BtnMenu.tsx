@@ -48,7 +48,7 @@ interface btn {
   FastFowardFunc?: any;
   FastFowardText?: number;
   Refresh?: boolean;
-  RefreshFunc?: any;
+  RefreshFunc?: () => void;
   LogOut?: boolean;
   Revival?: boolean;
   RevivalDispatch?: () => { type: 'modalState/MODAL_SUCCESS' };
