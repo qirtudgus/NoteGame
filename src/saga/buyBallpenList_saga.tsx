@@ -1,4 +1,4 @@
-import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
+import { takeLatest, put, call, fork, all, CallEffectDescriptor, SimpleEffect } from 'redux-saga/effects';
 import {
   UPDATE_BALLPEN_REQUEST,
   UPDATE_BALLPEN_SUCCESS,
@@ -23,9 +23,8 @@ const realBuyBallPenListApi = async (ballpenName: string, gold: number): Promise
   });
 };
 
-function* updateBallPenListApi$(action: any): Generator<any, any, any> {
+function* updateBallPenListApi$(): Generator<any, any, { updateBallpenList: string[]; buyBallpenList: string[] }> {
   try {
-    console.log(action);
     const result = yield call(updateBallPenListApi);
     console.log(result);
     console.log(result.buyBallpenList);
@@ -42,7 +41,7 @@ function* realBuyBallPenListApi$(action: {
   type: string;
   ballpenName: string;
   gold: number;
-}): Generator<any, any, any> {
+}): Generator<any, any, { buyBallpenList: string[]; userInfo: any }> {
   try {
     console.log(action);
     const result = yield call(realBuyBallPenListApi, action.ballpenName, action.gold);

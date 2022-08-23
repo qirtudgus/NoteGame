@@ -96,9 +96,6 @@ const ShopPiece = (props: any, ref: any) => {
 
   //서버에서 구입한 팬목록 배열을 받아온다.
   // const penNameArr2 = useMemo(() => buyBallpenList, []);
-
-  console.log(buyBallpenList);
-
   let equip = userInfo.EquipBallpen;
 
   //장착할 무기의 공격력을 할당

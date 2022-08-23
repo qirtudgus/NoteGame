@@ -101,7 +101,6 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
     const result = yield call(loginLocalStorage, action.token);
     //DB의 볼펜리스트를 가져와 업데이트합니다.
     const penList = yield call(updateBallPenListApi);
-    console.log(penList);
     if (result.code === 200) {
       yield put({
         type: LOGIN_LOCALSTORAGE_SUCCESS,
