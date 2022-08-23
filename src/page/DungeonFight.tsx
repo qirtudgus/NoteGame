@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState ,useMemo} from 'react';
 import styled, {css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
+import { createRandomRewardsArray ,lists} from '../util/createRandomRewardsArray';
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
@@ -218,9 +218,20 @@ const DungeonFight = () => {
     (state: RootState) => state.monsterInfo.monsterInfo,
   );
 
-  const randomArr = useCallback(()=>{
-    createRandomRewardsArray(6, 'dungeon')
-  }, [refresh]);
+
+  //useMemo를 사용하여 해결!!!!!!
+    const ran = 
+    useMemo(()=> {
+      return createRandomRewardsArray(6, 'dungeon')
+    },[refresh])
+
+  // randomArr이 map메서드가 들어있어야한다..
+  // const randomArr = useCallback(
+  //   createRandomRewardsArray(6, 'dungeon') as Function;
+  // , [refresh]) as lists;
+
+  //아래처럼 사용하면 map함수는 사용되지만 스페이스바를 누를때마다함수를 계속 호출하여 배열이 계속 바뀐다.
+  // const randomArr:lists = createRandomRewardsArray(6, 'dungeon');
 
   const navigate = useNavigate();
 
@@ -257,7 +268,7 @@ const DungeonFight = () => {
     //빗나갈 시 miss를 띄우고 상대방은 유저를 때린다.
     if (cb.dataset.attacknumber === undefined) {
       setDamageText({ ...damageText, monster: 'Miss' });
-      setRefresh((refresh) => !refresh);
+      // setRefresh((refresh) => !refresh);
       setAttackAni({ user: randomAttack(), monster: false, moving: true });
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
@@ -361,7 +372,7 @@ const DungeonFight = () => {
 
   //공격 리워드중 높은 값을 리턴하여 스타일드컴포넌트 조건부렌더링에 사용
   function highRewordNum():number{
-   let result =  Math.max(...randomArr.map((i:any) => i['attackNumber']))
+   let result =  Math.max(...ran?.map((i:any) => i['attackNumber']))
    return result
   }
   return (
@@ -432,7 +443,7 @@ const DungeonFight = () => {
       )}
 
       <BoxWrap as='div'>
-        {randomArr.map((i: any, index: any) => (
+        {ran.map((i: any, index: any) => (
           <>
           { highRewordNum() === i.attackNumber ?
                     <Box highReword={highReword} key={index} data-attacknumber={i.attackNumber}>
