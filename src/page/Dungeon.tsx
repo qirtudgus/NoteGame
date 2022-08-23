@@ -11,7 +11,7 @@ import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
-import { LoginUserInfoInterface, revival_request, revival_success } from '../modules/login';
+import { LoginUserInfoInterface, revival_request } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
 const BottomBox = styled.div`

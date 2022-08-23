@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import logOut from '../img/로그아웃.svg';
 import { useDispatch } from 'react-redux';
 import { logout } from '../modules/login';

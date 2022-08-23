@@ -23,11 +23,10 @@
 
 // 8.api통신 시 토큰을 담아보내어 해당 유저의 db 조회 및 데이터 획득
 
-import { takeLatest, fork, all, put, call, take, delay } from 'redux-saga/effects';
+import { takeLatest, fork, all, put, call } from 'redux-saga/effects';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
   LOGIN_LOCALSTORAGE,
   LOGIN_LOCALSTORAGE_SUCCESS,
   LOGIN_LOCALSTORAGE_FAILURE,

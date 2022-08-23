@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { LoginUserInfoInterface, skill_request } from '../modules/login';
+import { LoginUserInfoInterface } from '../modules/login';
 import styled, { css } from 'styled-components';
 import SkillPiece from '../components/SkillPiece';
 import BtnMenu from '../components/BtnMenu';

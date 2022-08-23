@@ -20,7 +20,6 @@ const Register = () => {
   const [isCheckPassword, setIsCheckPassword] = useState<boolean>(false);
   const [PasswordAuthText, setPasswordAuthText] = useState<string>();
   const [isPasswordAuthText, setIsPasswordAuthText] = useState<string>();
-  const isRegister = useSelector((state: RootState) => state.register.isRegister);
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
   const navigate = useNavigate();
 

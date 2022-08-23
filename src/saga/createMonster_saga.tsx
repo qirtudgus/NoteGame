@@ -1,7 +1,6 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { CREATE_MONSTER_REQUEST, CREATE_MONSTER_SUCCESS } from '../modules/createMonster';
 import createRandomNum from '../util/createRandomNum';
-import customAxios from '../util/axios';
 
 const createMonsterRequest = async (dungeonFloor: number) => {
   let floor = dungeonFloor;

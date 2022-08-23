@@ -1,4 +1,4 @@
-import { takeLatest, put, call, fork, all, take } from 'redux-saga/effects';
+import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE } from '../modules/register';
 import { customAxios } from '../util/axios';
 //리덕스 사가 참고 페이지

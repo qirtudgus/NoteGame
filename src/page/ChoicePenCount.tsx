@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import BackHistoryBtn from '../components/BackHistoryBtn';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { pengame_boxcount_success } from '../modules/pengameBoxCount';

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import RefreshArrow from '../img/새로고침.svg';
 import { Back } from './BtnMenu';
 

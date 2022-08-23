@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import backArrow from '../img/뒤로가기.svg';
 import { Back } from './BtnMenu';
 
 const ReP = styled.p`

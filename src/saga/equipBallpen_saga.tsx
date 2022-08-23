@@ -1,4 +1,4 @@
-import { takeLatest, put, call, fork, all, take } from 'redux-saga/effects';
+import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { EQUIP_BALLPEN_REQUEST, EQUIP_BALLPEN_SUCCESS } from '../modules/login';
 import { customAxios } from '../util/axios';
 

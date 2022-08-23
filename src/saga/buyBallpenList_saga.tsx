@@ -1,4 +1,4 @@
-import { takeLatest, put, call, fork, all, CallEffectDescriptor, SimpleEffect } from 'redux-saga/effects';
+import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import {
   UPDATE_BALLPEN_REQUEST,
   UPDATE_BALLPEN_SUCCESS,

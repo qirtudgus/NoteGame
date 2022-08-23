@@ -1,4 +1,3 @@
-import HomeBtn from '../components/HomeBtn';
 import BtnMenu from '../components/BtnMenu';
 const Notfound = () => {
   return (
