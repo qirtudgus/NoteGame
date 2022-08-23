@@ -1,5 +1,5 @@
 export interface  dungeonRewardsList {
-  attackNumber?:number
+  attackNumber:number
 }
 
 export const dungeonRewardsListObj: dungeonRewardsList[] = [
