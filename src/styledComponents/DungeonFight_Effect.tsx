@@ -294,8 +294,20 @@ export const monsetKillEffect = keyframes`
     opacity: 0;
   }
 `;
-
 export const highRewordEffect = keyframes`
+ 	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+
+`;
+
+export const choiceRewordEffect = keyframes`
   0% {
     -webkit-transform: scale3d(1, 1, 1);
             transform: scale3d(1, 1, 1);
