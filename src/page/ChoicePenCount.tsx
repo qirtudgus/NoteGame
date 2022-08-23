@@ -61,7 +61,7 @@ const ChoicePenCount = () => {
 
   return (
     <>
-          <BtnMenu BackHistory></BtnMenu>
+      <BtnMenu BackHistory></BtnMenu>
 
       <PenCountWrap>
         <PenCountTitle>

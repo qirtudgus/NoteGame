@@ -208,8 +208,6 @@ const Ranking = () => {
   //현재 보여주고있는 페이지버튼 리스트
   const [pageList, setPageList] = useState<number[]>([]);
 
-
-
   const call = async (currentPageNum: number): Promise<void> => {
     let payloadObj = await customAxios('post', '/ranking/allranking', {
       currentPageNum,
@@ -228,12 +226,10 @@ const Ranking = () => {
     foo(currentPageNum);
   };
 
-  const callmyranking =   async () => {
-    let result = await customAxios('post', '/ranking/myranking/', {}).then(
-      (res) => {
-        return res.data;
-      },
-    );
+  const callmyranking = async () => {
+    let result = await customAxios('post', '/ranking/myranking/', {}).then((res) => {
+      return res.data;
+    });
     console.log(result.myRanking);
     let a: any = [];
     a.push(result.myRanking);
@@ -290,11 +286,9 @@ const Ranking = () => {
     e.preventDefault();
     await new Promise((r) => setTimeout(r, 500));
     console.log(Id);
-    let result = await customAxios('GET', `/ranking/searchid/${Id}`, {}).then(
-      (res) => {
-        return res.data;
-      },
-    );
+    let result = await customAxios('GET', `/ranking/searchid/${Id}`, {}).then((res) => {
+      return res.data;
+    });
     setDisabled(false);
 
     //코드가 404일경우 아이디가 없다는 것
@@ -327,8 +321,14 @@ const Ranking = () => {
                 onChange={handleChange}
               ></SearchInput>
               <SearchBtnWrap>
-                <SearchBtn disabled={disabled} onClick={handleSubmit}>
-                  <img src={돋보기} alt='검색' />
+                <SearchBtn
+                  disabled={disabled}
+                  onClick={handleSubmit}
+                >
+                  <img
+                    src={돋보기}
+                    alt='검색'
+                  />
                 </SearchBtn>
                 <SearchBtn
                   disabled={show.btn}
@@ -380,7 +380,10 @@ const Ranking = () => {
                   {list!.map((i: any, index: any) => (
                     <React.Fragment key={index}>
                       {i.Id === userId ? (
-                        <RankingTr myranking key={i.Id}>
+                        <RankingTr
+                          myranking
+                          key={i.Id}
+                        >
                           <RankingTh>{i.ranking}</RankingTh>
                           <RankingTh>{i.Id}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
@@ -411,7 +414,10 @@ const Ranking = () => {
                   setCurrentPageNum((prev) => prev - 1);
                 }}
               >
-                <img src={왼쪽화살표} alt='뒤로'></img>
+                <img
+                  src={왼쪽화살표}
+                  alt='뒤로'
+                ></img>
               </PageBtn>
               <PageMinWidth>
                 {pageList!.map((i: any, index: any) => (
@@ -433,7 +439,10 @@ const Ranking = () => {
                   setCurrentPageNum((prev) => prev + 1);
                 }}
               >
-                <img src={오른쪽화살표} alt='앞으로'></img>
+                <img
+                  src={오른쪽화살표}
+                  alt='앞으로'
+                ></img>
               </PageBtn>
             </BtnWrap>
           )}

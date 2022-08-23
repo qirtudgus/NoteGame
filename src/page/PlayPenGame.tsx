@@ -77,16 +77,14 @@ const PlayPenGame = () => {
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
 
   //useMemo를 사용하여 해결!!!!!!
-  const ran = 
-  useMemo(()=> {
-    return createRandomRewardsArray(boxCount, 'penGame')
-  },[refresh])
+  const ran = useMemo(() => {
+    return createRandomRewardsArray(boxCount, 'penGame');
+  }, [refresh]);
 
   // const randomArr = useCallback(createRandomRewardsArray(boxCount, 'penGame'), [
   //   boxCount,
   //   refresh,
   // ]);
-
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
@@ -136,8 +134,6 @@ const PlayPenGame = () => {
   };
 
   const FastForward = (): void => {
-
-
     if (penSpeed.speed === 1) {
       setPenSpeed({
         speed: 0.5,
@@ -181,12 +177,17 @@ const PlayPenGame = () => {
     };
   }, [gameStart]);
 
-
-
-
   return (
     <>
-    <BtnMenu Home BackHistory Refresh RefreshFunc={refreshRewards} FastFoward FastFowardFunc={FastForward} FastFowardText={penSpeed.text} ></BtnMenu>
+      <BtnMenu
+        Home
+        BackHistory
+        Refresh
+        RefreshFunc={refreshRewards}
+        FastFoward
+        FastFowardFunc={FastForward}
+        FastFowardText={penSpeed.text}
+      ></BtnMenu>
       {isLoading ? <Loading></Loading> : null}
 
       <TestInput
@@ -205,7 +206,7 @@ const PlayPenGame = () => {
           OnClick={replay}
         ></ResultModal>
       )}
-{/* 
+      {/* 
       <RefreshBtn corner func={refreshRewards}></RefreshBtn>
       <FastForwardBtn
         corner

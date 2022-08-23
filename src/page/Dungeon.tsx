@@ -11,7 +11,7 @@ import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
-import {revival_request,revival_success } from '../modules/login';
+import { revival_request, revival_success } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
 const BottomBox = styled.div`
@@ -51,7 +51,6 @@ const MoveBoxWrap = styled.div`
   display: flex;
 `;
 
-
 const Dungeon = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
@@ -59,15 +58,18 @@ const Dungeon = () => {
   const dispatch = useDispatch();
   const [before, setBefore] = useState(true);
 
-
   //환생 후 받을 스킬포인트
-  let addSkillPoint = Math.floor( userInfo?.DungeonFloor as number / 50 );
+  let addSkillPoint = Math.floor((userInfo?.DungeonFloor as number) / 50);
   //환생 후 돌아갈 층
-  let revivalFloor = Math.ceil(((userInfo?.DungeonFloor as number) * (userInfo?.RevivalPoint as number )  / 100));
+  let revivalFloor = Math.ceil(((userInfo?.DungeonFloor as number) * (userInfo?.RevivalPoint as number)) / 100);
 
   return (
     <>
-          <BtnMenu BackHistory Revival RevivalDispatch={() => dispatch(modal_success())} ></BtnMenu>
+      <BtnMenu
+        BackHistory
+        Revival
+        RevivalDispatch={() => dispatch(modal_success())}
+      ></BtnMenu>
 
       <FloorBox></FloorBox>
 
@@ -78,7 +80,11 @@ const Dungeon = () => {
             navigate('/dungeonfightbefore', { state: before });
           }}
         >
-          <img src={arrowLeft} alt='arrow'></img>이전 층으로
+          <img
+            src={arrowLeft}
+            alt='arrow'
+          ></img>
+          이전 층으로
         </MoveBox>
         <MoveBox2
           onClick={() => {
@@ -86,26 +92,35 @@ const Dungeon = () => {
             navigate('/dungeonfight');
           }}
         >
-          도전<img src={arrowRight} alt='arrow'></img>
+          도전
+          <img
+            src={arrowRight}
+            alt='arrow'
+          ></img>
         </MoveBox2>
       </MoveBoxWrap>
       <CharacterBox></CharacterBox>
-      <BottomBox>
-      </BottomBox>
-      {isModal &&
-          <RevivalModal>
-
-        스킬포인트 {addSkillPoint} 획득<br/>
-        던전 {revivalFloor} 층에서 시작
-        <p>환생하시겠습니까?</p>
-        <BasicButtons margin='5px 5px 5px 5px' ButtonText='예' OnClick={() => dispatch(revival_request())}></BasicButtons>
-        <BasicButtons margin='5px 5px 5px 5px' ButtonText='아니요' OnClick={() => dispatch(modal_failure())}></BasicButtons>
-
-          </RevivalModal>
-
-        }
+      <BottomBox></BottomBox>
+      {isModal && (
+        <RevivalModal>
+          스킬포인트 {addSkillPoint} 획득
+          <br />
+          던전 {revivalFloor} 층에서 시작
+          <p>환생하시겠습니까?</p>
+          <BasicButtons
+            margin='5px 5px 5px 5px'
+            ButtonText='예'
+            OnClick={() => dispatch(revival_request())}
+          ></BasicButtons>
+          <BasicButtons
+            margin='5px 5px 5px 5px'
+            ButtonText='아니요'
+            OnClick={() => dispatch(modal_failure())}
+          ></BasicButtons>
+        </RevivalModal>
+      )}
     </>
   );
 };
 
-export default React.memo (Dungeon);
+export default React.memo(Dungeon);

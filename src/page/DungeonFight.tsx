@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState ,useMemo} from 'react';
-import styled, {css } from 'styled-components';
+import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react';
+import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { createRandomRewardsArray ,lists} from '../util/createRandomRewardsArray';
+import { createRandomRewardsArray, lists } from '../util/createRandomRewardsArray';
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
@@ -12,9 +12,9 @@ import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
-import BtnMenu,{ButtonColor} from '../components/BtnMenu';
+import BtnMenu, { ButtonColor } from '../components/BtnMenu';
 import RevivalModal from '../components/RevivalModal';
-import { highRewordEffect,damageTextAni } from '../styledComponents/DungeonFight_Effect';
+import { highRewordEffect, damageTextAni } from '../styledComponents/DungeonFight_Effect';
 
 const BottomBox = styled.div`
   width: 100%;
@@ -89,10 +89,8 @@ const BoxWrap = styled.div`
   z-index: 11;
 `;
 interface highReword {
-  highReword?:boolean;
+  highReword?: boolean;
 }
-
-
 
 const Box = styled.div<highReword>`
   width: 60px;
@@ -107,7 +105,7 @@ const Box = styled.div<highReword>`
   text-align: center;
   word-break: keep-all;
   line-height: 35px;
-  transition:0.5s all;
+  transition: 0.5s all;
 
   &:nth-child(n) {
     border-right: none;
@@ -116,18 +114,18 @@ const Box = styled.div<highReword>`
     border-right: 1px solid#000;
   }
 
-  
   &.active {
     animation: ${highRewordEffect} 0.9s;
-  }  
+  }
 
   //가장 높은 리워드값에 css 부여
-  ${(props) => props.highReword && css`
-  /* background: #aaa; */
-  animation: ${highRewordEffect} 1s infinite;
-  `}
-`
-
+  ${(props) =>
+    props.highReword &&
+    css`
+      /* background: #aaa; */
+      animation: ${highRewordEffect} 1s infinite;
+    `}
+`;
 
 interface startBtnSuppressor {
   supp?: boolean;
@@ -147,10 +145,7 @@ const StartBtn = styled.div<startBtnSuppressor>`
   font-size: 2rem;
   font-weight: bold;
   z-index: 5000;
-  
 `;
-
-
 
 const DamageText = styled.div<HpInterface>`
   position: absolute;
@@ -214,16 +209,12 @@ const DungeonFight = () => {
   const inputRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
 
   const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
-  const monsterInfo: any = useSelector(
-    (state: RootState) => state.monsterInfo.monsterInfo,
-  );
-
+  const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
 
   //useMemo를 사용하여 해결!!!!!!
-    const ran = 
-    useMemo(()=> {
-      return createRandomRewardsArray(6, 'dungeon')
-    },[refresh])
+  const ran = useMemo(() => {
+    return createRandomRewardsArray(6, 'dungeon');
+  }, [refresh]);
 
   // randomArr이 map메서드가 들어있어야한다..
   // const randomArr = useCallback(
@@ -249,7 +240,7 @@ const DungeonFight = () => {
   let box = document.querySelectorAll('.active');
 
   const getReward = async (): Promise<void> => {
-    setHighReword(() => false)
+    setHighReword(() => false);
 
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
     setTimeout(function () {
@@ -263,7 +254,7 @@ const DungeonFight = () => {
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
   function dropClick(x: number, y: number): void {
     const cb = document.elementFromPoint(x, y) as HTMLElement;
-    cb.classList.add('active')
+    cb.classList.add('active');
 
     //빗나갈 시 miss를 띄우고 상대방은 유저를 때린다.
     if (cb.dataset.attacknumber === undefined) {
@@ -273,7 +264,6 @@ const DungeonFight = () => {
       setGelatineAni({ user: false, monster: true });
       setTimeout(function () {
         monsterAttack();
-        
       }, 1000);
       return;
     }
@@ -296,7 +286,7 @@ const DungeonFight = () => {
       setTimeout(function () {
         setVictoryModal(true);
         setIsModal(true);
-        setMonsterKill(true)
+        setMonsterKill(true);
       }, 1000);
 
       return;
@@ -314,9 +304,9 @@ const DungeonFight = () => {
 
   //몬스터 -> 사용자 공격 함수
   const monsterAttack = () => {
-    for(let value of box){
-      value.classList.remove('active')
-    };
+    for (let value of box) {
+      value.classList.remove('active');
+    }
     let resultDamage = monsterDamage(monsterInfo.monsterDamage);
     setDamageText({ ...damageText, user: resultDamage });
     let resultHp = userHpBar.nowHp - resultDamage;
@@ -335,9 +325,8 @@ const DungeonFight = () => {
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
     setSupp(false);
     //다시 하이리워드에 효과주기
-    setHighReword(() => true)
+    setHighReword(() => true);
     setRefresh((refresh) => !refresh);
-
   };
 
   //현재 체력 할당
@@ -348,14 +337,13 @@ const DungeonFight = () => {
   }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const gameStart = useCallback( (e: any) => {
-    console.log("이벤트")
-    let startBtn:HTMLElement = document.getElementById('startbuttons') as HTMLElement;
+  const gameStart = useCallback((e: any) => {
+    console.log('이벤트');
+    let startBtn: HTMLElement = document.getElementById('startbuttons') as HTMLElement;
     if (e.keyCode === 32) {
-
       startBtn.click();
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     (() => {
@@ -368,16 +356,16 @@ const DungeonFight = () => {
 
   //새로고침 시 몬스터체력이 0이되어 바로 다음층으로 진입이 가능하다.
   //이를 방지하여 렌더링시 체력을 체크하여 dungeon으로 보낸다.
-  if(monsterInfo.monsterFullHp === 0) navigate(-1)
+  if (monsterInfo.monsterFullHp === 0) navigate(-1);
 
   //공격 리워드중 높은 값을 리턴하여 스타일드컴포넌트 조건부렌더링에 사용
-  function highRewordNum():number{
-   let result =  Math.max(...ran?.map((i:any) => i['attackNumber']))
-   return result
+  function highRewordNum(): number {
+    let result = Math.max(...ran?.map((i: any) => i['attackNumber']));
+    return result;
   }
   return (
     <>
-    {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null }
+      {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null}
       {isModal ? (
         <VictoryModal
           isModal={victoryModal}
@@ -405,9 +393,7 @@ const DungeonFight = () => {
           </HpBox>
         </CharacterBox>
 
-        {gelatineAni.monster ? (
-          <DamageText damageText>-{damageText.monster}</DamageText>
-        ) : null}
+        {gelatineAni.monster ? <DamageText damageText>-{damageText.monster}</DamageText> : null}
         <MonsterBox
           id='monsterBox'
           gelatine={gelatineAni.monster}
@@ -426,10 +412,17 @@ const DungeonFight = () => {
         </MonsterBox>
       </CharacterBoxWrap>
 
-      <Ballpen penStatus={penStatus} ref={inputRef} isDungeon={true}></Ballpen>
+      <Ballpen
+        penStatus={penStatus}
+        ref={inputRef}
+        isDungeon={true}
+      ></Ballpen>
 
       {supp ? (
-        <StartBtn id='startbuttons' color='#555'>
+        <StartBtn
+          id='startbuttons'
+          color='#555'
+        >
           ...
         </StartBtn>
       ) : (
@@ -445,22 +438,31 @@ const DungeonFight = () => {
       <BoxWrap as='div'>
         {ran.map((i: any, index: any) => (
           <>
-          { highRewordNum() === i.attackNumber ?
-                    <Box highReword={highReword} key={index} data-attacknumber={i.attackNumber}>
-                    {i.attackNumber}%
-                  </Box>:
-                            <Box
-                            key={index} data-attacknumber={i.attackNumber}>
-                            {i.attackNumber}%
-                          </Box>
-        }
-
+            {highRewordNum() === i.attackNumber ? (
+              <Box
+                highReword={highReword}
+                key={index}
+                data-attacknumber={i.attackNumber}
+              >
+                {i.attackNumber}%
+              </Box>
+            ) : (
+              <Box
+                key={index}
+                data-attacknumber={i.attackNumber}
+              >
+                {i.attackNumber}%
+              </Box>
+            )}
           </>
         ))}
       </BoxWrap>
 
       <BottomBox></BottomBox>
-      <BtnMenu BackHistory Home></BtnMenu>
+      <BtnMenu
+        BackHistory
+        Home
+      ></BtnMenu>
     </>
   );
 };

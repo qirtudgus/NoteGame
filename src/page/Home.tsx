@@ -5,9 +5,7 @@ import { logout } from '../modules/login';
 import BtnMenu from '../components/BtnMenu';
 import React from 'react';
 const Home = () => {
-  const isTokenExPired = useSelector(
-    (state: RootState) => state.login.tokenExpired,
-  );
+  const isTokenExPired = useSelector((state: RootState) => state.login.tokenExpired);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logOutRequest = () => {

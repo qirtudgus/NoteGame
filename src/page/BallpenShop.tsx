@@ -7,7 +7,7 @@ import Notfound from './Notfound';
 import { useInView } from 'react-intersection-observer';
 import { penObj } from '../util/shopList';
 import BtnMenu from '../components/BtnMenu';
-import {ButtonColor} from '../components/BtnMenu';
+import { ButtonColor } from '../components/BtnMenu';
 
 const SkillPageWrap = styled(ButtonColor)`
   width: 100%;
@@ -20,7 +20,6 @@ const SkillPageWrap = styled(ButtonColor)`
   justify-content: flex-start;
   align-items: center;
   border-radius: 0px 0px 20px 20px;
-
 `;
 
 interface TabColor {
@@ -66,8 +65,6 @@ const SkillWrap = styled.div`
   flex-direction: column;
   width: 700px;
   height: 600px;
-
-
 `;
 
 const BallpenShop = () => {
@@ -76,24 +73,17 @@ const BallpenShop = () => {
     // delay: 2000, //로딩되는 딜레이
   });
   const [list, setList] = useState<any>([]);
-  const buyBallpenList = useSelector(
-    (state: RootState) => state.buyBallpenList.buyBallpenList,
-  );
+  const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
 
   useEffect(() => {
     setList((list: any) => [...list, ...penObj.slice(0, 4)]);
   }, []);
 
-
   useEffect(() => {
     if (InView === true) {
-      setList((list: any) => [
-        ...list,
-        ...penObj.slice(list.length, list.length + 2),
-      ]);
+      setList((list: any) => [...list, ...penObj.slice(list.length, list.length + 2)]);
     }
   }, [InView]);
-
 
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
   const [isSkillTab, setIsSkillTab] = useState({
@@ -105,7 +95,7 @@ const BallpenShop = () => {
     <>
       {buyBallpenList.buyBallpenList ? (
         <>
-        <BtnMenu BackHistory></BtnMenu>
+          <BtnMenu BackHistory></BtnMenu>
           <SkillWrap>
             <SkillTabWrap>
               <SkillTap
@@ -133,8 +123,8 @@ const BallpenShop = () => {
                     <>
                       {list.map((i: any, index: any) => (
                         <React.Fragment key={index}>
-                         {/* 마지막 요소에는 ref로 InView를 감지할 수 있는 요소로 렌더링 */}
-                          {list.length -1 === index ? (
+                          {/* 마지막 요소에는 ref로 InView를 감지할 수 있는 요소로 렌더링 */}
+                          {list.length - 1 === index ? (
                             <ShopPiece
                               ref={ref}
                               penname={i.ballPenName}

@@ -20,9 +20,7 @@ const Register = () => {
   const [isCheckPassword, setIsCheckPassword] = useState<boolean>(false);
   const [PasswordAuthText, setPasswordAuthText] = useState<string>();
   const [isPasswordAuthText, setIsPasswordAuthText] = useState<string>();
-  const isRegister = useSelector(
-    (state: RootState) => state.register.isRegister,
-  );
+  const isRegister = useSelector((state: RootState) => state.register.isRegister);
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
   const navigate = useNavigate();
 
@@ -94,7 +92,7 @@ const Register = () => {
 
   return (
     <>
-    <BtnMenu BackHistory></BtnMenu>
+      <BtnMenu BackHistory></BtnMenu>
       {isConfirmId.text}
       <BasicInputs
         placeholder='아이디'
@@ -104,22 +102,14 @@ const Register = () => {
         color='#fff'
       ></BasicInputs>
 
-      {isPassword ? (
-        <div>{PasswordAuthText}</div>
-      ) : (
-        <div>{PasswordAuthText}</div>
-      )}
+      {isPassword ? <div>{PasswordAuthText}</div> : <div>{PasswordAuthText}</div>}
       <BasicInputs
         placeholder='비밀번호'
         type='password'
         OnChange={onPasswordHandler}
         value={Password}
       ></BasicInputs>
-      {isCheckPassword ? (
-        <div>{isPasswordAuthText}</div>
-      ) : (
-        <div>{isPasswordAuthText}</div>
-      )}
+      {isCheckPassword ? <div>{isPasswordAuthText}</div> : <div>{isPasswordAuthText}</div>}
       <BasicInputs
         placeholder='비밀번호 확인'
         type='password'
