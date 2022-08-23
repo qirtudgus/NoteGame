@@ -8,6 +8,7 @@ import { useInView } from 'react-intersection-observer';
 import { penObj } from '../util/shopList';
 import BtnMenu from '../components/BtnMenu';
 import { ButtonColor } from '../components/BtnMenu';
+import { LoginUserInfoInterface } from '../modules/login';
 
 const SkillPageWrap = styled(ButtonColor)`
   width: 100%;
@@ -85,7 +86,7 @@ const BallpenShop = () => {
     }
   }, [InView]);
 
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const [isSkillTab, setIsSkillTab] = useState({
     passive: 'passive1',
     TabNum: 1,
@@ -114,7 +115,7 @@ const BallpenShop = () => {
               >
                 방어구
               </SkillTap2>
-              <p>골드 {userInfo?.Gold}</p>
+              <p>골드 {userInfo.Gold}</p>
             </SkillTabWrap>
             <SkillPageWrap as='div'>
               {

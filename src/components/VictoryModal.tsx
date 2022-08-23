@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { dungeon_request } from '../modules/login';
+import { dungeon_request, LoginUserInfoInterface } from '../modules/login';
 import BasicButtons from './BasicBtn';
 import { RootState } from '../modules/modules_index';
 
@@ -43,7 +43,7 @@ const VictoryModal = (props: any) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
-  const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   return (
     <BgWrap>
       {props.isModal ? (

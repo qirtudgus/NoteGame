@@ -15,6 +15,7 @@ import { userDamage, monsterDamage } from '../util/createDamage';
 import BtnMenu, { ButtonColor } from '../components/BtnMenu';
 import RevivalModal from '../components/RevivalModal';
 import { highRewordEffect, damageTextAni } from '../styledComponents/DungeonFight_Effect';
+import { LoginUserInfoInterface } from '../modules/login';
 
 const BottomBox = styled.div`
   width: 100%;
@@ -208,7 +209,7 @@ const DungeonFight = () => {
   });
   const inputRef = useRef() as React.MutableRefObject<HTMLElement>;
 
-  const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
 
   //useMemo를 사용하여 해결!!!!!!
@@ -386,7 +387,7 @@ const DungeonFight = () => {
           <HpBox>
             <HpText>
               <p>{userHpBar.nowHp}</p>
-              <p>/ {userInfo?.BasicHp}</p>
+              <p>/ {userInfo.BasicHp}</p>
             </HpText>
             <HpBar width={userHpBar.HpBarWidth}></HpBar>
             <BgBar></BgBar>

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { pengame_request } from '../modules/login';
+import { LoginUserInfoInterface, pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
@@ -59,7 +59,7 @@ const TestInput = styled.div`
 const PlayPenGame = () => {
   const dispatch = useDispatch();
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const [penStatus, setPenSatus] = useState<boolean>(true);
   const [refresh, setrefresh] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -194,8 +194,8 @@ const PlayPenGame = () => {
         <ResultModal
           isModal={isFalseModal}
           cName='modalBtn'
-          beforeGold={userInfo?.beforeGold}
-          afterGold={userInfo?.Gold}
+          beforeGold={userInfo.beforeGold}
+          afterGold={userInfo.Gold}
           OnClick={replay}
         ></ResultModal>
       )}

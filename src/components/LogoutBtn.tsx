@@ -23,7 +23,6 @@ const LogOutBtn = () => {
   return (
     <>
       <Back
-        corner={true}
         onClick={() => {
           logOutRequest();
         }}

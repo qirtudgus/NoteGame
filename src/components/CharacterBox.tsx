@@ -4,12 +4,13 @@ import 캐릭터배경 from '../img/캐릭터배경.png';
 import { gelatine, attack1, attack2, attack3, attack4, movingAni } from '../styledComponents/DungeonFight_Effect';
 import { ballPenList } from '../util/ballPenList';
 import { RootState } from '../modules/modules_index';
+import { LoginUserInfoInterface } from '../modules/login';
+
 interface dungeonAni {
   gelatine?: boolean;
   attack?: string;
   moving?: boolean;
 }
-
 const CharacterWrap = styled.div<dungeonAni>`
   width: 200px;
   height: 300px;
@@ -86,9 +87,8 @@ interface children {
   attack?: string;
   moving?: boolean;
 }
-
 const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
-  const userInfo: any = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const equipBallpen = userInfo.EquipBallpen;
   return (
     <>

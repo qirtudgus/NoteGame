@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { skill_request } from '../modules/login';
+import { LoginUserInfoInterface, skill_request } from '../modules/login';
 import styled, { css } from 'styled-components';
 import SkillPiece from '../components/SkillPiece';
 import BtnMenu from '../components/BtnMenu';
@@ -79,8 +79,7 @@ const SkillWrap = styled.div`
 `;
 
 const Skill = () => {
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
-  const dispatch = useDispatch();
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const [isSkillTab, setIsSkillTab] = useState({
     passive: 'passive1',
     TabNum: 1,
@@ -114,7 +113,7 @@ const Skill = () => {
           >
             케케브
           </SkillTap3>
-          <p>스킬 포인트 {userInfo?.SkillPoint}</p>
+          <p>스킬 포인트 {userInfo.SkillPoint}</p>
         </SkillTabWrap>
         <SkillPageWrap>
           {
@@ -124,28 +123,28 @@ const Skill = () => {
                   <SkillPiece
                     skillName='UpGoldPen'
                     title='황금 볼펜'
-                    desc={`볼펜 굴리기로 획득하는 골드가 ${userInfo?.UpGoldPen! * 1}%
+                    desc={`볼펜 굴리기로 획득하는 골드가 ${userInfo.UpGoldPen! * 1}%
                     상승합니다.`}
-                    level={userInfo?.UpGoldPen}
+                    level={userInfo.UpGoldPen}
                   ></SkillPiece>
                   <SkillPiece
                     skillName='UpGoldHunt'
                     title='부지런한 학생'
-                    desc={`던전에서 획득하는 골드가 ${userInfo?.UpGoldHunt! * 1}%
+                    desc={`던전에서 획득하는 골드가 ${userInfo.UpGoldHunt! * 1}%
             상승합니다.`}
-                    level={userInfo?.UpGoldHunt}
+                    level={userInfo.UpGoldHunt}
                   ></SkillPiece>
                   <SkillPiece
                     skillName='BetterPen'
                     title='펜은 칼보다 강하다.'
-                    desc={`던전에서 공격력이 ${userInfo?.BetterPen! * 2}% 상승합니다.`}
-                    level={userInfo?.BetterPen}
+                    desc={`던전에서 공격력이 ${userInfo.BetterPen! * 2}% 상승합니다.`}
+                    level={userInfo.BetterPen}
                   ></SkillPiece>
                   <SkillPiece
                     skillName='UpMaxHp'
                     title='운동장 열바퀴.'
-                    desc={`기본 체력이 ${userInfo?.UpMaxHp! * 100} 상승합니다.`}
-                    level={userInfo?.UpMaxHp}
+                    desc={`기본 체력이 ${userInfo.UpMaxHp! * 100} 상승합니다.`}
+                    level={userInfo.UpMaxHp}
                   ></SkillPiece>
                 </>
               ),

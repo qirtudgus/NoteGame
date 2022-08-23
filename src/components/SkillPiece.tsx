@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { skill_request } from '../modules/login';
+import { LoginUserInfoInterface, skill_request } from '../modules/login';
 
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
@@ -57,7 +57,7 @@ const SkillBtn = styled.button`
 
 const SkillPiece = (props: any) => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
 
   return (
     <>
@@ -71,8 +71,8 @@ const SkillPiece = (props: any) => {
         </SkillTextWrap>
         <SkillBtn
           onClick={() => {
-            if (userInfo?.SkillPoint! <= 0) return;
-            dispatch(skill_request(`${props.skillName}`, userInfo?.SkillPoint!));
+            if (userInfo.SkillPoint! <= 0) return;
+            dispatch(skill_request(`${props.skillName}`, userInfo.SkillPoint!));
           }}
         >
           <img

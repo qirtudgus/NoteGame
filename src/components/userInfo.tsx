@@ -4,6 +4,7 @@ import { RootState } from '../modules/modules_index';
 // import { expTable } from '../util/ExpTable';
 import { expTable } from '../util/expTable';
 import React from 'react';
+import { LoginUserInfoInterface } from '../modules/login';
 
 const BasicBox = styled.div`
   width: auto;
@@ -19,17 +20,17 @@ const BasicBox = styled.div`
 
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.login.id);
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
 
   return (
     <BasicBox>
       <p>{userId}</p>
-      <p>레벨 {userInfo?.Level}</p>
-      <p>체력 {userInfo?.BasicHp}</p>
-      <p>공격력 {userInfo?.BasicDamage}</p>
-      <p>골드 {userInfo?.Gold.toLocaleString()}</p>
+      <p>레벨 {userInfo.Level}</p>
+      <p>체력 {userInfo.BasicHp}</p>
+      <p>공격력 {userInfo.BasicDamage}</p>
+      <p>골드 {userInfo.Gold.toLocaleString()}</p>
       <p>
-        경험치 {userInfo?.Exp} / {expTable[userInfo?.Level!]}
+        경험치 {userInfo.Exp} / {expTable[userInfo.Level]}
       </p>
     </BasicBox>
   );

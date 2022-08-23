@@ -179,7 +179,7 @@ type LoginAction =
   | ReturnType<typeof revival_request>
   | ReturnType<typeof revival_success>;
 
-export interface userInfoInterface {
+export interface LoginUserInfoInterface {
   Level: number;
   BasicDamage: number;
   BasicHp: number;
@@ -207,7 +207,7 @@ type IsLoginState = {
   token: string | undefined | any;
   id?: string | number | undefined;
   tokenExpired?: boolean;
-  userInfo?: userInfoInterface;
+  userInfo?: LoginUserInfoInterface;
 };
 
 // 초기상태를 선언합니다.

@@ -11,7 +11,7 @@ import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
-import { revival_request, revival_success } from '../modules/login';
+import { LoginUserInfoInterface, revival_request, revival_success } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
 const BottomBox = styled.div`
@@ -52,7 +52,7 @@ const MoveBoxWrap = styled.div`
 `;
 
 const Dungeon = () => {
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -76,7 +76,7 @@ const Dungeon = () => {
       <MoveBoxWrap>
         <MoveBox
           onClick={() => {
-            dispatch(create_monster_request(userInfo?.DungeonFloor! - 1));
+            dispatch(create_monster_request(userInfo.DungeonFloor! - 1));
             navigate('/dungeonfightbefore', { state: before });
           }}
         >
@@ -88,7 +88,7 @@ const Dungeon = () => {
         </MoveBox>
         <MoveBox2
           onClick={() => {
-            dispatch(create_monster_request(userInfo?.DungeonFloor));
+            dispatch(create_monster_request(userInfo.DungeonFloor));
             navigate('/dungeonfight');
           }}
         >

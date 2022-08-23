@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
+import { LoginUserInfoInterface } from '../modules/login';
 
 const Floorwrap = styled.div`
   align-items: center;
@@ -13,11 +14,11 @@ const Floorwrap = styled.div`
 `;
 
 const FloorBox = (props: any) => {
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
 
   return (
     <>
-      <Floorwrap>{props.before ? `${userInfo?.DungeonFloor! - 1}층` : ` ${userInfo?.DungeonFloor}층`}</Floorwrap>
+      <Floorwrap>{props.before ? `${userInfo.DungeonFloor! - 1}층` : ` ${userInfo.DungeonFloor}층`}</Floorwrap>
     </>
   );
 };

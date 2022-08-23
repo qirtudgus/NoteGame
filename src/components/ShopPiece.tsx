@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import styled, { css } from 'styled-components';
 import { real_buy_ballpen_request } from '../modules/buyBallpenList';
-import { equip_ballpen_request } from '../modules/login';
+import { equip_ballpen_request, LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
 import { ButtonColor } from './BtnMenu';
 
@@ -90,13 +90,13 @@ const ShopBox = styled(ButtonColor)<shopBoxInterface>`
 const ShopPiece = (props: any, ref: any) => {
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
 
   //서버에서 구입한 팬목록 배열을 받아온다.
   const penNameArr2 = useMemo(() => buyBallpenList.buyBallpenList, [buyBallpenList]);
-  let equip = userInfo?.EquipBallpen;
+  let equip = userInfo.EquipBallpen;
 
   //장착할 무기의 공격력을 할당
   const penDamage = (equipBallpenName: string): number => {
@@ -157,7 +157,7 @@ const ShopPiece = (props: any, ref: any) => {
           <ShopBtn
             as='div'
             onClick={() => {
-              if (userInfo?.Gold! < props.Gold) {
+              if (userInfo.Gold! < props.Gold) {
                 alert('골드가 부족해요');
                 return;
               } else {

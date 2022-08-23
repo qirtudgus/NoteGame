@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { ForwardedRef, forwardRef, ForwardRefRenderFunction, MutableRefObject } from 'react';
+import { ForwardedRef, forwardRef } from 'react';
 import {
   PenImg,
   PenImgWrap,
@@ -10,6 +10,7 @@ import {
   PenEndDun,
 } from '../styledComponents/DungeonFight_Effect';
 import { ballPenList } from '../util/ballPenList';
+import { LoginUserInfoInterface } from '../modules/login';
 
 interface ballpen {
   penSpeed?: number;
@@ -18,9 +19,9 @@ interface ballpen {
 }
 
 const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElement>) => {
-  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
 
-  let equipBallpen = userInfo?.EquipBallpen as string;
+  let equipBallpen = userInfo.EquipBallpen as string;
 
   return (
     <>
@@ -29,13 +30,13 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElemen
           <PenImgWrapDun>
             <PenImgDun
               src={ballPenList[equipBallpen]}
-              penSpeed={userInfo?.DungeonPenSpeed}
+              penSpeed={userInfo.DungeonPenSpeed}
               penStatus={penStatus}
             ></PenImgDun>
             <PenEndDun
               penStatus={penStatus}
               ref={ref}
-              penSpeed={userInfo?.DungeonPenSpeed}
+              penSpeed={userInfo.DungeonPenSpeed}
             ></PenEndDun>
           </PenImgWrapDun>
         </>
@@ -44,13 +45,13 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElemen
           <PenImgWrap>
             <PenImg
               src={ballPenList[equipBallpen]}
-              penSpeed={userInfo?.PenGamePenSpeed}
+              penSpeed={userInfo.PenGamePenSpeed}
               penStatus={penStatus}
             ></PenImg>
             <PenEnd2
               penStatus={penStatus}
               ref={ref}
-              penSpeed={userInfo?.PenGamePenSpeed}
+              penSpeed={userInfo.PenGamePenSpeed}
             ></PenEnd2>
           </PenImgWrap>
         </>
