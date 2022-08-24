@@ -296,13 +296,14 @@ export const monsetKillEffect = keyframes`
 `;
 export const highRewordEffect = keyframes`
  	0% {
-		background-position: 0% 50%;
+  
+		background-position: 0% 30%;
 	}
 	50% {
-		background-position: 100% 50%;
+		background-position: 0% 70%;
 	}
 	100% {
-		background-position: 0% 50%;
+		background-position: 0% 30%;
 	}
 
 `;
@@ -375,4 +376,16 @@ export const movingAni = keyframes`
 from, to { transform: translate(0px, 0px) ; }
 25% { transform: translate(270px, 0px); }
 75% { transform: translate(270px, 0px); }
+`;
+
+//스타트버튼 애니메이션
+export const startBtnAni = keyframes`
+0% { height:0%;}
+100% { height:100% ;}
+`;
+
+//스타트버튼이 켜졌을 때
+export const startBtnAni2 = keyframes`
+0% { scale:1; opacity:1;}
+100% { scale:1.5; opacity:0;}
 `;
