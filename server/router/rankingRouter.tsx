@@ -5,12 +5,12 @@ export const rankingRouter = express.Router();
 
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
-const rankingQuery = 'SELECT Id, MaxDungeonFloor, Level FROM users';
-const myrankingQuery = 'SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC';
+const rankingQuery = `SELECT Id, MaxDungeonFloor, Level FROM users`;
+const myrankingQuery = `SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC`;
 //https://extbrain.tistory.com/51
 //내림차순으로 정렬해서 가져오면 서버에 일을 하나 덜을 수 있다. 이따 적용해보자.
 
-const searchRankingQuery = 'SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC';
+const searchRankingQuery = `SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC`;
 
 interface data {
   data?: [];
@@ -34,21 +34,6 @@ rankingRouter.post('/allranking', (req, res, next) => {
       ...i,
       ranking: index + 1,
     }));
-
-    //더미데이터 순위 정렬
-    // let sortRankingArr2 = dummyUserObj.sort(function (a: any, b: any) {
-    //   return b.DungeonFloor - a.DungeonFloor;
-    // });
-    //더미데이터 100까지만 자르기
-    // let sliceArr = sortRankingArr2.slice(0, 100);
-    // 잘라낸 데이터에 랭킹 추가
-    // let addRankingNumberArr2 = sliceArr.map((i: any, index: any) => ({
-    //   ...i,
-    //   ranking: index + 1,
-    // }));
-
-    // console.log(addRankingNumberArr);
-    // console.log(dummyUserObj.length);
 
     let payload: data = {};
     //페이지넘버를 요청했을 때
