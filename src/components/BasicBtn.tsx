@@ -27,6 +27,7 @@ interface ButtonText {
   TabIndex?: any;
   ClassName?: any;
   margin?: string;
+  id?: string;
 }
 
 const BasicButtons = ({
@@ -39,6 +40,7 @@ const BasicButtons = ({
   ClassName,
   OnKeyPress,
   margin,
+  id,
 }: ButtonText) => {
   return (
     <BasicButton
@@ -50,6 +52,7 @@ const BasicButtons = ({
       color={color}
       onClick={OnClick}
       margin={margin}
+      id={id}
     >
       {ButtonText}
     </BasicButton>
