@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
+import { createRandomRewardsArray, createPenRewardArray } from '../util/createRandomRewardsArray';
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
@@ -14,9 +14,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
 import BtnMenu from '../components/BtnMenu';
 import RevivalModal from '../components/RevivalModal';
-import { highRewordEffect, damageTextAni } from '../styledComponents/DungeonFight_Effect';
+import { highRewordEffect, damageTextAni, choiceRewordEffect } from '../styledComponents/DungeonFight_Effect';
 import { LoginUserInfoInterface } from '../modules/login';
-
+import { penObj } from '../util/shopList';
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -106,7 +106,7 @@ const Box = styled.div<highReword>`
   text-align: center;
   word-break: keep-all;
   line-height: 35px;
-  transition: 0.5s all;
+  transition: 0.3s all;
 
   &:nth-child(n) {
     border-right: none;
@@ -114,17 +114,23 @@ const Box = styled.div<highReword>`
   &:last-child {
     border-right: 1px solid#000;
   }
-
+  //당첨된 리워드에게 이펙트
   &.active {
-    animation: ${highRewordEffect} 0.9s;
+    animation: ${choiceRewordEffect} 0.9s;
   }
 
   //가장 높은 리워드값에 css 부여
   ${(props) =>
     props.highReword &&
     css`
+      color: #fff;
       /* background: #aaa; */
-      animation: ${highRewordEffect} 1s infinite;
+      font-weight: bold;
+      font-size: 1.4rem;
+      background: linear-gradient(-45deg, #faf602, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: ${highRewordEffect} 1s ease infinite;
+      /* animation: ${highRewordEffect} 1s infinite; */
     `}
 `;
 
@@ -180,6 +186,7 @@ const DungeonFight = () => {
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
+  const [list, setList] = useState();
   const { state } = useLocation();
   const [attackAni, setAttackAni] = useState({
     user: 'attack' + 0,
@@ -212,18 +219,21 @@ const DungeonFight = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
 
-  //useMemo를 사용하여 해결!!!!!!
-  const randomRewardArray = useMemo(() => {
-    return createRandomRewardsArray(6, 'dungeon');
+  let penReward = penObj.find((i) => i.ballPenName === userInfo.EquipBallpen);
+
+  //볼펜리스트 배열의
+  let penRewardArray = useMemo(() => {
+    // if (penReward === undefined) return;
+    //penObj에서 장착한 볼펜의 인덱스를찾아 rewardList 배열을 찾아 획득하자.
+    return createPenRewardArray(penReward?.rewardList!);
   }, [refresh]);
+  // console.log(penReward);
+  console.log(penRewardArray);
 
-  // randomArr이 map메서드가 들어있어야한다..
-  // const randomArr = useCallback(
-  //   createRandomRewardsArray(6, 'dungeon') as Function;
-  // , [refresh]) as lists;
-
-  //아래처럼 사용하면 map함수는 사용되지만 스페이스바를 누를때마다함수를 계속 호출하여 배열이 계속 바뀐다.
-  // const randomArr:lists = createRandomRewardsArray(6, 'dungeon');
+  //useMemo를 사용하여 해결!!!!!!
+  // const randomRewardArray = useMemo(() => {
+  //   return createRandomRewardsArray(6, 'dungeon');
+  // }, [refresh]);
 
   const navigate = useNavigate();
 
@@ -360,10 +370,18 @@ const DungeonFight = () => {
   if (monsterInfo.monsterFullHp === 0) navigate(-1);
 
   //공격 리워드중 높은 값을 리턴하여 스타일드컴포넌트 조건부렌더링에 사용
-  function highRewordNum(): number {
-    let result = Math.max(...randomRewardArray.map((i: any) => i['attackNumber']));
+  // function highRewordNum(): number {
+  //   let result = Math.max(...randomRewardArray.map((i: any) => i['attackNumber']));
+  //   return result;
+  // }
+
+  //공격 리워드중 높은 값을 리턴하여 스타일드컴포넌트 조건부렌더링에 사용
+  function highRewordNum2(): number | undefined {
+    if (!penRewardArray) return;
+    let result = Math.max(...penRewardArray);
     return result;
   }
+
   return (
     <>
       {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null}
@@ -436,28 +454,30 @@ const DungeonFight = () => {
         </StartBtn>
       )}
 
-      <BoxWrap as='div'>
-        {randomRewardArray.map((i: any, index: any) => (
-          <>
-            {highRewordNum() === i.attackNumber ? (
-              <Box
-                highReword={highReword}
-                key={index}
-                data-attacknumber={i.attackNumber}
-              >
-                {i.attackNumber}%
-              </Box>
-            ) : (
-              <Box
-                key={index}
-                data-attacknumber={i.attackNumber}
-              >
-                {i.attackNumber}%
-              </Box>
-            )}
-          </>
-        ))}
-      </BoxWrap>
+      {penRewardArray ? (
+        <BoxWrap as='div'>
+          {penRewardArray.map((i: any, index: any) => (
+            <>
+              {highRewordNum2() === i ? (
+                <Box
+                  highReword={highReword}
+                  key={index}
+                  data-attacknumber={i}
+                >
+                  {i}%
+                </Box>
+              ) : (
+                <Box
+                  key={index}
+                  data-attacknumber={i}
+                >
+                  {i}%
+                </Box>
+              )}
+            </>
+          ))}
+        </BoxWrap>
+      ) : null}
 
       <BottomBox></BottomBox>
       <BtnMenu
