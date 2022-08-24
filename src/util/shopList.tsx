@@ -29,7 +29,7 @@ export const penObj: pen[] = [
     img: 모남볼펜,
     dungeonPenSpeed: 3.5,
     penGamePenSpeed: 0.5,
-    rewardList: [11, 22, 33, 44, 55, 66, 77, 88, 1000, 10000, 100000],
+    rewardList: [100, 100, 300, 100, 100, 100],
   },
   {
     title: '하이테크 볼펜',
