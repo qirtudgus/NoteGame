@@ -52,6 +52,7 @@ const VictoryModal = (props: any) => {
           <p style={result}>경험치 {props.huntExp} 획득</p>
           <p style={result}>골드 {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)} 획득</p>
           <BasicButtons
+            id='nextBtn'
             ClassName={props.cName}
             ButtonText={props.before ? '돌아가기' : '다음층으로'}
             color='#e5005a'
