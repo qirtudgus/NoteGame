@@ -14,7 +14,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
 import BtnMenu from '../components/BtnMenu';
 import RevivalModal from '../components/RevivalModal';
-import { highRewordEffect, damageTextAni, choiceRewordEffect } from '../styledComponents/DungeonFight_Effect';
+import {
+  highRewordEffect,
+  damageTextAni,
+  choiceRewordEffect,
+  startBtnAni,
+  startBtnAni2,
+} from '../styledComponents/DungeonFight_Effect';
 import { LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
 const BottomBox = styled.div`
@@ -90,7 +96,7 @@ const BoxWrap = styled.div`
   z-index: 11;
 `;
 interface highReword {
-  highReword?: boolean;
+  highActive?: boolean;
 }
 
 const Box = styled.div<highReword>`
@@ -98,7 +104,7 @@ const Box = styled.div<highReword>`
   padding: 0 10px 0 10px;
   height: 175px;
   background: #fff;
-  border: 1px solid#000;
+  border: 1px solid#9e9e9e;
   position: relative;
   font-size: 20px;
   display: flex;
@@ -112,25 +118,54 @@ const Box = styled.div<highReword>`
     border-right: none;
   }
   &:last-child {
-    border-right: 1px solid#000;
+    border-right: 1px solid#9e9e9e;
   }
   //당첨된 리워드에게 이펙트
   &.active {
-    animation: ${choiceRewordEffect} 0.9s;
+    animation: ${choiceRewordEffect} 1s;
   }
 
   //가장 높은 리워드값에 css 부여
   ${(props) =>
-    props.highReword &&
+    props.highActive &&
     css`
-      color: #fff;
-      /* background: #aaa; */
-      font-weight: bold;
-      font-size: 1.4rem;
-      background: linear-gradient(-45deg, #faf602, #e73c7e, #23a6d5, #23d5ab);
-      background-size: 400% 400%;
-      animation: ${highRewordEffect} 1s ease infinite;
-      /* animation: ${highRewordEffect} 1s infinite; */
+    color:#fff;
+    //평소 높은 리워드에 표시할 스타일 
+    font-weight: bold;
+    font-size: 1.5rem;
+    background: linear-gradient(  0deg,
+      #ff2819,
+      #ffcc32
+    );
+    background-size: 200% 200%;
+    animation: ${highRewordEffect} 1.25s ease-in infinite;
+
+    &::after{
+        position: absolute;
+    content: "";
+    top: -3px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 105%;
+    width: 100%;
+    transform: scale(1) translateZ(0);
+    filter: blur(10px);
+    background: linear-gradient(  0deg,
+        #ff2819,
+        #ffc719
+    );
+    background-size: 200% 200%;
+    animation: ${highRewordEffect} 1.25s ease-in infinite;
+    }
+    //높은 리워드가 당첨되면 해당 css에 코드를 작성하여 스타일 가능
+    &.active{
+    //active가 활성화 됐을 때 after 속성도 스타일 지정 가능
+    &::after{
+      }
+    }
+}
+
     `}
 `;
 
@@ -152,6 +187,44 @@ const StartBtn = styled.div<startBtnSuppressor>`
   font-size: 2rem;
   font-weight: bold;
   z-index: 5000;
+  overflow: hidden;
+
+  // 진행중 버튼이 렌더링 될 때
+  ${(props) =>
+    props.supp &&
+    css`
+      &::after {
+        content: '';
+
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.3);
+        animation: ${startBtnAni} 1.3s linear;
+      }
+    `}
+
+  //시작버튼이 렌더링 될 때
+  ${(props) =>
+    props.supp === false &&
+    css`
+      &::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        filter: blur(10px);
+        z-index: 111;
+        background: rgba(255, 255, 255, 1);
+        animation: ${startBtnAni2} 0.5s linear;
+        animation-fill-mode: forwards;
+      }
+    `}
 `;
 
 const DamageText = styled.div<HpInterface>`
@@ -180,13 +253,12 @@ function randomAttack() {
 const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [monsterKill, setMonsterKill] = useState<boolean>(false);
-  const [highReword, setHighReword] = useState<boolean>(true);
+  const [highActive, setHighActive] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
   const [supp, setSupp] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [penStatus, setPenSatus] = useState<boolean>(true);
-  const [list, setList] = useState();
   const { state } = useLocation();
   const [attackAni, setAttackAni] = useState({
     user: 'attack' + 0,
@@ -223,12 +295,9 @@ const DungeonFight = () => {
 
   //볼펜리스트 배열의
   let penRewardArray = useMemo(() => {
-    // if (penReward === undefined) return;
     //penObj에서 장착한 볼펜의 인덱스를찾아 rewardList 배열을 찾아 획득하자.
     return createPenRewardArray(penReward?.rewardList!);
   }, [refresh]);
-  // console.log(penReward);
-  console.log(penRewardArray);
 
   //useMemo를 사용하여 해결!!!!!!
   // const randomRewardArray = useMemo(() => {
@@ -247,12 +316,7 @@ const DungeonFight = () => {
     await getReward();
   };
 
-  //애니메이션 삭제용
-  let box = document.querySelectorAll('.active');
-
   const getReward = async (): Promise<void> => {
-    setHighReword(() => false);
-
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
     setTimeout(function () {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
@@ -309,15 +373,16 @@ const DungeonFight = () => {
     setGelatineAni({ user: false, monster: true });
 
     setTimeout(function () {
+      let box = document.querySelectorAll('.active');
+      for (let value of box) {
+        value.classList.remove('active');
+      }
       monsterAttack();
     }, 1000);
   }
 
   //몬스터 -> 사용자 공격 함수
   const monsterAttack = () => {
-    for (let value of box) {
-      value.classList.remove('active');
-    }
     let resultDamage = monsterDamage(monsterInfo.monsterDamage);
     setDamageText({ ...damageText, user: resultDamage });
     let resultHp = userHpBar.nowHp - resultDamage;
@@ -336,7 +401,6 @@ const DungeonFight = () => {
     setUserHpBar({ HpBarWidth: resultHpBar, nowHp: resultHp });
     setSupp(false);
     //다시 하이리워드에 효과주기
-    setHighReword(() => true);
     setRefresh((refresh) => !refresh);
   };
 
@@ -351,8 +415,16 @@ const DungeonFight = () => {
   const gameStart = useCallback((e: any) => {
     console.log('이벤트');
     let startBtn: HTMLElement = document.getElementById('startbuttons') as HTMLElement;
+    let nextBtn: HTMLElement = document.getElementById('nextBtn') as HTMLElement;
     if (e.keyCode === 32) {
-      startBtn.click();
+      if (nextBtn) {
+        nextBtn.click();
+        return;
+      }
+      if (startBtn) {
+        startBtn.click();
+        return;
+      }
     }
   }, []);
 
@@ -439,13 +511,15 @@ const DungeonFight = () => {
 
       {supp ? (
         <StartBtn
+          supp={supp}
           id='startbuttons'
-          color='#555'
+          color='#fff'
         >
-          ...
+          멈춰
         </StartBtn>
       ) : (
         <StartBtn
+          supp={supp}
           id='startbuttons'
           color='#fff'
           onClick={penStatus ? () => toggle() : () => toggleExit()}
@@ -460,7 +534,7 @@ const DungeonFight = () => {
             <>
               {highRewordNum2() === i ? (
                 <Box
-                  highReword={highReword}
+                  highActive={highActive}
                   key={index}
                   data-attacknumber={i}
                 >
