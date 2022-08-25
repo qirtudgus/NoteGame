@@ -345,6 +345,7 @@ const DungeonFight = () => {
     let userResultDamage = userDamage(
       parseInt(cb.dataset.attacknumber as string),
       userInfo.BasicDamage,
+      userInfo.WeaponDamage,
       userInfo.BetterPen,
     );
     let hp: number = monsterHpBar.nowHp - userResultDamage;
@@ -538,6 +539,10 @@ const DungeonFight = () => {
                   key={index}
                   data-attacknumber={i}
                 >
+                  {Math.ceil(
+                    monsterHpBar.nowHp / userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
+                  )}
+                  <br />
                   {i}%
                 </Box>
               ) : (
@@ -545,6 +550,10 @@ const DungeonFight = () => {
                   key={index}
                   data-attacknumber={i}
                 >
+                  {Math.ceil(
+                    monsterHpBar.nowHp / userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
+                  )}
+                  <br />
                   {i}%
                 </Box>
               )}
