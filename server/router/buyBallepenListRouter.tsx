@@ -5,9 +5,8 @@ import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 export const buyBallpenListRouter = express.Router();
 
 const userFindQuery = 'SELECT BuyBallpenList FROM users WHERE ID = ?';
-const EquipBallpenQuery = `UPDATE users SET EquipBallpen = ?, BasicDamage = ?, DungeonPenSpeed = ?, PenGamePenSpeed = ? WHERE ID = ?`;
-const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
-const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
+const EquipBallpenQuery = `UPDATE users SET EquipBallpen = ?, WeaponDamage = ?, DungeonPenSpeed = ?, PenGamePenSpeed = ? WHERE ID = ?`;
+
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const ConcatBuyBallpenList = `UPDATE users SET BuyBallpenList = CONCAT(BuyBallpenList,',',?) WHERE ID = ?`;
 const BuyAfterGoldQuery = `UPDATE users SET Gold = Gold - ? WHERE ID = ?`;
@@ -49,7 +48,6 @@ buyBallpenListRouter.post('/equip', (req, res, next) => {
   const { ballpenName, weaponDamage, PenSpeed } = req.body;
   console.log(weaponDamage);
   console.log(PenSpeed);
-  let arr = [ballpenName, weaponDamage, PenSpeed.DungeonPenSpeed, PenSpeed.PenGamePenSpeed, userId];
   db.query(
     EquipBallpenQuery,
     [ballpenName, weaponDamage, PenSpeed.DungeonPenSpeed, PenSpeed.PenGamePenSpeed, userId],
