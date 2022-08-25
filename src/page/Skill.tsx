@@ -123,28 +123,34 @@ const Skill = () => {
                   <SkillPiece
                     skillName='UpGoldPen'
                     title='황금 볼펜'
-                    desc={`볼펜 굴리기로 획득하는 골드가 ${userInfo.UpGoldPen! * 1}%
+                    desc={`볼펜 굴리기로 획득하는 골드가 ${userInfo.UpGoldPen * 1}%
                     상승합니다.`}
                     level={userInfo.UpGoldPen}
                   ></SkillPiece>
                   <SkillPiece
                     skillName='UpGoldHunt'
                     title='부지런한 학생'
-                    desc={`던전에서 획득하는 골드가 ${userInfo.UpGoldHunt! * 1}%
+                    desc={`던전에서 획득하는 골드가 ${userInfo.UpGoldHunt * 1}%
             상승합니다.`}
                     level={userInfo.UpGoldHunt}
                   ></SkillPiece>
                   <SkillPiece
                     skillName='BetterPen'
                     title='펜은 칼보다 강하다.'
-                    desc={`던전에서 공격력이 ${userInfo.BetterPen! * 2}% 상승합니다.`}
+                    desc={`던전에서 공격력이 ${userInfo.BetterPen * 2}% 상승합니다.`}
                     level={userInfo.BetterPen}
                   ></SkillPiece>
                   <SkillPiece
                     skillName='UpMaxHp'
-                    title='운동장 열바퀴.'
-                    desc={`기본 체력이 ${userInfo.UpMaxHp! * 100} 상승합니다.`}
+                    title='굳은살이 베겼다.'
+                    desc={`기본 체력이 ${userInfo.UpMaxHp * 100} 상승합니다.`}
                     level={userInfo.UpMaxHp}
+                  ></SkillPiece>
+                  <SkillPiece
+                    skillName='UpBasicDamage'
+                    title='쉬는시간에 팔씨름'
+                    desc={`기본 공격력이 ${userInfo.UpBasicDamage * 50} 상승합니다.`}
+                    level={userInfo.UpBasicDamage}
                   ></SkillPiece>
                 </>
               ),
