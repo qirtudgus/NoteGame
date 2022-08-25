@@ -20,7 +20,7 @@ const BasicBox = styled.div`
 
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.login.id);
-  const { Level, BasicHp, BasicDamage, Gold, Exp } = useSelector(
+  const { Level, BasicHp, BasicDamage, WeaponDamage, Gold, Exp } = useSelector(
     (state: RootState) => state.login.userInfo,
   ) as LoginUserInfoInterface;
 
@@ -29,7 +29,7 @@ const UserInfo = () => {
       <p>{userId}</p>
       <p>레벨 {Level}</p>
       <p>체력 {BasicHp}</p>
-      <p>공격력 {BasicDamage}</p>
+      <p>공격력 {BasicDamage + WeaponDamage}</p>
       <p>골드 {Gold.toLocaleString()}</p>
       <p>
         경험치 {Exp} / {expTable[Level]}
