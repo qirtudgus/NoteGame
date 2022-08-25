@@ -43,6 +43,7 @@ export let setUesrInfo = {
   UpGoldPen: 0,
   UpGoldHunt: 0,
   UpMaxHp: 0,
+  UpBasicDamage: 0,
   DungeonFloor: 0,
   BetterPen: 0,
   Exp: 0,
@@ -192,6 +193,7 @@ export interface LoginUserInfoInterface {
   UpGoldPen: number;
   UpGoldHunt: number;
   UpMaxHp: number;
+  UpBasicDamage: number;
   DungeonFloor: number;
   BetterPen: number;
   Exp: number;
