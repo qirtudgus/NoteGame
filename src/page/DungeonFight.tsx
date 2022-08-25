@@ -12,7 +12,7 @@ import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
-import BtnMenu from '../components/BtnMenu';
+import BtnMenu, { ButtonColor } from '../components/BtnMenu';
 import RevivalModal from '../components/RevivalModal';
 import {
   highRewordEffect,
@@ -97,6 +97,7 @@ const BoxWrap = styled.div`
 `;
 interface highReword {
   highActive?: boolean;
+  detailView?: boolean;
 }
 
 const Box = styled.div<highReword>`
@@ -244,6 +245,43 @@ const DamageText = styled.div<HpInterface>`
     `}
 `;
 
+const DetailViewBtn = styled(ButtonColor)<highReword>`
+  position: absolute;
+  z-index: 100;
+  width: 110px;
+  height: 60px;
+  border-radius: 50px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  ${(props) =>
+    props.detailView &&
+    css`
+      background: linear-gradient(0deg, #ff2819, #ffc719);
+    `}
+`;
+
+const DetailViewCircle = styled.div<highReword>`
+  position: relative;
+  left: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background: #555;
+  transition: 0.3s;
+  ${(props) =>
+    props.detailView &&
+    css`
+      background: #fff;
+      left: calc(100% - 55px);
+    `}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+`;
+
 //랜덤한 어택애니메이션 액션을 생성하여 CharacterBox의 애니메이션 호출
 function randomAttack() {
   let a = createRandomNum(1, 4);
@@ -253,6 +291,7 @@ function randomAttack() {
 const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [monsterKill, setMonsterKill] = useState<boolean>(false);
+  const [detailView, setDetailView] = useState<boolean>(false);
   const [highActive, setHighActive] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
@@ -457,6 +496,15 @@ const DungeonFight = () => {
 
   return (
     <>
+      <DetailViewBtn
+        detailView={detailView}
+        onClick={() => {
+          setDetailView((prev) => !prev);
+        }}
+      >
+        <DetailViewCircle detailView={detailView}>{detailView ? 'on' : 'off'}</DetailViewCircle>
+        {/* 자세히보기 */}
+      </DetailViewBtn>
       {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null}
       {isModal ? (
         <VictoryModal
@@ -539,10 +587,15 @@ const DungeonFight = () => {
                   key={index}
                   data-attacknumber={i}
                 >
-                  {Math.ceil(
-                    monsterHpBar.nowHp / userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
-                  )}
-                  <br />
+                  {detailView ? (
+                    <>
+                      {Math.ceil(
+                        monsterHpBar.nowHp /
+                          userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
+                      )}
+                      <br />
+                    </>
+                  ) : null}
                   {i}%
                 </Box>
               ) : (
@@ -550,10 +603,15 @@ const DungeonFight = () => {
                   key={index}
                   data-attacknumber={i}
                 >
-                  {Math.ceil(
-                    monsterHpBar.nowHp / userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
-                  )}
-                  <br />
+                  {detailView ? (
+                    <>
+                      {Math.ceil(
+                        monsterHpBar.nowHp /
+                          userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
+                      )}
+                      <br />
+                    </>
+                  ) : null}
                   {i}%
                 </Box>
               )}
