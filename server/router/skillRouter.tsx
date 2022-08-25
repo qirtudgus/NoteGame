@@ -9,6 +9,7 @@ const UpGoldPenQuery = `UPDATE users SET UpGoldPen = UpGoldPen + 1, SkillPoint =
 const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpMaxHpQuery = `UPDATE users SET UpMaxHp = UpMaxHp + 1, SkillPoint = SkillPoint - 1, BasicHp = BasicHp + 100 WHERE ID = ?`;
+const UpBasicDamageQuery = `UPDATE users SET UpBasicDamage = UpBasicDamage + 1, SkillPoint = SkillPoint - 1, BasicDamage = BasicDamage + 50 WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
 skillRouter.post('/skillup', (req, res, next) => {
@@ -38,6 +39,12 @@ skillRouter.post('/skillup', (req, res, next) => {
       // console.log(err);
     });
   }
+  if (skillName === 'UpBasicDamage') {
+    db.query(UpBasicDamageQuery, [userId], (err, result, fields) => {
+      // console.log(err);
+    });
+  }
+
   db.query(loginQuery, [userId], (err, rows, fields) => {
     const uesrInfo = userInfoProcess(rows[0]);
 
