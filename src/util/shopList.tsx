@@ -41,7 +41,7 @@ export const penObj: pen[] = [
     img: 하이테크,
     dungeonPenSpeed: 5,
     penGamePenSpeed: 5,
-    rewardList: [0, 0, 0, 0, 0, 10000],
+    rewardList: [100, 200, 300, 400, 500, 600],
   },
   {
     title: '컴퓨터용 사인펜',
@@ -53,6 +53,7 @@ export const penObj: pen[] = [
     img: 컴퓨터용사인펜,
     dungeonPenSpeed: 0.6,
     penGamePenSpeed: 0.6,
+    rewardList: [300, 300, 600, 300, 600],
   },
   {
     title: '보드마카',
@@ -64,6 +65,7 @@ export const penObj: pen[] = [
     img: 보드마카,
     dungeonPenSpeed: 0.6,
     penGamePenSpeed: 0.6,
+    rewardList: [500, 500, 500, 500, 500],
   },
   {
     title: '만년필',
@@ -75,6 +77,7 @@ export const penObj: pen[] = [
     img: 만년필,
     dungeonPenSpeed: 0.6,
     penGamePenSpeed: 0.6,
+    rewardList: [100, 400, 300, 100, 500, 100],
   },
   {
     title: '몽블랑 마릴린 먼로',
@@ -86,6 +89,7 @@ export const penObj: pen[] = [
     img: 몽블랑마릴린먼로,
     dungeonPenSpeed: 0.6,
     penGamePenSpeed: 0.6,
+    rewardList: [1000, 4000, 1000, 1000, 500, 1000],
   },
   {
     title: '유성매직',
@@ -95,7 +99,8 @@ export const penObj: pen[] = [
     Gold: 50,
     weaponDamage: 3000,
     img: 유성매직,
-    dungeonPenSpeed: 0.6,
-    penGamePenSpeed: 0.6,
+    dungeonPenSpeed: 0.3,
+    penGamePenSpeed: 0.3,
+    rewardList: [0, 0, 0, 0, 0, 5000],
   },
 ];
