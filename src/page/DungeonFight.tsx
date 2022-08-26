@@ -23,6 +23,8 @@ import {
 } from '../styledComponents/DungeonFight_Effect';
 import { LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
+import 칼 from '../img/칼.svg';
+
 const BottomBox = styled.div`
   width: 100%;
   height: 300px;
@@ -114,7 +116,7 @@ const Box = styled.div<highReword>`
   word-break: keep-all;
   line-height: 35px;
   transition: 0.3s all;
-
+  justify-content: center;
   &:nth-child(n) {
     border-right: none;
   }
@@ -246,6 +248,7 @@ const DamageText = styled.div<HpInterface>`
 `;
 
 const DetailViewBtn = styled(ButtonColor)<highReword>`
+  cursor: pointer;
   position: absolute;
   z-index: 100;
   width: 110px;
@@ -255,10 +258,21 @@ const DetailViewBtn = styled(ButtonColor)<highReword>`
   display: flex;
   align-items: center;
   transition: 0.3s;
+  & > p {
+    font-size: 2rem;
+    position: absolute;
+    left: 60px;
+  }
+
   ${(props) =>
     props.detailView &&
     css`
       background: linear-gradient(0deg, #ff2819, #ffc719);
+      & > p {
+        font-size: 2rem;
+        position: absolute;
+        left: 10px;
+      }
     `}
 `;
 
@@ -280,6 +294,17 @@ const DetailViewCircle = styled.div<highReword>`
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+`;
+
+const DetailViewAttackNumber = styled.div`
+  display: flex;
+  color: #333;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  position: absolute;
+  top: 20px;
 `;
 
 //랜덤한 어택애니메이션 액션을 생성하여 CharacterBox의 애니메이션 호출
@@ -497,12 +522,14 @@ const DungeonFight = () => {
   return (
     <>
       <DetailViewBtn
+        as='div'
         detailView={detailView}
         onClick={() => {
           setDetailView((prev) => !prev);
         }}
       >
-        <DetailViewCircle detailView={detailView}>{detailView ? 'on' : 'off'}</DetailViewCircle>
+        <p> {detailView ? 'on' : 'off'}</p>
+        <DetailViewCircle detailView={detailView}></DetailViewCircle>
         {/* 자세히보기 */}
       </DetailViewBtn>
       {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null}
@@ -589,11 +616,17 @@ const DungeonFight = () => {
                 >
                   {detailView ? (
                     <>
-                      {Math.ceil(
-                        monsterHpBar.nowHp /
-                          userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
-                      )}
-                      <br />
+                      <DetailViewAttackNumber>
+                        <img
+                          src={칼}
+                          alt='칼'
+                        ></img>
+                        x
+                        {Math.ceil(
+                          monsterHpBar.nowHp /
+                            userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
+                        )}
+                      </DetailViewAttackNumber>
                     </>
                   ) : null}
                   {i}%
@@ -605,11 +638,17 @@ const DungeonFight = () => {
                 >
                   {detailView ? (
                     <>
-                      {Math.ceil(
-                        monsterHpBar.nowHp /
-                          userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
-                      )}
-                      <br />
+                      <DetailViewAttackNumber>
+                        <img
+                          src={칼}
+                          alt='칼'
+                        ></img>
+                        x
+                        {Math.ceil(
+                          monsterHpBar.nowHp /
+                            userDamage(i, userInfo.BasicDamage, userInfo.WeaponDamage, userInfo.BetterPen),
+                        )}
+                      </DetailViewAttackNumber>
                     </>
                   ) : null}
                   {i}%
