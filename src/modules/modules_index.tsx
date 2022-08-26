@@ -6,6 +6,7 @@ import boxCount from './pengameBoxCount';
 import monsterInfo from './createMonster';
 import buyBallpenList from './buyBallpenList';
 import modalState from './modalState';
+import visibleState from './visibleState';
 
 const rootReducer = combineReducers({
   login,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   monsterInfo,
   buyBallpenList,
   modalState,
+  visibleState,
 });
 
 export default rootReducer;
