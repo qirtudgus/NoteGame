@@ -247,55 +247,6 @@ const DamageText = styled.div<HpInterface>`
     `}
 `;
 
-const DetailViewBtn = styled(ButtonColor)<highReword>`
-  cursor: pointer;
-  position: absolute;
-  z-index: 100;
-  width: 110px;
-  height: 60px;
-  border-radius: 50px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  transition: 0.3s;
-  & > p {
-    font-size: 2rem;
-    position: absolute;
-    left: 60px;
-  }
-
-  ${(props) =>
-    props.detailView &&
-    css`
-      background: linear-gradient(0deg, #ff2819, #ffc719);
-      & > p {
-        font-size: 2rem;
-        position: absolute;
-        left: 10px;
-      }
-    `}
-`;
-
-const DetailViewCircle = styled.div<highReword>`
-  position: relative;
-  left: 5px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  background: #555;
-  transition: 0.3s;
-  ${(props) =>
-    props.detailView &&
-    css`
-      background: #fff;
-      left: calc(100% - 55px);
-    `}
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-`;
-
 const DetailViewAttackNumber = styled.div`
   display: flex;
   color: #333;
@@ -316,7 +267,6 @@ function randomAttack() {
 const DungeonFight = () => {
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
   const [monsterKill, setMonsterKill] = useState<boolean>(false);
-  const [detailView, setDetailView] = useState<boolean>(false);
   const [highActive, setHighActive] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
@@ -354,7 +304,7 @@ const DungeonFight = () => {
 
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
-
+  const isVisible = useSelector((state: RootState) => state.visibleState.isVisible) as boolean;
   let penReward = penObj.find((i) => i.ballPenName === userInfo.EquipBallpen);
 
   //볼펜리스트 배열의
@@ -521,17 +471,6 @@ const DungeonFight = () => {
 
   return (
     <>
-      <DetailViewBtn
-        as='div'
-        detailView={detailView}
-        onClick={() => {
-          setDetailView((prev) => !prev);
-        }}
-      >
-        <p> {detailView ? 'on' : 'off'}</p>
-        <DetailViewCircle detailView={detailView}></DetailViewCircle>
-        {/* 자세히보기 */}
-      </DetailViewBtn>
       {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null}
       {isModal ? (
         <VictoryModal
@@ -614,7 +553,7 @@ const DungeonFight = () => {
                   key={index}
                   data-attacknumber={i}
                 >
-                  {detailView ? (
+                  {isVisible ? (
                     <>
                       <DetailViewAttackNumber>
                         <img
@@ -636,7 +575,7 @@ const DungeonFight = () => {
                   key={index}
                   data-attacknumber={i}
                 >
-                  {detailView ? (
+                  {isVisible ? (
                     <>
                       <DetailViewAttackNumber>
                         <img
@@ -663,6 +602,7 @@ const DungeonFight = () => {
       <BtnMenu
         BackHistory
         Home
+        DetailView
       ></BtnMenu>
     </>
   );
