@@ -6,6 +6,7 @@ import RefreshBtn from './RefreshBtn';
 import FastFowardBtn from './FastFowardBtn';
 import LogOutBtn from './LogoutBtn';
 import RevivalBtn from './RevivalBtn';
+import DetailViewBtn from './DetailViewBtn';
 
 const BtnWrap = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ interface btn {
   LogOut?: boolean;
   Revival?: boolean;
   RevivalDispatch?: () => { type: 'modalState/MODAL_SUCCESS' };
+  DetailView?: boolean;
 }
 
 const BtnMenu = ({
@@ -59,6 +61,7 @@ const BtnMenu = ({
   RefreshFunc,
   Revival,
   RevivalDispatch,
+  DetailView,
 }: btn) => {
   return (
     <BtnWrap>
@@ -72,6 +75,7 @@ const BtnMenu = ({
         ></FastFowardBtn>
       )}
       {LogOut && <LogOutBtn></LogOutBtn>}
+      {DetailView && <DetailViewBtn></DetailViewBtn>}
       {Revival && <RevivalBtn OnClick={RevivalDispatch}></RevivalBtn>}
     </BtnWrap>
   );
