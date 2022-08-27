@@ -124,8 +124,24 @@ const Box = styled.div<highReword>`
     border-right: 1px solid#9e9e9e;
   }
   //당첨된 리워드에게 이펙트
-  &.active {
-    animation: ${choiceRewordEffect} 1s;
+  &.active > p {
+    /* animation: ${choiceRewordEffect} 1s; */
+  }
+
+  &.active::after {
+    animation: ${choiceRewordEffect} 0.7s ease;
+  }
+
+  &::after {
+    content: '';
+    /* transition: 0.2s; */
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
   }
 
   //가장 높은 리워드값에 css 부여
@@ -574,7 +590,7 @@ const DungeonFight = () => {
                       </DetailViewAttackNumber>
                     </>
                   ) : null}
-                  {i}%
+                  <p>{i}%</p>
                 </Box>
               ) : (
                 <Box
@@ -596,7 +612,7 @@ const DungeonFight = () => {
                       </DetailViewAttackNumber>
                     </>
                   ) : null}
-                  {i}%
+                  <p>{i}%</p>
                 </Box>
               )}
             </>
