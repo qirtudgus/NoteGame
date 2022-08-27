@@ -178,13 +178,17 @@ interface startBtnSuppressor {
 }
 
 const StartBtn = styled.div<startBtnSuppressor>`
+  cursor: pointer;
   position: absolute;
   right: 40px;
   bottom: 70px;
   width: 175px;
   height: 175px;
   background: ${(props) => props.color};
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   line-height: 4rem;
   border-radius: 20px;
   font-size: 2rem;
@@ -531,6 +535,7 @@ const DungeonFight = () => {
           color='#fff'
         >
           멈춰
+          <p>Space Bar</p>
         </StartBtn>
       ) : (
         <StartBtn
@@ -540,6 +545,7 @@ const DungeonFight = () => {
           onClick={penStatus ? () => toggle() : () => toggleExit()}
         >
           {penStatus ? '시작' : '멈춰'}
+          <p>Space Bar</p>
         </StartBtn>
       )}
 
