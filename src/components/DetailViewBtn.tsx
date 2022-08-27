@@ -31,19 +31,21 @@ const DetailViewBtn = (props: any) => {
     <>
       {isVisible ? (
         <Back
+          as='div'
           onClick={() => {
             dispatch(visible_off());
           }}
-          title='마을로'
+          title='안보이게'
         >
           <VisibleOffImg alt='home' />
         </Back>
       ) : (
         <Back
+          as='div'
           onClick={() => {
             dispatch(visible_on());
           }}
-          title='마을로'
+          title='보이게'
         >
           <VisibleImg alt='home' />
         </Back>
