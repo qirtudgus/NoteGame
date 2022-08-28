@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { createRandomRewardsArray, createPenRewardArray } from '../util/createRandomRewardsArray';
+import { createPenRewardArray } from '../util/createRandomRewardsArray';
 import VictoryModal from '../components/VictoryModal';
 import createRandomNum from '../util/createRandomNum';
 import { monsterArr } from '../util/dungeonMonsterList';
@@ -12,7 +12,7 @@ import FloorBox from '../components/FloorBox';
 import Ballpen from '../components/Ballpen';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userDamage, monsterDamage } from '../util/createDamage';
-import BtnMenu, { ButtonColor } from '../components/BtnMenu';
+import BtnMenu from '../components/BtnMenu';
 import RevivalModal from '../components/RevivalModal';
 import {
   highRewordEffect,
