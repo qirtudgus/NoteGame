@@ -510,10 +510,13 @@ const DungeonFight = () => {
           moving={attackAni.moving}
         >
           <HpBox>
-            <HpText>
-              <p>{userHpBar.nowHp}</p>
-              <p>/ {userInfo.BasicHp}</p>
-            </HpText>
+            {isVisible ? (
+              <HpText>
+                <p>{userHpBar.nowHp}</p>
+                <p>/ {userInfo.BasicHp}</p>
+              </HpText>
+            ) : null}
+
             <HpBar width={userHpBar.HpBarWidth}></HpBar>
             <BgBar></BgBar>
           </HpBox>
@@ -528,10 +531,13 @@ const DungeonFight = () => {
           attack={attackAni.monster}
         >
           <HpBox>
-            <HpText>
-              <p>{monsterHpBar.nowHp}</p>
-              <p>/ {monsterInfo.monsterFullHp}</p>
-            </HpText>
+            {isVisible ? (
+              <HpText>
+                <p>{monsterHpBar.nowHp}</p>
+                <p>/ {monsterInfo.monsterFullHp}</p>
+              </HpText>
+            ) : null}
+
             <MonsterHpBar width={monsterHpBar.HpBarWidth}></MonsterHpBar>
             <BgBar></BgBar>
           </HpBox>
