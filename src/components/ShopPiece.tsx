@@ -23,7 +23,7 @@ const ShopTextWrap = styled.div`
   width: 500px;
 `;
 const ShopTitle = styled.p<shopBoxInterface>`
-  font-size: 22px;
+  font-size: 26px;
   font-weight: bold;
   margin-bottom: 10px;
   ${(props) =>
@@ -35,7 +35,7 @@ const ShopTitle = styled.p<shopBoxInterface>`
     `}
 `;
 const ShopDesc = styled.p`
-  font-size: 16px;
+  font-size: 20px;
 `;
 const ShopIcon = styled(ButtonColor)`
   width: 100px;
@@ -60,6 +60,7 @@ const ShopBtn = styled(ButtonColor)<buy>`
   width: 10%;
   height: 100%;
   border-radius: 10px;
+  cursor: pointer;
   background: #fff;
   display: flex;
   justify-content: center;
@@ -77,13 +78,14 @@ const ShopBox = styled(ButtonColor)<shopBoxInterface>`
   display: flex;
   padding: 10px;
   border-radius: 10px;
+
   //장착한 장비의 css
   ${(props) =>
     props.penname === props.nowEquip &&
     css`
-      background: #fff;
-      outline: 3px solid#555;
-      outline-offset: -3px;
+      background: #ffbc26;
+      outline: 2px solid#888;
+      outline-offset: -2px;
     `}
 `;
 

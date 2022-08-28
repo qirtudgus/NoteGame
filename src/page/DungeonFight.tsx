@@ -557,7 +557,7 @@ const DungeonFight = () => {
         <StartBtn
           supp={supp}
           id='startbuttons'
-          color='#fff'
+          color={penStatus ? '#ffbc26' : '#fff'}
           onClick={penStatus ? () => toggle() : () => toggleExit()}
         >
           {penStatus ? '시작' : '멈춰'}

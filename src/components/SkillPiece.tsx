@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface, skill_request } from '../modules/login';
-
+import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 
@@ -14,10 +14,10 @@ interface skillBoxInterface {
   icon?: string;
 }
 
-const SkillBox = styled.div<skillBoxInterface>`
+const SkillBox = styled(ButtonColor)<skillBoxInterface>`
   width: 600px;
   height: 100px;
-  background: #e5005a;
+  background: #fff;
   margin-bottom: 20px;
   display: flex;
   padding: 10px;
@@ -42,7 +42,7 @@ const SkillIcon = styled.div`
   background: #fff;
 `;
 
-const SkillBtn = styled.button`
+const SkillBtn = styled(ButtonColor)`
   width: 10%;
   height: 100px;
   border-radius: 10px;
@@ -61,7 +61,7 @@ const SkillPiece = (props: any) => {
 
   return (
     <>
-      <SkillBox>
+      <SkillBox as='div'>
         <SkillIcon></SkillIcon>
         <SkillTextWrap>
           <SkillTitle>

@@ -19,7 +19,6 @@ const BottomBox = styled.div`
   height: 300px;
   position: absolute;
   border-radius: 0 0 20px 20px;
-
   bottom: 0px;
   background: #928282;
 `;

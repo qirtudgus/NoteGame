@@ -25,7 +25,12 @@ interface TabColor {
 
 const SkillTap = styled.div<TabColor>`
   display: flex;
+  cursor: pointer;
+  border-radius: 20px 20px 0 0;
+  font-size: 1.7rem;
+  box-shadow: 5px 1px 3px rgba(0, 0, 0, 0.3);
   justify-content: center;
+  z-index: 3;
   align-items: center;
   width: 33.3%;
   height: 100%;
@@ -33,12 +38,20 @@ const SkillTap = styled.div<TabColor>`
   ${(props) =>
     props.active === 1 &&
     css`
-      background: #e5005a;
+      z-index: 3;
+      font-weight: bold;
+      background: #ffbc26;
     `}
 `;
 const SkillTap2 = styled.div<TabColor>`
   display: flex;
+  cursor: pointer;
+
+  border-radius: 20px 20px 0 0;
+  font-size: 1.7rem;
+  box-shadow: 5px 1px 3px rgba(0, 0, 0, 0.3);
   justify-content: center;
+
   align-items: center;
   width: 33.3%;
   height: 100%;
@@ -46,7 +59,9 @@ const SkillTap2 = styled.div<TabColor>`
   ${(props) =>
     props.active === 2 &&
     css`
-      background: #e5005a;
+      z-index: 2;
+      font-weight: bold;
+      background: #ffbc26;
     `}
 `;
 const SkillTap3 = styled.div<TabColor>`
@@ -67,7 +82,6 @@ const SkillTabWrap = styled.div`
   display: flex;
   width: 100%;
   height: 90px;
-  background: #555;
 `;
 
 const SkillWrap = styled.div`
@@ -75,7 +89,6 @@ const SkillWrap = styled.div`
   flex-direction: column;
   width: 700px;
   height: 600px;
-  background: #333;
 `;
 
 const Skill = () => {
@@ -105,14 +118,7 @@ const Skill = () => {
           >
             액티브
           </SkillTap2>
-          <SkillTap3
-            active={isSkillTab.TabNum}
-            onClick={() => {
-              setIsSkillTab({ passive: 'passive3', TabNum: 3 });
-            }}
-          >
-            케케브
-          </SkillTap3>
+
           <p>스킬 포인트 {userInfo.SkillPoint}</p>
         </SkillTabWrap>
         <SkillPageWrap>

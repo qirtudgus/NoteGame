@@ -72,9 +72,9 @@ const RankingTr = styled.tr<a>`
   ${(props) =>
     props.myranking &&
     css`
-      color: #fff;
+      color: #000;
 
-      background: #444;
+      background: #ffbc26;
     `}
 `;
 
@@ -93,15 +93,16 @@ const PageBtn = styled.button<a>`
   height: 30px;
   border-radius: 10px;
   background: none;
-
+  font-size: 20px;
   ${(props) =>
     props.active &&
     css`
-      background: #444;
-      color: #fff;
+      background: #ffbc26;
+      color: #000;
+      font-weight: bold;
     `}
   &:hover {
-    outline: 2px solid #444;
+    outline: 2px solid #ffbc26;
     outline-offset: -3px;
   }
 `;
