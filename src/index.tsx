@@ -24,6 +24,7 @@ import BallpenShop from './page/BallpenShop';
 import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
 import axios from 'axios';
+import MyStatus from './page/MyStatus';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -67,6 +68,10 @@ root.render(
           <Route
             path='/choicepencount'
             element={<ChoicePenCount />}
+          ></Route>
+          <Route
+            path='/status'
+            element={<MyStatus />}
           ></Route>
           <Route
             path='*'
