@@ -27,7 +27,7 @@ import 칼 from '../img/칼.svg';
 
 const BottomBox = styled.div`
   width: 100%;
-  height: 300px;
+  height: 240px;
   border-radius: 0 0 20px 20px;
   position: absolute;
   bottom: 0px;
@@ -43,7 +43,7 @@ const CharacterBoxWrap = styled.div`
 
 const HpBox = styled.div`
   position: absolute;
-  top: -20px;
+  top: 0px;
   width: 200px;
   height: 50px;
 `;
@@ -105,7 +105,7 @@ interface highReword {
 const Box = styled.div<highReword>`
   width: 60px;
   padding: 0 10px 0 10px;
-  height: 175px;
+  height: 140px;
   background: #fff;
   border: 1px solid#9e9e9e;
   position: relative;
@@ -355,7 +355,7 @@ const DungeonFight = () => {
     setTimeout(function () {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
       const x: number = inputRef.current.getBoundingClientRect().x;
-      const y: number = inputRef.current.getBoundingClientRect().y - 10;
+      const y: number = inputRef.current.getBoundingClientRect().y - 20;
       dropClick(x, y);
     }, 400);
   };
