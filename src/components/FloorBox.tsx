@@ -6,7 +6,11 @@ import { LoginUserInfoInterface } from '../modules/login';
 const Floorwrap = styled.div`
   align-items: center;
   position: absolute;
-  top: 100px;
+  top: 170px;
+  background: #333;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 10px;
   font-size: 30px;
   & img {
     width: 50px;
