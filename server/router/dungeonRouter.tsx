@@ -4,8 +4,8 @@ import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 
 export const dungeonRouter = express.Router();
 
-const VictoryBeforeQuery = `UPDATE users SET Gold = Gold + ? ,Exp = Exp + ? WHERE ID = ?`;
-const VictoryQuery = `UPDATE users SET DungeonFloor = DungeonFloor + 1, Gold = Gold + ? ,Exp = Exp + ? WHERE ID = ?`;
+const VictoryBeforeQuery = `UPDATE users SET Gold = Gold + ? ,Exp = Exp + ?, DungeonClearCount = DungeonClearCount + 1  WHERE ID = ?`;
+const VictoryQuery = `UPDATE users SET DungeonFloor = DungeonFloor + 1, Gold = Gold + ? ,Exp = Exp + ?, DungeonClearCount = DungeonClearCount + 1 WHERE ID = ?`;
 const VictoryMaxFloorQuery = `UPDATE users SET MaxDungeonFloor = ? WHERE ID = ?`;
 const MaxFloorFindQuery = `SELECT MaxDungeonFloor, DungeonFloor FROM users WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
