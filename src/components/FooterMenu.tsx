@@ -20,6 +20,7 @@ const FooterIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  cursor: pointer;
 `;
 
 const FooterTitle = styled.div`
@@ -43,7 +44,7 @@ const FooterMenu = () => {
   return (
     <>
       <FooterWrap>
-        <FooterIcon onClick={() => navigate('/skill')}>
+        <FooterIcon onClick={() => navigate('/status')}>
           <FooterTitle>내 상태</FooterTitle>
         </FooterIcon>
         <FooterIcon onClick={() => navigate('/ballpenshop')}>
