@@ -26,7 +26,7 @@ const Character = styled.div<dungeonAni>`
   justify-content: center;
   display: flex;
   align-items: flex-end;
-  width: 200px;
+  width: 160px;
   height: 300px;
   top: 0;
   position: absolute;
