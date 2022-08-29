@@ -12,7 +12,8 @@ const BtnWrap = styled.div`
   display: flex;
   position: absolute;
   left: 30px;
-  top: 90px;
+  bottom: 30px;
+  z-index: 10000;
 `;
 export const ButtonColor = styled.button`
   box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
