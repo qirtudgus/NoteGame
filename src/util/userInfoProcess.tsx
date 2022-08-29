@@ -16,7 +16,6 @@ export interface userInfoInterface {
   Gold: number;
   Inventory: null | number;
   PenCount: number;
-  HuntingCount: number;
   UpGoldAll: number;
   UpGoldHunt: number;
   UpGoldPen: number;
@@ -34,6 +33,9 @@ export interface userInfoInterface {
   DungeonPenSpeed: number;
   PenGamePenSpeed: number;
   RevivalPoint: number;
+  RevivalCount: number;
+  MaxDungeonFloor: number;
+  DungeonClearCount: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {

@@ -52,6 +52,9 @@ export let setUesrInfo = {
   DungeonPenSpeed: 1,
   PenGamePenSpeed: 1,
   RevivalPoint: 0,
+  RevivalCount: 0,
+  MaxDungeonFloor: 0,
+  DungeonClearCount: 0,
 };
 
 export const revival_request = () => ({
@@ -201,6 +204,9 @@ export interface LoginUserInfoInterface {
   DungeonPenSpeed: number;
   PenGamePenSpeed: number;
   RevivalPoint: number;
+  RevivalCount: number;
+  MaxDungeonFloor: number;
+  DungeonClearCount: number;
 }
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
