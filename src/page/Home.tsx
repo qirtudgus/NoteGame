@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from '../modules/modules_index';
 import { logout } from '../modules/login';
 import BtnMenu from '../components/BtnMenu';
+import FooterMenu from '../components/FooterMenu';
 import React from 'react';
 const Home = () => {
   const isTokenExPired = useSelector((state: RootState) => state.login.tokenExpired);
@@ -67,6 +68,7 @@ const Home = () => {
           </ul>
         </>
       )}
+      <FooterMenu></FooterMenu>
     </>
   );
 };
