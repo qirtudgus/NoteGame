@@ -16,7 +16,7 @@ import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
 const BottomBox = styled.div`
   width: 100%;
-  height: 300px;
+  height: 240px;
   position: absolute;
   border-radius: 0 0 20px 20px;
   bottom: 0px;
