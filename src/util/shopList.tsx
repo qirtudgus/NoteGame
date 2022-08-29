@@ -53,7 +53,7 @@ export const penObj: pen[] = [
     img: 컴퓨터용사인펜,
     dungeonPenSpeed: 0.6,
     penGamePenSpeed: 0.6,
-    rewardList: [300, 300, 600, 300, 600],
+    rewardList: [300, 300, 600, 300, 600, 100],
   },
   {
     title: '보드마카',
@@ -65,7 +65,7 @@ export const penObj: pen[] = [
     img: 보드마카,
     dungeonPenSpeed: 0.6,
     penGamePenSpeed: 0.6,
-    rewardList: [500, 500, 500, 500, 500],
+    rewardList: [500, 500, 500, 500, 500, 100],
   },
   {
     title: '만년필',
@@ -97,10 +97,10 @@ export const penObj: pen[] = [
     level: '5',
     ballPenName: 'weapon7',
     Gold: 50,
-    weaponDamage: 3000,
+    weaponDamage: 10000,
     img: 유성매직,
-    dungeonPenSpeed: 0.3,
-    penGamePenSpeed: 0.3,
-    rewardList: [0, 0, 0, 0, 0, 5000],
+    dungeonPenSpeed: 0.6,
+    penGamePenSpeed: 0.6,
+    rewardList: [1000, 4000, 1000, 1000, 500, 1000],
   },
 ];
