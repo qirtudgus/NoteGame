@@ -91,14 +91,16 @@ dungeonRouter.post('/victory', (req, res, next) => {
   }
 });
 
+//환생 api
 dungeonRouter.post('/revival', (req, res) => {
   const userId = req.decoded.userId;
 
   db.query(RevivalPointFindQuery, [userId], (err, rows, fields) => {
     let nowFloor = rows[0].DungeonFloor;
     let revivalPoint = rows[0].RevivalPoint;
+    let giveSkillPoint = 50;
     //환생 후 받을 스킬포인트
-    let addSkillPoint = Math.floor(nowFloor / 50);
+    let addSkillPoint = Math.floor(nowFloor / giveSkillPoint);
     //환생 후 돌아갈 층
     let revivalFloor = Math.ceil((nowFloor * revivalPoint) / 100);
 
