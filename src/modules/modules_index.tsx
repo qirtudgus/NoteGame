@@ -7,6 +7,7 @@ import monsterInfo from './createMonster';
 import buyBallpenList from './buyBallpenList';
 import modalState from './modalState';
 import visibleState from './visibleState';
+import userInfo_visibleRequest from './userInfoVisible';
 
 const rootReducer = combineReducers({
   login,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   buyBallpenList,
   modalState,
   visibleState,
+  userInfo_visibleRequest,
 });
 
 export default rootReducer;
