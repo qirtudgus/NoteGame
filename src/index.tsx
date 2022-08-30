@@ -20,7 +20,6 @@ import PlayPenGame from './page/PlayPenGame';
 import Skill from './page/Skill';
 import Dungeon from './page/Dungeon';
 import DungeonFight from './page/DungeonFight';
-import BallpenShop from './page/BallpenShop';
 import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
 import axios from 'axios';
