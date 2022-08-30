@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import 캐릭터배경 from '../img/캐릭터배경.png';
 import { gelatine, attack1, attack2, attack3, attack4, movingAni } from '../styledComponents/DungeonFight_Effect';
-import { ballPenList } from '../util/ballPenList';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface } from '../modules/login';
-
+import { penObj } from '../util/shopList';
 interface dungeonAni {
   gelatine?: boolean;
   attack?: string;
@@ -91,6 +90,9 @@ interface children {
 const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const equipBallpen = userInfo.EquipBallpen;
+
+  let equipBallpenImg = penObj.find((i: any) => i.ballPenName === equipBallpen)?.img;
+
   return (
     <>
       <CharacterWrap gelatine={gelatine}>
@@ -98,7 +100,7 @@ const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
         <Character moving={moving}>
           <EquipBallpen attack={attack}>
             <img
-              src={ballPenList[equipBallpen]}
+              src={equipBallpenImg}
               alt='무기'
             ></img>
           </EquipBallpen>
