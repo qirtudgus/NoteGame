@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import 캐릭터배경 from '../img/캐릭터배경.png';
@@ -111,4 +112,4 @@ const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
   );
 };
 
-export default CharacterBox;
+export default React.memo(CharacterBox);
