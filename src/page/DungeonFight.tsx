@@ -352,6 +352,7 @@ const DungeonFight = () => {
 
   const getReward = async (): Promise<void> => {
     //정확한 좌표값을 얻기위해 약간의 딜레이를 주었다.
+
     setTimeout(function () {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
       const x: number = inputRef.current.getBoundingClientRect().x;
@@ -389,10 +390,8 @@ const DungeonFight = () => {
     if (hp <= 0) {
       setDamageText({ ...damageText, monster: userResultDamage });
       setGelatineAni({ user: false, monster: true });
-
       setMonsterHpBar({ HpBarWidth: hpbar, nowHp: 0 });
       setAttackAni({ user: randomAttack(), monster: false, moving: true });
-
       setTimeout(function () {
         setVictoryModal(true);
         setIsModal(true);
@@ -424,10 +423,15 @@ const DungeonFight = () => {
     let resultHpBar = Math.ceil((resultHp / userInfo.BasicHp) * 100);
     //몬스터가 승리 시
     if (resultHp <= 0) {
+      setAttackAni({ user: 'attack' + 0, monster: true, moving: false });
       setGelatineAni({ user: true, monster: false });
       setUserHpBar({ HpBarWidth: resultHpBar, nowHp: 0 });
-      setVictoryModal(false);
-      setIsModal(true);
+
+      setTimeout(function () {
+        setVictoryModal(false);
+        setIsModal(true);
+      }, 1000);
+
       return;
     }
     //몬스터가 때릴 시 애니메이션 호출
