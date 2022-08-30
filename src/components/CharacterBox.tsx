@@ -51,8 +51,10 @@ const EquipBallpen = styled.div<dungeonAni>`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+
   & img {
     object-fit: cover;
+    filter: drop-shadow(5px -5px 2px rgba(0, 0, 0, 0.35));
   }
 
   ${(props) =>
