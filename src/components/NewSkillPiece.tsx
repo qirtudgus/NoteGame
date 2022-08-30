@@ -26,7 +26,7 @@ const SkillBox = styled(ButtonColor)<skillBoxInterface>`
     margin-top: 20px;
   }
   &:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
   }
 `;
 const SkillTextWrap = styled.div`
@@ -64,8 +64,9 @@ const SkillBtn = styled(ButtonColor)`
 `;
 
 const SkillWrap = styled.div`
-  height: 420px;
+  height: 480px;
   overflow-y: scroll;
+  background: #eaeaea;
 `;
 
 const StatList = styled.li`
