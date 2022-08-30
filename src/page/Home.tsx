@@ -5,6 +5,7 @@ import { logout } from '../modules/login';
 import BtnMenu from '../components/BtnMenu';
 import FooterMenu from '../components/FooterMenu';
 import React from 'react';
+import CharacterBox from '../components/CharacterBox';
 const Home = () => {
   const isTokenExPired = useSelector((state: RootState) => state.login.tokenExpired);
   const navigate = useNavigate();
@@ -29,46 +30,10 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <ul>
-            <li
-              onClick={() => {
-                navigate('/choicepencount');
-              }}
-            >
-              볼펜 굴리기
-            </li>
-            <li
-              onClick={() => {
-                navigate('/dungeon');
-              }}
-            >
-              던전
-            </li>
-            <li
-              onClick={() => {
-                navigate('/ballpenshop');
-              }}
-            >
-              상점
-            </li>
-            <li
-              onClick={() => {
-                navigate('/skill');
-              }}
-            >
-              스킬
-            </li>
-            <li
-              onClick={() => {
-                navigate('/ranking');
-              }}
-            >
-              랭킹
-            </li>
-          </ul>
+          <CharacterBox></CharacterBox>
+          <FooterMenu></FooterMenu>
         </>
       )}
-      <FooterMenu></FooterMenu>
     </>
   );
 };
