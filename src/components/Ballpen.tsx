@@ -9,9 +9,8 @@ import {
   PenImgWrapDun,
   PenEndDun,
 } from '../styledComponents/DungeonFight_Effect';
-import { ballPenList } from '../util/ballPenList';
 import { LoginUserInfoInterface } from '../modules/login';
-
+import { penObj } from '../util/shopList';
 interface ballpen {
   penSpeed?: number;
   penStatus: boolean;
@@ -21,15 +20,15 @@ interface ballpen {
 const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElement>) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
 
-  let equipBallpen = userInfo.EquipBallpen as string;
-
+  let equipBallpen = userInfo.EquipBallpen;
+  let equipBallpenImg = penObj.find((i: any) => i.ballPenName === equipBallpen)?.img;
   return (
     <>
       {isDungeon ? (
         <>
           <PenImgWrapDun>
             <PenImgDun
-              src={ballPenList[equipBallpen]}
+              src={equipBallpenImg}
               penSpeed={userInfo.DungeonPenSpeed}
               penStatus={penStatus}
             ></PenImgDun>
@@ -44,7 +43,7 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElemen
         <>
           <PenImgWrap>
             <PenImg
-              src={ballPenList[equipBallpen]}
+              src={equipBallpenImg}
               penSpeed={userInfo.PenGamePenSpeed}
               penStatus={penStatus}
             ></PenImg>
