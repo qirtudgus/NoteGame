@@ -16,11 +16,8 @@ const CharacterWrap = styled.div<dungeonAni>`
   height: 300px;
   position: relative;
   z-index: 10;
-  ${(props) =>
-    props.gelatine &&
-    css`
-      animation: ${gelatine} 0.35s 0.2s;
-    `}
+  display: flex;
+  justify-content: center;
 `;
 const Character = styled.div<dungeonAni>`
   justify-content: center;
@@ -35,11 +32,16 @@ const Character = styled.div<dungeonAni>`
     width: 100%;
   }
   ${(props) =>
+    props.gelatine &&
+    css`
+      animation: ${gelatine} 0.35s 0.2s;
+    `}
+  ${(props) =>
     props.moving &&
     css`
       animation: ${movingAni} 1s;
+      animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     `}
-  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 `;
 
 const EquipBallpen = styled.div<dungeonAni>`
@@ -97,9 +99,12 @@ const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
 
   return (
     <>
-      <CharacterWrap gelatine={gelatine}>
+      <CharacterWrap>
         {children}
-        <Character moving={moving}>
+        <Character
+          gelatine={gelatine}
+          moving={moving}
+        >
           <EquipBallpen attack={attack}>
             <img
               src={equipBallpenImg}
