@@ -1,4 +1,4 @@
-import 모남볼펜 from '../img/모남볼펜.png';
+import 모남볼펜 from '../img/모남볼펜2.png';
 import 하이테크 from '../img/하이테크.png';
 import 컴퓨터용사인펜 from '../img/컴퓨터용사인펜.png';
 import 보드마카 from '../img/보드마카2.png';
@@ -6,17 +6,17 @@ import 만년필 from '../img/만년필.png';
 import 유성매직 from '../img/유성매직.png';
 import 몽블랑마릴린먼로 from '../img/몽블랑마릴린먼로.png';
 
-interface pen {
+export interface pen {
   title: string;
   desc: string;
   level: string;
   ballPenName: string;
   Gold: number;
   weaponDamage: number;
-  img?: any;
-  dungeonPenSpeed?: number;
-  penGamePenSpeed?: number;
-  rewardList?: number[];
+  img: any;
+  dungeonPenSpeed: number;
+  penGamePenSpeed: number;
+  rewardList: number[];
 }
 export const penObj: pen[] = [
   {
