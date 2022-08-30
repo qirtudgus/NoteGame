@@ -21,7 +21,7 @@ const SkillBox = styled(ButtonColor)<skillBoxInterface>`
   background: #fff;
   margin-bottom: 20px;
   display: flex;
-  padding: 0px;
+
   &:first-child {
     margin-top: 20px;
   }
@@ -33,7 +33,7 @@ const SkillTextWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-
+  padding: 10px 0 10px 0;
   width: 400px;
 `;
 const SkillTitle = styled.p`
@@ -106,6 +106,12 @@ const NewSkillPiece = (props: any) => {
       title: '펜은 칼보다 강하다',
       desc: `던전에서 공격력이 ${userInfo.BetterPen * 2}% 상승합니다.`,
       level: userInfo.BetterPen,
+    },
+    {
+      skillName: 'UpRevivalPoint',
+      title: '다음생에는..',
+      desc: `환생 시 돌아가는 층수가 현재 층의 ${userInfo.RevivalPoint}%가 됩니다.`,
+      level: userInfo.RevivalPoint,
     },
   ];
   return (
