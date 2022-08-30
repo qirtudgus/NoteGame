@@ -25,6 +25,7 @@ import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
 import axios from 'axios';
 import MyStatus from './page/MyStatus';
+import Shop from './page/Shop';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -99,7 +100,7 @@ root.render(
           ></Route>
           <Route
             path='/ballpenshop'
-            element={<BallpenShop />}
+            element={<Shop />}
           ></Route>
         </Route>
         <Route element={<LayoutNotInfo />}>
