@@ -25,6 +25,7 @@ import LayoutNotInfo from './layout/layoutNotInfo';
 import axios from 'axios';
 import MyStatus from './page/MyStatus';
 import Shop from './page/Shop';
+import AniTest from './page/AniTest';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -106,6 +107,10 @@ root.render(
           <Route
             path='/ranking'
             element={<Rangking />}
+          ></Route>
+          <Route
+            path='/test'
+            element={<AniTest />}
           ></Route>
         </Route>
       </Routes>
