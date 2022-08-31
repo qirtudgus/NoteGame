@@ -126,26 +126,26 @@ const PlayPenGame = () => {
     setrefresh((refresh) => !refresh);
   };
 
-  const FastForward = (): void => {
-    if (penSpeed.speed === 1) {
-      setPenSpeed({
-        speed: 0.5,
-        text: 2,
-      });
-    }
-    if (penSpeed.speed === 0.5) {
-      setPenSpeed({
-        speed: 0.33,
-        text: 3,
-      });
-    }
-    if (penSpeed.speed === 0.33) {
-      setPenSpeed({
-        speed: 1,
-        text: 1,
-      });
-    }
-  };
+  // const FastForward = (): void => {
+  //   if (penSpeed.speed === 1) {
+  //     setPenSpeed({
+  //       speed: 0.5,
+  //       text: 2,
+  //     });
+  //   }
+  //   if (penSpeed.speed === 0.5) {
+  //     setPenSpeed({
+  //       speed: 0.33,
+  //       text: 3,
+  //     });
+  //   }
+  //   if (penSpeed.speed === 0.33) {
+  //     setPenSpeed({
+  //       speed: 1,
+  //       text: 1,
+  //     });
+  //   }
+  // };
 
   const replay = (): void => {
     setIsModal((isModal) => !isModal);
@@ -177,8 +177,8 @@ const PlayPenGame = () => {
         BackHistory
         Refresh
         RefreshFunc={refreshRewards}
-        FastFoward
-        FastFowardFunc={FastForward}
+        // FastFoward
+        // FastFowardFunc={FastForward}
         FastFowardText={penSpeed.text}
       ></BtnMenu>
       {isLoading ? <Loading></Loading> : null}
