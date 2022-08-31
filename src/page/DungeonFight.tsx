@@ -24,6 +24,7 @@ import {
 import { LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
 import 칼 from '../img/칼.svg';
+import anime, { AnimeInstance } from 'animejs';
 
 const BottomBox = styled.div`
   width: 100%;
@@ -285,7 +286,10 @@ function randomAttack() {
 }
 
 const DungeonFight = () => {
+  const [test, setTest] = useState<boolean>(true);
+
   const [monsterCall, setMonsterCall] = useState<number | null>(null);
+
   const [monsterKill, setMonsterKill] = useState<boolean>(false);
   const [highActive, setHighActive] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -355,10 +359,14 @@ const DungeonFight = () => {
 
     setTimeout(function () {
       //y값을 그대로 적용하면 PenEnd 엘레먼트가 반환되기때문에 Box요소에 들어갈 수 있도록 약간 조정합니다.
-      const x: number = inputRef.current.getBoundingClientRect().x;
-      const y: number = inputRef.current.getBoundingClientRect().y - 20;
+      // const x: number = inputRef.current.getBoundingClientRect().x;
+      // const y: number = inputRef.current.getBoundingClientRect().y - 20;
+      let pen = document.querySelector('#penEnd');
+      const x: number = pen?.getBoundingClientRect().x as number;
+      const y: number = (pen?.getBoundingClientRect().y as number) - 20;
+
       dropClick(x, y);
-    }, 400);
+    }, 0);
   };
 
   //###좌표값에 반환되는 요소의 dataset에 따라 dispatch되는 함수다. 모듈화 시켜주자
@@ -420,20 +428,21 @@ const DungeonFight = () => {
     let resultDamage = monsterDamage(monsterInfo.monsterDamage);
     setDamageText({ ...damageText, user: resultDamage });
     let resultHp = userHpBar.nowHp - resultDamage;
+    console.log(resultHp);
     let resultHpBar = Math.ceil((resultHp / userInfo.BasicHp) * 100);
     //몬스터가 승리 시
-    if (resultHp <= 0) {
-      setAttackAni({ user: 'attack' + 0, monster: true, moving: false });
-      setGelatineAni({ user: true, monster: false });
-      setUserHpBar({ HpBarWidth: resultHpBar, nowHp: 0 });
+    // if (resultHp <= 0) {
+    //   setAttackAni({ user: 'attack' + 0, monster: true, moving: false });
+    //   setGelatineAni({ user: true, monster: false });
+    //   setUserHpBar({ HpBarWidth: resultHpBar, nowHp: 0 });
 
-      setTimeout(function () {
-        setVictoryModal(false);
-        setIsModal(true);
-      }, 1000);
+    //   setTimeout(function () {
+    //     setVictoryModal(false);
+    //     setIsModal(true);
+    //   }, 1000);
 
-      return;
-    }
+    //   return;
+    // }
     //몬스터가 때릴 시 애니메이션 호출
     setAttackAni({ user: 'attack' + 0, monster: true, moving: false });
     setGelatineAni({ user: true, monster: false });
@@ -467,6 +476,17 @@ const DungeonFight = () => {
     }
   }, []);
 
+  const animationRef = React.useRef<any>(null);
+
+  const testFunc = () => {
+    let a = () => {
+      animationRef.current.pause();
+      getReward();
+    };
+    test ? animationRef.current.play() : a();
+    setTest((prev) => !prev);
+  };
+
   useEffect(() => {
     (() => {
       document.addEventListener('keypress', gameStart);
@@ -475,6 +495,20 @@ const DungeonFight = () => {
       document.removeEventListener('keypress', gameStart);
     };
   }, [gameStart]);
+
+  useEffect(() => {
+    // https://newdevzone.com/posts/how-to-use-animejs-inside-react
+
+    animationRef.current = anime({
+      targets: '#penEnd, #penEnd2',
+      translateX: 270,
+      duration: 500,
+      direction: 'alternate', //번갈아 재생
+      loop: true, // number는 횟수 true는 무한
+      easing: 'easeInOutSine',
+      autoplay: false,
+    });
+  }, []);
 
   //새로고침 시 몬스터체력이 0이되어 바로 다음층으로 진입이 가능하다.
   //이를 방지하여 렌더링시 체력을 체크하여 dungeon으로 보낸다.
@@ -550,11 +584,10 @@ const DungeonFight = () => {
 
       <Ballpen
         penStatus={penStatus}
-        ref={inputRef}
         isDungeon={true}
       ></Ballpen>
 
-      {supp ? (
+      {/* {supp ? (
         <StartBtn
           supp={supp}
           id='startbuttons'
@@ -573,7 +606,24 @@ const DungeonFight = () => {
           {penStatus ? '시작' : '멈춰'}
           <p>Space Bar</p>
         </StartBtn>
-      )}
+      )} */}
+      <button
+        id='aniPlay'
+        onClick={() => testFunc()}
+        // onClick={test ? () => testPlay() : () => testPause()}
+      >
+        {test ? '애니메이션 플레이' : '애니메이션 정지 '}
+      </button>
+      <button
+        id='aniStop'
+        // onClick={() => {
+        //   animation.pause();
+        //   getReward();
+        // }}
+        // onClick={() => testFunc2()}
+      >
+        애니메이션 정지
+      </button>
 
       {penRewardArray ? (
         <BoxWrap as='div'>
