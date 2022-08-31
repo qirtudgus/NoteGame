@@ -27,16 +27,21 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElemen
       {isDungeon ? (
         <>
           <PenImgWrapDun>
-            <PenImgDun
+            {/* <PenImgDun
+              ref={ref}
               src={equipBallpenImg}
               penSpeed={userInfo.DungeonPenSpeed}
               penStatus={penStatus}
             ></PenImgDun>
             <PenEndDun
               penStatus={penStatus}
-              ref={ref}
               penSpeed={userInfo.DungeonPenSpeed}
-            ></PenEndDun>
+            ></PenEndDun> */}
+            <PenImgDun
+              id='penEnd2'
+              src={equipBallpenImg}
+            ></PenImgDun>
+            <PenEndDun id='penEnd'></PenEndDun>
           </PenImgWrapDun>
         </>
       ) : (
