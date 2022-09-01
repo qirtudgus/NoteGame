@@ -33,6 +33,8 @@ dungeonRouter.post('/victory', (req, res, next) => {
         let needExp = rows[0].NeedExp;
         if (resultExp >= needExp) {
           db.query(LevelUpQuery, [userId], (err, rows, fields) => {
+            console.log(`${userId}님이 렙업하셨습니다.`);
+
             db.query(loginQuery, [userId], (err, rows, fields) => {
               let userInfo = userInfoProcess(rows[0]);
               res.status(200).json({ code: 200, userInfo: userInfo });
@@ -52,14 +54,15 @@ dungeonRouter.post('/victory', (req, res, next) => {
     db.query(VictoryQuery, [resultGold, monsterExp, userId], (err, rows, fields) => {
       db.query(ExpCheckQuery, [userLevel], (err, rows, fields) => {
         let needExp = rows[0].NeedExp;
+        //레벨업 여부 체크
         if (resultExp >= needExp) {
           db.query(LevelUpQuery, [userId], (err, rows, fields) => {
+            console.log(`${userId}님이 렙업하셨습니다.`);
             //맥스층을 뚫었는지 dB갱신 후 체크하여 현재 층이 맥스층보다 높으면 맥스층에 현재층 값을 할당한다.
             db.query(MaxFloorFindQuery, [userId], (err, rows, fields) => {
               if (rows[0].MaxDungeonFloor < rows[0].DungeonFloor) {
-                db.query(VictoryMaxFloorQuery, [rows[0].DungeonFloor, userId], (err, rows, fields) => {
-                  console.log(rows);
-                });
+                console.log(`${userId}님이 ${rows[0].DungeonFloor}층으로 신기록을 달성했습니다.`);
+                db.query(VictoryMaxFloorQuery, [rows[0].DungeonFloor, userId], (err, rows, fields) => {});
               }
 
               //마지막에는 유저정보 업데이트
@@ -69,16 +72,15 @@ dungeonRouter.post('/victory', (req, res, next) => {
               });
             });
           });
-        } else {
+        }
+        //레벨업을 안할 시
+        else {
           //맥스층을 뚫었는지 dB갱신 후 체크하여 현재 층이 맥스층보다 높으면 맥스층에 현재층 값을 할당한다.
           db.query(MaxFloorFindQuery, [userId], (err, rows, fields) => {
-            console.log(rows);
             if (rows[0].MaxDungeonFloor < rows[0].DungeonFloor) {
-              db.query(VictoryMaxFloorQuery, [rows[0].DungeonFloor, userId], (err, rows, fields) => {
-                console.log(rows);
-              });
+              console.log(`${userId}님이 ${rows[0].DungeonFloor}층으로 신기록을 달성했습니다.`);
+              db.query(VictoryMaxFloorQuery, [rows[0].DungeonFloor, userId], (err, rows, fields) => {});
             }
-
             //마지막에는 유저정보 업데이트
             db.query(loginQuery, [userId], (err, rows, fields) => {
               const userInfo = userInfoProcess(rows[0]);
@@ -107,8 +109,8 @@ dungeonRouter.post('/revival', (req, res) => {
     console.log(revivalFloor);
 
     db.query(RevivalUpdateQuery, [revivalFloor, addSkillPoint, userId], (err, rows, fields) => {
-      console.log(err);
       console.log(rows);
+      console.log(`${userId}님이 환생하셨습니다.`);
     });
 
     db.query(loginQuery, [userId], (err, rows, fields) => {
