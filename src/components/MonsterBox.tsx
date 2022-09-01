@@ -16,12 +16,12 @@ const CharacterWrap = styled.div<children>`
   ${(props) =>
     props.gelatine &&
     css`
-      animation: ${gelatine} 0.35s 0.35s;
+      animation: ${gelatine} 0.35s 0.45s;
     `}
   ${(props) =>
     props.attack &&
     css`
-      animation: ${monsterAttack} 0.35s 0.1s;
+      animation: ${monsterAttack} 0.4s 0.15s;
     `}
 `;
 interface children {
@@ -35,6 +35,7 @@ interface children {
 
 const Character = styled.div<children>`
   justify-content: center;
+  //등장 이펙트
   animation: ${monsterAppearEffect} 0.7s;
   ${(props) =>
     props.monsterKill &&
