@@ -88,7 +88,7 @@ const Dungeon = () => {
         <MoveBox2
           onClick={() => {
             dispatch(create_monster_request(userInfo.DungeonFloor));
-            navigate('/dungeonfight');
+            navigate('/newdungeonfight');
           }}
         >
           도전
