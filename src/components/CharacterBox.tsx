@@ -44,6 +44,9 @@ const Character = styled.div<dungeonAni>`
     `}
 `;
 
+const attackTime = '0.7s';
+const attackDelayTime = '0.3s';
+
 const EquipBallpen = styled.div<dungeonAni>`
   position: absolute;
   width: 20px;
@@ -58,31 +61,36 @@ const EquipBallpen = styled.div<dungeonAni>`
     object-fit: cover;
     filter: drop-shadow(5px -5px 2px rgba(0, 0, 0, 0.35));
   }
+  ${(props) =>
+    props.attack === 'attack0' &&
+    css`
+      animation: none;
+    `}
 
   ${(props) =>
     props.attack === 'attack1' &&
     css`
-      animation: ${attack1} 1s;
+      animation: ${attack1} ${attackTime};
       animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
     `}
   ${(props) =>
     props.attack === 'attack2' &&
     css`
-      animation: ${attack2} 1s;
+      animation: ${attack2} ${attackTime};
       animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     `}
     ${(props) =>
     props.attack === 'attack3' &&
     css`
-      animation: ${attack3} 1s;
+      animation: ${attack3} ${attackTime};
       animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
     `}
     ${(props) =>
     props.attack === 'attack4' &&
     css`
-      animation: ${attack4} 1s;
+      animation: ${attack4} ${attackTime};
       animation-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    `}
+    `} animation-delay: ${attackDelayTime};
 `;
 
 interface children {
@@ -102,6 +110,7 @@ const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
       <CharacterWrap>
         {children}
         <Character
+          id='CharacterBox'
           gelatine={gelatine}
           moving={moving}
         >
