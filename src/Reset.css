@@ -128,6 +128,10 @@ table {
   font-family: 'HandFont';
   src: url('../public/font/KyoboHand.woff');
 }
+@font-face {
+  font-family: 'Damage';
+  src: url('../public/font/SamliphopangcheTTFOutline.ttf');
+}
 
 * {
   font-family: 'HandFont' !important;
@@ -135,5 +139,3 @@ table {
 button {
   cursor: pointer;
 }
-
-
