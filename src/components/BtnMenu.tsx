@@ -13,7 +13,7 @@ const BtnWrap = styled.div`
   position: absolute;
   left: 30px;
   bottom: 30px;
-  z-index: 10000;
+  z-index: 1000;
 `;
 export const ButtonColor = styled.button`
   box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
