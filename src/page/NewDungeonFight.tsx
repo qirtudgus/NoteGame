@@ -16,14 +16,12 @@ import CharacterBox from '../components/CharacterBox';
 import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
 import NewBallpen from '../components/NewBallpen';
-import 칼 from '../img/칼.svg';
 import anime from 'animejs';
 import VictoryModal from '../components/VictoryModal';
 import { penObj } from '../util/shopList';
 import { monsterArr } from '../util/dungeonMonsterList';
 import RewardListBox from '../components/RewardListBox';
 import sleep from '../util/sleep';
-import RevivalModal from '../components/RevivalModal';
 
 const StartBtn = styled.div`
   width: 205px;
@@ -75,7 +73,7 @@ const animationSpeed = {
 
 const UserHpBar = styled.div<hp>`
   width: 50%;
-  height: 60px;
+  height: 40px;
   background: #242222;
   border-radius: 25px 0 0 25px;
   overflow: hidden;
@@ -84,7 +82,7 @@ const UserHpBar = styled.div<hp>`
 `;
 const MonsterHpBar = styled.div<hp>`
   width: 50%;
-  height: 60px;
+  height: 40px;
   background: #242222;
   border-radius: 0 25px 25px 0;
   overflow: hidden;
@@ -92,18 +90,31 @@ const MonsterHpBar = styled.div<hp>`
   justify-content: flex-start;
 `;
 const UserHpNowBar = styled.div<hp>`
-  height: 60px;
+  height: 40px;
   background: #ca0000;
   transition: ${animationSpeed.hp}s all;
   transition-delay: 0.3s;
   width: ${(props) => props.hpBar}%;
 `;
 const MonsterHpNowBar = styled.div<hp>`
-  height: 60px;
+  height: 40px;
   background: #ca0000;
   transition: ${animationSpeed.hp}s all;
   transition-delay: 0.4s;
   width: ${(props) => props.hpBar}%;
+`;
+
+const HpTextWrap = styled.div`
+  display: flex;
+  position: absolute;
+  width: 800px;
+  justify-content: space-between;
+  top: 65px;
+`;
+
+const HpText = styled.p`
+  font-size: 1.4rem;
+  width: auto;
 `;
 
 const damageTextAnimation = keyframes`
@@ -114,7 +125,7 @@ const damageTextAnimation = keyframes`
 `;
 
 interface textCoords {
-  textLeft: number;
+  textLeft?: number;
 }
 
 const DamageText = styled.p<textCoords>`
@@ -349,12 +360,23 @@ const NewDungeonFight = () => {
         ></VictoryModal>
       ) : null}
       <FightState>
+        {isVisible && (
+          <HpTextWrap>
+            <HpText>
+              {hp.userHp} / {userInfo.BasicHp}
+            </HpText>
+            <HpText>
+              {hp.monsterHp} / {monsterInfo.monsterFullHp}
+            </HpText>
+          </HpTextWrap>
+        )}
+
         <UserHpBar>
-          <UserHpNowBar hpBar={hp.userHpBar}>{hp.userHp}</UserHpNowBar>
+          <UserHpNowBar hpBar={hp.userHpBar}></UserHpNowBar>
         </UserHpBar>
         <FloorBox></FloorBox>
         <MonsterHpBar monster={true}>
-          <MonsterHpNowBar hpBar={hp.monsterHpBar}>{hp.monsterHp}</MonsterHpNowBar>
+          <MonsterHpNowBar hpBar={hp.monsterHpBar}></MonsterHpNowBar>
         </MonsterHpBar>
       </FightState>
       <FightZone>
