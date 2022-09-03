@@ -36,7 +36,7 @@ const UserId = styled.div`
   color: #fff;
   box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 35%);
   margin-left: 0.6rem;
-  padding: 4px 1rem 4px 1rem;
+  padding: 3px 0.6rem 3px 0.6rem;
   border-radius: 6px;
 `;
 const UserLevel = styled.div`
@@ -45,7 +45,7 @@ const UserLevel = styled.div`
   color: #fff;
   box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 35%);
   margin-left: 0.1rem;
-  padding: 4px 1rem 4px 1rem;
+  padding: 3px 0.6rem 3px 0.6rem;
   border-radius: 6px;
 `;
 
@@ -90,7 +90,7 @@ const UserGold = styled.div`
   background: #333;
   color: #fff;
   margin-left: 0.1rem;
-  padding: 3px 1rem 3px 1rem;
+  padding: 3px 0.6rem 3px 0.6rem;
   border-radius: 6px;
   border: 1px solid#aaa;
   box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 35%);
@@ -119,9 +119,9 @@ const UserInfo = () => {
       <UserBox>
         <UserId>{userId}</UserId>
         <UserLevel>Lv. {Level}</UserLevel>
-        <UserLevel>
-          Exp {Exp} / {expTable[Level]}
-        </UserLevel>
+        <UserGold>
+          <span>Exp</span> {Exp} / {expTable[Level]}
+        </UserGold>
         <UserGold as='div'>
           <span>HP</span> {BasicHp.toLocaleString()}
         </UserGold>
