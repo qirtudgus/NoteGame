@@ -95,7 +95,7 @@ const UserHpNowBar = styled.div<hp>`
   height: 60px;
   background: #ca0000;
   transition: ${animationSpeed.hp}s all;
-  transition-delay: 0.4s;
+  transition-delay: 0.3s;
   width: ${(props) => props.hpBar}%;
 `;
 const MonsterHpNowBar = styled.div<hp>`
@@ -171,6 +171,7 @@ const NewDungeonFight = () => {
     monster: false,
     userHit: false,
     monsterHit: false,
+    userNomally: true,
   });
   //새로고침 시 뒤로가기 (잘못된 플레이 방지)
   if (monsterInfo.monsterFullHp === 0) navigate(-1);
@@ -241,7 +242,8 @@ const NewDungeonFight = () => {
     let monsterHp: number = hp.monsterHp - userResultDamage;
     let monsterHpBar: number = Math.ceil((monsterHp / monsterInfo.monsterFullHp) * 100);
     if (monsterHp <= 0) {
-      setAttackAni({ ...attackAni, user: randomAttack(), monsterHit: true });
+      setAttackAni((prev) => ({ ...prev, userNomally: false }));
+      setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
       // setHp({ ...hp, monsterHp, monsterHpBar });
       setHp((prev) => ({ ...prev, monsterHp: 0, monsterHpBar: 0 }));
       characterAnimeRef.current.play();
@@ -253,8 +255,8 @@ const NewDungeonFight = () => {
       }, 1000);
       return;
     }
-
-    setAttackAni({ ...attackAni, user: randomAttack(), monsterHit: true });
+    setAttackAni((prev) => ({ ...prev, userNomally: false }));
+    setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
     // setHp({ ...hp, monsterHp, monsterHpBar });
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
 
@@ -274,14 +276,27 @@ const NewDungeonFight = () => {
     let monsterResultDamage = monsterDamage(monsterInfo.monsterDamage);
     let userHp = hp.userHp - monsterResultDamage;
     let userHpBar = Math.ceil((userHp / userInfo.BasicHp) * 100);
-    console.log(userHp);
+    if (userHp <= 0) {
+      setAttackAni({ ...attackAni, monster: true, userHit: true });
+      // setHp({ ...hp, monsterHp, monsterHpBar });
+      setHp((prev) => ({ ...prev, userHp: 0, userHpBar: 0 }));
+      characterAnimeRef.current.play();
+      setDamageText({ ...damageText, monsterAttackDamage: monsterResultDamage.toLocaleString() + '' });
+      setTimeout(function () {
+        setVictoryModal(false);
+        setIsModal(true);
+        //패배시 남아있는 데미지 텍스트 제거
+        setAttackAni({ ...attackAni, userHit: false });
+      }, 1000);
+      return;
+    }
     setAttackAni({ ...attackAni, monster: true, userHit: true });
     setDamageText({ ...damageText, monsterAttackDamage: monsterResultDamage.toLocaleString() + '' });
     setHp((prev) => ({ ...prev, userHp, userHpBar }));
     //한번 초기화를 해주면 애니메이션 정상 작동
     //초기화는 몬스터무빙 애니메이션까지 끝난 뒤 해야하기때문에 몬스터 애니메이션과 같은 값으로 준다.
     await sleep(1);
-    setAttackAni({ user: 'attack0', monster: false, userHit: false, monsterHit: false });
+    setAttackAni({ user: 'attack0', monster: false, userHit: false, monsterHit: false, userNomally: true });
     setPenAnimation(true);
     setRefresh((prev) => !prev);
     //마지막에 스타트버튼에 함수를 활성화시켜 전투가 끝나기전까지는 제한된다.
@@ -346,6 +361,7 @@ const NewDungeonFight = () => {
         {attackAni.userHit ? <DamageText textLeft={300}>{damageText.monsterAttackDamage}</DamageText> : null}
 
         <CharacterBox
+          normally={attackAni.userNomally}
           attack={attackAni.user}
           gelatine={attackAni.userHit}
         ></CharacterBox>
