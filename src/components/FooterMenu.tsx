@@ -25,7 +25,6 @@ const FooterIcon = styled.div`
 
 const FooterTitle = styled.div`
   display: flex;
-  font-weight: bold;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
@@ -35,7 +34,7 @@ const FooterTitle = styled.div`
   background: #333;
   color: #fff;
   border-radius: 20px;
-  text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
+  /* text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000; */
 `;
 
 const FooterMenu = () => {
