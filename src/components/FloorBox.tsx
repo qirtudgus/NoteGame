@@ -9,11 +9,10 @@ const Floorwrap = styled.div`
   align-items: center;
   background: #333;
   color: #fff;
-  height: 90px;
+  height: 70px;
   width: 100px;
   border-radius: 10px;
   font-size: 30px;
-  font-weight: bold;
 `;
 
 const FloorBox = (props: any) => {
