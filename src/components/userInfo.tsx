@@ -16,7 +16,7 @@ const BasicBox = styled.div`
   top: 77px;
   left: 1px;
   z-index: 10;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding-bottom: 7px;
   line-height: 32px;
   letter-spacing: 1px;
