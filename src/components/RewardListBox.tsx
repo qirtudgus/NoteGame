@@ -8,20 +8,22 @@ import { createPenRewardArray } from '../util/createRandomRewardsArray';
 import { choiceRewordEffect, highRewordEffect } from '../styledComponents/DungeonFight_Effect';
 import 칼 from '../img/칼.svg';
 import { userDamage } from '../util/createDamage';
+import { ButtonColor } from './BtnMenu';
 interface reward {
   highReward?: boolean;
 }
 
-const Wrap = styled.div`
+const Wrap = styled(ButtonColor)`
   position: absolute;
   z-index: 1;
   bottom: 30px;
   display: flex;
   width: auto;
-  padding: 10px 25px 10px 25px;
+  padding: 10px 20px 10px 20px;
   height: 175px;
-  /* background: #fff; */
+  background: #eee;
   align-items: center;
+  border-radius: 10px;
 `;
 
 const Reward = styled.div<reward>`
@@ -35,6 +37,13 @@ const Reward = styled.div<reward>`
   justify-content: center;
   align-items: center;
   display: flex;
+  &:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+  &:last-child {
+    border-right: 1px solid#555555;
+    border-radius: 0 10px 10px 0;
+  }
 
   ${(props) =>
     props.highReward &&
@@ -55,9 +64,9 @@ const Reward = styled.div<reward>`
     left: 0;
     width: 100%;
     height: 100%;
-    background: #fff;
   }
   &.active::after {
+    background: #fff;
     animation: ${choiceRewordEffect} 0.7s ease;
   }
 `;
@@ -94,7 +103,7 @@ const RewardListBox = (props: any) => {
   }
   return (
     <>
-      <Wrap>
+      <Wrap as='div'>
         {penRewardArray?.map((i: any, index: number) => (
           <React.Fragment key={index}>
             {highRewordNum2() === i ? (
