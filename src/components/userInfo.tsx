@@ -119,6 +119,9 @@ const UserInfo = () => {
       <UserBox>
         <UserId>{userId}</UserId>
         <UserLevel>Lv. {Level}</UserLevel>
+        <UserLevel>
+          Exp {Exp} / {expTable[Level]}
+        </UserLevel>
         <UserGold as='div'>
           <span>HP</span> {BasicHp.toLocaleString()}
         </UserGold>
