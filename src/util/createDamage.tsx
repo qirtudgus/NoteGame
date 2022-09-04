@@ -9,7 +9,14 @@ import createRandomNum from './createRandomNum';
 
 // 리워드로 계산한 최종데미지
 
-export const userDamage = (reward: number, basicDamage: number, weaponDamage: number, betterPen: number): number => {
+export const userDamage = (
+  reward: number,
+  basicDamage: number,
+  weaponDamage: number,
+  betterPen: number,
+  useDoubleAttack?: boolean,
+  doubleAttackValue?: number,
+): number => {
   // 유저의 기본데미지에 스킬렙만큼(n*2%)의 데미지를 구한다.
   let userDamage = basicDamage + weaponDamage;
 
@@ -19,8 +26,15 @@ export const userDamage = (reward: number, basicDamage: number, weaponDamage: nu
 
   // reward로 뽑은만큼의 데미지를 계산하여 반환
   let resultUserDamage = Math.ceil(addDamage * (reward / 100));
-
-  return resultUserDamage;
+  console.log('원래 데미지');
+  console.log(resultUserDamage);
+  if (useDoubleAttack === true) {
+    console.log('더블어택 데미지');
+    console.log(resultUserDamage * doubleAttackValue!);
+    return resultUserDamage * doubleAttackValue!;
+  } else {
+    return resultUserDamage;
+  }
 };
 //몬스터 데미지 공식
 //1. 몬스터 기본 데미지
