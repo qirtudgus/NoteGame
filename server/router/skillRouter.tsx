@@ -9,6 +9,7 @@ const UpGoldPenQuery = `UPDATE users SET UpGoldPen = UpGoldPen + 1, SkillPoint =
 const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpMoreFloorQuery = `UPDATE users SET UpMoreFloor = UpMoreFloor + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpRevivalStatPointQuery = `UPDATE users SET UpRevivalStatPoint = UpRevivalStatPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
+const UpDoubleAttackQuery = `UPDATE users SET UpDoubleAttack = UpDoubleAttack + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const RevivalPointQuery = `UPDATE users SET RevivalPoint = RevivalPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpMaxHpQuery = `UPDATE users SET UpMaxHp = UpMaxHp + 1, SkillPoint = SkillPoint - 1, BasicHp = BasicHp + 100 WHERE ID = ?`;
@@ -59,6 +60,11 @@ skillRouter.post('/skillup', (req, res, next) => {
   }
   if (skillName === 'UpRevivalStatPoint') {
     db.query(UpRevivalStatPointQuery, [userId], (err, result, fields) => {
+      // console.log(err);
+    });
+  }
+  if (skillName === 'UpDoubleAttack') {
+    db.query(UpDoubleAttackQuery, [userId], (err, result, fields) => {
       // console.log(err);
     });
   }
