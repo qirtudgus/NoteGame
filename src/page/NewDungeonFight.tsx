@@ -142,6 +142,10 @@ const NewDungeonFight = () => {
   const navigate = useNavigate();
   const penAnimeRef = useRef<any>(null);
   const characterAnimeRef = useRef<any>(null);
+  //더블어택 사용유무
+  const [doubleAttack, setDoubleAttack] = useState<boolean>(false);
+  const [doubleAttackCount, setDoubleAttackCount] = useState(1);
+
   //이겼을 때 모달 상태
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
@@ -188,6 +192,17 @@ const NewDungeonFight = () => {
   if (monsterInfo.monsterFullHp === 0) navigate(-1);
   //디테일 뷰 상태값
   const isVisible = useSelector((state: RootState) => state.visibleState.isVisible) as boolean;
+
+  //더블어택 함수
+  const useDoubleAttack = () => {
+    let setTrue = () => {
+      setDoubleAttack(true);
+    };
+    let setFalse = () => {
+      setDoubleAttack(false);
+    };
+    doubleAttackCount === 1 ? setTrue() : setFalse();
+  };
 
   //시작 버튼 함수
   const penAnimationStart = () => {
@@ -248,7 +263,13 @@ const NewDungeonFight = () => {
       userInfo.BasicDamage,
       userInfo.WeaponDamage,
       userInfo.BetterPen,
+      doubleAttack,
+      userInfo.UpDoubleAttack,
     );
+    if (doubleAttack === true) {
+      setDoubleAttack(false);
+      setDoubleAttackCount(0);
+    }
     //남은 몬스터 체력 계산
     let monsterHp: number = hp.monsterHp - userResultDamage;
     let monsterHpBar: number = Math.ceil((monsterHp / monsterInfo.monsterFullHp) * 100);
@@ -416,6 +437,9 @@ const NewDungeonFight = () => {
         refresh={refresh}
         monsterHp={hp.monsterHp}
       ></RewardListBox>
+      {userInfo.UpDoubleAttack > 0 ? (
+        <p onClick={useDoubleAttack}>{doubleAttack ? '더블어택 ON' : '더블어택 OFF'}</p>
+      ) : null}
       <BottomBox></BottomBox>
     </>
   );
