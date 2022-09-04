@@ -195,13 +195,13 @@ const NewDungeonFight = () => {
 
   //더블어택 함수
   const useDoubleAttack = () => {
-    let setTrue = () => {
-      setDoubleAttack(true);
+    let setToggle = () => {
+      setDoubleAttack((prev) => !prev);
     };
     let setFalse = () => {
       setDoubleAttack(false);
     };
-    doubleAttackCount === 1 ? setTrue() : setFalse();
+    doubleAttackCount === 1 ? setToggle() : setFalse();
   };
 
   //시작 버튼 함수
@@ -292,7 +292,6 @@ const NewDungeonFight = () => {
     setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
     // setHp({ ...hp, monsterHp, monsterHpBar });
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
-
     characterAnimeRef.current.play();
     setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
 
