@@ -36,6 +36,8 @@ export interface userInfoInterface {
   RevivalCount: number;
   MaxDungeonFloor: number;
   DungeonClearCount: number;
+  UpMoreFloor: number;
+  UpRevivalStatPoint: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {
