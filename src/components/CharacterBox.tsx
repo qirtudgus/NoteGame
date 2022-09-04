@@ -2,7 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import 캐릭터배경 from '../img/캐릭터배경.png';
-import { gelatine, attack1, attack2, attack3, attack4, movingAni } from '../styledComponents/DungeonFight_Effect';
+import {
+  gelatine,
+  attack1,
+  attack2,
+  attack3,
+  attack4,
+  movingAni,
+  normallyMoving,
+} from '../styledComponents/DungeonFight_Effect';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
@@ -10,6 +18,7 @@ interface dungeonAni {
   gelatine?: boolean;
   attack?: string;
   moving?: boolean;
+  normally?: boolean;
 }
 const CharacterWrap = styled.div<dungeonAni>`
   width: 200px;
@@ -32,6 +41,11 @@ const Character = styled.div<dungeonAni>`
     width: 100%;
   }
   ${(props) =>
+    props.normally &&
+    css`
+      animation: ${normallyMoving} 1s infinite cubic-bezier(0.22, 0.61, 0.36, 1);
+    `}
+  ${(props) =>
     props.gelatine &&
     css`
       animation: ${gelatine} 0.35s 0.2s;
@@ -39,8 +53,7 @@ const Character = styled.div<dungeonAni>`
   ${(props) =>
     props.moving &&
     css`
-      animation: ${movingAni} 1s;
-      animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation: ${movingAni} 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     `}
 `;
 
@@ -98,8 +111,9 @@ interface children {
   gelatine?: boolean;
   attack?: string;
   moving?: boolean;
+  normally?: boolean;
 }
-const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
+const CharacterBox = ({ children, gelatine, attack, moving, normally }: children) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const equipBallpen = userInfo.EquipBallpen;
 
@@ -113,6 +127,7 @@ const CharacterBox = ({ children, gelatine, attack, moving }: children) => {
           id='CharacterBox'
           gelatine={gelatine}
           moving={moving}
+          normally={normally}
         >
           <EquipBallpen attack={attack}>
             <img
