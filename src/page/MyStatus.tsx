@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
-import NewSkillPiece from '../components/NewSkillPiece';
-import NewSkillPiece2 from '../components/NewSkillPiece2';
+import StatusPiece from '../components/StatusPiece';
+import SkillPiece from '../components/SkillPiece';
 import StatList from '../components/StatList';
 const StatusWrap = styled.div`
   width: 90%;
@@ -60,9 +60,9 @@ const MyStatus = () => {
     },
     {
       name: '능력치',
-      content: <NewSkillPiece></NewSkillPiece>,
+      content: <StatusPiece></StatusPiece>,
     },
-    { name: '스킬', content: <NewSkillPiece2></NewSkillPiece2> },
+    { name: '스킬', content: <SkillPiece></SkillPiece> },
   ];
 
   const SetTabNumberFunc = (index: number): void => {
