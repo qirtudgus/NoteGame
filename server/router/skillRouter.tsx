@@ -7,6 +7,8 @@ export const skillRouter = express.Router();
 const userFindQuery = 'SELECT SkillPoint, ? FROM users WHERE ID = ?';
 const UpGoldPenQuery = `UPDATE users SET UpGoldPen = UpGoldPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpGoldHuntQuery = `UPDATE users SET UpGoldHunt = UpGoldHunt + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
+const UpMoreFloorQuery = `UPDATE users SET UpMoreFloor = UpMoreFloor + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
+const UpRevivalStatPointQuery = `UPDATE users SET UpRevivalStatPoint = UpRevivalStatPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const BetterPenQuery = `UPDATE users SET BetterPen = BetterPen + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const RevivalPointQuery = `UPDATE users SET RevivalPoint = RevivalPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpMaxHpQuery = `UPDATE users SET UpMaxHp = UpMaxHp + 1, SkillPoint = SkillPoint - 1, BasicHp = BasicHp + 100 WHERE ID = ?`;
@@ -47,6 +49,16 @@ skillRouter.post('/skillup', (req, res, next) => {
   }
   if (skillName === 'UpRevivalPoint') {
     db.query(RevivalPointQuery, [userId], (err, result, fields) => {
+      // console.log(err);
+    });
+  }
+  if (skillName === 'UpMoreFloor') {
+    db.query(UpMoreFloorQuery, [userId], (err, result, fields) => {
+      // console.log(err);
+    });
+  }
+  if (skillName === 'UpRevivalStatPoint') {
+    db.query(UpRevivalStatPointQuery, [userId], (err, result, fields) => {
       // console.log(err);
     });
   }
