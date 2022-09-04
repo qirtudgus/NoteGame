@@ -38,6 +38,7 @@ export interface userInfoInterface {
   DungeonClearCount: number;
   UpMoreFloor: number;
   UpRevivalStatPoint: number;
+  UpDoubleAttack: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {
