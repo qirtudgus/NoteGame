@@ -5,13 +5,13 @@ import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 export const dungeonRouter = express.Router();
 
 const VictoryBeforeQuery = `UPDATE users SET Gold = Gold + ? ,Exp = Exp + ?, DungeonClearCount = DungeonClearCount + 1  WHERE ID = ?`;
-const VictoryQuery = `UPDATE users SET DungeonFloor = DungeonFloor + 1, Gold = Gold + ? ,Exp = Exp + ?, DungeonClearCount = DungeonClearCount + 1 WHERE ID = ?`;
+const VictoryQuery = `UPDATE users SET DungeonFloor = DungeonFloor + 1 + UpMoreFloor, Gold = Gold + ? ,Exp = Exp + ?, DungeonClearCount = DungeonClearCount + 1 WHERE ID = ?`;
 const VictoryMaxFloorQuery = `UPDATE users SET MaxDungeonFloor = ? WHERE ID = ?`;
 const MaxFloorFindQuery = `SELECT MaxDungeonFloor, DungeonFloor FROM users WHERE ID = ?`;
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
 const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1 WHERE ID = ?`;
-const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor FROM users WHERE Id = ?`;
+const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor, UpRevivalStatPoint FROM users WHERE Id = ?`;
 const RevivalUpdateQuery =
   'UPDATE users SET DungeonFloor = ?, SkillPoint = SkillPoint + ?, RevivalCount = RevivalCount + 1 WHERE ID = ?';
 
@@ -62,6 +62,7 @@ dungeonRouter.post('/victory', (req, res, next) => {
             db.query(MaxFloorFindQuery, [userId], (err, rows, fields) => {
               if (rows[0].MaxDungeonFloor < rows[0].DungeonFloor) {
                 console.log(`${userId}님이 ${rows[0].DungeonFloor}층으로 신기록을 달성했습니다.`);
+
                 db.query(VictoryMaxFloorQuery, [rows[0].DungeonFloor, userId], (err, rows, fields) => {});
               }
 
@@ -100,9 +101,10 @@ dungeonRouter.post('/revival', (req, res) => {
   db.query(RevivalPointFindQuery, [userId], (err, rows, fields) => {
     let nowFloor = rows[0].DungeonFloor;
     let revivalPoint = rows[0].RevivalPoint;
+    let UpRevivalStatPoint = rows[0].UpRevivalStatPoint;
     let giveSkillPoint = 50;
     //환생 후 받을 스킬포인트
-    let addSkillPoint = Math.floor(nowFloor / giveSkillPoint);
+    let addSkillPoint = Math.floor(nowFloor / giveSkillPoint) * UpRevivalStatPoint;
     //환생 후 돌아갈 층
     let revivalFloor = Math.ceil((nowFloor * revivalPoint) / 100);
 
