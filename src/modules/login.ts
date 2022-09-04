@@ -56,6 +56,7 @@ export let setUesrInfo = {
   MaxDungeonFloor: 0,
   DungeonClearCount: 0,
   UpMoreFloor: 0,
+  UpRevivalStatPoint: 0,
 };
 
 export const revival_request = () => ({
@@ -209,6 +210,7 @@ export interface LoginUserInfoInterface {
   MaxDungeonFloor: number;
   DungeonClearCount: number;
   UpMoreFloor: number;
+  UpRevivalStatPoint: number;
 }
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
