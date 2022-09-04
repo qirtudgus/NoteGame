@@ -162,9 +162,11 @@ const NewShopPiece = (props: any) => {
                   {i.title} Lv . {i.level}
                 </ShopTitle>
                 <ShopDesc>
-                  {i.desc}
-                  <br />
-                  {i.Gold} 골드
+                  <p>{i.desc}</p>
+                  <p>공격력 {i.weaponDamage}</p>
+                  <p>최소 공격률 {Math.min(...i.rewardList)}</p>
+                  <p>최대 공격률 {Math.max(...i.rewardList)}</p>
+                  <p>가격 {i.Gold} 잉크</p>
                 </ShopDesc>
               </ShopTextWrap>
               {
