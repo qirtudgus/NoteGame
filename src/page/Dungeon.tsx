@@ -57,10 +57,11 @@ const Dungeon = () => {
   const dispatch = useDispatch();
   const [before, setBefore] = useState(true);
 
+  let giveSkillPoint = 50;
   //환생 후 받을 스킬포인트
-  let addSkillPoint = Math.floor((userInfo?.DungeonFloor as number) / 50);
+  let addSkillPoint = Math.floor((userInfo.DungeonFloor as number) / giveSkillPoint) * userInfo.UpRevivalStatPoint;
   //환생 후 돌아갈 층
-  let revivalFloor = Math.ceil(((userInfo?.DungeonFloor as number) * (userInfo?.RevivalPoint as number)) / 100);
+  let revivalFloor = Math.ceil(((userInfo.DungeonFloor as number) * (userInfo.RevivalPoint as number)) / 100);
 
   return (
     <>
