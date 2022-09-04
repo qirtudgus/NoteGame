@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
 import NewShopPiece from '../components/NewShopPiece';
-import NewSkillPiece from '../components/NewSkillPiece';
 const ShopWrap = styled.div`
   width: 90%;
   margin-top: 50px;
@@ -59,7 +58,7 @@ const Shop = () => {
     },
     {
       name: '종이',
-      content: <NewSkillPiece></NewSkillPiece>,
+      content: <NewShopPiece></NewShopPiece>,
     },
     { name: '스킬', content: '스킬입니다.' },
   ];
