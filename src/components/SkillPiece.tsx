@@ -5,6 +5,7 @@ import { LoginUserInfoInterface, skill_request } from '../modules/login';
 import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
+import { StatName, StatValue } from './StatList';
 
 interface skillBoxInterface {
   title?: string;
@@ -15,18 +16,25 @@ interface skillBoxInterface {
 }
 
 const SkillBox = styled(ButtonColor)<skillBoxInterface>`
-  width: 600px;
+  width: 100%;
   height: 100px;
   background: #fff;
   margin-bottom: 20px;
   display: flex;
-  padding: 10px;
+
+  &:first-child {
+    margin-top: 20px;
+  }
+  &:last-child {
+    margin-bottom: 20px;
+  }
 `;
 const SkillTextWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  width: 500px;
+  padding: 10px 0 10px 0;
+  width: 400px;
 `;
 const SkillTitle = styled.p`
   font-size: 22px;
@@ -55,32 +63,76 @@ const SkillBtn = styled(ButtonColor)`
   }
 `;
 
+const SkillWrap = styled.div`
+  height: 480px;
+  overflow-y: scroll;
+  background: #eaeaea;
+`;
+
+const StatList = styled.li`
+  display: flex;
+  font-size: 1.5rem;
+`;
+
 const SkillPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
-
+  const skillArr = [
+    {
+      skillName: 'UpMoreFloor',
+      title: '계단은 올라갈 때 두칸씩',
+      desc: `던전 클리어 시 올라가는 층이 ${userInfo.UpMoreFloor} 상승합니다.`,
+      level: userInfo.UpMoreFloor,
+    },
+    {
+      skillName: 'UpRevivalStatPoint',
+      title: '내려갈때도 두칸씩',
+      desc: `환생 시 획득하는 능력치가 ${userInfo.UpRevivalStatPoint}배 상승합니다.`,
+      level: userInfo.UpRevivalStatPoint,
+    },
+    {
+      skillName: 'UpDoubleAttack',
+      title: '더블어택',
+      desc: `한 턴에 한하여 ${userInfo.UpDoubleAttack}배의 데미지를 입힙니다.`,
+      level: userInfo.UpDoubleAttack,
+    },
+  ];
   return (
     <>
-      <SkillBox as='div'>
-        <SkillIcon></SkillIcon>
-        <SkillTextWrap>
-          <SkillTitle>
-            {props.title} Lv . {props.level}
-          </SkillTitle>
-          <SkillDesc>{props.desc}</SkillDesc>
-        </SkillTextWrap>
-        <SkillBtn
-          onClick={() => {
-            if (userInfo.SkillPoint! <= 0) return;
-            dispatch(skill_request(`${props.skillName}`, userInfo.SkillPoint!));
-          }}
-        >
-          <img
-            src={플러스}
-            alt='스킬 업그레이드'
-          ></img>
-        </SkillBtn>
-      </SkillBox>
+      {' '}
+      <StatList>
+        <StatName>스킬 포인트</StatName>
+        <StatValue>{userInfo.SkillPoint}</StatValue>
+      </StatList>
+      <SkillWrap>
+        {skillArr.map((i: any, index: number) => {
+          return (
+            <SkillBox
+              as='div'
+              key={index}
+            >
+              <SkillIcon></SkillIcon>
+              <SkillTextWrap>
+                <SkillTitle>
+                  {i.title} Lv . {i.level}
+                </SkillTitle>
+                <SkillDesc>{i.desc}</SkillDesc>
+              </SkillTextWrap>
+              <SkillBtn
+                onClick={() => {
+                  if (userInfo.SkillPoint! <= 0) return;
+                  dispatch(skill_request(`${i.skillName}`, userInfo.SkillPoint!));
+                }}
+              >
+                <img
+                  src={플러스}
+                  alt='스킬 업그레이드'
+                ></img>
+              </SkillBtn>
+            </SkillBox>
+          );
+        })}
+      </SkillWrap>
     </>
   );
 };
