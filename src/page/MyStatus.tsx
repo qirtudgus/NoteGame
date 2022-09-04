@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
 import NewSkillPiece from '../components/NewSkillPiece';
+import NewSkillPiece2 from '../components/NewSkillPiece2';
 import StatList from '../components/StatList';
 const StatusWrap = styled.div`
   width: 90%;
@@ -61,7 +62,7 @@ const MyStatus = () => {
       name: '능력치',
       content: <NewSkillPiece></NewSkillPiece>,
     },
-    { name: '스킬', content: '스킬입니다.' },
+    { name: '스킬', content: <NewSkillPiece2></NewSkillPiece2> },
   ];
 
   const SetTabNumberFunc = (index: number): void => {
