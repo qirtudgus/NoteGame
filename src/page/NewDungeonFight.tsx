@@ -260,6 +260,7 @@ const NewDungeonFight = () => {
       characterAnimeRef.current.play();
       setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
       setTimeout(function () {
+        setAttackAni({ ...attackAni, monsterHit: false });
         setVictoryModal(true);
         setIsModal(true);
         setMonsterKill(true);
