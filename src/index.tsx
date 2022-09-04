@@ -97,7 +97,7 @@ root.render(
           ></Route>
           <Route
             path='/dungeonfightbefore'
-            element={<DungeonFight />}
+            element={<NewDungeonFight />}
           ></Route>
           <Route
             path='/ballpenshop'
