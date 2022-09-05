@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface, skill_request } from '../modules/login';
@@ -6,14 +6,14 @@ import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import { StatName, StatValue } from './StatList';
+import { modal_success } from '../modules/modalState';
+import RevivalModal from './RevivalModal';
 
 interface skillBoxInterface {
   title?: string;
   level?: number;
   desc?: string;
-  skillUp?: () => void;
   icon?: string;
-  requestLevel?: boolean;
   descColor?: string;
 }
 
@@ -80,7 +80,9 @@ const StatList = styled.li`
 
 const SkillPiece = (props: any) => {
   const dispatch = useDispatch();
+  const [skillText, setSkillText] = useState('요구 레벨이 부족합니다.');
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
+  const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const skillArr = [
     {
       skillName: 'UpMoreFloor',
@@ -88,6 +90,7 @@ const SkillPiece = (props: any) => {
       desc: `던전 클리어 시 올라가는 층이 ${userInfo.UpMoreFloor} 상승합니다.`,
       level: userInfo.UpMoreFloor,
       requestLevel: 1,
+      maxLevel: Infinity,
     },
     {
       skillName: 'UpRevivalStatPoint',
@@ -95,6 +98,7 @@ const SkillPiece = (props: any) => {
       desc: `환생 시 획득하는 능력치가 ${userInfo.UpRevivalStatPoint}배 상승합니다.`,
       level: userInfo.UpRevivalStatPoint,
       requestLevel: 1,
+      maxLevel: Infinity,
     },
     {
       skillName: 'UpDoubleAttack',
@@ -102,10 +106,37 @@ const SkillPiece = (props: any) => {
       desc: `한 턴에 한하여 2배의 데미지를 입힙니다.`,
       level: userInfo.UpDoubleAttack,
       requestLevel: 5,
+      maxLevel: 1,
     },
   ];
+
+  function skillUp(skillName: string, maxLevel: number, requestLevel: number) {
+    if (userInfo[skillName] === maxLevel) {
+      setSkillText('이미 만렙인 스킬입니다.');
+      dispatch(modal_success());
+      return;
+    }
+    if (userInfo.Level < requestLevel) {
+      setSkillText('요구 레벨이 부족합니다.');
+      dispatch(modal_success());
+      return;
+    }
+    if (userInfo.SkillPoint === 0) {
+      setSkillText('스킬포인트가 부족합니다.');
+      dispatch(modal_success());
+      return;
+    } else {
+      dispatch(skill_request(`${skillName}`, userInfo.SkillPoint));
+    }
+  }
+
   return (
     <>
+      {isModal && (
+        <RevivalModal close>
+          <p>{skillText}</p>
+        </RevivalModal>
+      )}
       <StatList>
         <StatName>스킬 포인트</StatName>
         <StatValue>{userInfo.SkillPoint}</StatValue>
@@ -126,15 +157,7 @@ const SkillPiece = (props: any) => {
                 <SkillDesc>{i.desc}</SkillDesc>
                 <SkillDesc descColor='#f01616'>요구레벨 {i.requestLevel}</SkillDesc>
               </SkillTextWrap>
-              <SkillBtn
-                onClick={() => {
-                  if (userInfo.SkillPoint <= 0) return;
-                  else {
-                    alert('레벨이 부족해요!');
-                    return;
-                  }
-                }}
-              >
+              <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
                   src={플러스}
                   alt='스킬 업그레이드'
@@ -154,17 +177,7 @@ const SkillPiece = (props: any) => {
                 <SkillDesc>{i.desc}</SkillDesc>
                 <SkillDesc>요구레벨 {i.requestLevel}</SkillDesc>
               </SkillTextWrap>
-              <SkillBtn
-                onClick={() => {
-                  if (userInfo.SkillPoint <= 0) return;
-                  else if (userInfo.UpDoubleAttack >= 1) {
-                    alert('이미 마스터한 스킬입니다.');
-                    return;
-                  } else {
-                    dispatch(skill_request(`${i.skillName}`, userInfo.SkillPoint));
-                  }
-                }}
-              >
+              <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
                   src={플러스}
                   alt='스킬 업그레이드'
@@ -173,39 +186,6 @@ const SkillPiece = (props: any) => {
             </SkillBox>
           );
         })}
-
-        {/* {skillArr.map((i: any, index: number) => {
-          return (
-            <SkillBox
-              as='div'
-              key={index}
-            >
-              <SkillIcon></SkillIcon>
-              <SkillTextWrap>
-                <SkillTitle>
-                  {i.title} Lv . {i.level}
-                </SkillTitle>
-                <SkillDesc>{i.desc}</SkillDesc>
-              </SkillTextWrap>
-              <SkillBtn
-                onClick={() => {
-                  if (userInfo.SkillPoint <= 0) return;
-                  else if (userInfo.UpDoubleAttack >= 1) {
-                    alert('이미 마스터한 스킬입니다.');
-                    return;
-                  } else {
-                    dispatch(skill_request(`${i.skillName}`, userInfo.SkillPoint));
-                  }
-                }}
-              >
-                <img
-                  src={플러스}
-                  alt='스킬 업그레이드'
-                ></img>
-              </SkillBtn>
-            </SkillBox>
-          );
-        })} */}
       </SkillWrap>
     </>
   );
