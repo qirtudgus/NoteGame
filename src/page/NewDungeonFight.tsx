@@ -7,7 +7,6 @@ import { LoginUserInfoInterface } from '../modules/login';
 
 //연산 요소
 import { userDamage, monsterDamage } from '../util/createDamage';
-import { createPenRewardArray } from '../util/createRandomRewardsArray';
 import createRandomNum from '../util/createRandomNum';
 
 //화면 요소
@@ -18,27 +17,44 @@ import FloorBox from '../components/FloorBox';
 import NewBallpen from '../components/NewBallpen';
 import anime from 'animejs';
 import VictoryModal from '../components/VictoryModal';
-import { penObj } from '../util/shopList';
 import { monsterArr } from '../util/dungeonMonsterList';
 import RewardListBox from '../components/RewardListBox';
 import sleep from '../util/sleep';
 import 더블어택 from '../img/더블어택한번.gif';
 
+interface p {
+  view: boolean;
+}
+
 const EffectDelay = keyframes`
-  from { opacity:0;}
+  0%{ opacity:0;}
   1%{opacity:1;}
   99%{opacity:1;}
-  to{opacity:0;}
+  100%{opacity:0;}
   
 `;
 
-const DoubleAttackEffect = styled.div`
+const DoubleAttackEffect = styled.div<p>`
   position: absolute;
   transform: scaleX(-1);
   left: 200px;
+  display: block;
   z-index: 1000;
+
   & img {
+    width: 100%;
+    display: none;
   }
+  ${(props) =>
+    props.view &&
+    css`
+      & img {
+        /* animation-name: ${EffectDelay};
+        animation-duration: 2s;
+        animation-fill-mode: forwards; */
+        display: block;
+      }
+    `}
 `;
 
 const StartBtn = styled.div`
@@ -206,6 +222,7 @@ const NewDungeonFight = () => {
     userHit: false,
     monsterHit: false,
     userNomally: true,
+    doubleAttack: false,
   });
   //새로고침 시 뒤로가기 (잘못된 플레이 방지)
   if (monsterInfo.monsterFullHp === 0) navigate(-1);
@@ -308,6 +325,10 @@ const NewDungeonFight = () => {
     }
     setAttackAni((prev) => ({ ...prev, userNomally: false }));
     setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
+    setTimeout(() => {
+      setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
+    }, 300);
+
     // setHp({ ...hp, monsterHp, monsterHpBar });
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
     characterAnimeRef.current.play();
@@ -346,7 +367,14 @@ const NewDungeonFight = () => {
     //한번 초기화를 해주면 애니메이션 정상 작동
     //초기화는 몬스터무빙 애니메이션까지 끝난 뒤 해야하기때문에 몬스터 애니메이션과 같은 값으로 준다.
     await sleep(1);
-    setAttackAni({ user: 'attack0', monster: false, userHit: false, monsterHit: false, userNomally: true });
+    setAttackAni({
+      user: 'attack0',
+      monster: false,
+      userHit: false,
+      monsterHit: false,
+      userNomally: true,
+      doubleAttack: false,
+    });
     setPenAnimation(true);
     setRefresh((prev) => !prev);
     //마지막에 스타트버튼에 함수를 활성화시켜 전투가 끝나기전까지는 제한된다.
@@ -427,11 +455,17 @@ const NewDungeonFight = () => {
           gelatine={attackAni.userHit}
         ></CharacterBox>
         {attackAni.monsterHit ? <DamageText textLeft={550}>{damageText.userAttackDamage}</DamageText> : null}
-        {/* {attackAni.monsterHit ? (
-          <DoubleAttackEffect id='doubleAttackDiv'>
-            {attackAni.monsterHit ? <img src={더블어택}></img> : null}
-          </DoubleAttackEffect>
-        ) : null} */}
+        <DoubleAttackEffect
+          id='doubleAttackDiv'
+          view={attackAni.doubleAttack}
+        >
+          {/* 이펙트gif가 캐싱되기때문에 캐싱을 방지해야한다.
+          https://velog.io/@sgyoon/2021-02-21 */}
+          <img
+            src={`${더블어택}?${attackAni.doubleAttack}`}
+            alt='이펙트'
+          ></img>
+        </DoubleAttackEffect>
 
         <MonsterBox
           attack={attackAni.monster}
