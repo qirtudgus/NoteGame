@@ -93,7 +93,7 @@ const SkillPiece = (props: any) => {
     {
       skillName: 'UpDoubleAttack',
       title: '더블어택',
-      desc: `한 턴에 한하여 ${userInfo.UpDoubleAttack}배의 데미지를 입힙니다.`,
+      desc: `한 턴에 한하여 2배의 데미지를 입힙니다.`,
       level: userInfo.UpDoubleAttack,
     },
   ];
@@ -120,8 +120,13 @@ const SkillPiece = (props: any) => {
               </SkillTextWrap>
               <SkillBtn
                 onClick={() => {
-                  if (userInfo.SkillPoint! <= 0) return;
-                  dispatch(skill_request(`${i.skillName}`, userInfo.SkillPoint!));
+                  if (userInfo.SkillPoint <= 0) return;
+                  else if (userInfo.UpDoubleAttack >= 1) {
+                    alert('이미 마스터한 스킬입니다.');
+                    return;
+                  } else {
+                    dispatch(skill_request(`${i.skillName}`, userInfo.SkillPoint));
+                  }
                 }}
               >
                 <img
