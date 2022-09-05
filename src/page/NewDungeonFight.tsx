@@ -17,43 +17,29 @@ import FloorBox from '../components/FloorBox';
 import NewBallpen from '../components/NewBallpen';
 import anime from 'animejs';
 import VictoryModal from '../components/VictoryModal';
+import { penObj } from '../util/shopList';
 import { monsterArr } from '../util/dungeonMonsterList';
 import RewardListBox from '../components/RewardListBox';
 import sleep from '../util/sleep';
 import 더블어택 from '../img/더블어택한번.gif';
+import 하이리워드 from '../img/하이리워드이펙트_수정2.gif';
+import 평타 from '../img/슬블_수정.gif';
 
 interface p {
   view: boolean;
 }
 
-const EffectDelay = keyframes`
-  0%{ opacity:0;}
-  1%{opacity:1;}
-  99%{opacity:1;}
-  100%{opacity:0;}
-  
-`;
-
 const DoubleAttackEffect = styled.div<p>`
   position: absolute;
   transform: scaleX(-1);
   left: 200px;
-  display: block;
+  display: none;
   z-index: 1000;
 
-  & img {
-    width: 100%;
-    display: none;
-  }
   ${(props) =>
     props.view &&
     css`
-      & img {
-        /* animation-name: ${EffectDelay};
-        animation-duration: 2s;
-        animation-fill-mode: forwards; */
-        display: block;
-      }
+      display: block;
     `}
 `;
 
@@ -179,6 +165,8 @@ const NewDungeonFight = () => {
   //더블어택 사용유무
   const [doubleAttack, setDoubleAttack] = useState<boolean>(false);
   const [doubleAttackCount, setDoubleAttackCount] = useState(1);
+  //이펙트를 담아둔 상태값
+  const [effectImg, setEffectImg] = useState<string>(평타);
 
   //이겼을 때 모달 상태
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -223,6 +211,7 @@ const NewDungeonFight = () => {
     monsterHit: false,
     userNomally: true,
     doubleAttack: false,
+    highRewardEffect: false,
   });
   //새로고침 시 뒤로가기 (잘못된 플레이 방지)
   if (monsterInfo.monsterFullHp === 0) navigate(-1);
@@ -286,12 +275,18 @@ const NewDungeonFight = () => {
   const getRewardElement = async (x: number, y: number) => {
     const reward = document.elementFromPoint(x, y) as HTMLElement;
     reward.classList.add('active');
-    if (reward.dataset.attacknumber === undefined) {
+    const rewardNumber = reward.dataset.attacknumber;
+    if (rewardNumber === undefined) {
       MonsterAttack();
 
       return;
     }
-    const rewardNumber = reward.dataset.attacknumber;
+
+    //하이리워드를 획득했는지 보려면... 무기의 리워드 최대값과, 획득한 리워드과 동일한지 체크하는 if문을 걸면 되겠다.
+    let hi = penObj.find((i) => i.ballPenName === userInfo.EquipBallpen)?.rewardList as number[];
+    if (Number(rewardNumber) === Math.max(...hi)) {
+      setEffectImg(하이리워드);
+    }
 
     //유저데미지 연산
     let userResultDamage = userDamage(
@@ -304,6 +299,10 @@ const NewDungeonFight = () => {
     if (doubleAttack === true) {
       setDoubleAttack(false);
       setDoubleAttackCount(0);
+      setEffectImg(더블어택);
+      setTimeout(() => {
+        setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
+      }, 350);
     }
     //남은 몬스터 체력 계산
     let monsterHp: number = hp.monsterHp - userResultDamage;
@@ -315,6 +314,9 @@ const NewDungeonFight = () => {
       setHp((prev) => ({ ...prev, monsterHp: 0, monsterHpBar: 0 }));
       characterAnimeRef.current.play();
       setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
+      setTimeout(() => {
+        setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
+      }, 300);
       setTimeout(function () {
         setAttackAni({ ...attackAni, monsterHit: false });
         setVictoryModal(true);
@@ -325,11 +327,11 @@ const NewDungeonFight = () => {
     }
     setAttackAni((prev) => ({ ...prev, userNomally: false }));
     setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
+
     setTimeout(() => {
       setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
     }, 300);
 
-    // setHp({ ...hp, monsterHp, monsterHpBar });
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
     characterAnimeRef.current.play();
     setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
@@ -374,7 +376,9 @@ const NewDungeonFight = () => {
       monsterHit: false,
       userNomally: true,
       doubleAttack: false,
+      highRewardEffect: false,
     });
+    setEffectImg(평타);
     setPenAnimation(true);
     setRefresh((prev) => !prev);
     //마지막에 스타트버튼에 함수를 활성화시켜 전투가 끝나기전까지는 제한된다.
@@ -462,7 +466,7 @@ const NewDungeonFight = () => {
           {/* 이펙트gif가 캐싱되기때문에 캐싱을 방지해야한다.
           https://velog.io/@sgyoon/2021-02-21 */}
           <img
-            src={`${더블어택}?${attackAni.doubleAttack}`}
+            src={`${effectImg}?${attackAni.doubleAttack}`}
             alt='이펙트'
           ></img>
         </DoubleAttackEffect>
