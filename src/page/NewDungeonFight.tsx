@@ -149,6 +149,7 @@ const NewDungeonFight = () => {
   //이겼을 때 모달 상태
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
+  //이전층 유무
   const { state } = useLocation();
   //볼펜의 위치
   const penCoords = { top: 660, left: 280 };
@@ -264,7 +265,6 @@ const NewDungeonFight = () => {
       userInfo.WeaponDamage,
       userInfo.BetterPen,
       doubleAttack,
-      userInfo.UpDoubleAttack,
     );
     if (doubleAttack === true) {
       setDoubleAttack(false);
@@ -395,7 +395,7 @@ const NewDungeonFight = () => {
         <UserHpBar>
           <UserHpNowBar hpBar={hp.userHpBar}></UserHpNowBar>
         </UserHpBar>
-        <FloorBox></FloorBox>
+        <FloorBox before={state}></FloorBox>
         <MonsterHpBar monster={true}>
           <MonsterHpNowBar hpBar={hp.monsterHpBar}></MonsterHpNowBar>
         </MonsterHpBar>
