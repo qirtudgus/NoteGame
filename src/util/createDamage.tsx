@@ -15,7 +15,6 @@ export const userDamage = (
   weaponDamage: number,
   betterPen: number,
   useDoubleAttack?: boolean,
-  doubleAttackValue?: number,
 ): number => {
   // 유저의 기본데미지에 스킬렙만큼(n*2%)의 데미지를 구한다.
   let userDamage = basicDamage + weaponDamage;
@@ -26,12 +25,8 @@ export const userDamage = (
 
   // reward로 뽑은만큼의 데미지를 계산하여 반환
   let resultUserDamage = Math.ceil(addDamage * (reward / 100));
-  console.log('원래 데미지');
-  console.log(resultUserDamage);
   if (useDoubleAttack === true) {
-    console.log('더블어택 데미지');
-    console.log(resultUserDamage * doubleAttackValue!);
-    return resultUserDamage * doubleAttackValue!;
+    return resultUserDamage * 2;
   } else {
     return resultUserDamage;
   }
