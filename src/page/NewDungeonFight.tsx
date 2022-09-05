@@ -22,6 +22,24 @@ import { penObj } from '../util/shopList';
 import { monsterArr } from '../util/dungeonMonsterList';
 import RewardListBox from '../components/RewardListBox';
 import sleep from '../util/sleep';
+import 더블어택 from '../img/더블어택한번.gif';
+
+const EffectDelay = keyframes`
+  from { opacity:0;}
+  1%{opacity:1;}
+  99%{opacity:1;}
+  to{opacity:0;}
+  
+`;
+
+const DoubleAttackEffect = styled.div`
+  position: absolute;
+  transform: scaleX(-1);
+  left: 200px;
+  z-index: 1000;
+  & img {
+  }
+`;
 
 const StartBtn = styled.div`
   width: 205px;
@@ -409,6 +427,11 @@ const NewDungeonFight = () => {
           gelatine={attackAni.userHit}
         ></CharacterBox>
         {attackAni.monsterHit ? <DamageText textLeft={550}>{damageText.userAttackDamage}</DamageText> : null}
+        {/* {attackAni.monsterHit ? (
+          <DoubleAttackEffect id='doubleAttackDiv'>
+            {attackAni.monsterHit ? <img src={더블어택}></img> : null}
+          </DoubleAttackEffect>
+        ) : null} */}
 
         <MonsterBox
           attack={attackAni.monster}
