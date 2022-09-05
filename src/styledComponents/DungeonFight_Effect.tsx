@@ -9,7 +9,7 @@ export const gelatine = keyframes`
   `;
 
 interface penAni {
-  penStatus: boolean;
+  penStatus?: boolean;
   ref?: any;
   penSpeed?: number;
   //던전에서 사용 시 css
@@ -30,6 +30,14 @@ export const animation = keyframes`
     `;
 
 // DungeonFight에서 사용되는 애니메이션
+
+export const normallyMoving = keyframes`
+  from{ transform:translateY(0em);}
+  50%{ transform:translateY(0.6em);}
+  to{ transform:translateY(0em);}
+
+`;
+
 export const animationDungeon = keyframes`
     0% {
       transform:translate(-22em);
@@ -201,29 +209,10 @@ export const PenImgDun = styled.img<penAni>`
     `}
 `;
 
-export const PenEndDun = styled.div<penAni>`
-  width: 1px;
-  height: 100px;
-  background: rgba(0, 0, 0, 1);
-  position: absolute;
-  z-index: 100;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation-fill-mode: both;
-  animation: ${animationDungeon} ${(props) => props.penSpeed}s ease-in-out infinite; //1초동안 선형 무한 속성값주기
-  animation-play-state: running;
-  ${(props) =>
-    props.penStatus &&
-    css`
-      animation-play-state: paused;
-    `}
-`;
-
 export const monsterAttack = keyframes`
   from, to { transform: translateX(0) ; }
   25% { transform: translateX(30px); }
-  75% { transform:  translateX(-100px); }
+  50% { transform: translateX(-150px); }
   `;
 
 export const monsterAppearEffect = keyframes`
