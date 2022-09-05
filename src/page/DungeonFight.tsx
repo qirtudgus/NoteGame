@@ -483,6 +483,7 @@ const DungeonFight = () => {
       animationRef.current.pause();
       getReward();
     };
+    //토글되는 함수를 여기서 분기를 나누면 요소에는 하나의 함수만 주어도 된다...굿
     test ? animationRef.current.play() : a();
     setTest((prev) => !prev);
   };
@@ -529,7 +530,7 @@ const DungeonFight = () => {
 
   return (
     <>
-      {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null}
+      {/* {monsterInfo.monsterFullHp === 0 ? <RevivalModal></RevivalModal> : null} */}
       {isModal ? (
         <VictoryModal
           isModal={victoryModal}
