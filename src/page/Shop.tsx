@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
-import NewShopPiece from '../components/NewShopPiece';
+import ShopPiece from '../components/ShopPiece';
 const ShopWrap = styled.div`
   width: 90%;
   margin-top: 50px;
@@ -45,7 +45,6 @@ const Tab = styled.div`
 
 const TabContent = styled.div`
   height: 100%;
-  /* padding: 20px 0 20px 0; */
 `;
 
 const Shop = () => {
@@ -54,13 +53,13 @@ const Shop = () => {
   const menuArr = [
     {
       name: '볼펜',
-      content: <NewShopPiece></NewShopPiece>,
+      content: <ShopPiece></ShopPiece>,
     },
     {
       name: '종이',
-      content: <NewShopPiece></NewShopPiece>,
+      content: <ShopPiece></ShopPiece>,
     },
-    { name: '스킬', content: '스킬입니다.' },
+    { name: '스킬', content: <ShopPiece></ShopPiece> },
   ];
 
   const SetTabNumberFunc = (index: number): void => {
