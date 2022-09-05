@@ -363,6 +363,7 @@ const Ranking = () => {
                   </React.Fragment>
                 ))}
               </RankingTr>
+              {/* <div> cannot appear as a child of <tbody>. 오류를 일으킴*/}
               <Line></Line>
               {show.userUndifined ? (
                 <UndefinedPage>
