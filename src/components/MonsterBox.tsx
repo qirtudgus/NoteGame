@@ -46,8 +46,8 @@ const Character = styled.div<children>`
     `}
   display: flex;
   align-items: flex-end;
-  width: 200px;
-  height: 290px;
+  width: 100%;
+  height: 100%;
   top: 0;
   position: absolute;
   z-index: 10;
