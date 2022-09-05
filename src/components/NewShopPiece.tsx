@@ -25,7 +25,7 @@ const ShopTextWrap = styled.div`
   width: 400px;
 `;
 
-const ShopDesc = styled.p`
+const ShopDesc = styled.div`
   font-size: 16px;
 `;
 const ShopIcon = styled(ButtonColor)`
@@ -44,7 +44,7 @@ const ShopIcon = styled(ButtonColor)`
   }
 `;
 
-const ShopTitle = styled.p<shopBoxInterface>`
+const ShopTitle = styled.div<shopBoxInterface>`
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 10px;
