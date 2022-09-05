@@ -49,12 +49,15 @@ const RevivalModal = (props: any) => {
   return (
     <BgWrap>
       <Bg>
-        <Close onClick={close}>
-          <img
-            src={엑스}
-            alt='닫기'
-          />
-        </Close>
+        {props.close && (
+          <Close onClick={close}>
+            <img
+              src={엑스}
+              alt='닫기'
+            />
+          </Close>
+        )}
+
         {props.children}
       </Bg>
     </BgWrap>
