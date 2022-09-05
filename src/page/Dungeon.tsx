@@ -55,7 +55,7 @@ const Dungeon = () => {
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [before, setBefore] = useState(true);
+  const before = true;
 
   let giveSkillPoint = 50;
   //환생 후 받을 스킬포인트
