@@ -103,7 +103,7 @@ const Dungeon = () => {
       <BottomBox></BottomBox>
       {isModal && (
         <RevivalModal>
-          스킬포인트 {addSkillPoint} 획득
+          스텟 포인트 {addSkillPoint} 획득
           <br />
           던전 {revivalFloor} 층에서 시작
           <p>환생하시겠습니까?</p>

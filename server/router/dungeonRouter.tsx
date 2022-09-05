@@ -13,7 +13,7 @@ const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
 const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1 WHERE ID = ?`;
 const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor, UpRevivalStatPoint FROM users WHERE Id = ?`;
 const RevivalUpdateQuery =
-  'UPDATE users SET DungeonFloor = ?, SkillPoint = SkillPoint + ?, RevivalCount = RevivalCount + 1 WHERE ID = ?';
+  'UPDATE users SET DungeonFloor = ?, StatPoint = StatPoint + ?, RevivalCount = RevivalCount + 1 WHERE ID = ?';
 
 //맥스층 갱신 쿼리
 // const MaxFloorUpdateQuery;
@@ -102,15 +102,15 @@ dungeonRouter.post('/revival', (req, res) => {
     let nowFloor = rows[0].DungeonFloor;
     let revivalPoint = rows[0].RevivalPoint;
     let UpRevivalStatPoint = rows[0].UpRevivalStatPoint;
-    let giveSkillPoint = 50;
+    let giveStatPoint = 50;
     //환생 후 받을 스킬포인트
-    let addSkillPoint = Math.floor(nowFloor / giveSkillPoint) * UpRevivalStatPoint;
+    let addStatPoint = Math.floor(nowFloor / giveStatPoint) * UpRevivalStatPoint;
     //환생 후 돌아갈 층
     let revivalFloor = Math.ceil((nowFloor * revivalPoint) / 100);
 
     console.log(revivalFloor);
 
-    db.query(RevivalUpdateQuery, [revivalFloor, addSkillPoint, userId], (err, rows, fields) => {
+    db.query(RevivalUpdateQuery, [revivalFloor, addStatPoint, userId], (err, rows, fields) => {
       console.log(rows);
       console.log(`${userId}님이 환생하셨습니다.`);
     });

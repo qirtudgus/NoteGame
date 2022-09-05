@@ -59,7 +59,7 @@ const MyStatus = () => {
       content: <StatList></StatList>,
     },
     {
-      name: '능력치',
+      name: '스텟',
       content: <StatusPiece></StatusPiece>,
     },
     { name: '스킬', content: <SkillPiece></SkillPiece> },
