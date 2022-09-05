@@ -39,6 +39,7 @@ export interface userInfoInterface {
   UpMoreFloor: number;
   UpRevivalStatPoint: number;
   UpDoubleAttack: number;
+  StatPoint: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {

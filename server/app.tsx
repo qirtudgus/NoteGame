@@ -23,6 +23,7 @@ import { skillRouter } from './router/skillRouter.js';
 import { dungeonRouter } from './router/dungeonRouter.js';
 import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 import { rankingRouter } from './router/rankingRouter.js';
+import { statRouter } from './router/statRouter.js';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -77,6 +78,8 @@ app.use('/login', loginRouter);
 app.use('/pengame', pengameRouter);
 //스킬 라우터
 app.use('/skill', skillRouter);
+//스킬 라우터
+app.use('/stat', statRouter);
 //던전 라우터
 app.use('/dungeon', dungeonRouter);
 //상점 및 장착 라우터

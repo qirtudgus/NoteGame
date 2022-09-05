@@ -15,6 +15,10 @@ export const PENGAME_MULTIPLE = 'login/PENGAME_MULTIPLE' as const;
 export const SKILL_REQUEST = 'login/SKILL_REQUEST' as const;
 export const SKILL_UP = 'login/SKILL_UP' as const;
 
+//스텟 관련 액션
+export const STAT_REQUEST = 'login/STAT_REQUEST' as const;
+export const STAT_UP = 'login/STAT_UP' as const;
+
 //던전 관련 액션
 export const DUNGEON_REQUEST = 'login/DUNGEON_REQUEST' as const;
 export const DUNGEON_VICTORY = 'login/DUNGEON_VICTORY' as const;
@@ -58,6 +62,7 @@ export let setUesrInfo = {
   UpMoreFloor: 0,
   UpRevivalStatPoint: 0,
   UpDoubleAttack: 0,
+  StatPoint: 0,
 };
 
 export const revival_request = () => ({
@@ -110,6 +115,16 @@ export const skill_request = (skillName: string, skillPoint: number) => ({
 
 export const skill_up = () => ({
   type: SKILL_UP,
+  userInfo: setUesrInfo,
+});
+
+export const stat_request = (statName: string, statPoint: number) => ({
+  type: STAT_REQUEST,
+  payload: { statName, statPoint },
+});
+
+export const stat_up = () => ({
+  type: STAT_UP,
   userInfo: setUesrInfo,
 });
 
@@ -178,6 +193,8 @@ type LoginAction =
   | ReturnType<typeof pengame_multiple>
   | ReturnType<typeof skill_request>
   | ReturnType<typeof skill_up>
+  | ReturnType<typeof stat_request>
+  | ReturnType<typeof stat_up>
   | ReturnType<typeof dungeon_request>
   | ReturnType<typeof dungeon_victory>
   | ReturnType<typeof equip_ballpen_request>
@@ -213,6 +230,7 @@ export interface LoginUserInfoInterface {
   UpMoreFloor: number;
   UpRevivalStatPoint: number;
   UpDoubleAttack: number;
+  StatPoint: number;
 }
 
 // 이 리덕스 모듈에서 관리 할 상태의 타입을 선언합니다
@@ -284,6 +302,9 @@ const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): Is
       return { ...state, userInfo: action.userInfo };
     }
     case SKILL_UP: {
+      return { ...state, userInfo: action.userInfo };
+    }
+    case STAT_UP: {
       return { ...state, userInfo: action.userInfo };
     }
     case DUNGEON_VICTORY: {

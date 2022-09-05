@@ -8,6 +8,7 @@ import getMonsterCreateSaga from './createMonster_saga';
 import getDungeonVictorySaga from './dungeon_saga';
 import getBuyBallPenListSaga from './buyBallpenList_saga';
 import getEquipBallpenSaga from './equipBallpen_saga';
+import getStatUpRequestSaga from './stat_saga';
 function* rootSaga() {
   yield all([
     fork(getRegisterApiSaga),
@@ -19,6 +20,7 @@ function* rootSaga() {
     fork(getDungeonVictorySaga),
     fork(getBuyBallPenListSaga),
     fork(getEquipBallpenSaga),
+    fork(getStatUpRequestSaga),
   ]);
 }
 
