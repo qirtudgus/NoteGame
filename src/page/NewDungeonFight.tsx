@@ -389,7 +389,8 @@ const NewDungeonFight = () => {
     penAnimeRef.current = anime({
       targets: '#penBody, #penPoint',
       translateX: 400,
-      duration: animationSpeed.penAni,
+      // duration: animationSpeed.penAni,
+      duration: userInfo.PenGamePenSpeed,
       direction: 'alternate', //번갈아 재생
       loop: true, // number는 횟수 true는 무한
       easing: 'easeInOutSine',
