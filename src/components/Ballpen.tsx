@@ -1,19 +1,12 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { ForwardedRef, forwardRef } from 'react';
-import {
-  PenImg,
-  PenImgWrap,
-  PenEnd2,
-  PenImgDun,
-  PenImgWrapDun,
-  PenEndDun,
-} from '../styledComponents/DungeonFight_Effect';
+import { PenImg, PenImgWrap, PenEnd2, PenImgDun, PenImgWrapDun } from '../styledComponents/DungeonFight_Effect';
 import { LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
 interface ballpen {
   penSpeed?: number;
-  penStatus: boolean;
+  penStatus?: boolean;
   isDungeon?: boolean;
 }
 
@@ -41,7 +34,7 @@ const Ballpen = ({ penStatus, isDungeon }: ballpen, ref: ForwardedRef<HTMLElemen
               id='penEnd2'
               src={equipBallpenImg}
             ></PenImgDun>
-            <PenEndDun id='penEnd'></PenEndDun>
+            {/* <PenEndDun id='penEnd'></PenEndDun> */}
           </PenImgWrapDun>
         </>
       ) : (
