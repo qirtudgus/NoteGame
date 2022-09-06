@@ -28,7 +28,7 @@ export const penObj: pen[] = [
     weaponDamage: 50,
     img: 모남볼펜,
     dungeonPenSpeed: 3.5,
-    penGamePenSpeed: 0.5,
+    penGamePenSpeed: 500,
     rewardList: [100, 100, 300, 100, 100, 100],
   },
   {
@@ -40,7 +40,7 @@ export const penObj: pen[] = [
     weaponDamage: 500,
     img: 하이테크,
     dungeonPenSpeed: 5,
-    penGamePenSpeed: 5,
+    penGamePenSpeed: 500,
     rewardList: [100, 200, 300, 400, 500, 600],
   },
   {
@@ -52,7 +52,7 @@ export const penObj: pen[] = [
     weaponDamage: 1000,
     img: 컴퓨터용사인펜,
     dungeonPenSpeed: 0.6,
-    penGamePenSpeed: 0.6,
+    penGamePenSpeed: 500,
     rewardList: [300, 300, 600, 300, 600, 100],
   },
   {
@@ -64,7 +64,7 @@ export const penObj: pen[] = [
     weaponDamage: 1000,
     img: 보드마카,
     dungeonPenSpeed: 0.6,
-    penGamePenSpeed: 0.6,
+    penGamePenSpeed: 500,
     rewardList: [500, 500, 500, 500, 500, 100],
   },
   {
@@ -76,7 +76,7 @@ export const penObj: pen[] = [
     weaponDamage: 5000,
     img: 만년필,
     dungeonPenSpeed: 0.6,
-    penGamePenSpeed: 0.6,
+    penGamePenSpeed: 500,
     rewardList: [100, 400, 300, 100, 500, 100],
   },
   {
@@ -88,7 +88,7 @@ export const penObj: pen[] = [
     weaponDamage: 10000,
     img: 몽블랑마릴린먼로,
     dungeonPenSpeed: 0.6,
-    penGamePenSpeed: 0.6,
+    penGamePenSpeed: 500,
     rewardList: [1000, 4000, 1000, 1000, 500, 1000],
   },
   {
@@ -100,7 +100,7 @@ export const penObj: pen[] = [
     weaponDamage: 10000,
     img: 유성매직,
     dungeonPenSpeed: 0.6,
-    penGamePenSpeed: 0.6,
+    penGamePenSpeed: 500,
     rewardList: [1000, 4000, 1000, 1000, 500, 1000],
   },
 ];
