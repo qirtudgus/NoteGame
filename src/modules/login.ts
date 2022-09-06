@@ -28,13 +28,17 @@ export const EQUIP_BALLPEN_REQUEST = 'login/EQUIP_BALLPEN_REQUEST' as const;
 export const EQUIP_BALLPEN_SUCCESS = 'login/EQUIP_BALLPEN_SUCCESS' as const;
 export const DB_REFRESH_SUCCESS = 'login/DB_REFRESH_SUCCESS' as const;
 
+//종이 구매, 장착 관련 액션
+export const EQUIP_PAPER_REQUEST = 'login/EQUIP_PAPER_REQUEST' as const;
+export const EQUIP_PAPER_SUCCESS = 'login/EQUIP_PAPER_SUCCESS' as const;
+
 //환생 관련 액션
 export const REVIVAL_REQUSET = 'login/REVIVAL_REQUSET' as const;
 export const REVIVAL_SUCCESS = 'login/REVIVAL_SUCCESS' as const;
 
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
-export let setUesrInfo = {
+export let setUserInfo = {
   Level: 0,
   BasicDamage: 0,
   BasicHp: 0,
@@ -53,6 +57,7 @@ export let setUesrInfo = {
   Exp: 0,
   NeedExp: 0,
   EquipBallpen: '',
+  EquipPaper: '',
   DungeonPenSpeed: 1,
   PenGamePenSpeed: 1,
   RevivalPoint: 0,
@@ -65,18 +70,28 @@ export let setUesrInfo = {
   StatPoint: 0,
 };
 
+export const equip_paper_request = (paperName: string, WeaponHp: number) => ({
+  type: EQUIP_PAPER_REQUEST,
+  paperName,
+  WeaponHp,
+});
+export const equip_paper_success = () => ({
+  type: EQUIP_PAPER_SUCCESS,
+  userInfo: setUserInfo,
+});
+
 export const revival_request = () => ({
   type: REVIVAL_REQUSET,
 });
 
 export const revival_success = () => ({
   type: REVIVAL_SUCCESS,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const db_refresh_success = () => ({
   type: DB_REFRESH_SUCCESS,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const equip_ballpen_request = (ballpenName: string, weaponDamage: number, PenSpeed: {}) => ({
@@ -88,7 +103,7 @@ export const equip_ballpen_request = (ballpenName: string, weaponDamage: number,
 
 export const equip_ballpen_success = () => ({
   type: EQUIP_BALLPEN_SUCCESS,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const dungeon_request = (
@@ -105,7 +120,7 @@ export const dungeon_request = (
 
 export const dungeon_victory = () => ({
   type: DUNGEON_VICTORY,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const skill_request = (skillName: string, skillPoint: number) => ({
@@ -115,7 +130,7 @@ export const skill_request = (skillName: string, skillPoint: number) => ({
 
 export const skill_up = () => ({
   type: SKILL_UP,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const stat_request = (statName: string, statPoint: number) => ({
@@ -125,7 +140,7 @@ export const stat_request = (statName: string, statPoint: number) => ({
 
 export const stat_up = () => ({
   type: STAT_UP,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const login_request = (id: string, password: string) => ({
@@ -137,7 +152,7 @@ export const login_succes = (token: string | undefined) => ({
   type: LOGIN_SUCCESS,
   token: { token },
   id: undefined,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const login_failure = (token: string | undefined) => ({
@@ -155,7 +170,7 @@ export const login_localstorage_success = (token: string | undefined) => ({
   type: LOGIN_LOCALSTORAGE_SUCCESS,
   token: { token },
   id: undefined,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 export const login_localstorage_failure = () => ({
@@ -176,7 +191,7 @@ export const pengame_request = (reward: number, act: string, speed: number) => (
 
 export const pengame_multiple = () => ({
   type: PENGAME_MULTIPLE,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 });
 
 // 모든 액션 겍체들에 대한 타입을 준비해줍니다.
@@ -199,6 +214,8 @@ type LoginAction =
   | ReturnType<typeof dungeon_victory>
   | ReturnType<typeof equip_ballpen_request>
   | ReturnType<typeof equip_ballpen_success>
+  | ReturnType<typeof equip_paper_request>
+  | ReturnType<typeof equip_paper_success>
   | ReturnType<typeof db_refresh_success>
   | ReturnType<typeof revival_request>
   | ReturnType<typeof revival_success>;
@@ -221,6 +238,7 @@ export interface LoginUserInfoInterface {
   BetterPen: number;
   Exp: number;
   EquipBallpen: string;
+  EquipPaper: string;
   DungeonPenSpeed: number;
   PenGamePenSpeed: number;
   RevivalPoint: number;
@@ -249,7 +267,7 @@ const LoginState: IsLoginState = {
   token: undefined,
   id: undefined,
   tokenExpired: false,
-  userInfo: setUesrInfo,
+  userInfo: setUserInfo,
 };
 
 const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): IsLoginState => {
@@ -312,6 +330,9 @@ const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): Is
       return { ...state, userInfo: action.userInfo };
     }
     case EQUIP_BALLPEN_SUCCESS: {
+      return { ...state, userInfo: action.userInfo };
+    }
+    case EQUIP_PAPER_SUCCESS: {
       return { ...state, userInfo: action.userInfo };
     }
     case DB_REFRESH_SUCCESS: {
