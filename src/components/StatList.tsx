@@ -8,6 +8,7 @@ import { expTable } from '../util/expTable';
 const StatLists = styled.li`
   display: flex;
   font-size: 1.5rem;
+  margin-bottom: 1px;
 `;
 
 export const StatName = styled.span`
