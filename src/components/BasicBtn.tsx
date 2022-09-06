@@ -8,8 +8,7 @@ const BasicButton = styled(ButtonColor)<ButtonText>`
   background: #fff;
   position: relative;
   z-index: 2;
-  margin-bottom: 3rem;
-  margin: ${(props) => props.margin || '1rem'};
+  margin: ${(props) => props.margin || '0.5rem'};
   border: none;
   border-radius: 5px;
   cursor: pointer;
