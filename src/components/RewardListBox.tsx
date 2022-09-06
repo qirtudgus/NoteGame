@@ -17,6 +17,7 @@ const Wrap = styled(ButtonColor)`
   position: absolute;
   z-index: 1;
   bottom: 30px;
+  left: 270px;
   display: flex;
   width: auto;
   padding: 10px 20px 10px 20px;
