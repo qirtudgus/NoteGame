@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
+import ShopPaperList from '../components/shopPaperList';
 import ShopPiece from '../components/ShopPiece';
 const ShopWrap = styled.div`
   width: 90%;
   margin-top: 50px;
-  height: 570px;
+  height: 540px;
   display: flex;
 `;
 
@@ -22,6 +23,8 @@ const Character = styled.div`
 const Shops = styled.div`
   width: 70%;
   height: 100%;
+  box-shadow: 0px 0px 7px 6px rgb(0 0 0 / 20%);
+  overflow: hidden;
   /* background: #aaa; */
 `;
 
@@ -57,7 +60,7 @@ const Shop = () => {
     },
     {
       name: '종이',
-      content: <ShopPiece></ShopPiece>,
+      content: <ShopPaperList></ShopPaperList>,
     },
     { name: '스킬', content: <ShopPiece></ShopPiece> },
   ];
