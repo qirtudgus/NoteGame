@@ -8,6 +8,9 @@ import { penObj } from '../util/shopList';
 import styled, { css } from 'styled-components';
 
 import { useInView } from 'react-intersection-observer';
+import RevivalModal from './RevivalModal';
+import { modal_failure, modal_success } from '../modules/modalState';
+import BasicBtn from './BasicBtn';
 
 interface shopBoxInterface {
   title?: string;
@@ -78,6 +81,10 @@ const ShopBtn = styled(ButtonColor)<buy>`
   & img {
     width: 30px;
   }
+  &:hover {
+    background: #333;
+    color: #fff;
+  }
 `;
 
 const ShopBox = styled(ButtonColor)<shopBoxInterface>`
@@ -102,7 +109,15 @@ const ShopBox = styled(ButtonColor)<shopBoxInterface>`
 const ShopPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
+  const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
+  const [goldCheck, setGoldCheck] = useState(true);
+  const [buyPenObj, setBuyPenObj] = useState({
+    ballPenName: '',
+    Gold: '',
+    title: '',
+  });
+
   let equip = userInfo.EquipBallpen;
   //장착할 무기의 공격력을 할당
   const penDamage = (equipBallpenName: string): number => {
@@ -135,8 +150,46 @@ const ShopPiece = (props: any) => {
     }
   }, [InView]);
 
+  //알림창을 띄우고, 예를 눌렀을 때 ballPenName을 담아서 디스패치해주어야한다.
+  function buyPen(ballPenName: string, Gold: string, title: string) {
+    //상태값에 할당하여 디스패치할 때
+    if (userInfo.Gold < Number(Gold)) {
+      setGoldCheck(false);
+    }
+    setBuyPenObj({ ballPenName, Gold, title });
+    dispatch(modal_success());
+  }
+  function takePen() {
+    dispatch(real_buy_ballpen_request(`${buyPenObj.ballPenName}`, buyPenObj.Gold));
+    dispatch(modal_failure());
+  }
+
+  const a = (
+    <>
+      <p>{buyPenObj.title}</p>
+      <p>{buyPenObj.Gold}잉크</p>
+      <p>구매하시겠습니까?</p>
+      <BasicBtn
+        ButtonText='네, 구매하겠습니다.'
+        color='#333'
+        OnClick={() => takePen()}
+      ></BasicBtn>
+      <BasicBtn
+        ButtonText='아니요, 다음에 살래요.'
+        color='#333'
+        OnClick={() => dispatch(modal_failure())}
+      ></BasicBtn>
+    </>
+  );
+  const b = (
+    <>
+      <p>골드가 부족해요!</p>
+    </>
+  );
+
   return (
     <>
+      {isModal && <RevivalModal close>{goldCheck ? a : b}</RevivalModal>}
       <ShopWrap>
         {list.map((i: any, index: number) => {
           return (
@@ -176,7 +229,6 @@ const ShopPiece = (props: any) => {
                     as='div'
                     buy={i.ballPenName}
                     onClick={() => {
-                      console.log(i.ballPenName);
                       dispatch(
                         equip_ballpen_request(`${i.ballPenName}`, penDamage(i.ballPenName), penSpeed(i.ballPenName)),
                       );
@@ -188,12 +240,7 @@ const ShopPiece = (props: any) => {
                   <ShopBtn
                     as='div'
                     onClick={() => {
-                      if (userInfo.Gold! < i.Gold) {
-                        alert('골드가 부족해요');
-                        return;
-                      } else {
-                        dispatch(real_buy_ballpen_request(`${i.ballPenName}`, i.Gold));
-                      }
+                      buyPen(i.ballPenName, i.Gold, i.title);
                     }}
                   >
                     구매
