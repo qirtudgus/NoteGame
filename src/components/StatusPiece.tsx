@@ -19,8 +19,9 @@ const StatBox = styled(ButtonColor)<skillBoxInterface>`
   width: 100%;
   height: 100px;
   background: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: flex;
+  justify-content: space-between;
 
   &:first-child {
     margin-top: 20px;
@@ -53,13 +54,15 @@ const StatIcon = styled.div`
 const StatBtn = styled(ButtonColor)`
   width: 10%;
   height: 100px;
-  border-radius: 10px;
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   & img {
     width: 30px;
+  }
+  &:hover {
+    filter: invert(80%);
   }
 `;
 
