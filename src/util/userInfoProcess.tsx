@@ -30,6 +30,7 @@ export interface userInfoInterface {
   BetterPen: number;
   SkillPoint: number;
   EquipBallpen: string;
+  EquipPaper: string;
   DungeonPenSpeed: number;
   PenGamePenSpeed: number;
   RevivalPoint: number;
