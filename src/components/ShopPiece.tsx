@@ -23,9 +23,8 @@ interface shopBoxInterface {
 const ShopTextWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
   padding: 10px 0 10px 0;
-  width: 400px;
+  width: 430px;
 `;
 
 const ShopDesc = styled.div`
@@ -33,10 +32,8 @@ const ShopDesc = styled.div`
 `;
 const ShopIcon = styled(ButtonColor)`
   width: 100px;
-  height: 150px;
+  height: 100%;
   background: #fff;
-  border-radius: 10px;
-
   overflow: hidden;
   object-fit: cover;
   display: flex;
@@ -44,6 +41,7 @@ const ShopIcon = styled(ButtonColor)`
   justify-content: center;
   & img {
     margin: 20px 0 20px 0;
+    transform: rotate(35deg);
   }
 `;
 
@@ -72,7 +70,6 @@ interface buy {
 const ShopBtn = styled(ButtonColor)<buy>`
   width: 10%;
   height: 100%;
-  border-radius: 10px;
   cursor: pointer;
   background: #fff;
   display: flex;
@@ -88,14 +85,13 @@ const ShopBtn = styled(ButtonColor)<buy>`
 `;
 
 const ShopBox = styled(ButtonColor)<shopBoxInterface>`
-  width: 593px;
+  width: 100%;
   height: 150px;
   background: #fff;
-  /* margin-bottom: 20px; */
+  margin-bottom: 15px;
   display: flex;
-  padding: 10px;
   /* border-radius: 10px; */
-  justify-content: space-around;
+  justify-content: space-between;
   //장착한 장비의 css
   ${(props) =>
     props.penname === props.nowEquip &&
@@ -111,6 +107,7 @@ const ShopPiece = (props: any) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
+
   const [goldCheck, setGoldCheck] = useState(true);
   const [buyPenObj, setBuyPenObj] = useState({
     ballPenName: '',
@@ -186,7 +183,6 @@ const ShopPiece = (props: any) => {
       <p>골드가 부족해요!</p>
     </>
   );
-
   return (
     <>
       {isModal && <RevivalModal close>{goldCheck ? a : b}</RevivalModal>}
