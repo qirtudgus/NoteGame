@@ -18,7 +18,6 @@ import { db } from './db.js';
 import { loginRouter } from './router/loginRouter.js';
 import checkToken from '../src/util/checkToken.js';
 import { pengameRouter } from './router/pengameRouter.js';
-import axios from 'axios';
 import { skillRouter } from './router/skillRouter.js';
 import { dungeonRouter } from './router/dungeonRouter.js';
 import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
