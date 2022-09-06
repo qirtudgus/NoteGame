@@ -14,6 +14,7 @@ import {
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface } from '../modules/login';
 import { penObj } from '../util/shopList';
+import { paperObj } from '../util/paperList';
 interface dungeonAni {
   gelatine?: boolean;
   attack?: string;
@@ -60,7 +61,7 @@ const Character = styled.div<dungeonAni>`
 const attackTime = '0.7s';
 const attackDelayTime = '0.3s';
 
-const EquipBallpen = styled.div<dungeonAni>`
+const EquipBallpenImg = styled.div<dungeonAni>`
   position: absolute;
   width: 20px;
   height: 100px;
@@ -114,10 +115,12 @@ interface children {
   normally?: boolean;
 }
 const CharacterBox = ({ children, gelatine, attack, moving, normally }: children) => {
-  const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
-  const equipBallpen = userInfo.EquipBallpen;
+  const { EquipBallpen, EquipPaper } = useSelector(
+    (state: RootState) => state.login.userInfo,
+  ) as LoginUserInfoInterface;
 
-  let equipBallpenImg = penObj.find((i: any) => i.ballPenName === equipBallpen)?.img;
+  let equipBallpenImg = penObj.find((i) => i.ballPenName === EquipBallpen)?.img;
+  let equipPaperImg = paperObj.find((i) => i.paperName === EquipPaper)?.img;
 
   return (
     <>
@@ -129,14 +132,14 @@ const CharacterBox = ({ children, gelatine, attack, moving, normally }: children
           moving={moving}
           normally={normally}
         >
-          <EquipBallpen attack={attack}>
+          <EquipBallpenImg attack={attack}>
             <img
               src={equipBallpenImg}
               alt='무기'
             ></img>
-          </EquipBallpen>
+          </EquipBallpenImg>
           <img
-            src={캐릭터배경}
+            src={equipPaperImg}
             alt='캐릭터배경'
           ></img>
         </Character>
