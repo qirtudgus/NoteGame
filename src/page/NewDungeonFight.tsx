@@ -22,9 +22,9 @@ import { penObj } from '../util/shopList';
 import { monsterArr } from '../util/dungeonMonsterList';
 import RewardListBox from '../components/RewardListBox';
 import sleep from '../util/sleep';
-import 더블어택 from '../img/더블어택한번.gif';
-import 하이리워드 from '../img/하이리워드이펙트_수정2.gif';
-import 평타 from '../img/슬블_수정.gif';
+import 더블어택 from '../img/effect/더블어택한번.gif';
+import 하이리워드 from '../img/effect/하이리워드이펙트_수정2.gif';
+import 평타 from '../img/effect/슬블_수정.gif';
 import DungeonSkill from '../components/DungeonSkill';
 
 interface p {
