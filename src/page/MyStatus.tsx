@@ -8,7 +8,7 @@ import StatList from '../components/StatList';
 const StatusWrap = styled.div`
   width: 90%;
   margin-top: 50px;
-  height: 570px;
+  height: 565px;
   display: flex;
 `;
 
@@ -24,6 +24,8 @@ const Character = styled.div`
 const Status = styled.div`
   width: 65%;
   height: 100%;
+  box-shadow: 0px 0px 7px 6px rgb(0 0 0 / 20%);
+  overflow: hidden;
   /* background: #aaa; */
 `;
 
