@@ -29,6 +29,9 @@ const Bg = styled.div`
   flex-direction: column;
   align-items: center;
   user-select: none;
+  & > p {
+    font-size: 1.4rem;
+  }
 `;
 
 const Close = styled.div`
