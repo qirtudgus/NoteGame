@@ -502,10 +502,6 @@ const NewDungeonFight = () => {
         refresh={refresh}
         monsterHp={hp.monsterHp}
       ></RewardListBox>
-      {userInfo.UpDoubleAttack > 0 ? (
-        <p onClick={useDoubleAttack}>{doubleAttack ? '더블어택 ON' : '더블어택 OFF'}</p>
-      ) : null}
-
       <DungeonSkill
         useDoubleAttack={doubleAttack}
         OnClick={useDoubleAttack}
