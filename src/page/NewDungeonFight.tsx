@@ -8,6 +8,7 @@ import { LoginUserInfoInterface } from '../modules/login';
 //연산 요소
 import { userDamage, monsterDamage } from '../util/createDamage';
 import createRandomNum from '../util/createRandomNum';
+import getPenPointCoords from '../util/getPenPointCoords';
 
 //화면 요소
 import BtnMenu from '../components/BtnMenu';
@@ -24,6 +25,7 @@ import sleep from '../util/sleep';
 import 더블어택 from '../img/더블어택한번.gif';
 import 하이리워드 from '../img/하이리워드이펙트_수정2.gif';
 import 평타 from '../img/슬블_수정.gif';
+import DungeonSkill from '../components/DungeonSkill';
 
 interface p {
   view: boolean;
@@ -233,7 +235,7 @@ const NewDungeonFight = () => {
   const penAnimationStart = () => {
     let a = () => {
       penAnimeRef.current.pause();
-      getRewardElement(getRewardCoords().x, getRewardCoords().y);
+      getRewardElement(getPenPointCoords().x, getPenPointCoords().y);
       setStartBtn(true);
     };
     penAnimation ? penAnimeRef.current.play() : a();
@@ -257,15 +259,6 @@ const NewDungeonFight = () => {
     }
   }, []);
 
-  //볼펜을 멈춰 리워드좌표를 획득
-  const getRewardCoords = () => {
-    const pen = document.querySelector('#penPoint');
-    const x: number = pen?.getBoundingClientRect().x as number;
-    const y: number = (pen?.getBoundingClientRect().y as number) - 20;
-    let resultCoords = { x, y };
-    return resultCoords;
-  };
-
   function randomAttack(): string {
     let a = createRandomNum(1, 4);
     return 'attack' + a;
@@ -278,24 +271,23 @@ const NewDungeonFight = () => {
     const rewardNumber = reward.dataset.attacknumber;
     if (rewardNumber === undefined) {
       MonsterAttack();
-
       return;
     }
-
-    //하이리워드를 획득했는지 보려면... 무기의 리워드 최대값과, 획득한 리워드과 동일한지 체크하는 if문을 걸면 되겠다.
-    let hi = penObj.find((i) => i.ballPenName === userInfo.EquipBallpen)?.rewardList as number[];
-    if (Number(rewardNumber) === Math.max(...hi)) {
-      setEffectImg(하이리워드);
-    }
-
     //유저데미지 연산
-    let userResultDamage = userDamage(
+    const userResultDamage = userDamage(
       parseInt(rewardNumber as string),
       userInfo.BasicDamage,
       userInfo.WeaponDamage,
       userInfo.BetterPen,
       doubleAttack,
     );
+
+    //하이리워드를 획득했는지 보려면... 무기의 리워드 최대값과, 획득한 리워드과 동일한지 체크하는 if문을 걸면 되겠다.
+    const hi = penObj.find((i) => i.ballPenName === userInfo.EquipBallpen)?.rewardList as number[];
+    if (Number(rewardNumber) === Math.max(...hi)) {
+      setEffectImg(하이리워드);
+    }
+
     if (doubleAttack === true) {
       setDoubleAttack(false);
       setDoubleAttackCount(0);
@@ -305,8 +297,8 @@ const NewDungeonFight = () => {
       }, 350);
     }
     //남은 몬스터 체력 계산
-    let monsterHp: number = hp.monsterHp - userResultDamage;
-    let monsterHpBar: number = Math.ceil((monsterHp / monsterInfo.monsterFullHp) * 100);
+    const monsterHp: number = hp.monsterHp - userResultDamage;
+    const monsterHpBar: number = Math.ceil((monsterHp / monsterInfo.monsterFullHp) * 100);
     if (monsterHp <= 0) {
       setAttackAni((prev) => ({ ...prev, userNomally: false }));
       setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
@@ -346,26 +338,38 @@ const NewDungeonFight = () => {
   };
 
   const MonsterAttack = async () => {
-    let monsterResultDamage = monsterDamage(monsterInfo.monsterDamage);
-    let userHp = hp.userHp - monsterResultDamage;
-    let userHpBar = Math.ceil((userHp / userInfo.BasicHp) * 100);
+    // 몬스터 어택 플로우
+    // 1 - 몬스터 데미지 산정
+    // 2 - 데미지를 입은 사용자의 체력과 체력게이지(%) 산정
+    // 3 - 사용자체력이 0일경우(패배)와 아닌 경우(전투 진행)으로 나뉜다.
+    // 패배 1 - 몬스터가 사용자를 때린다.
+    // 패배 2 - 사용자의 체력이 깎인다.
+    // 패배 3 - 몬스터 데미지 출력
+    // 패배 4 - 1초 뒤 몬스터 데미지 제거, 결과창을 띄운다.
+    // 전투 진행 1 - 몬스터가 사용자를 때린다.
+    // 전투 진행 2 - 사용자의 체력이 깎인다.
+    // 전투 진행 3 - 몬스터 데미지 출력
+    // 전투 진행 4 - 1초 뒤 캐릭애니메이션, 시작버튼, 이펙트이미지 초기화하고 Refresh를 토글하여 리워드리스트 교체
+
+    const monsterResultDamage = monsterDamage(monsterInfo.monsterDamage);
+    const userHp = hp.userHp - monsterResultDamage;
+    const userHpBar = Math.ceil((userHp / userInfo.BasicHp) * 100);
     if (userHp <= 0) {
       setAttackAni({ ...attackAni, monster: true, userHit: true });
-      // setHp({ ...hp, monsterHp, monsterHpBar });
       setHp((prev) => ({ ...prev, userHp: 0, userHpBar: 0 }));
-      characterAnimeRef.current.play();
       setDamageText({ ...damageText, monsterAttackDamage: monsterResultDamage.toLocaleString() + '' });
       setTimeout(function () {
-        setVictoryModal(false);
-        setIsModal(true);
         //패배시 남아있는 데미지 텍스트 제거
         setAttackAni({ ...attackAni, userHit: false });
+        setVictoryModal(false);
+        setIsModal(true);
       }, 1000);
       return;
     }
     setAttackAni({ ...attackAni, monster: true, userHit: true });
-    setDamageText({ ...damageText, monsterAttackDamage: monsterResultDamage.toLocaleString() + '' });
     setHp((prev) => ({ ...prev, userHp, userHpBar }));
+    setDamageText({ ...damageText, monsterAttackDamage: monsterResultDamage.toLocaleString() + '' });
+
     //한번 초기화를 해주면 애니메이션 정상 작동
     //초기화는 몬스터무빙 애니메이션까지 끝난 뒤 해야하기때문에 몬스터 애니메이션과 같은 값으로 준다.
     await sleep(1);
@@ -501,6 +505,12 @@ const NewDungeonFight = () => {
       {userInfo.UpDoubleAttack > 0 ? (
         <p onClick={useDoubleAttack}>{doubleAttack ? '더블어택 ON' : '더블어택 OFF'}</p>
       ) : null}
+
+      <DungeonSkill
+        useDoubleAttack={doubleAttack}
+        OnClick={useDoubleAttack}
+      ></DungeonSkill>
+
       <BottomBox></BottomBox>
     </>
   );
