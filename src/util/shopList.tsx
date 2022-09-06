@@ -13,7 +13,7 @@ export interface pen {
   ballPenName: string;
   Gold: number;
   weaponDamage: number;
-  img: any;
+  img: string;
   dungeonPenSpeed: number;
   penGamePenSpeed: number;
   rewardList: number[];
