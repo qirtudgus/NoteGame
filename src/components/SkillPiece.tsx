@@ -112,7 +112,7 @@ const SkillPiece = (props: any) => {
 
   function skillUp(skillName: string, maxLevel: number, requestLevel: number) {
     if (userInfo[skillName] === maxLevel) {
-      setSkillText('이미 만렙인 스킬입니다.');
+      setSkillText('이미 마스터한 스킬입니다.');
       dispatch(modal_success());
       return;
     }
