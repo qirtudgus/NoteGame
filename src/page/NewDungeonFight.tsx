@@ -492,6 +492,7 @@ const NewDungeonFight = () => {
       <NewBallpen
         penTop={penCoords.top}
         penLeft={penCoords.left}
+        detailView={isVisible}
       ></NewBallpen>
       <BtnMenu
         BackHistory
