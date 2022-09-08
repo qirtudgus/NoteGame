@@ -26,24 +26,6 @@ export const rewardsListObj: rewardsList[] = [
   },
   {
     front: frontText,
-    number: 500,
-    back: deductText,
-    action: 'deduct',
-  },
-  {
-    front: frontText,
-    number: 1000,
-    back: deductText,
-    action: 'deduct',
-  },
-  {
-    front: frontText,
-    number: 1500,
-    back: deductText,
-    action: 'deduct',
-  },
-  {
-    front: frontText,
     number: 100,
     back: addText,
     action: 'add',
@@ -68,6 +50,18 @@ export const rewardsListObj: rewardsList[] = [
   },
   {
     front: frontText,
+    number: 1000,
+    back: addText,
+    action: 'add',
+  },
+  {
+    front: frontText,
+    number: 1000,
+    back: addText,
+    action: 'add',
+  },
+  {
+    front: frontText,
     number: 1500,
     back: addText,
     action: 'add',
@@ -81,13 +75,6 @@ export const rewardsListObj: rewardsList[] = [
   {
     front: frontText,
     number: 1.5,
-    back: multipleText,
-    action: 'multiple',
-    color: 'red',
-  },
-  {
-    front: frontText,
-    number: 2,
     back: multipleText,
     action: 'multiple',
     color: 'red',
