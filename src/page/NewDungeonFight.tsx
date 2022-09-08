@@ -26,7 +26,7 @@ import 더블어택 from '../img/effect/더블어택한번.gif';
 import 하이리워드 from '../img/effect/하이리워드이펙트_수정2.gif';
 import 평타 from '../img/effect/슬블_수정.gif';
 import DungeonSkill from '../components/DungeonSkill';
-
+import { StartBtn } from './NewPenGame';
 interface p {
   view: boolean;
 }
@@ -45,16 +45,6 @@ const DoubleAttackEffect = styled.div<p>`
     `}
 `;
 
-const StartBtn = styled.div`
-  width: 205px;
-  height: 120px;
-  background-color: #555;
-  position: absolute;
-  bottom: 105px;
-  left: 30px;
-  z-index: 1;
-  border-radius: 10px;
-`;
 const BottomBox = styled.div`
   width: 100%;
   height: 240px;
@@ -238,7 +228,7 @@ const NewDungeonFight = () => {
       getRewardElement(getPenPointCoords().x, getPenPointCoords().y);
       setStartBtn(true);
     };
-    penAnimation ? penAnimeRef.current.play() : a();
+    penAnimation ? penAnimeRef.current.restart() : a();
     setPenAnimation(false);
   };
 
@@ -325,7 +315,7 @@ const NewDungeonFight = () => {
     }, 300);
 
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
-    characterAnimeRef.current.play();
+    characterAnimeRef.current.restart();
     setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
 
     setTimeout(() => {
@@ -492,6 +482,7 @@ const NewDungeonFight = () => {
       <NewBallpen
         penTop={penCoords.top}
         penLeft={penCoords.left}
+        penWidth={50}
         detailView={isVisible}
       ></NewBallpen>
       <BtnMenu
