@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import './App.css';
 import './Reset.css';
 import BasicInputs from './components/BasicInput';
-import BasicButtons from './components/BasicBtn';
+import BasicBtn from './components/BasicBtn';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './modules/modules_index';
@@ -16,7 +16,19 @@ function App() {
   const [Password, setPassword] = useState<string>('');
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
 
+  const IdRef = useRef() as any;
+  const PasswordRef = useRef() as any;
   const loginRequest = () => {
+    if (Id === '') {
+      alert('아이디를 입력해주세요');
+      IdRef.current.focus();
+      return;
+    }
+    if (Password === '') {
+      alert('비밀번호를 입력해주세요');
+      PasswordRef.current.focus();
+      return;
+    }
     dispatch(login_request(Id, Password));
   };
 
@@ -37,23 +49,25 @@ function App() {
   return (
     <>
       <BasicInputs
+        ref={IdRef}
         value={Id}
         placeholder='아이디'
         OnChange={onChangeId}
       ></BasicInputs>
       <BasicInputs
+        ref={PasswordRef}
         value={Password}
         placeholder='비밀번호'
         OnChange={onChangePassword}
       ></BasicInputs>
-      <BasicButtons
+      <BasicBtn
         ButtonText='로그인'
-        color='#e1550a'
         OnClick={loginRequest}
-      ></BasicButtons>
-      <Link to='/register'>
-        <BasicButtons ButtonText='회원가입' color='#e1550a'></BasicButtons>
-      </Link>
+      ></BasicBtn>
+      <BasicBtn
+        ButtonText='회원가입'
+        OnClick={() => navigate('/register')}
+      ></BasicBtn>
     </>
   );
 }
