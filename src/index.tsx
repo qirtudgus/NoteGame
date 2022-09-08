@@ -25,6 +25,7 @@ import axios from 'axios';
 import MyStatus from './page/MyStatus';
 import Shop from './page/Shop';
 import NewDungeonFight from './page/NewDungeonFight';
+import NewPenGame from './page/NewPenGame';
 
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
@@ -79,7 +80,7 @@ root.render(
           ></Route>
           <Route
             path='/playpengame'
-            element={<PlayPenGame />}
+            element={<NewPenGame />}
           ></Route>
           <Route
             path='/dungeon'
