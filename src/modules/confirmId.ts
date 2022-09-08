@@ -31,7 +31,7 @@ type ConfirmIdStateType = {
 
 const confirmIdState: ConfirmIdStateType = {
   confirmId: null,
-  text: '아이디를 입력해주세요.',
+  text: '',
 };
 
 const confirmIdRequest = (state: ConfirmIdStateType = confirmIdState, action: ConfirmIdAction): ConfirmIdStateType => {
