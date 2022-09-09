@@ -1,7 +1,22 @@
 import styled from 'styled-components';
 import { ButtonColor } from './BtnMenu';
-import React from 'react';
-const BasicButton = styled(ButtonColor)<ButtonText>`
+import React, { ComponentType, FunctionComponent } from 'react';
+
+interface ButtonText {
+  ButtonText?: string;
+  color?: string;
+  OnClick?: any;
+  disabled?: boolean;
+  OnKeyDown?: () => void;
+  OnKeyPress?: () => void;
+  TabIndex?: number | undefined;
+  ClassName?: string;
+  margin?: string;
+  id?: string;
+  as?: string | ComponentType<any> | undefined;
+}
+
+const BasicButton = styled.div<ButtonText>`
   width: 13rem;
   height: 3rem;
   font-size: 1.5rem;
@@ -11,25 +26,17 @@ const BasicButton = styled(ButtonColor)<ButtonText>`
   margin: ${(props) => props.margin || '0.5rem'};
   border: none;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
   &:hover {
     filter: invert(100%);
   }
 `;
-interface ButtonText {
-  ButtonText?: string;
-  color?: string;
-  OnClick?: any;
-  disabled?: any;
-  OnKeyDown?: any;
-  OnKeyPress?: any;
-  TabIndex?: any;
-  ClassName?: any;
-  margin?: string;
-  id?: string;
-}
 
-const BasicButtons = ({
+const BasicButtons: FunctionComponent<ButtonText> = ({
   ButtonText,
   color,
   OnClick,
@@ -40,7 +47,8 @@ const BasicButtons = ({
   OnKeyPress,
   margin,
   id,
-}: ButtonText) => {
+  as,
+}) => {
   return (
     <BasicButton
       onKeyPress={OnKeyPress}
@@ -52,6 +60,7 @@ const BasicButtons = ({
       onClick={OnClick}
       margin={margin}
       id={id}
+      as={as}
     >
       {ButtonText}
     </BasicButton>
