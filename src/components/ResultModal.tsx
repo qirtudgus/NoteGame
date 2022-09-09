@@ -42,6 +42,7 @@ const falseGold = {
 const ResultModal = (props: any) => {
   return (
     <BgWrap>
+      {props.children}
       {props.isModal ? (
         <Bg>
           <p style={result}>열심히 멈춘 결과</p>
@@ -50,8 +51,9 @@ const ResultModal = (props: any) => {
             <p>{props.afterGold?.toLocaleString()} 골드로!</p>
           </div>
           <BasicButtons
+            id='nextBtn'
             ClassName={props.cName}
-            ButtonText='이어서'
+            ButtonText='다시하기'
             OnClick={props.OnClick}
           ></BasicButtons>
         </Bg>
@@ -60,8 +62,9 @@ const ResultModal = (props: any) => {
           <p style={result}>열심히 멈춘 결과</p>
           <p style={falseGold}>꽝입니다...</p>
           <BasicButtons
+            id='nextBtn'
             ClassName={props.cName}
-            ButtonText='이어서'
+            ButtonText='다시하기'
             OnClick={props.OnClick}
           ></BasicButtons>
         </Bg>
