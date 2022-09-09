@@ -9,6 +9,7 @@ import React from 'react';
 interface ballpen {
   penTop?: number;
   penLeft?: number;
+  penWidth?: number;
   detailView?: boolean;
 }
 
@@ -17,7 +18,7 @@ const PenImgWrap = styled.div<ballpen>`
   left: ${(props) => props.penLeft + 'px'};
   position: absolute;
   height: auto;
-  width: 50px;
+  width: ${(props) => props.penWidth + 'px'};
   display: flex;
   justify-content: center;
 `;
@@ -48,7 +49,7 @@ const PenImg = styled.img`
   margin: none;
 `;
 
-const NewBallpen = ({ penTop, penLeft, detailView }: ballpen) => {
+const NewBallpen = ({ penTop, penLeft, detailView, penWidth }: ballpen) => {
   const { EquipBallpen } = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   let equipBallpenImg = penObj.find((i: any) => i.ballPenName === EquipBallpen)?.img;
 
@@ -57,6 +58,7 @@ const NewBallpen = ({ penTop, penLeft, detailView }: ballpen) => {
       <PenImgWrap
         penTop={penTop}
         penLeft={penLeft}
+        penWidth={penWidth}
       >
         <PenImg
           id='penBody'
