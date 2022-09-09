@@ -11,18 +11,23 @@ import BtnMenu from '../components/BtnMenu';
 import styled, { css } from 'styled-components';
 import 배경 from '../img/회원가입배경2.png';
 
+import customAxios from '../util/axios';
+import createRandomNum from '../util/createRandomNum';
+
 interface inputWrap {
   isConfirm?: boolean | undefined | null;
   pTop?: string;
   isPassword?: boolean | undefined | null;
   isPasswordCheck?: boolean | undefined | null;
+  inputDisabled?: boolean;
+  isSendEmail?: boolean;
 }
 
 const InputDiv = styled.div`
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   & img {
     z-index: -1;
     position: absolute;
@@ -79,10 +84,37 @@ const InputWrap = styled.div<inputWrap>`
     margin-bottom: 5px;
   }
   & > input {
+    cursor: pointer;
     border-bottom: 2px solid#333;
     background: #fff;
     /* background: rgba(255, 255, 255, 0); */
   }
+  ${(props) =>
+    props.inputDisabled &&
+    css`
+      & > input {
+        background: #a8a8a8;
+      }
+    `}
+  ${(props) =>
+    props.isSendEmail &&
+    css`
+      & > p {
+        color: green;
+      }
+    `}
+
+    & button {
+    position: relative;
+    width: 70px;
+    height: 52px;
+    background: #555;
+  }
+`;
+
+const InputButtonWrap = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Register = () => {
@@ -95,7 +127,16 @@ const Register = () => {
   const [isCheckPassword, setIsCheckPassword] = useState<boolean>(false);
   const [PasswordAuthText, setPasswordAuthText] = useState<string>();
   const [isPasswordAuthText, setIsPasswordAuthText] = useState<string>();
+
+  const [authPassword, setAuthPassword] = useState('');
+  const [isEmailAuth, setIsEmailAuth] = useState(false);
+  const [isSendEmail, setIsSendEmail] = useState(true);
+  const [emailAuthPassword, setEmailAuthPassword] = useState('');
+
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
+
+  const [email, setEmail] = useState('');
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -105,6 +146,9 @@ const Register = () => {
 
   const onNameHandler = (e: any) => {
     setName(e.currentTarget.value);
+  };
+  const onEamilAuthHandler = (e: any) => {
+    setEmailAuthPassword(e.currentTarget.value);
   };
 
   const registerRequest = () => {
@@ -126,6 +170,10 @@ const Register = () => {
     if (!passwordRegex.test(passwordCurrent)) {
       setPasswordAuthText('5~20자의 영문,숫자를 사용하세요.');
       setIsPassword(false);
+    }
+    if (spaceCheck.test(passwordCurrent)) {
+      setPasswordAuthText('5~20자의 영문,숫자를 사용하세요.');
+      setIsPassword(false);
     } else {
       setPasswordAuthText('올바른패스워드입니다.');
       setIsPassword(true);
@@ -134,6 +182,10 @@ const Register = () => {
 
   const onCheckPasswordHandler = (e: any) => {
     setCheckPassword(e.currentTarget.value);
+  };
+
+  const onEmailHandler = (e: any) => {
+    setEmail(e.currentTarget.value);
   };
 
   //회원가입 버튼
@@ -161,6 +213,18 @@ const Register = () => {
     if (!passwordRegex.test(Password)) {
       alert('비밀번호가 양식에 맞지않아요.');
       passwordRef.current.focus();
+      return;
+    }
+    if (isEmailAuth === false) {
+      alert('이메일 인증을 완료해주세요 ');
+      return;
+    }
+    if (!(Password === CheckPassword)) {
+      alert('비밀번호가 동일한지 확인해주세요.');
+      passwordRef.current.focus();
+      setIsPasswordAuthText('패스워드를 확인해주세요.');
+      setIsCheckPassword(false);
+
       return;
     }
 
@@ -192,6 +256,11 @@ const Register = () => {
 
   // 패스워드 확인 함수
   useEffect(() => {
+    if (isPassword === false) {
+      setIsPasswordAuthText('패스워드를 확인해주세요.');
+
+      return;
+    }
     if (Password === '' || CheckPassword === '') {
       setIsPasswordAuthText('');
       setIsCheckPassword(false);
@@ -204,6 +273,26 @@ const Register = () => {
       setIsCheckPassword(false);
     }
   }, [CheckPassword, Password]);
+
+  //패스워드확인을 onBlur로 할까?
+  // const checkPasswordFunc = () => {
+  //   if (isPassword === false) {
+  //     setIsPasswordAuthText('패스워드를 확인해주세요.');
+
+  //     return;
+  //   }
+  //   if (Password === '' || CheckPassword === '') {
+  //     setIsPasswordAuthText('');
+  //     setIsCheckPassword(false);
+  //     return;
+  //   } else if (Password === CheckPassword) {
+  //     setIsPasswordAuthText('패스워드가 일치합니다.');
+  //     setIsCheckPassword(true);
+  //   } else {
+  //     setIsPasswordAuthText('패스워드를 확인해주세요.');
+  //     setIsCheckPassword(false);
+  //   }
+  // };
 
   return (
     <>
@@ -253,10 +342,78 @@ const Register = () => {
             width='15rem'
             type='password'
             OnChange={onCheckPasswordHandler}
+            // OnBlur={checkPasswordFunc}
             value={CheckPassword}
             margin={'0 0 0 0'}
           ></BasicInputs>
           {isCheckPassword ? <p>{isPasswordAuthText}</p> : <p>{isPasswordAuthText}</p>}
+        </InputWrap>
+        <InputWrap
+          pTop='515px'
+          isPasswordCheck={isCheckPassword}
+          isSendEmail={!isSendEmail}
+        >
+          {' '}
+          <div className='inputTitle'>이메일</div>
+          <InputButtonWrap>
+            <BasicInputs
+              width='15rem'
+              OnChange={onEmailHandler}
+              value={email}
+              margin={'0 0 0 0'}
+            ></BasicInputs>
+
+            <button
+              onClick={async () => {
+                //인증번호 생성
+                let arr = [];
+                for (let i = 0; i <= 5; i++) {
+                  arr.push(createRandomNum(0, 9));
+                }
+                let b = arr.join('');
+                console.log(b);
+                setAuthPassword(b);
+                setIsSendEmail(false);
+                customAxios('post', '/mail/mailauth', { email, authPassword }).then((res) => {
+                  console.log(res.data);
+                  console.log('전송');
+                });
+              }}
+            >
+              이메일 전송
+            </button>
+          </InputButtonWrap>
+          {!isSendEmail && <p>이메일이 발송되었습니다.</p>}
+        </InputWrap>
+        <InputWrap
+          pTop='515px'
+          isPasswordCheck={isCheckPassword}
+          inputDisabled={isSendEmail}
+        >
+          <InputButtonWrap>
+            <BasicInputs
+              disabled={isSendEmail}
+              width='15rem'
+              placeholder='인증번호 입력'
+              OnChange={onEamilAuthHandler}
+              value={emailAuthPassword}
+              margin={'0 0 0 0'}
+            ></BasicInputs>
+            <button
+              disabled={isSendEmail}
+              onClick={() => {
+                if (emailAuthPassword === authPassword) {
+                  alert('이메일 인증 완료');
+                  setIsEmailAuth(true);
+                } else {
+                  alert('인증번호가 틀립니다');
+                  setIsEmailAuth(false);
+                }
+              }}
+            >
+              인증번호 확인
+            </button>
+          </InputButtonWrap>
         </InputWrap>
         <BasicButtons
           // as='button'
