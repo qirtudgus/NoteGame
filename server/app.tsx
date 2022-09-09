@@ -23,6 +23,7 @@ import { dungeonRouter } from './router/dungeonRouter.js';
 import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 import { rankingRouter } from './router/rankingRouter.js';
 import { statRouter } from './router/statRouter.js';
+import { mailRouter } from './router/mailRouter.js';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -85,7 +86,8 @@ app.use('/dungeon', dungeonRouter);
 app.use('/shop', buyBallpenListRouter);
 //랭킹 라우터
 app.use('/ranking', rankingRouter);
-
+//메일 라우터
+app.use('/mail', mailRouter);
 app.listen('1234', () => {
   console.log(`
   🛡️  Server listening on port: 1234🛡️
