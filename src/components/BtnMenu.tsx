@@ -15,7 +15,7 @@ const BtnWrap = styled.div`
   bottom: 30px;
   z-index: 500;
 `;
-export const ButtonColor = styled.button`
+export const ButtonColor = styled.div`
   box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
   outline: 1px solid#ddd;
   outline-offset: -1px;
@@ -40,9 +40,9 @@ export const Back = styled(ButtonColor)`
 interface btn {
   BackHistory?: boolean;
   Home?: boolean;
-  FastFoward?: boolean;
-  FastFowardFunc?: () => void;
-  FastFowardText?: number;
+  FastForward?: boolean;
+  FastForwardFunc?: () => void;
+  FastForwardText?: number;
   Refresh?: boolean;
   RefreshFunc?: () => void;
   LogOut?: boolean;
@@ -54,9 +54,9 @@ interface btn {
 const BtnMenu = ({
   BackHistory,
   Home,
-  FastFoward,
-  FastFowardFunc,
-  FastFowardText,
+  FastForward,
+  FastForwardFunc,
+  FastForwardText,
   Refresh,
   LogOut,
   RefreshFunc,
@@ -69,10 +69,10 @@ const BtnMenu = ({
       {BackHistory && <BackHistoryBtn></BackHistoryBtn>}
       {Home && <HomeBtn></HomeBtn>}
       {Refresh && <RefreshBtn func={RefreshFunc}></RefreshBtn>}
-      {FastFoward && (
+      {FastForward && (
         <FastFowardBtn
-          func={FastFowardFunc}
-          text={FastFowardText}
+          func={FastForwardFunc}
+          text={FastForwardText}
         ></FastFowardBtn>
       )}
       {LogOut && <LogOutBtn></LogOutBtn>}
