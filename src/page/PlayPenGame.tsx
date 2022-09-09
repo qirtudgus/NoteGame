@@ -179,7 +179,7 @@ const PlayPenGame = () => {
         RefreshFunc={refreshRewards}
         // FastFoward
         // FastFowardFunc={FastForward}
-        FastFowardText={penSpeed.text}
+        FastForwardText={penSpeed.text}
       ></BtnMenu>
       {isLoading ? <Loading></Loading> : null}
 
