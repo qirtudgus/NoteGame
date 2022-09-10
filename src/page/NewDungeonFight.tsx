@@ -228,7 +228,7 @@ const NewDungeonFight = () => {
       getRewardElement(getPenPointCoords().x, getPenPointCoords().y);
       setStartBtn(true);
     };
-    penAnimation ? penAnimeRef.current.restart() : a();
+    penAnimation ? penAnimeRef.current.play() : a();
     setPenAnimation(false);
   };
 
@@ -298,7 +298,7 @@ const NewDungeonFight = () => {
       setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
       setTimeout(() => {
         setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
-      }, 300);
+      }, 200);
       setTimeout(function () {
         setAttackAni({ ...attackAni, monsterHit: false });
         setVictoryModal(true);
@@ -312,7 +312,7 @@ const NewDungeonFight = () => {
 
     setTimeout(() => {
       setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
-    }, 300);
+    }, 200);
 
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
     characterAnimeRef.current.restart();
@@ -381,7 +381,7 @@ const NewDungeonFight = () => {
 
   useEffect(() => {
     penAnimeRef.current = anime({
-      targets: '#penBody, #penPoint',
+      targets: '#penBody',
       translateX: 400,
       // duration: animationSpeed.penAni,
       duration: userInfo.PenGamePenSpeed,
