@@ -23,13 +23,13 @@ const transporter = nodemailer.createTransport({
 });
 
 mailRouter.post('/mailauth', async (req, res) => {
-  const { email, authPassword } = req.body;
-  console.log(email);
+  const { userEmail, authPassword } = req.body;
+  console.log(userEmail);
   console.log(sendMail);
 
   let emailParam = {
     from: sendMail,
-    to: email, // 수신할 이메일
+    to: userEmail, // 수신할 이메일
     subject: `공책던전 인증번호입니다.`, // 메일 제목
     text: `회원님 안녕하세요, 인증번호는 ${authPassword}입니다.`, // 메일 내용
   };
