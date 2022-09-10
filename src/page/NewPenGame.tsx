@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import NewBallpen from '../components/NewBallpen';
 import { LoginUserInfoInterface, pengame_request } from '../modules/login';
@@ -11,6 +11,8 @@ import RewardGoldListBox from '../components/RewardGoldListBox';
 import { modal_failure, modal_success } from '../modules/modalState';
 import RevivalModal from '../components/RevivalModal';
 import BasicBtn from '../components/BasicBtn';
+import Loading from '../components/Loading';
+import { pengame_boxcount_success } from '../modules/pengameBoxCount';
 
 export const StartBtn = styled.div`
   width: 205px;
@@ -19,16 +21,18 @@ export const StartBtn = styled.div`
   position: absolute;
   bottom: 105px;
   left: 30px;
-  z-index: 1;
+  z-index: 101;
   border-radius: 10px;
 `;
 
 const NewPenGame = () => {
   const dispatch = useDispatch();
+
   const [penAnimation, setPenAnimation] = useState(true);
   const [startBtn, setStartBtn] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [penSpeed, setPenSpeed] = useState<{ speed: number; text: number }>({
     speed: 1,
     text: 1,
@@ -42,6 +46,14 @@ const NewPenGame = () => {
   //빠른재생 함수
   // 볼펜이 움직이는동안엔 행동하지못하게 조건문을 걸어야함.!!!
   const FastForward = (): void => {
+    // if (penAnimation === false) {
+    //   alert('펜이 움직일때는 변경할 수 없어요!');
+    //   return;
+    // }
+    penAnimeRef.current.pause();
+    setPenAnimation(() => true);
+
+    setStartBtn(() => false);
     if (penSpeed.speed === 1) {
       setPenSpeed({
         speed: 2,
@@ -118,6 +130,26 @@ const NewPenGame = () => {
     }
   }, []);
 
+  useEffect(() => {
+    //userInfo값이 세팅되기전에는 애니메이션이 시작되지않음
+    if (userInfo.PenGamePenSpeed > 1) {
+      let a = document.querySelector('#penBody') as any;
+
+      a.style = 'transform:translateX(0)';
+
+      penAnimeRef.current = anime({
+        targets: a,
+        translateX: 800,
+        duration: userInfo.PenGamePenSpeed / penSpeed.speed,
+        direction: 'alternate', //번갈아 재생
+        loop: true, // number는 횟수 true는 무한
+        easing: 'easeInOutSine',
+        autoplay: false,
+      });
+      setIsLoading(true);
+    }
+  }, [userInfo.PenGamePenSpeed, penSpeed.speed]);
+
   // 스페이스바에 게임시작 이벤트 등록
   useEffect(() => {
     (() => {
@@ -128,28 +160,16 @@ const NewPenGame = () => {
     };
   }, [gameStart]);
 
-  useEffect(() => {
-    console.log(userInfo.PenGamePenSpeed);
-    penAnimeRef.current = anime({
-      targets: '#penBody, #penPoint',
-      translateX: 800,
-      duration: userInfo.PenGamePenSpeed,
-      direction: 'alternate', //번갈아 재생
-      loop: true, // number는 횟수 true는 무한
-      easing: 'easeInOutSine',
-      autoplay: false,
-    });
-  }, []);
-
   return (
     <>
+      {isLoading ? null : <Loading></Loading>}
       {isModal &&
         (isSuccess ? (
           <RevivalModal>
             <p>열심히 멈춘 결과</p>
             <div>
-              <p>{userInfo.beforeGold.toLocaleString()} 골드에서</p>
-              <p>{userInfo.Gold.toLocaleString()} 골드로!</p>
+              <p>{userInfo.beforeGold?.toLocaleString()} 골드에서</p>
+              <p>{userInfo.Gold?.toLocaleString()} 골드로!</p>
             </div>
             <BasicBtn
               id='nextBtn'
@@ -172,8 +192,29 @@ const NewPenGame = () => {
             ></BasicBtn>
           </RevivalModal>
         ))}
-
-      <RewardGoldListBox refresh={refresh}></RewardGoldListBox>
+      <select
+        onChange={(e) => {
+          console.log(e.target.value);
+          dispatch(pengame_boxcount_success(Number(e.target.value)));
+          //옵션 선택 후 스페이스바 눌렀을 때 선택방지
+          e.target.blur();
+        }}
+      >
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+        <option value='5'>5</option>
+        <option value='6'>6</option>
+        <option value='7'>7</option>
+        <option value='8'>8</option>
+        <option value='9'>9</option>
+        <option value='10'>10</option>
+      </select>
+      <RewardGoldListBox
+        refresh={refresh}
+        penSpeed={penSpeed.text}
+      ></RewardGoldListBox>
 
       <StartBtn
         id='StartBtn'
@@ -193,9 +234,9 @@ const NewPenGame = () => {
         RefreshFunc={() => {
           setRefresh((prev) => !prev);
         }}
-        // FastForward
-        // FastForwardFunc={FastForward}
-        // FastForwardText={penSpeed.text}
+        FastForward
+        FastForwardFunc={FastForward}
+        FastForwardText={penSpeed.text}
       ></BtnMenu>
     </>
   );
