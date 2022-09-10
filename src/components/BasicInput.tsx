@@ -11,6 +11,13 @@ const BasicInput = styled.input<holder>`
   margin-bottom: 3rem;
   margin: ${(props) => props.margin || '0 0 3rem 0'};
   border: none;
+
+  cursor: text;
+  background: #fff;
+  height: 2rem;
+  border: 1px solid #999;
+  padding: 3px;
+  border-radius: 5px;
 `;
 
 interface holder {
