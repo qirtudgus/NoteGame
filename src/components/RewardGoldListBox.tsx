@@ -20,6 +20,12 @@ const Reward = styled.div`
   width: 70px;
   height: 160px;
   background: #fff;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  & > p {
+  }
 `;
 
 const ErrorPage = styled.div`
@@ -35,10 +41,11 @@ const RewardGoldListBox = (props: any) => {
   //useMemo를 사용하여 해결!!!!!!
   const randomRewardArray = useMemo(() => {
     return createRandomRewardsArray(boxCount, 'penGame');
-  }, [props.refresh]);
+  }, [props.refresh, boxCount]);
   const navigate = useNavigate();
   console.log(randomRewardArray);
 
+  console.log(props);
   return (
     <>
       <Wrap>
@@ -59,15 +66,19 @@ const RewardGoldListBox = (props: any) => {
                   data-action={i.action}
                   data-number={i.number}
                 >
-                  {i.front} {i.number} {i.back}
+                  <p> {i.front}</p>
+                  <p>{i.number}</p>
+                  <p> {i.back}</p>
                 </Reward>
               ) : (
                 <Reward
                   key={index}
                   data-action={i.action}
-                  data-number={i.number * Level}
+                  data-number={i.number * Level * props.penSpeed}
                 >
-                  {i.front} {i.number * Level} {i.back}
+                  <p> {i.front}</p>
+                  <p>{i.number * Level * props.penSpeed}</p>
+                  <p> {i.back}</p>
                 </Reward>
               ),
             )}
