@@ -49,7 +49,7 @@ const FooterMenu = () => {
         <FooterIcon onClick={() => navigate('/ballpenshop')}>
           <FooterTitle>상점</FooterTitle>
         </FooterIcon>
-        <FooterIcon onClick={() => navigate('/choicepencount')}>
+        <FooterIcon onClick={() => navigate('/playpengame')}>
           <FooterTitle>볼펜 굴리기</FooterTitle>
         </FooterIcon>
         <FooterIcon onClick={() => navigate('/dungeon')}>
