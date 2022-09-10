@@ -21,10 +21,12 @@ interface inputWrap {
   isPasswordCheck?: boolean | undefined | null;
   inputDisabled?: boolean;
   isSendEmail?: boolean;
+  isEmailAuth?: boolean;
 }
 
 const InputDiv = styled.div`
   margin-top: 100px;
+  margin-left: 220px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -39,13 +41,13 @@ const InputDiv = styled.div`
 
 const InputWrap = styled.div<inputWrap>`
   width: auto;
-  height: 120px;
+  height: 6.5rem;
   display: flex;
   flex-direction: column;
   & > p {
     position: relative;
     /* top: ${(props) => props.pTop}; */
-    top: 10px;
+    top: 5px;
     width: auto;
     height: auto;
     color: red;
@@ -78,21 +80,24 @@ const InputWrap = styled.div<inputWrap>`
         color: green;
       }
     `}
+    ${(props) =>
+    props.isEmailAuth &&
+    css`
+      & > p {
+        color: green;
+      }
+    `}
   & .inputTitle {
     font-size: 1.3rem;
-    font-weight: bold;
     margin-bottom: 5px;
   }
-  & > input {
-    cursor: pointer;
-    border-bottom: 2px solid#333;
+  & input {
     background: #fff;
-    /* background: rgba(255, 255, 255, 0); */
   }
   ${(props) =>
     props.inputDisabled &&
     css`
-      & > input {
+      & input {
         background: #a8a8a8;
       }
     `}
@@ -107,14 +112,44 @@ const InputWrap = styled.div<inputWrap>`
     & button {
     position: relative;
     width: 70px;
-    height: 52px;
+    height: 40px;
+    margin-left: 10px;
     background: #555;
+    border-radius: 5px;
+  }
+
+  & .mailInput {
+    position: absolute;
+    width: 8.5rem;
+    height: 2rem;
+    font-size: 1.3rem;
+    left: 611px;
+    z-index: 5;
+    border: none;
+    padding: 3px;
+  }
+  & .mailInputSelect {
+    width: 10rem;
+    height: 40px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  & .mailInputSelect:focus-visible {
+    outline: none;
+  }
+  & .mailInputSelect > option {
   }
 `;
 
 const InputButtonWrap = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const EmailCenter = styled.div`
+  font-size: 2rem;
+  padding: 0 5px 0 5px;
 `;
 
 const Register = () => {
@@ -130,8 +165,11 @@ const Register = () => {
 
   const [authPassword, setAuthPassword] = useState('');
   const [isEmailAuth, setIsEmailAuth] = useState(false);
+  const [isEmailAuthText, setIsEmailAuthText] = useState('');
   const [isSendEmail, setIsSendEmail] = useState(true);
   const [emailAuthPassword, setEmailAuthPassword] = useState('');
+
+  const [emailInputValue, setEmailInputValue] = useState('naver.com');
 
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
 
@@ -170,8 +208,7 @@ const Register = () => {
     if (!passwordRegex.test(passwordCurrent)) {
       setPasswordAuthText('5~20자의 영문,숫자를 사용하세요.');
       setIsPassword(false);
-    }
-    if (spaceCheck.test(passwordCurrent)) {
+    } else if (spaceCheck.test(passwordCurrent)) {
       setPasswordAuthText('5~20자의 영문,숫자를 사용하세요.');
       setIsPassword(false);
     } else {
@@ -257,8 +294,7 @@ const Register = () => {
   // 패스워드 확인 함수
   useEffect(() => {
     if (isPassword === false) {
-      setIsPasswordAuthText('패스워드를 확인해주세요.');
-
+      setIsPasswordAuthText('');
       return;
     }
     if (Password === '' || CheckPassword === '') {
@@ -299,15 +335,13 @@ const Register = () => {
       <BtnMenu BackHistory></BtnMenu>
 
       <InputDiv>
-        {' '}
-        <img src={배경}></img>
         <InputWrap
           isConfirm={isConfirmId.confirmId}
           pTop='368px'
         >
           <div className='inputTitle'>아이디</div>
           <BasicInputs
-            width='15rem'
+            width='12rem'
             OnChange={onNameHandler}
             OnBlur={confirmIdRequest}
             value={Name}
@@ -324,7 +358,7 @@ const Register = () => {
         >
           <div className='inputTitle'>비밀번호</div>
           <BasicInputs
-            width='15rem'
+            width='12rem'
             ref={passwordRef}
             type='password'
             OnChange={onPasswordHandler}
@@ -339,7 +373,7 @@ const Register = () => {
         >
           <div className='inputTitle'>비밀번호 확인</div>
           <BasicInputs
-            width='15rem'
+            width='12rem'
             type='password'
             OnChange={onCheckPasswordHandler}
             // OnBlur={checkPasswordFunc}
@@ -353,16 +387,37 @@ const Register = () => {
           isPasswordCheck={isCheckPassword}
           isSendEmail={!isSendEmail}
         >
-          {' '}
           <div className='inputTitle'>이메일</div>
           <InputButtonWrap>
             <BasicInputs
-              width='15rem'
+              width='12rem'
               OnChange={onEmailHandler}
               value={email}
               margin={'0 0 0 0'}
             ></BasicInputs>
-
+            <EmailCenter>@</EmailCenter>
+            <select
+              className='mailInputSelect'
+              name='pets'
+              id='pet-select'
+              onChange={(e) => {
+                console.log(e.target.value);
+                // direct일 경우 input의 비활성화를 풀고, 그외에는 setState해주기
+                setEmailInputValue(e.target.value);
+              }}
+            >
+              <option value='naver.com'>naver.com</option>
+              <option value='gmail.com'>gmail.com</option>
+              <option value='kakao.com'>kakao.com</option>
+              <option value='hanmail.net'>hanmail.net</option>
+              <option value='direct'>직접입력</option>
+            </select>
+            <input
+              className='mailInput'
+              type='text'
+              value={emailInputValue}
+              disabled={true}
+            />
             <button
               onClick={async () => {
                 //인증번호 생성
@@ -374,7 +429,9 @@ const Register = () => {
                 console.log(b);
                 setAuthPassword(b);
                 setIsSendEmail(false);
-                customAxios('post', '/mail/mailauth', { email, authPassword }).then((res) => {
+                let userEmail = `${email}@${emailInputValue}`;
+                console.log(userEmail);
+                customAxios('post', '/mail/mailauth', { userEmail, authPassword }).then((res) => {
                   console.log(res.data);
                   console.log('전송');
                 });
@@ -386,6 +443,7 @@ const Register = () => {
           {!isSendEmail && <p>이메일이 발송되었습니다.</p>}
         </InputWrap>
         <InputWrap
+          isEmailAuth={isEmailAuth}
           pTop='515px'
           isPasswordCheck={isCheckPassword}
           inputDisabled={isSendEmail}
@@ -393,7 +451,7 @@ const Register = () => {
           <InputButtonWrap>
             <BasicInputs
               disabled={isSendEmail}
-              width='15rem'
+              width='12rem'
               placeholder='인증번호 입력'
               OnChange={onEamilAuthHandler}
               value={emailAuthPassword}
@@ -403,10 +461,10 @@ const Register = () => {
               disabled={isSendEmail}
               onClick={() => {
                 if (emailAuthPassword === authPassword) {
-                  alert('이메일 인증 완료');
+                  setIsEmailAuthText('이메일 인증 완료!');
                   setIsEmailAuth(true);
                 } else {
-                  alert('인증번호가 틀립니다');
+                  setIsEmailAuthText('인증번호를 확인해주세요!');
                   setIsEmailAuth(false);
                 }
               }}
@@ -414,6 +472,7 @@ const Register = () => {
               인증번호 확인
             </button>
           </InputButtonWrap>
+          {isEmailAuth ? <p>{isEmailAuthText}</p> : <p>{isEmailAuthText}</p>}
         </InputWrap>
         <BasicButtons
           // as='button'
