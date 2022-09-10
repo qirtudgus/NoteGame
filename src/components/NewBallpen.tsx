@@ -11,6 +11,7 @@ interface ballpen {
   penLeft?: number;
   penWidth?: number;
   detailView?: boolean;
+  OnLoad?: () => void;
 }
 
 const PenImgWrap = styled.div<ballpen>`
@@ -21,6 +22,7 @@ const PenImgWrap = styled.div<ballpen>`
   width: ${(props) => props.penWidth + 'px'};
   display: flex;
   justify-content: center;
+  z-index: 100;
 `;
 
 const PenPoint = styled.div<ballpen>`
@@ -49,21 +51,20 @@ const PenImg = styled.img`
   margin: none;
 `;
 
-const NewBallpen = ({ penTop, penLeft, detailView, penWidth }: ballpen) => {
+const NewBallpen = ({ penTop, penLeft, detailView, penWidth, OnLoad }: ballpen) => {
   const { EquipBallpen } = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   let equipBallpenImg = penObj.find((i: any) => i.ballPenName === EquipBallpen)?.img;
 
   return (
     <>
       <PenImgWrap
+        id='penBody'
+        onLoad={OnLoad}
         penTop={penTop}
         penLeft={penLeft}
         penWidth={penWidth}
       >
-        <PenImg
-          id='penBody'
-          src={equipBallpenImg}
-        ></PenImg>
+        <PenImg src={equipBallpenImg}></PenImg>
         <PenPoint
           detailView={detailView}
           id='penPoint'
