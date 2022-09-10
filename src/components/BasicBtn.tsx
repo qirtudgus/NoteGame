@@ -30,6 +30,10 @@ const BasicButton = styled.div<ButtonText>`
   align-items: center;
   justify-content: center;
 
+  box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+  outline: 1px solid#ddd;
+  outline-offset: -1px;
+
   cursor: pointer;
   &:hover {
     filter: invert(100%);
