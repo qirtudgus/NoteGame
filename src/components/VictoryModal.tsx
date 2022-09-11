@@ -31,13 +31,13 @@ const Bg = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
   user-select: none;
+  & > p {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 `;
-const result = {
-  fontSize: '30px',
-  fontWeight: 'bold',
-};
 
 const VictoryModal = (props: any) => {
   const navigate = useNavigate();
@@ -48,9 +48,9 @@ const VictoryModal = (props: any) => {
     <BgWrap>
       {props.isModal ? (
         <Bg>
-          <p style={result}>승리!</p>
-          <p style={result}>경험치 {props.huntExp} 획득</p>
-          <p style={result}>골드 {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)} 획득</p>
+          <p>승리!</p>
+          <p>경험치 + {props.huntExp}</p>
+          <p>골드 + {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)}</p>
           <BasicButtons
             id='nextBtn'
             ClassName={props.cName}
@@ -88,7 +88,7 @@ const VictoryModal = (props: any) => {
         </Bg>
       ) : (
         <Bg>
-          <p style={result}>패배..</p>
+          <p>패배..</p>
           <BasicButtons
             ClassName={props.cName}
             ButtonText='돌아가기'
