@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 });
 
 mailRouter.post('/mailauth', async (req, res) => {
-  const { userEmail, authPassword } = req.body;
+  const { userEmail, authPasswordValue } = req.body;
   console.log(userEmail);
   console.log(sendMail);
 
@@ -31,7 +31,7 @@ mailRouter.post('/mailauth', async (req, res) => {
     from: sendMail,
     to: userEmail, // 수신할 이메일
     subject: `공책던전 인증번호입니다.`, // 메일 제목
-    text: `회원님 안녕하세요, 인증번호는 ${authPassword}입니다.`, // 메일 내용
+    text: `회원님 안녕하세요, 인증번호는 ${authPasswordValue}입니다.`, // 메일 내용
   };
 
   transporter.sendMail(emailParam, function (error, info) {
