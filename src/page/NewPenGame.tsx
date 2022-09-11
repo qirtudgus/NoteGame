@@ -33,6 +33,10 @@ const NewPenGame = () => {
   const [refresh, setRefresh] = useState(false);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [rewardText, SetRewardText] = useState<{ actionName: string | number; reward: string | number }>({
+    actionName: '',
+    reward: '',
+  });
   const [penSpeed, setPenSpeed] = useState<{ speed: number; text: number }>({
     speed: 1,
     text: 1,
@@ -45,7 +49,7 @@ const NewPenGame = () => {
 
   //빠른재생 함수
   // 볼펜이 움직이는동안엔 행동하지못하게 조건문을 걸어야함.!!!
-  const FastForward = (): void => {
+  const FastForward = () => {
     // if (penAnimation === false) {
     //   alert('펜이 움직일때는 변경할 수 없어요!');
     //   return;
@@ -79,15 +83,16 @@ const NewPenGame = () => {
     const el = document.elementFromPoint(x, y) as HTMLElement;
     let reward: number = Number(el.dataset.number as string);
     let action = el.dataset.action as string;
-    console.log(reward);
-    console.log(action);
+    let actionName = el.dataset.actionname as string;
+
     if (isNaN(reward)) {
       setIsSuccess(false);
       dispatch(modal_success());
     } else {
       dispatch(pengame_request(reward, action, 1));
-      dispatch(modal_success());
       setIsSuccess(true);
+      SetRewardText({ reward, actionName });
+      dispatch(modal_success());
     }
   };
 
@@ -106,7 +111,7 @@ const NewPenGame = () => {
     };
     let a = () => {
       penAnimeRef.current.pause();
-      getRewardElement(getPenPointCoords().x, getPenPointCoords().y);
+      getRewardElement(getPenPointCoords().x, getPenPointCoords().y - 20);
       setStartBtn(true);
     };
     penAnimation ? b() : a();
@@ -167,6 +172,9 @@ const NewPenGame = () => {
         (isSuccess ? (
           <RevivalModal>
             <p>열심히 멈춘 결과</p>
+            <p>
+              {rewardText.actionName} {rewardText.reward.toLocaleString()}
+            </p>
             <div>
               <p>{userInfo.beforeGold?.toLocaleString()} 골드에서</p>
               <p>{userInfo.Gold?.toLocaleString()} 골드로!</p>
@@ -181,9 +189,7 @@ const NewPenGame = () => {
         ) : (
           <RevivalModal>
             <p>열심히 멈춘 결과</p>
-            <div>
-              <p>꽝입니다...</p>
-            </div>
+            <p>꽝...</p>
             <BasicBtn
               id='nextBtn'
               ClassName='modalBtn'
