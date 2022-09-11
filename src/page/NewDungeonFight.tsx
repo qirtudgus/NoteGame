@@ -225,7 +225,7 @@ const NewDungeonFight = () => {
   const penAnimationStart = () => {
     let a = () => {
       penAnimeRef.current.pause();
-      getRewardElement(getPenPointCoords().x, getPenPointCoords().y);
+      getRewardElement(getPenPointCoords().x, getPenPointCoords().y - 50);
       setStartBtn(true);
     };
     penAnimation ? penAnimeRef.current.play() : a();
