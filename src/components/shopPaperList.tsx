@@ -149,6 +149,7 @@ const ShopPaperPiece = (props: any) => {
   }
   function takePen() {
     dispatch(buy_paper_request(buyPaperObj.paperName, buyPaperObj.Gold));
+    dispatch(equip_paper_request(buyPaperObj.paperName, paperHp(buyPaperObj.paperName)));
     dispatch(modal_failure());
   }
 
