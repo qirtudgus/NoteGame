@@ -8,23 +8,45 @@ import BasicBtn from './BasicBtn';
 import { useNavigate } from 'react-router-dom';
 const Wrap = styled.div`
   position: relative;
-  width: 100%;
-  height: 250px;
-  background: #eee;
+  width: auto;
+  padding: 2rem;
+  height: auto;
+  background: #414141;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 `;
 
 const Reward = styled.div`
-  width: 70px;
+  width: 90px;
   height: 160px;
   background: #fff;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   display: flex;
   flex-direction: column;
+
   & > p {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+  }
+  & > p:first-child {
+    margin-top: 20px;
+  }
+  border-left: 1px solid#555555;
+  &:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+  &:last-child {
+    border-right: 1px solid#555555;
+    border-radius: 0 10px 10px 0;
+  }
+
+  & .action {
+    font-family: 'Damage' !important;
+    font-size: 2rem;
   }
 `;
 
@@ -65,20 +87,20 @@ const RewardGoldListBox = (props: any) => {
                   key={index}
                   data-action={i.action}
                   data-number={i.number}
+                  data-actionname={i.back}
                 >
-                  <p> {i.front}</p>
+                  <p className='action'> {i.back}</p>
                   <p>{i.number}</p>
-                  <p> {i.back}</p>
                 </Reward>
               ) : (
                 <Reward
                   key={index}
                   data-action={i.action}
+                  data-actionname={i.back}
                   data-number={i.number * Level * props.penSpeed}
                 >
-                  <p> {i.front}</p>
-                  <p>{i.number * Level * props.penSpeed}</p>
-                  <p> {i.back}</p>
+                  <p className='action'> {i.back}</p>
+                  <p>{(i.number * Level * props.penSpeed).toLocaleString()}</p>
                 </Reward>
               ),
             )}
