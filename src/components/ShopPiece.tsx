@@ -159,6 +159,13 @@ const ShopPiece = (props: any) => {
   function takePen() {
     dispatch(real_buy_ballpen_request(`${buyPenObj.ballPenName}`, buyPenObj.Gold));
     dispatch(modal_failure());
+    dispatch(
+      equip_ballpen_request(
+        `${buyPenObj.ballPenName}`,
+        penDamage(buyPenObj.ballPenName),
+        penSpeed(buyPenObj.ballPenName),
+      ),
+    );
   }
 
   const a = (
