@@ -7,7 +7,7 @@ export const getRewardCoords = () => {
   // const x: number = pen.getBoundingClientRect().x as number;
   // const y: number = (pen.getBoundingClientRect().y as number) - 20;
   let x = penbody.getBoundingClientRect().x + penbody.clientWidth / 2;
-  let y = penbody.getBoundingClientRect().y - 50;
+  let y = penbody.getBoundingClientRect().y;
   let resultCoords = { x, y };
   return resultCoords;
 };
