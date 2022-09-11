@@ -425,13 +425,13 @@ const Register = () => {
                 for (let i = 0; i <= 5; i++) {
                   arr.push(createRandomNum(0, 9));
                 }
-                let b = arr.join('');
-                console.log(b);
-                setAuthPassword(b);
+                let authPasswordValue = arr.join('');
+                console.log(authPasswordValue);
+                setAuthPassword(authPasswordValue);
                 setIsSendEmail(false);
                 let userEmail = `${email}@${emailInputValue}`;
                 console.log(userEmail);
-                customAxios('post', '/mail/mailauth', { userEmail, authPassword }).then((res) => {
+                customAxios('post', '/mail/mailauth', { userEmail, authPasswordValue }).then((res) => {
                   console.log(res.data);
                   console.log('전송');
                 });
