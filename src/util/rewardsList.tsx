@@ -1,7 +1,7 @@
-const frontText: string = '골드';
-const deductText: string = '차감';
-const addText: string = '획득';
-const multipleText: string = '배';
+const frontText: string = 'Ink';
+const deductText: string = '-';
+const addText: string = '+';
+const multipleText: string = 'x';
 
 export interface rewardsList {
   front: string;
