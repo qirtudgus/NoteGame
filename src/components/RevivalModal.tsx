@@ -34,6 +34,12 @@ const Bg = styled.div`
     font-weight: bold;
     margin-bottom: 5px;
   }
+
+  & .result {
+    background: #ffbc26;
+    padding: 9px 30px 5px 30px;
+    border-radius: 10px;
+  }
 `;
 
 const Close = styled.div`
