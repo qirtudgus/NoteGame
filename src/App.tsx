@@ -59,6 +59,7 @@ function App() {
         value={Password}
         placeholder='비밀번호'
         OnChange={onChangePassword}
+        type='password'
       ></BasicInputs>
       <BasicBtn
         ButtonText='로그인'
