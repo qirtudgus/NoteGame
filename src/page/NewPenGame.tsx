@@ -4,7 +4,7 @@ import NewBallpen from '../components/NewBallpen';
 import { LoginUserInfoInterface, pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import BtnMenu from '../components/BtnMenu';
+import BtnMenu, { ButtonColor } from '../components/BtnMenu';
 import anime from 'animejs';
 import getPenPointCoords from '../util/getPenPointCoords';
 import RewardGoldListBox from '../components/RewardGoldListBox';
@@ -14,15 +14,29 @@ import BasicBtn from '../components/BasicBtn';
 import Loading from '../components/Loading';
 import { pengame_boxcount_success } from '../modules/pengameBoxCount';
 
-export const StartBtn = styled.div`
+interface startButton {
+  penAnimation?: boolean;
+}
+
+export const StartBtn = styled(ButtonColor)<startButton>`
   width: 205px;
   height: 120px;
-  background-color: #555;
+  cursor: pointer;
+  background-color: #fff;
   position: absolute;
   bottom: 105px;
   left: 30px;
   z-index: 101;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  & .startText {
+    font-size: 3rem;
+    font-family: 'Damage' !important;
+  }
+  ${(props) => props.penAnimation && css``}
 `;
 
 const NewPenGame = () => {
@@ -225,8 +239,10 @@ const NewPenGame = () => {
       <StartBtn
         id='StartBtn'
         onClick={startBtn ? undefined : penAnimationStart}
+        penAnimation={penAnimation}
       >
-        {penAnimation ? '시작' : '멈춰'}
+        <p className='startText'> {penAnimation ? '시작' : '멈춰'}</p>
+        <p> - Space Bar -</p>
       </StartBtn>
       <NewBallpen
         penWidth={100}

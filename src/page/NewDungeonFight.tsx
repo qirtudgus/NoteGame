@@ -477,7 +477,8 @@ const NewDungeonFight = () => {
         id='StartBtn'
         onClick={startBtn ? undefined : penAnimationStart}
       >
-        {penAnimation ? '시작' : '멈춰'}
+        <p className='startText'> {penAnimation ? '시작' : '멈춰'}</p>
+        <p> - Space Bar -</p>
       </StartBtn>
       <NewBallpen
         penTop={penCoords.top}
