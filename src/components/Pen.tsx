@@ -51,7 +51,7 @@ const PenImg = styled.img`
   margin: none;
 `;
 
-const NewBallpen = ({ penTop, penLeft, detailView, penWidth, OnLoad }: ballpen) => {
+const Pen = ({ penTop, penLeft, detailView, penWidth, OnLoad }: ballpen) => {
   const { EquipBallpen } = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   let equipBallpenImg = penObj.find((i: any) => i.ballPenName === EquipBallpen)?.img;
 
@@ -74,4 +74,4 @@ const NewBallpen = ({ penTop, penLeft, detailView, penWidth, OnLoad }: ballpen) 
   );
 };
 
-export default React.memo(NewBallpen);
+export default React.memo(Pen);

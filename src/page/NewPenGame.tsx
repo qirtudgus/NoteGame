@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
-import NewBallpen from '../components/NewBallpen';
+import Pen from '../components/Pen';
 import { LoginUserInfoInterface, pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
@@ -247,11 +247,11 @@ const NewPenGame = () => {
         <p className='startText'> {penAnimation ? '시작' : '멈춰'}</p>
         <p> - Space Bar -</p>
       </StartBtn>
-      <NewBallpen
+      <Pen
         penWidth={100}
         penTop={450}
         penLeft={50}
-      ></NewBallpen>
+      ></Pen>
       <BtnMenu
         BackHistory
         Home

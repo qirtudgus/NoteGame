@@ -15,7 +15,7 @@ import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
 import MonsterBox from '../components/MonsterBox';
 import FloorBox from '../components/FloorBox';
-import NewBallpen from '../components/NewBallpen';
+import Pen from '../components/Pen';
 import anime from 'animejs';
 import VictoryModal from '../components/VictoryModal';
 import { penObj } from '../util/shopList';
@@ -480,12 +480,12 @@ const NewDungeonFight = () => {
         <p className='startText'> {penAnimation ? '시작' : '멈춰'}</p>
         <p> - Space Bar -</p>
       </StartBtn>
-      <NewBallpen
+      <Pen
         penTop={penCoords.top}
         penLeft={penCoords.left}
         penWidth={50}
         detailView={isVisible}
-      ></NewBallpen>
+      ></Pen>
       <BtnMenu
         BackHistory
         Home
