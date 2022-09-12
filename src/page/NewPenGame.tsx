@@ -57,7 +57,6 @@ const NewPenGame = () => {
   });
 
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
-  const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const penAnimeRef = useRef<any>(null);
 
@@ -98,16 +97,20 @@ const NewPenGame = () => {
     let reward: number = Number(el.dataset.number as string);
     let action = el.dataset.action as string;
     let actionName = el.dataset.actionname as string;
-
-    if (isNaN(reward)) {
-      setIsSuccess(false);
-      dispatch(modal_success());
-    } else {
-      dispatch(pengame_request(reward, action, 1));
-      setIsSuccess(true);
-      SetRewardText({ reward, actionName });
-      dispatch(modal_success());
-    }
+    setIsLoading(false);
+    //과도한 서버통신을 방지하기위한 딜레이 부여
+    setTimeout(function () {
+      setIsLoading(true);
+      if (isNaN(reward)) {
+        setIsSuccess(false);
+        dispatch(modal_success());
+      } else {
+        dispatch(pengame_request(reward, action, 1));
+        setIsSuccess(true);
+        SetRewardText({ reward, actionName });
+        dispatch(modal_success());
+      }
+    }, 400);
   };
 
   const replay = () => {
