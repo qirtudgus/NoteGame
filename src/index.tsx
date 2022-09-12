@@ -14,9 +14,7 @@ import rootSaga from './saga/root_saga';
 import Notfound from './page/Notfound';
 import Home from './page/Home';
 import { login_localstorage } from './modules/login';
-import ChoicePenCount from './page/ChoicePenCount';
 import Layout from './layout/layout';
-import PlayPenGame from './page/PlayPenGame';
 import Dungeon from './page/Dungeon';
 import DungeonFight from './page/DungeonFight';
 import Rangking from './page/Ranking';
@@ -65,10 +63,6 @@ root.render(
           <Route
             path='/home'
             element={<Home />}
-          ></Route>
-          <Route
-            path='/choicepencount'
-            element={<ChoicePenCount />}
           ></Route>
           <Route
             path='/status'
