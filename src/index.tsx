@@ -16,7 +16,6 @@ import Home from './page/Home';
 import { login_localstorage } from './modules/login';
 import Layout from './layout/layout';
 import Dungeon from './page/Dungeon';
-import DungeonFight from './page/DungeonFight';
 import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
 import axios from 'axios';
@@ -80,12 +79,9 @@ root.render(
             path='/dungeon'
             element={<Dungeon />}
           ></Route>
+
           <Route
             path='/dungeonfight'
-            element={<DungeonFight />}
-          ></Route>
-          <Route
-            path='/newdungeonfight'
             element={<NewDungeonFight />}
           ></Route>
           <Route
