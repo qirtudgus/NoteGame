@@ -10,7 +10,8 @@ const Floorwrap = styled.div`
   background: #333;
   color: #fff;
   height: 70px;
-  width: 100px;
+  width: auto;
+  padding: 0px 10px 0 10px;
   border-radius: 10px;
   font-size: 30px;
 `;

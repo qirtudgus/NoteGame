@@ -84,7 +84,7 @@ const animationSpeed = {
 };
 
 const UserHpBar = styled.div<hp>`
-  width: 50%;
+  width: 40%;
   height: 40px;
   background: #242222;
   border-radius: 25px 0 0 25px;
@@ -93,7 +93,7 @@ const UserHpBar = styled.div<hp>`
   justify-content: flex-end;
 `;
 const MonsterHpBar = styled.div<hp>`
-  width: 50%;
+  width: 40%;
   height: 40px;
   background: #242222;
   border-radius: 0 25px 25px 0;
