@@ -172,7 +172,7 @@ const NewPenGame = () => {
         (isSuccess ? (
           <RevivalModal>
             <p>열심히 멈춘 결과</p>
-            <p>
+            <p className='result'>
               {rewardText.actionName} {rewardText.reward.toLocaleString()}
             </p>
             <div>
