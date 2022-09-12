@@ -103,6 +103,14 @@ const SkillPiece = (props: any) => {
       maxLevel: Infinity,
     },
     {
+      skillName: 'RevivalPoint',
+      title: '다음생에는..',
+      desc: `환생 시 돌아가는 층수가 현재 층의 ${userInfo.RevivalPoint}%가 됩니다.`,
+      level: userInfo.RevivalPoint,
+      requestLevel: 1,
+      maxLevel: 10,
+    },
+    {
       skillName: 'UpDoubleAttack',
       title: '더블어택',
       desc: `한 턴에 한하여 2배의 데미지를 입힙니다.`,
@@ -113,6 +121,8 @@ const SkillPiece = (props: any) => {
   ];
 
   function skillUp(skillName: string, maxLevel: number, requestLevel: number) {
+    console.log(skillName);
+    console.log(userInfo[skillName]);
     if (userInfo[skillName] === maxLevel) {
       setSkillText('이미 마스터한 스킬입니다.');
       dispatch(modal_success());

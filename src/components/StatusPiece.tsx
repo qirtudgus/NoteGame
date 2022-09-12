@@ -111,13 +111,8 @@ const StatusPiece = (props: any) => {
       desc: `던전에서 공격력이 ${userInfo.BetterPen * 2}% 상승합니다.`,
       level: userInfo.BetterPen,
     },
-    {
-      statName: 'UpRevivalPoint',
-      title: '다음생에는..',
-      desc: `환생 시 돌아가는 층수가 현재 층의 ${userInfo.RevivalPoint}%가 됩니다.`,
-      level: userInfo.RevivalPoint,
-    },
   ];
+
   return (
     <>
       <StatList>
