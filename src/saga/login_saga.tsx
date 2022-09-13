@@ -129,7 +129,7 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
         id: result.id.userId,
         userInfo: result.userInfo,
       });
-  } catch (e) {
+  } catch (e: any) {
     yield put({ type: LOGIN_LOCALSTORAGE_FAILURE });
     console.log(e);
   }
