@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
+import { LOGIN_FAILURE, PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
 import customAxios from '../util/axios';
 
 const penGameTakeGoldAdd = async (reward: number, speed: number) => {
@@ -40,8 +40,10 @@ function* penGameTakeGold$(action: any): Generator<any, any, any> {
     if (result.code === 200) {
       yield put({ type: PENGAME_MULTIPLE, userInfo: result.userInfo });
     }
-  } catch (E) {
+  } catch (E: any) {
     console.log(E);
+    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    // console.log(E?.response);
   }
 }
 

@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { EQUIP_BALLPEN_REQUEST, EQUIP_BALLPEN_SUCCESS } from '../modules/login';
+import { EQUIP_BALLPEN_REQUEST, EQUIP_BALLPEN_SUCCESS, LOGIN_FAILURE } from '../modules/login';
 import { customAxios } from '../util/axios';
 
 const equipBallpenApi = async (ballpenName: string, weaponDamage: number, PenSpeed: {}): Promise<boolean> => {
@@ -13,8 +13,9 @@ function* equipBallpenApi$(action: any): Generator<any, any, any> {
     console.log(action);
     const resultUserInfo = yield call(equipBallpenApi, action.ballpenName, action.weaponDamage, action.PenSpeed);
     yield put({ type: EQUIP_BALLPEN_SUCCESS, userInfo: resultUserInfo.userInfo });
-  } catch (err) {
-    console.log(err);
+  } catch (E: any) {
+    console.log(E);
+    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
   }
 }
 

@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { EQUIP_PAPER_REQUEST, EQUIP_PAPER_SUCCESS } from '../modules/login';
+import { EQUIP_PAPER_REQUEST, EQUIP_PAPER_SUCCESS, LOGIN_FAILURE } from '../modules/login';
 import { customAxios } from '../util/axios';
 
 const equipPaperApi = async (paperName: string, Hp: number): Promise<boolean> => {
@@ -13,8 +13,9 @@ function* equipPaperApi$(action: any): Generator<any, any, any> {
     console.log(action);
     const resultUserInfo = yield call(equipPaperApi, action.paperName, action.WeaponHp);
     yield put({ type: EQUIP_PAPER_SUCCESS, userInfo: resultUserInfo.userInfo });
-  } catch (err) {
-    console.log(err);
+  } catch (E: any) {
+    console.log(E);
+    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
   }
 }
 

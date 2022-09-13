@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { DUNGEON_REQUEST, DUNGEON_VICTORY, REVIVAL_REQUSET, REVIVAL_SUCCESS } from '../modules/login';
+import { DUNGEON_REQUEST, DUNGEON_VICTORY, LOGIN_FAILURE, REVIVAL_REQUSET, REVIVAL_SUCCESS } from '../modules/login';
 import { MODAL_FAILURE } from '../modules/modalState';
 import customAxios from '../util/axios';
 
@@ -59,8 +59,9 @@ function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
     );
     console.log(result);
     yield put({ type: DUNGEON_VICTORY, userInfo: result.userInfo });
-  } catch (E) {
+  } catch (E: any) {
     console.log(E);
+    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
   }
 }
 
