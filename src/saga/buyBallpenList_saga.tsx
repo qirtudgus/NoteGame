@@ -7,6 +7,7 @@ import {
 } from '../modules/buyBallpenList';
 import { DB_REFRESH_SUCCESS, LOGIN_FAILURE } from '../modules/login';
 import { customAxios } from '../util/axios';
+import { error_saga } from '../util/error_saga';
 
 const updateBallPenListApi = async (): Promise<boolean> => {
   return await customAxios('post', '/shop/updateballpen').then((res) => {
@@ -34,7 +35,7 @@ function* updateBallPenListApi$(): Generator<any, any, { updateBallpenList: stri
     });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 
@@ -63,7 +64,7 @@ function* realBuyBallPenListApi$(action: {
     });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 

@@ -1,6 +1,7 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { LOGIN_FAILURE, SKILL_REQUEST, SKILL_UP } from '../modules/login';
 import customAxios from '../util/axios';
+import { error_saga } from '../util/error_saga';
 
 const skillUpRequest = async (skillName: string, skillPoint: number) => {
   return await customAxios('post', '/skill/skillup', {
@@ -18,7 +19,7 @@ function* skillUpRequest$(action: any): Generator<any, any, any> {
     yield put({ type: SKILL_UP, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 

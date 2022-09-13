@@ -7,6 +7,7 @@ import {
 } from '../modules/buyPaperList';
 import { DB_REFRESH_SUCCESS, LOGIN_FAILURE } from '../modules/login';
 import customAxios from '../util/axios';
+import { error_saga } from '../util/error_saga';
 
 const buyPaperRequestApi = async (paperName: string, Gold: number) => {
   return await customAxios('post', '/shop/buypaper', { paperName, Gold }).then((res) => {
@@ -30,7 +31,7 @@ function* buyPaperRequestApi$(action: { type: string; paperName: string; Gold: n
     yield put({ type: DB_REFRESH_SUCCESS, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 
@@ -44,7 +45,7 @@ function* updatePaperListApi$(): Generator<any, any, { updatePaperList: string[]
     });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 

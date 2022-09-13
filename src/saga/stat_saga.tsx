@@ -1,6 +1,7 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { LOGIN_FAILURE, STAT_REQUEST, STAT_UP } from '../modules/login';
 import customAxios from '../util/axios';
+import { error_saga } from '../util/error_saga';
 
 const statUpRequest = async (statName: string, statPoint: number) => {
   return await customAxios('post', '/stat/statup', {
@@ -18,7 +19,7 @@ function* statUpRequest$(action: any): Generator<any, any, any> {
     yield put({ type: STAT_UP, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 

@@ -2,6 +2,7 @@ import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { DUNGEON_REQUEST, DUNGEON_VICTORY, LOGIN_FAILURE, REVIVAL_REQUSET, REVIVAL_SUCCESS } from '../modules/login';
 import { MODAL_FAILURE } from '../modules/modalState';
 import customAxios from '../util/axios';
+import { error_saga } from '../util/error_saga';
 
 const revivalRequest = async () => {
   return await customAxios('post', '/dungeon/revival').then((res) => {
@@ -14,8 +15,9 @@ function* revivalRequest$(): Generator<any, any, any> {
     console.log(result);
     yield put({ type: REVIVAL_SUCCESS, userInfo: result.userInfo });
     yield put({ type: MODAL_FAILURE });
-  } catch (e) {
-    console.log(e);
+  } catch (E: any) {
+    console.log(E);
+    yield error_saga(E.response.status);
   }
 }
 
@@ -61,7 +63,7 @@ function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
     yield put({ type: DUNGEON_VICTORY, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    if (E.response.data.code === 405) yield put({ type: LOGIN_FAILURE });
+    yield error_saga(E.response.status);
   }
 }
 
