@@ -286,10 +286,8 @@ const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): Is
     }
     case LOGIN_FAILURE: {
       return {
-        isLogin: false,
-        token: undefined,
-        id: undefined,
-        tokenExpired: false,
+        ...LoginState,
+        tokenExpired: true,
       };
     }
     case LOGIN_LOCALSTORAGE_SUCCESS: {
