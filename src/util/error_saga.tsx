@@ -1,7 +1,9 @@
 import { put } from 'redux-saga/effects';
 import { LOGIN_FAILURE } from '../modules/login';
 
-export const error_saga = (errorCode: number) => {
+type errorCode = 400;
+
+export const error_saga = (errorCode: errorCode) => {
   switch (errorCode) {
     //토큰 만료시 400
     case 400:
