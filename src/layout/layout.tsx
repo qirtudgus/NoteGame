@@ -3,14 +3,22 @@ import BackGround from '../components/BackGround';
 import UserInfo from '../components/userInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import TokenExpired from '../page/TokenExpired';
 const Layout = () => {
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
+  const isTokenExpired = useSelector((state: RootState) => state.login.tokenExpired);
 
   return (
     <BackGround>
-      <Outlet />
-      {isLogin && <UserInfo></UserInfo>}
+      {isTokenExpired ? (
+        <TokenExpired></TokenExpired>
+      ) : (
+        <>
+          <Outlet />
+          {isLogin && <UserInfo></UserInfo>}
+        </>
+      )}
     </BackGround>
   );
 };
