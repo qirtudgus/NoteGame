@@ -65,7 +65,8 @@ const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
     } catch (e) {
       console.log('만료된 토큰');
       req.isToken = false;
-      next();
+      res.status(400).json({ code: 405, error: '토큰이 만료되었습니다.' });
+      // next();
     }
   }
 };
