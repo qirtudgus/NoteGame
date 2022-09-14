@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { LOGIN_FAILURE, PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
 import customAxios from '../util/axios';
@@ -43,7 +44,7 @@ function* penGameTakeGold$(action: any): Generator<any, any, any> {
     }
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 

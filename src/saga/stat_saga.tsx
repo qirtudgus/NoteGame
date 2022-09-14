@@ -19,7 +19,7 @@ function* statUpRequest$(action: any): Generator<any, any, any> {
     yield put({ type: STAT_UP, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 

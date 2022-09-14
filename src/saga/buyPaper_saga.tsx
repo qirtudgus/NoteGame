@@ -31,7 +31,7 @@ function* buyPaperRequestApi$(action: { type: string; paperName: string; Gold: n
     yield put({ type: DB_REFRESH_SUCCESS, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 
@@ -45,7 +45,7 @@ function* updatePaperListApi$(): Generator<any, any, { updatePaperList: string[]
     });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 

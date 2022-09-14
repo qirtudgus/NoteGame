@@ -16,7 +16,7 @@ function* equipPaperApi$(action: any): Generator<any, any, any> {
     yield put({ type: EQUIP_PAPER_SUCCESS, userInfo: resultUserInfo.userInfo });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 

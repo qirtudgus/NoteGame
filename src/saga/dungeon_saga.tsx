@@ -17,7 +17,7 @@ function* revivalRequest$(): Generator<any, any, any> {
     yield put({ type: MODAL_FAILURE });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 
@@ -63,7 +63,7 @@ function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
     yield put({ type: DUNGEON_VICTORY, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 

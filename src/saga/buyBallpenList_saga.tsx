@@ -35,7 +35,7 @@ function* updateBallPenListApi$(): Generator<any, any, { updateBallpenList: stri
     });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 
@@ -64,7 +64,7 @@ function* realBuyBallPenListApi$(action: {
     });
   } catch (E: any) {
     console.log(E);
-    yield error_saga(E.response.status);
+    yield error_saga(E);
   }
 }
 
