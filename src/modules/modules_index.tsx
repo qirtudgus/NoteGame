@@ -9,7 +9,7 @@ import modalState from './modalState';
 import visibleState from './visibleState';
 import userInfo_visibleRequest from './userInfoVisible';
 import buyPaperListRequest from './buyPaperList';
-
+import isLoadingRequest from './isLoding';
 const rootReducer = combineReducers({
   login,
   register,
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   visibleState,
   userInfo_visibleRequest,
   buyPaperListRequest,
+  isLoadingRequest,
 });
 
 export default rootReducer;
