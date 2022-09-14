@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ButtonColor } from './BtnMenu';
-import React, { ComponentType, FunctionComponent } from 'react';
+import React, { ComponentType, FunctionComponent, ReactHTMLElement, ReactNode } from 'react';
 
 interface ButtonText {
-  ButtonText?: string;
+  ButtonText?: string | null;
   color?: string;
   OnClick?: any;
   disabled?: boolean;
@@ -14,6 +14,7 @@ interface ButtonText {
   margin?: string;
   id?: string;
   as?: string | ComponentType<any> | undefined;
+  children?: ReactNode;
 }
 
 const BasicButton = styled.div<ButtonText>`
@@ -52,6 +53,7 @@ const BasicButtons: FunctionComponent<ButtonText> = ({
   margin,
   id,
   as,
+  children,
 }) => {
   return (
     <BasicButton
@@ -67,6 +69,7 @@ const BasicButtons: FunctionComponent<ButtonText> = ({
       as={as}
     >
       {ButtonText}
+      {children}
     </BasicButton>
   );
 };
