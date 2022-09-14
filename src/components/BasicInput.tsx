@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React, { ForwardedRef, forwardRef } from 'react';
 const BasicInput = styled.input<holder>`
-  height: 3rem;
   font-size: 1.5rem;
   width: ${(props) => props.width || '13rem'};
   background: ${(props) => props.color || '#fff'};
@@ -14,7 +13,7 @@ const BasicInput = styled.input<holder>`
 
   cursor: text;
   background: #fff;
-  height: 2rem;
+  height: 2.5rem;
   border: 1px solid #999;
   padding: 3px;
   border-radius: 5px;
