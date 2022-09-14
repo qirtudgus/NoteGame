@@ -66,10 +66,6 @@ const loginApi = async (id: string, password: string): Promise<any> => {
 function* loginApi$(action: any): Generator<any, any, any> {
   try {
     const result = yield call(loginApi, action.payload.id, action.payload.password);
-    //그냥 로그인에도 펜리스트 업데이트
-    const penList = yield call(updateBallPenListApi);
-    //구매한 페이퍼리스트 업데이트
-    const paperList = yield call(updatePaperListApi);
 
     if (result.code === 200) {
       yield put({
@@ -78,6 +74,10 @@ function* loginApi$(action: any): Generator<any, any, any> {
         id: result.id,
         userInfo: result.userInfo,
       });
+      //그냥 로그인에도 펜리스트 업데이트
+      const penList = yield call(updateBallPenListApi);
+      //구매한 페이퍼리스트 업데이트
+      const paperList = yield call(updatePaperListApi);
       //토큰응답이 정상이면 볼펜과 페이퍼리스트를 가져옵니다.
       yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList.buyBallpenList });
       yield put({ type: UPDATE_PAPER_SUCCESS, buyPaperList: paperList.buyPaperList });
@@ -106,10 +106,6 @@ const loginLocalStorage = async (token: any): Promise<any> => {
 function* loginLocalStorage$(action: any): Generator<any, any, any> {
   try {
     const result = yield call(loginLocalStorage, action.token);
-    //DB의 볼펜리스트를 가져와 업데이트합니다.
-    const penList = yield call(updateBallPenListApi);
-    //구매한 페이퍼리스트 업데이트
-    const paperList = yield call(updatePaperListApi);
 
     if (result.code === 200) {
       yield put({
@@ -118,6 +114,11 @@ function* loginLocalStorage$(action: any): Generator<any, any, any> {
         id: result.id.userId,
         userInfo: result.userInfo,
       });
+      //DB의 볼펜리스트를 가져와 업데이트합니다.
+      const penList = yield call(updateBallPenListApi);
+      //구매한 페이퍼리스트 업데이트
+      const paperList = yield call(updatePaperListApi);
+
       //토큰응답이 정상이면 볼펜리스트를 가져옵니다.
       yield put({ type: UPDATE_BALLPEN_SUCCESS, buyBallpenList: penList.buyBallpenList });
       yield put({ type: UPDATE_PAPER_SUCCESS, buyPaperList: paperList.buyPaperList });
