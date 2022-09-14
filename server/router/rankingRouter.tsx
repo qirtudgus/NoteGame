@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { db } from '../db.js';
-import { dummyUserObj } from './_dummyUser.js';
 export const rankingRouter = express.Router();
 
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
