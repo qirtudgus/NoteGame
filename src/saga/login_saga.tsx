@@ -23,7 +23,7 @@
 
 // 8.api통신 시 토큰을 담아보내어 해당 유저의 db 조회 및 데이터 획득
 
-import { takeLatest, fork, all, put, call } from 'redux-saga/effects';
+import { takeLatest, fork, all, put, call, delay } from 'redux-saga/effects';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -36,6 +36,7 @@ import customAxios from '../util/axios';
 import axios from 'axios';
 import { UPDATE_BALLPEN_SUCCESS } from '../modules/buyBallpenList';
 import { UPDATE_PAPER_SUCCESS } from '../modules/buyPaperList';
+import { ISLOADING_SUCCESS, ISLOADING_FAILURE, ISLOADING_REQUEST } from '../modules/isLoding';
 const updateBallPenListApi = async (): Promise<boolean> => {
   return await customAxios('post', '/shop/updateballpen').then((res) => {
     return res.data;
@@ -66,8 +67,13 @@ const loginApi = async (id: string, password: string): Promise<any> => {
 function* loginApi$(action: any): Generator<any, any, any> {
   try {
     const result = yield call(loginApi, action.payload.id, action.payload.password);
+    yield put({ type: ISLOADING_REQUEST });
+    yield delay(400);
 
     if (result.code === 200) {
+      yield put({ type: ISLOADING_SUCCESS });
+      yield delay(450);
+
       yield put({
         type: LOGIN_SUCCESS,
         token: result.token,
@@ -83,8 +89,12 @@ function* loginApi$(action: any): Generator<any, any, any> {
       yield put({ type: UPDATE_PAPER_SUCCESS, buyPaperList: paperList.buyPaperList });
     }
     if (result.code === 201) yield put({ type: LOGIN_SUCCESS, token: result.token, id: result.id });
-    if (result.code === 404) yield alert(result.message);
-    if (result.code === 405) yield alert(result.message);
+    if (result.code === 404) {
+      yield put({ type: ISLOADING_FAILURE, text: result.message });
+    }
+    if (result.code === 405) {
+      yield put({ type: ISLOADING_FAILURE, text: result.message });
+    }
   } catch (err) {
     console.log(err);
   }
