@@ -52,6 +52,8 @@ const StatIcon = styled.div`
 `;
 
 const StatBtn = styled(ButtonColor)`
+  cursor: pointer;
+
   width: 10%;
   height: 100px;
   background: #fff;

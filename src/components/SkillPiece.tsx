@@ -55,6 +55,7 @@ const SkillIcon = styled.div`
 `;
 
 const SkillBtn = styled(ButtonColor)`
+  cursor: pointer;
   width: 10%;
   height: 100px;
   background: #fff;
