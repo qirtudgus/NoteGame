@@ -14,6 +14,7 @@ import { modal_failure, modal_success } from '../modules/modalState';
 import { LoginUserInfoInterface, revival_request } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
+import BasicBtn from '../components/BasicBtn';
 const BottomBox = styled.div`
   width: 100%;
   height: 240px;
@@ -50,18 +51,57 @@ const MoveBoxWrap = styled.div`
   display: flex;
 `;
 
+const FloorInputModal = styled.input`
+  width: 200px;
+  height: 50px;
+`;
+
 const Dungeon = () => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
+  const [floorInputModal, setFloorInputModal] = useState(false);
+  const [notFloor, setNotFloor] = useState(false);
+  const [notFloorText, setNotFloorText] = useState('');
+  const [floorInput, setFloorInput] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const before = true;
 
   let giveSkillPoint = 50;
   //환생 후 받을 스킬포인트
   let addSkillPoint = Math.floor((userInfo.DungeonFloor as number) / giveSkillPoint) * userInfo.UpRevivalStatPoint;
   //환생 후 돌아갈 층
   let revivalFloor = Math.ceil(((userInfo.DungeonFloor as number) * (userInfo.RevivalPoint as number)) / 100);
+
+  const beforeFloorInput = () => {
+    setFloorInputModal(true);
+  };
+  const FloorInputSubmit = () => {
+    dispatch(create_monster_request(floorInput));
+    navigate('/dungeonfightbefore', { state: floorInput });
+  };
+
+  const floorInputHandler = (e: any) => {
+    let onlyNumber = e.currentTarget.value.replace(/[^0-9]/g, '');
+    if (onlyNumber <= 0) {
+      setNotFloorText('1층부터 도전할 수 있어요!');
+      setNotFloor(true);
+      setFloorInput(1);
+      return;
+    }
+    if (onlyNumber > userInfo.MaxDungeonFloor) {
+      setNotFloor(true);
+      setNotFloorText('최고층 이상은 도전할 수 없어요!');
+      setFloorInput(userInfo.MaxDungeonFloor);
+      return;
+    }
+    setFloorInput(onlyNumber);
+  };
+
+  const closeFloorInputModal = () => {
+    setFloorInput(1);
+    setNotFloor(false);
+    setFloorInputModal(false);
+  };
 
   return (
     <>
@@ -73,13 +113,28 @@ const Dungeon = () => {
 
       <FloorBox></FloorBox>
 
-      <MoveBoxWrap>
-        <MoveBox
-          onClick={() => {
-            dispatch(create_monster_request(userInfo.DungeonFloor! - 1));
-            navigate('/dungeonfightbefore', { state: before });
-          }}
+      {floorInputModal && (
+        <RevivalModal
+          close
+          OnClick={closeFloorInputModal}
         >
+          <p>도전할 층을 입력해주세요!</p>
+          <p>자신의 최고층까지 도전가능합니다.</p>
+          <p>내 최고층 : {userInfo.MaxDungeonFloor}</p>
+          {notFloor && <p>{notFloorText}</p>}
+          <FloorInputModal
+            value={floorInput}
+            onChange={floorInputHandler}
+          ></FloorInputModal>
+          <BasicBtn
+            ButtonText='이동하기'
+            OnClick={FloorInputSubmit}
+          ></BasicBtn>
+        </RevivalModal>
+      )}
+
+      <MoveBoxWrap>
+        <MoveBox onClick={beforeFloorInput}>
           <img
             src={arrowLeft}
             alt='arrow'
@@ -102,7 +157,7 @@ const Dungeon = () => {
       <CharacterBox></CharacterBox>
       <BottomBox></BottomBox>
       {isModal && (
-        <RevivalModal>
+        <RevivalModal close>
           스텟 포인트 {addSkillPoint} 획득
           <br />
           던전 {revivalFloor} 층에서 시작
