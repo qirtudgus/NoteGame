@@ -18,10 +18,9 @@ const Floorwrap = styled.div`
 
 const FloorBox = (props: any) => {
   const { DungeonFloor } = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
-
   return (
     <>
-      <Floorwrap>{props.before ? `${DungeonFloor - 1}층` : ` ${DungeonFloor}층`}</Floorwrap>
+      <Floorwrap>{props.floorInput ? `${props.floorInput}층` : ` ${DungeonFloor}층`}</Floorwrap>
     </>
   );
 };
