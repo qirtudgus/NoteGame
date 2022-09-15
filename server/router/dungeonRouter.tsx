@@ -20,12 +20,12 @@ const RevivalUpdateQuery =
 
 dungeonRouter.post('/victory', (req, res, next) => {
   const userId = req.decoded.userId;
-  const { monsterGold, monsterExp, UpGoldHunt, userExp, userLevel } = req.body;
+  const { monsterGold, monsterExp, UpGoldHunt, userExp, userLevel, floorInput } = req.body;
   const resultGold: number = Math.ceil(monsterGold + (monsterGold * UpGoldHunt) / 100);
-
   const resultExp = userExp + monsterExp;
   //이전층으로 돌아가서 클리어시 before값이 들어온다. 그에 맞는 로직.
-  if (req.body.before === true) {
+  if (floorInput) {
+    console.log(`${userId}님이 이전층${floorInput}을 클리어하였습니다.`);
     db.query(VictoryBeforeQuery, [resultGold, monsterExp, userId], (err, rows, fields) => {
       db.query(ExpCheckQuery, [userLevel], (err, rows, fields) => {
         console.log(rows[0]);
@@ -51,6 +51,7 @@ dungeonRouter.post('/victory', (req, res, next) => {
     return;
   } else {
     //도전층 성공 시
+    console.log(`${userId}님이 도전층${floorInput}을 클리어하였습니다.`);
     db.query(VictoryQuery, [resultGold, monsterExp, userId], (err, rows, fields) => {
       db.query(ExpCheckQuery, [userLevel], (err, rows, fields) => {
         let needExp = rows[0].NeedExp;
