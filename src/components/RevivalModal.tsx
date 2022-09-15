@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { modal_failure } from '../modules/modalState';
 import 엑스 from '../img/엑스.svg';
+import { ReactNode } from 'react';
 
 const BgWrap = styled.div`
   width: 100%;
@@ -52,16 +53,22 @@ const Close = styled.div`
   }
 `;
 
-const RevivalModal = (props: any) => {
+interface RevivalModalInterface {
+  close?: boolean;
+  OnClick?: () => void;
+  children?: ReactNode;
+}
+
+const RevivalModal = ({ close, OnClick, children }: RevivalModalInterface) => {
   const dispatch = useDispatch();
-  function close() {
+  function closeModal() {
     dispatch(modal_failure());
   }
   return (
     <BgWrap>
       <Bg>
-        {props.close && (
-          <Close onClick={close}>
+        {close && (
+          <Close onClick={OnClick || closeModal}>
             <img
               src={엑스}
               alt='닫기'
@@ -69,7 +76,7 @@ const RevivalModal = (props: any) => {
           </Close>
         )}
 
-        {props.children}
+        {children}
       </Bg>
     </BgWrap>
   );
