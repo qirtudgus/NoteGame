@@ -12,7 +12,6 @@ const revivalRequest = async () => {
 function* revivalRequest$(): Generator<any, any, any> {
   try {
     let result = yield call(revivalRequest);
-    console.log(result);
     yield put({ type: REVIVAL_SUCCESS, userInfo: result.userInfo });
     yield put({ type: MODAL_FAILURE });
   } catch (E: any) {
@@ -31,16 +30,15 @@ const dungeonVictoryRequest = async (
   UpGoldHunt: number,
   userExp: number,
   userLevel: number,
-  before?: boolean,
+  floorInput?: number,
 ) => {
-  console.log(before);
   return await customAxios('post', '/dungeon/victory', {
     monsterGold,
     monsterExp,
     UpGoldHunt,
     userExp,
     userLevel,
-    before,
+    floorInput,
   }).then((res) => {
     return res.data;
   });
@@ -49,7 +47,6 @@ const dungeonVictoryRequest = async (
 function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
   try {
     let result;
-    console.log(action);
     result = yield call(
       dungeonVictoryRequest,
       action.payload.monsterGold,
@@ -59,7 +56,6 @@ function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
       action.payload.userLevel,
       action.payload.before,
     );
-    console.log(result);
     yield put({ type: DUNGEON_VICTORY, userInfo: result.userInfo });
   } catch (E: any) {
     console.log(E);
