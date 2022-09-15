@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { ButtonColor } from './BtnMenu';
-import React, { ComponentType, FunctionComponent, ReactHTMLElement, ReactNode } from 'react';
+import React, { ComponentType, FunctionComponent, ReactNode } from 'react';
 
 interface ButtonText {
   ButtonText?: string | null;
