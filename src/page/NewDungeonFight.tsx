@@ -422,7 +422,7 @@ const NewDungeonFight = () => {
           isModal={victoryModal}
           huntExp={monsterInfo.monsterExp}
           huntGold={monsterInfo.monsterGold}
-          before={state}
+          floorInput={state}
         ></VictoryModal>
       ) : null}
       <FightState>
@@ -440,7 +440,7 @@ const NewDungeonFight = () => {
         <UserHpBar>
           <UserHpNowBar hpBar={hp.userHpBar}></UserHpNowBar>
         </UserHpBar>
-        <FloorBox before={state}></FloorBox>
+        <FloorBox floorInput={state}></FloorBox>
         <MonsterHpBar monster={true}>
           <MonsterHpNowBar hpBar={hp.monsterHpBar}></MonsterHpNowBar>
         </MonsterHpBar>
