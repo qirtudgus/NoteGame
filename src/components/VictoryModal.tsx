@@ -44,6 +44,7 @@ const VictoryModal = (props: any) => {
   const dispatch = useDispatch();
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
+  console.log(props.floorInput);
   return (
     <BgWrap>
       {props.isModal ? (
@@ -57,7 +58,7 @@ const VictoryModal = (props: any) => {
             ButtonText={props.before ? '돌아가기' : '다음층으로'}
             color='#e5005a'
             OnClick={
-              props.before
+              props.floorInput
                 ? () => {
                     dispatch(
                       dungeon_request(
@@ -66,7 +67,7 @@ const VictoryModal = (props: any) => {
                         userInfo.UpGoldHunt,
                         userInfo.Exp,
                         userInfo.Level,
-                        props.before,
+                        props.floorInput,
                       ),
                     );
                     navigate(-1);
