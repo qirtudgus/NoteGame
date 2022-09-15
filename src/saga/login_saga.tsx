@@ -72,7 +72,7 @@ function* loginApi$(action: any): Generator<any, any, any> {
 
     if (result.code === 200) {
       yield put({ type: ISLOADING_SUCCESS });
-      yield delay(450);
+      yield delay(600);
 
       yield put({
         type: LOGIN_SUCCESS,
