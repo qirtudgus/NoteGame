@@ -2,6 +2,7 @@
 // userInfo의 필요하지않은 값을 삭제하는 모듈입니다.
 export interface userInfoInterface {
   Index?: number;
+  Nickname?: string;
   Id?: string;
   Password?: string;
   Salt?: string;
