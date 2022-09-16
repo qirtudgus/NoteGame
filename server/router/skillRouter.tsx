@@ -7,7 +7,7 @@ export const skillRouter = express.Router();
 const UpMoreFloorQuery = `UPDATE users SET UpMoreFloor = UpMoreFloor + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpRevivalStatPointQuery = `UPDATE users SET UpRevivalStatPoint = UpRevivalStatPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpDoubleAttackQuery = `UPDATE users SET UpDoubleAttack = UpDoubleAttack + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
-const RevivalPointQuery = `UPDATE users SET RevivalPoint = RevivalPoint + 1, StatPoint = StatPoint - 1 WHERE ID = ?`;
+const RevivalPointQuery = `UPDATE users SET RevivalPoint = RevivalPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
