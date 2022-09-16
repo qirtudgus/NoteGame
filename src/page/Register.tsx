@@ -14,6 +14,8 @@ import 물음표박스 from '../img/물음표박스.svg';
 import customAxios from '../util/axios';
 import createRandomNum from '../util/createRandomNum';
 import { confirm_nickname_request } from '../modules/confirmNickname';
+import sleep from '../util/sleep';
+import { emailReg } from '../util/RegExps';
 
 interface inputWrap {
   isConfirm?: boolean | undefined | null;
@@ -95,6 +97,10 @@ const InputWrap = styled.div<inputWrap>`
   & input {
     background: #fff;
   }
+  & input:focus {
+    outline: none !important;
+    border-color: #ffbc26;
+  }
   ${(props) =>
     props.inputDisabled &&
     css`
@@ -115,8 +121,13 @@ const InputWrap = styled.div<inputWrap>`
     width: 70px;
     height: 40px;
     margin-left: 10px;
-    background: #555;
+    background: #ffbc26;
     border-radius: 5px;
+    font-size: 1.2rem;
+  }
+  & button:hover {
+    background: none;
+    border: 2px solid#ffbc26;
   }
 
   & .mailInput {
@@ -165,9 +176,13 @@ const EmailUseConfirm = styled.div`
   & img {
     width: 24px;
   }
+  & span {
+    cursor: pointer;
+  }
 `;
 
 const EmailUseQuestionMark = styled.div`
+  cursor: help;
   &:hover {
     filter: invert(40%);
   }
@@ -213,6 +228,9 @@ const Register = () => {
   const [emailAuthPassword, setEmailAuthPassword] = useState('');
 
   const [emailInputValue, setEmailInputValue] = useState('naver.com');
+  const [emailInputDirectValue, setEmailInputDirectValue] = useState('');
+  const [useDirect, setUseDirect] = useState(true);
+
   const [emailAuthText, setEmailAuthText] = useState(false);
   const [emailAuthChecked, setEmailAuthChecked] = useState(false);
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
@@ -227,6 +245,7 @@ const Register = () => {
   const passwordRef = useRef() as any;
   const nameRef = useRef() as any;
   const nicknameRef = useRef() as any;
+  const emailRef = useRef() as any;
 
   const onNameHandler = (e: any) => {
     setName(e.currentTarget.value);
@@ -242,6 +261,10 @@ const Register = () => {
 
   const onCheckHandler = () => {
     setEmailAuthChecked(!emailAuthChecked);
+  };
+
+  const onEmailDirectValueHandler = (e: any) => {
+    setEmailInputDirectValue(e.currentTarget.value);
   };
 
   const registerRequest = () => {
@@ -487,12 +510,18 @@ const Register = () => {
             <EmailCenter>@</EmailCenter>
             <select
               className='mailInputSelect'
-              name='pets'
-              id='pet-select'
-              onChange={(e) => {
+              onChange={async (e) => {
                 console.log(e.target.value);
-                // direct일 경우 input의 비활성화를 풀고, 그외에는 setState해주기
-                setEmailInputValue(e.target.value);
+                setUseDirect(true);
+                setEmailInputDirectValue('');
+                if (e.target.value === 'direct') {
+                  setUseDirect(false);
+                  await sleep(0.01);
+                  emailRef.current.focus();
+                } else {
+                  // direct일 경우 input의 비활성화를 풀고, 그외에는 setState해주기
+                  setEmailInputValue(e.target.value);
+                }
               }}
             >
               <option value='naver.com'>naver.com</option>
@@ -502,10 +531,12 @@ const Register = () => {
               <option value='direct'>직접입력</option>
             </select>
             <input
+              ref={emailRef}
               className='mailInput'
               type='text'
-              value={emailInputValue}
-              disabled={true}
+              value={useDirect ? emailInputValue : emailInputDirectValue}
+              onChange={useDirect ? undefined : onEmailDirectValueHandler}
+              disabled={useDirect}
             />
             <button
               onClick={async () => {
@@ -518,15 +549,25 @@ const Register = () => {
                 console.log(authPasswordValue);
                 setAuthPassword(authPasswordValue);
                 setIsSendEmail(false);
-                let userEmail = `${email}@${emailInputValue}`;
+                let userEmail;
+                if (useDirect === true) {
+                  userEmail = `${email}@${emailInputValue}`;
+                } else {
+                  userEmail = `${email}@${emailInputDirectValue}`;
+                }
                 console.log(userEmail);
+                if (!emailReg.test(userEmail)) {
+                  alert('이메일 양식을 확인해주세요!');
+                  return;
+                }
+
                 customAxios('post', '/mail/mailauth', { userEmail, authPasswordValue }).then((res) => {
                   console.log(res.data);
                   console.log('전송');
                 });
               }}
             >
-              이메일 전송
+              전송
             </button>
           </InputButtonWrap>
           {!isSendEmail && <p>이메일이 발송되었습니다.</p>}
@@ -559,7 +600,7 @@ const Register = () => {
                 }
               }}
             >
-              인증번호 확인
+              인증 확인
             </button>
           </InputButtonWrap>
           {isEmailAuth ? <p>{isEmailAuthText}</p> : <p>{isEmailAuthText}</p>}
@@ -571,7 +612,7 @@ const Register = () => {
             checked={emailAuthChecked}
             onChange={onCheckHandler}
           ></input>
-          <span>이메일 사용 동의</span>
+          <span onClick={onCheckHandler}>이메일 사용 동의</span>
           <EmailUseQuestionMark
             onMouseOver={() => setEmailAuthText(true)}
             onMouseOut={() => setEmailAuthText(false)}
