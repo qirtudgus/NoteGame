@@ -15,6 +15,7 @@ import { LoginUserInfoInterface, revival_request } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
 import BasicBtn from '../components/BasicBtn';
+import { notSpaceRegFunc } from '../util/RegExps';
 const BottomBox = styled.div`
   width: 100%;
   height: 240px;
@@ -81,7 +82,8 @@ const Dungeon = () => {
   };
 
   const floorInputHandler = (e: any): number | void => {
-    let onlyNumber: number = e.currentTarget.value.replace(/[^0-9]/g, '');
+    // let onlyNumber: number = e.currentTarget.value.replace(notSpaceReg, '');
+    let onlyNumber: number = notSpaceRegFunc(e);
     if (onlyNumber <= 0) {
       setNotFloorText('1층부터 도전할 수 있어요!');
       setNotFloor(true);
