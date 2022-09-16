@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import arrowRight from '../img/오른쪽화살표.svg';
 import arrowLeft from '../img/왼쪽화살표.svg';
@@ -80,18 +80,18 @@ const Dungeon = () => {
     navigate('/dungeonfightbefore', { state: floorInput });
   };
 
-  const floorInputHandler = (e: any) => {
-    let onlyNumber = e.currentTarget.value.replace(/[^0-9]/g, '');
+  const floorInputHandler = (e: any): number | void => {
+    let onlyNumber: number = e.currentTarget.value.replace(/[^0-9]/g, '');
     if (onlyNumber <= 0) {
       setNotFloorText('1층부터 도전할 수 있어요!');
       setNotFloor(true);
       setFloorInput(1);
       return;
     }
-    if (onlyNumber > userInfo.MaxDungeonFloor) {
+    if (onlyNumber > userInfo.MaxDungeonFloor - 1) {
       setNotFloor(true);
       setNotFloorText('최고층 이상은 도전할 수 없어요!');
-      setFloorInput(userInfo.MaxDungeonFloor);
+      setFloorInput(userInfo.MaxDungeonFloor - 1);
       return;
     }
     setFloorInput(onlyNumber);
@@ -119,8 +119,8 @@ const Dungeon = () => {
           OnClick={closeFloorInputModal}
         >
           <p>도전할 층을 입력해주세요!</p>
-          <p>자신의 최고층까지 도전가능합니다.</p>
-          <p>내 최고층 : {userInfo.MaxDungeonFloor}</p>
+          <p>자신의 최고층전까지 도전가능합니다.</p>
+          <p>이동 가능한 층 : {userInfo.MaxDungeonFloor - 1}</p>
           {notFloor && <p>{notFloorText}</p>}
           <FloorInputModal
             value={floorInput}
