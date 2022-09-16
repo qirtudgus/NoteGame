@@ -357,7 +357,7 @@ const Ranking = () => {
                 {myList!.map((i: any, index: any) => (
                   <React.Fragment key={index}>
                     <RankingTh>{i.ranking}</RankingTh>
-                    <RankingTh>{i.Id}</RankingTh>
+                    <RankingTh>{i.Nickname}</RankingTh>
                     <RankingTh>{i.Level}</RankingTh>
                     <RankingTh>{i.MaxDungeonFloor}</RankingTh>
                   </React.Fragment>
@@ -387,14 +387,14 @@ const Ranking = () => {
                           key={i.Id}
                         >
                           <RankingTh>{i.ranking}</RankingTh>
-                          <RankingTh>{i.Id}</RankingTh>
+                          <RankingTh>{i.Nickname}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
                           <RankingTh>{i.MaxDungeonFloor}</RankingTh>
                         </RankingTr>
                       ) : (
-                        <RankingTr key={i.Id}>
+                        <RankingTr key={i.Nickname}>
                           <RankingTh>{i.ranking}</RankingTh>
-                          <RankingTh>{i.Id}</RankingTh>
+                          <RankingTh>{i.Nickname}</RankingTh>
                           <RankingTh>{i.Level}</RankingTh>
                           <RankingTh>{i.MaxDungeonFloor}</RankingTh>
                         </RankingTr>
