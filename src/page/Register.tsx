@@ -13,6 +13,7 @@ import 배경 from '../img/회원가입배경2.png';
 
 import customAxios from '../util/axios';
 import createRandomNum from '../util/createRandomNum';
+import { confirm_nickname_request } from '../modules/confirmNickname';
 
 interface inputWrap {
   isConfirm?: boolean | undefined | null;
@@ -154,6 +155,7 @@ const EmailCenter = styled.div`
 
 const Register = () => {
   const [Name, setName] = useState<string>('');
+  const [Nickname, SetNickname] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
   const [CheckPassword, setCheckPassword] = useState<string>('');
   const [isId, setIsId] = useState<boolean>(false);
@@ -172,6 +174,7 @@ const Register = () => {
   const [emailInputValue, setEmailInputValue] = useState('naver.com');
 
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
+  const isConfirmNickname = useSelector((state: RootState) => state.confirmNicknameRequest);
 
   const [email, setEmail] = useState('');
 
@@ -181,16 +184,22 @@ const Register = () => {
 
   const passwordRef = useRef() as any;
   const nameRef = useRef() as any;
+  const nicknameRef = useRef() as any;
 
   const onNameHandler = (e: any) => {
     setName(e.currentTarget.value);
   };
+
+  const onNicknameHandler = (e: any) => {
+    SetNickname(e.currentTarget.value);
+  };
+
   const onEamilAuthHandler = (e: any) => {
     setEmailAuthPassword(e.currentTarget.value);
   };
 
   const registerRequest = () => {
-    dispatch(register(Name, Password));
+    dispatch(register(Name, Password, Nickname));
   };
 
   const passwordRegex: RegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,20}$/;
@@ -291,6 +300,11 @@ const Register = () => {
     }
   }, [Name, isConfirmId]);
 
+  //닉네임 중복확인 액션
+  const confirmNicknameRequest = () => {
+    dispatch(confirm_nickname_request(Nickname));
+  };
+
   // 패스워드 확인 함수
   useEffect(() => {
     if (isPassword === false) {
@@ -352,6 +366,27 @@ const Register = () => {
           ></BasicInputs>
           <p> {isConfirmId.text}</p>
         </InputWrap>
+
+        {/* 닉네임 */}
+        <InputWrap
+          isConfirm={isConfirmNickname.confirmNickname}
+          pTop='368px'
+        >
+          <div className='inputTitle'>닉네임</div>
+          <BasicInputs
+            width='12rem'
+            OnChange={onNicknameHandler}
+            OnBlur={confirmNicknameRequest}
+            value={Nickname}
+            color='#fff'
+            ref={nicknameRef}
+            maxLength={10}
+            margin={'0 0 0 0'}
+          ></BasicInputs>
+          <p> {isConfirmNickname.text}</p>
+        </InputWrap>
+        {/* 닉네임 */}
+
         <InputWrap
           pTop='390px'
           isPassword={isPassword}
