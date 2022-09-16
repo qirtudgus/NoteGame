@@ -34,13 +34,12 @@ export const StatValue = styled.span`
 `;
 
 const StatList = () => {
-  const userId = useSelector((state: RootState) => state.login.id);
   const userInfo: LoginUserInfoInterface = useSelector(
     (state: RootState) => state.login.userInfo,
   ) as LoginUserInfoInterface;
 
   const statArr = [
-    { statName: '닉네임', statValue: userId },
+    { statName: '닉네임', statValue: userInfo.Nickname },
     { statName: '레벨', statValue: userInfo.Level },
     {
       statName: '경험치',
