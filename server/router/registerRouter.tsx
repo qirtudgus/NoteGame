@@ -7,11 +7,11 @@ export const registerRouter = express.Router();
 
 //회원가입 완료
 registerRouter.post('/join', (req: Request, res: Response, next: NextFunction) => {
-  const { id, password } = req.body;
+  const { id, password, nickname } = req.body;
   const a = createHashPassword(password);
-  const sqlQuery = 'INSERT INTO users (Id,Password,Salt) VALUES (?,?,?)';
+  const sqlQuery = 'INSERT INTO users (Id,Password,Salt,Nickname) VALUES (?,?,?,?)';
 
-  db.query(sqlQuery, [id, a.hashPassword, a.salt]);
+  db.query(sqlQuery, [id, a.hashPassword, a.salt, nickname]);
   console.log(`${id}님 회원가입 완료`);
   res.status(200).json({ code: 200 });
 });
@@ -57,4 +57,20 @@ registerRouter.post('/confirmid', (req: Request, res: Response, next: NextFuncti
       }
     });
   }
+});
+
+registerRouter.post('/confirmnickname', (req, res, next) => {
+  const { nickname } = req.body;
+  const nicknameCheck = 'SELECT * FROM users WHERE Nickname = ?';
+
+  db.query(nicknameCheck, [nickname], (err, rows, fields) => {
+    if (rows[0] === undefined) {
+      console.log('사용가능한 아이디');
+      res.status(200).json({ auth: true, text: '사용 가능한 닉네임입니다.' });
+      // res.send(true);
+    } else if (rows[0]) {
+      res.status(200).json({ auth: false, text: '이미 사용중인 닉네임입니다.' });
+      // res.send(false);
+    }
+  });
 });
