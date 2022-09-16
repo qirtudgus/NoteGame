@@ -4,9 +4,9 @@ export const REGISTER_SUCCESS = 'register/REGISTER_SUCCESS' as const;
 export const REGISTER_FAILURE = 'register/REGISTER_FAILURE' as const;
 
 //액션 생성 함수
-export const register = (id: string, password: string) => ({
+export const register = (id: string, password: string, nickname: string) => ({
   type: REGISTER,
-  payload: { id, password },
+  payload: { id, password, nickname },
 });
 export const register_success = (result: any) => ({
   type: REGISTER_SUCCESS,
