@@ -11,10 +11,12 @@ import getEquipBallpenSaga from './equipBallpen_saga';
 import getStatUpRequestSaga from './stat_saga';
 import getBuyPaperRequestApiSaga from './buyPaper_saga';
 import getEquipPaperSaga from './equipPaper_saga';
+import getConfirmNicknameApiSaga from './confirmNickname_saga';
 function* rootSaga() {
   yield all([
     fork(getRegisterApiSaga),
     fork(getConfirmIdApiSaga),
+    fork(getConfirmNicknameApiSaga),
     fork(getLoginApiSage),
     fork(getPenGameTakeGoldSaga),
     fork(getSkillUpRequestSaga),
