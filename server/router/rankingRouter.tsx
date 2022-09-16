@@ -4,12 +4,12 @@ export const rankingRouter = express.Router();
 
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 
-const rankingQuery = `SELECT Id, MaxDungeonFloor, Level FROM users`;
-const myrankingQuery = `SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC`;
+const rankingQuery = `SELECT Nickname, MaxDungeonFloor, Level FROM users`;
+const myrankingQuery = `SELECT Id, Nickname, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC`;
 //https://extbrain.tistory.com/51
 //내림차순으로 정렬해서 가져오면 서버에 일을 하나 덜을 수 있다. 이따 적용해보자.
 
-const searchRankingQuery = `SELECT Id, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC`;
+const searchRankingQuery = `SELECT Id,Nickname, MaxDungeonFloor, Level FROM users ORDER BY MaxDungeonFloor DESC`;
 
 interface data {
   data?: [];
@@ -91,7 +91,7 @@ rankingRouter.get('/searchid/:searchid', (req, res) => {
       ...i,
       ranking: index + 1,
     }));
-    let userRankingIndex = addRankingNumberArr.findIndex((e: any) => e.Id == searchId);
+    let userRankingIndex = addRankingNumberArr.findIndex((e: any) => e.Nickname == searchId);
     // -1이면 유저가 없다는것 이때 분기를 나눠야한다.
     console.log(userRankingIndex);
     if (userRankingIndex === -1) {
