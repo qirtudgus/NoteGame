@@ -39,6 +39,7 @@ export const REVIVAL_SUCCESS = 'login/REVIVAL_SUCCESS' as const;
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUserInfo = {
+  Nickname: '',
   Level: 0,
   BasicDamage: 0,
   BasicHp: 0,
@@ -221,6 +222,7 @@ type LoginAction =
   | ReturnType<typeof revival_success>;
 
 export interface LoginUserInfoInterface {
+  Nickname: string;
   Level: number;
   BasicDamage: number;
   BasicHp: number;
