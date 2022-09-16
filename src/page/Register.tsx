@@ -9,7 +9,7 @@ import { RootState } from '../modules/modules_index';
 import { useNavigate } from 'react-router-dom';
 import BtnMenu from '../components/BtnMenu';
 import styled, { css } from 'styled-components';
-import 배경 from '../img/회원가입배경2.png';
+import 물음표박스 from '../img/물음표박스.svg';
 
 import customAxios from '../util/axios';
 import createRandomNum from '../util/createRandomNum';
@@ -31,13 +31,13 @@ const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  & img {
+  /* & img {
     z-index: -1;
     position: absolute;
     width: 500px;
     top: 100px;
     left: 265px;
-  }
+  } */
 `;
 
 const InputWrap = styled.div<inputWrap>`
@@ -141,6 +141,10 @@ const InputWrap = styled.div<inputWrap>`
   }
   & .mailInputSelect > option {
   }
+
+  &.authNumberInput {
+    height: 3.5rem;
+  }
 `;
 
 const InputButtonWrap = styled.div`
@@ -151,6 +155,43 @@ const InputButtonWrap = styled.div`
 const EmailCenter = styled.div`
   font-size: 2rem;
   padding: 0 5px 0 5px;
+`;
+
+const EmailUseConfirm = styled.div`
+  height: 24px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  & img {
+    width: 24px;
+  }
+`;
+
+const EmailUseQuestionMark = styled.div`
+  &:hover {
+    filter: invert(40%);
+  }
+`;
+
+interface EmailHoverTextBoolean {
+  display: boolean;
+}
+const EmailHoverText = styled.div<EmailHoverTextBoolean>`
+  position: absolute;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 16px -4px rgb(0 0 0 / 30%);
+  width: 300px;
+  left: 540px;
+  top: 625px;
+  z-index: 5;
+  display: none;
+  ${(props) =>
+    props.display &&
+    css`
+      display: block;
+    `}
 `;
 
 const Register = () => {
@@ -172,7 +213,8 @@ const Register = () => {
   const [emailAuthPassword, setEmailAuthPassword] = useState('');
 
   const [emailInputValue, setEmailInputValue] = useState('naver.com');
-
+  const [emailAuthText, setEmailAuthText] = useState(false);
+  const [emailAuthChecked, setEmailAuthChecked] = useState(false);
   const isConfirmId = useSelector((state: RootState) => state.confirmId);
   const isConfirmNickname = useSelector((state: RootState) => state.confirmNicknameRequest);
 
@@ -198,13 +240,17 @@ const Register = () => {
     setEmailAuthPassword(e.currentTarget.value);
   };
 
+  const onCheckHandler = () => {
+    setEmailAuthChecked(!emailAuthChecked);
+  };
+
   const registerRequest = () => {
     dispatch(register(Name, Password, Nickname));
   };
 
   const passwordRegex: RegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,20}$/;
   //아이디 양식
-  const idCheckRegex = /^[가-힣a-zA-Z0-9]{2,10}$/g;
+  const idCheckRegex = /^[a-zA-Z0-9]{2,10}$/g;
 
   //특수문자 체크
   const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
@@ -237,7 +283,7 @@ const Register = () => {
   //회원가입 버튼
   const onSubmitRegister = () => {
     if (Name === '') {
-      alert(' 2~10자 영문,한글,숫자만 사용 가능합니다.');
+      alert(' 2~10자 영문,숫자만 사용 가능합니다.');
       nameRef.current.focus();
       return;
     }
@@ -255,10 +301,19 @@ const Register = () => {
       nameRef.current.focus();
       return;
     }
+    if (isConfirmNickname.confirmNickname === false) {
+      alert('사용중인 닉네임입니다.');
+      nicknameRef.current.focus();
+      return;
+    }
     //비밀번호 양식 체크
     if (!passwordRegex.test(Password)) {
       alert('비밀번호가 양식에 맞지않아요.');
       passwordRef.current.focus();
+      return;
+    }
+    if (emailAuthChecked === false) {
+      alert('이메일 이용약관을 동의해주세요!');
       return;
     }
     if (isEmailAuth === false) {
@@ -270,7 +325,6 @@ const Register = () => {
       passwordRef.current.focus();
       setIsPasswordAuthText('패스워드를 확인해주세요.');
       setIsCheckPassword(false);
-
       return;
     }
 
@@ -478,6 +532,7 @@ const Register = () => {
           {!isSendEmail && <p>이메일이 발송되었습니다.</p>}
         </InputWrap>
         <InputWrap
+          className='authNumberInput'
           isEmailAuth={isEmailAuth}
           pTop='515px'
           isPasswordCheck={isCheckPassword}
@@ -509,6 +564,31 @@ const Register = () => {
           </InputButtonWrap>
           {isEmailAuth ? <p>{isEmailAuthText}</p> : <p>{isEmailAuthText}</p>}
         </InputWrap>
+
+        <EmailUseConfirm>
+          <input
+            type='checkbox'
+            checked={emailAuthChecked}
+            onChange={onCheckHandler}
+          ></input>
+          <span>이메일 사용 동의</span>
+          <EmailUseQuestionMark
+            onMouseOver={() => setEmailAuthText(true)}
+            onMouseOut={() => setEmailAuthText(false)}
+          >
+            <img
+              src={물음표박스}
+              alt={'questionMark'}
+            ></img>
+          </EmailUseQuestionMark>
+          <EmailHoverText display={emailAuthText}>
+            입력하신 이메일 정보는
+            <br />
+            가입 인증을 위한 목적으로만 사용되며,
+            <br />
+            해당 정보는 즉시 파기됩니다.
+          </EmailHoverText>
+        </EmailUseConfirm>
         <BasicButtons
           // as='button'
           disabled={!(isId && isPassword && isCheckPassword)}
