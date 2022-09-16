@@ -6,8 +6,8 @@ import { customAxios } from '../util/axios';
 //https://jeonghwan-kim.github.io/dev/2019/07/22/react-saga-ts-1.html
 
 // id와 password를 인자로 받아 서버통신을 요청하는 함수
-const registerApi = async (id: string, password: string): Promise<any> => {
-  return customAxios('post', '/register/join', { id, password })
+const registerApi = async (id: string, password: string, nickname: string): Promise<any> => {
+  return customAxios('post', '/register/join', { id, password, nickname })
     .then((res) => {
       console.log(res.data);
 
@@ -30,7 +30,7 @@ function* registerApi$(action: any): Generator<any, any, any> {
   try {
     console.log(action);
     //api통신의 결과값이 들어있는 변수다.
-    const memos = yield call(registerApi, action.payload.id, action.payload.password);
+    const memos = yield call(registerApi, action.payload.id, action.payload.password, action.payload.nickname);
     console.log(memos); // api 결과값이 정상적으로 들어있음
     //put은 dispatch를 해주는 기능이다.
     //REGISTER액션을 감지하여 REGISTER_SUCCESS 액션까지 디스패치할 수 있는 것이다.
