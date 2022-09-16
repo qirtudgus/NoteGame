@@ -108,16 +108,15 @@ const UserGold = styled.div`
 
 const UserInfo = () => {
   const dispatch = useDispatch();
-  const userId = useSelector((state: RootState) => state.login.id);
   const isVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
-  const { Level, BasicHp, BasicDamage, WeaponDamage, Gold, Exp } = useSelector(
+  const { Nickname, Level, BasicHp, BasicDamage, WeaponDamage, Gold, Exp } = useSelector(
     (state: RootState) => state.login.userInfo,
   ) as LoginUserInfoInterface;
 
   return (
     <BasicBox>
       <UserBox>
-        <UserId>{userId}</UserId>
+        <UserId>{Nickname}</UserId>
         <UserLevel>Lv. {Level}</UserLevel>
         <UserGold>
           <span>Exp</span> {Exp} / {expTable[Level]}
