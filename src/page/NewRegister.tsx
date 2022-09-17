@@ -93,7 +93,6 @@ const NewRegister = () => {
   const [passwordConfrimRegText, setPasswordConfirmRegText] = useState('');
 
   //회원가입 완료 시 모달 여부
-  const [successRegisterModal, setSuccessRegisterModal] = useState(false);
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
 
   const idRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -110,11 +109,9 @@ const NewRegister = () => {
   const inputHandler = (e: any, setState: any) => {
     const { value } = e.currentTarget;
     setState(value);
-    console.log(password);
   };
 
   const passwordCheck = () => {
-    console.log(password);
     if (spaceCheck.test(password)) {
       setPasswordReg(false);
       setPasswordRegText('5~20자의 영문,숫자,특수문자만 사용하세요.');
@@ -131,12 +128,10 @@ const NewRegister = () => {
 
   //아이디 중복확인 액션
   const confirmIdRequest = () => {
-    console.log(isConfirmId);
     dispatch(confirm_id_request(id));
   };
   //닉네임 중복확인 액션
   const confirmNicknameRequest = () => {
-    console.log(isConfirmId);
     dispatch(confirm_nickname_request(nickname));
   };
 
