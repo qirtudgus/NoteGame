@@ -3,9 +3,6 @@ import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Register from './page/Register';
-
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './modules/modules_index';
@@ -23,7 +20,7 @@ import MyStatus from './page/MyStatus';
 import Shop from './page/Shop';
 import NewDungeonFight from './page/NewDungeonFight';
 import NewPenGame from './page/NewPenGame';
-
+import NewRegister from './page/NewRegister';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
 //두번째인자에 사용할 미들웨어를 추가해주었다.
@@ -57,7 +54,7 @@ root.render(
           ></Route>
           <Route
             path='/register'
-            element={<Register />}
+            element={<NewRegister />}
           ></Route>
           <Route
             path='/home'
