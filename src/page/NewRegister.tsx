@@ -1,6 +1,5 @@
 import React, { MutableRefObject, useRef } from 'react';
 import BasicButtons from '../components/BasicBtn';
-import BasicInputs from '../components/BasicInput';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../modules/register';
@@ -9,21 +8,10 @@ import { RootState } from '../modules/modules_index';
 import { useNavigate } from 'react-router-dom';
 import BtnMenu from '../components/BtnMenu';
 import styled, { css } from 'styled-components';
-import 물음표박스 from '../img/물음표박스.svg';
-import customAxios from '../util/axios';
-import createRandomNum from '../util/createRandomNum';
-import { confirm_nickname_request } from '../modules/confirmNickname';
-import sleep from '../util/sleep';
-import { emailReg } from '../util/RegExps';
 
-interface inputWrap {
-  isConfirm?: boolean | undefined | null;
-  isPassword?: boolean | undefined | null;
-  isPasswordCheck?: boolean | undefined | null;
-  inputDisabled?: boolean;
-  isSendEmail?: boolean;
-  isEmailAuth?: boolean;
-}
+import { confirm_nickname_request } from '../modules/confirmNickname';
+import RevivalModal from '../components/RevivalModal';
+import { modal_failure } from '../modules/modalState';
 
 const InputBox = styled.div`
   width: 420px;
@@ -43,7 +31,7 @@ const InputTitle = styled.p`
 `;
 
 interface InputRegExpCheck {
-  isReg?: boolean;
+  isReg?: boolean | null;
 }
 
 const Input = styled.input<InputRegExpCheck>`
@@ -63,30 +51,50 @@ const Input = styled.input<InputRegExpCheck>`
 
 const InputText = styled.p<InputRegExpCheck>`
   margin: 7px 0 0 100px;
-
+  color: red;
   ${(props) =>
-    props.isReg === false &&
+    props.isReg &&
     css`
-      color: red;
+      color: green;
     `}
 `;
 
+const Submit = styled.button`
+  width: 200px;
+  height: 50px;
+  font-size: 1.5rem;
+  background-color: #ffbc26;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  transition: all 0.3s;
+  &:hover {
+    background-color: #fff;
+    border: 2px solid #ffbc26;
+  }
+`;
+
 const NewRegister = () => {
+  const dispatch = useDispatch();
+  const naviagate = useNavigate();
+
   const [id, setId] = useState('');
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfrim, setPasswordConfirm] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   //정규표현식 여부 값
-  const [idReg, setIdReg] = useState(false);
-  const [nicknameReg, setNicknameReg] = useState(false);
+  const isConfirmId = useSelector((state: RootState) => state.confirmId);
+  const isConfirmNickname = useSelector((state: RootState) => state.confirmNicknameRequest);
   const [passwordReg, setPasswordReg] = useState(false);
+  const [passwordConfirmReg, setPasswordConfirmReg] = useState(false);
 
-  //오류가 날 시 출력할 텍스트
-  const [idRegText, setIdRegText] = useState('');
-  const [nicknameRegText, setNicknameRegText] = useState('');
+  //오류가 날 시 출력할 텍스트 (아이디와 닉네임은 redux에서 참조함)
   const [passwordRegText, setPasswordRegText] = useState('');
   const [passwordConfrimRegText, setPasswordConfirmRegText] = useState('');
+
+  //회원가입 완료 시 모달 여부
+  const [successRegisterModal, setSuccessRegisterModal] = useState(false);
+  const isModal = useSelector((state: RootState) => state.modalState.isModal);
 
   const idRef = useRef() as MutableRefObject<HTMLInputElement>;
   const nicknameRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -95,53 +103,123 @@ const NewRegister = () => {
 
   //비밀번호 양식
   const passwordRegex: RegExp = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,20}$/;
-  //아이디 양식
-  const idCheckRegex = /^[a-zA-Z0-9]{2,10}$/g;
-  //특수문자 체크
-  const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-  //공백체크 표현식
-  const spaceCheck = /\s/g;
 
-  var regExp = /^(?=.*[a-zA-Z])[a-zA-Z0-9]{2,10}$/;
+  //공백체크 표현식
+  const spaceCheck = /\s/;
 
   const inputHandler = (e: any, setState: any) => {
-    const { value } = e.target;
+    const { value } = e.currentTarget;
     setState(value);
-  };
-
-  const idCheck = () => {
-    if (!regExp.test(id)) {
-      setIdReg(false);
-      setIdRegText('2~10자의 영문,숫자만 사용가능합니다.');
-      return;
-    }
-    setIdReg(true);
-    setIdRegText('');
+    console.log(password);
   };
 
   const passwordCheck = () => {
+    console.log(password);
+    if (spaceCheck.test(password)) {
+      setPasswordReg(false);
+      setPasswordRegText('5~20자의 영문,숫자,특수문자만 사용하세요.');
+      return;
+    }
     if (!passwordRegex.test(password)) {
       setPasswordReg(false);
-      setPasswordRegText('5~20자의 영문,숫자를 사용하세요.');
+      setPasswordRegText('5~20자의 영문,숫자,특수문자만 사용하세요.');
       return;
     }
     setPasswordReg(true);
-    setPasswordRegText('');
+    setPasswordRegText('사용가능한 비밀번호입니다.');
   };
+
+  //아이디 중복확인 액션
+  const confirmIdRequest = () => {
+    console.log(isConfirmId);
+    dispatch(confirm_id_request(id));
+  };
+  //닉네임 중복확인 액션
+  const confirmNicknameRequest = () => {
+    console.log(isConfirmId);
+    dispatch(confirm_nickname_request(nickname));
+  };
+
+  const registerRequest = () => {
+    if (isConfirmId.confirmId === false) {
+      alert('아이디를 확인해주세요.');
+      idRef.current.focus();
+      return;
+    }
+    if (isConfirmNickname.confirmNickname === false) {
+      alert('닉네임을 확인해주세요.');
+      nicknameRef.current.focus();
+      return;
+    }
+    if (passwordReg === false) {
+      alert('비밀번호를 확인해주세요.');
+      passwordRef.current.focus();
+      return;
+    }
+    if (passwordConfirmReg === false) {
+      alert('비밀번호를 확인해주세요.');
+      passwordConfirmRef.current.focus();
+      return;
+    }
+    dispatch(register(id, password, nickname));
+  };
+
+  const goToLogin = () => {
+    naviagate('/');
+    dispatch(modal_failure());
+  };
+
+  useEffect(() => {
+    if (password === '' && passwordConfirm === '') {
+      setPasswordConfirmRegText('');
+      setPasswordConfirmReg(false);
+      return;
+    }
+    if (passwordConfirm.length < 5) {
+      setPasswordConfirmRegText('');
+      setPasswordConfirmReg(false);
+      return;
+    }
+    if (passwordReg === false && passwordConfirm === password) {
+      setPasswordConfirmRegText('비밀번호를 확인해주세요.');
+      setPasswordConfirmReg(false);
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setPasswordConfirmRegText('비밀번호를 확인해주세요.');
+      setPasswordConfirmReg(false);
+      return;
+    }
+    if (password === passwordConfirm) {
+      setPasswordConfirmRegText('비밀번호가 일치합니다.');
+      setPasswordConfirmReg(true);
+      return;
+    }
+  }, [password, passwordConfirm]);
 
   return (
     <>
+      {isModal ? (
+        <RevivalModal>
+          <p>회원가입 완료</p>
+          <p>이제 게임을 즐기러가볼까요?</p>
+          <BasicButtons
+            ButtonText='로그인'
+            OnClick={goToLogin}
+          ></BasicButtons>
+        </RevivalModal>
+      ) : null}
       <InputBox>
         <InputWrap>
           <InputTitle>아이디</InputTitle>
           <Input
             ref={idRef}
             value={id}
-            onBlur={idCheck}
+            onBlur={confirmIdRequest}
             onChange={(e) => inputHandler(e, setId)}
           ></Input>
         </InputWrap>
-        <InputText isReg={idReg}>{idRegText}</InputText>
+        <InputText isReg={isConfirmId.confirmId}>{isConfirmId.text}</InputText>
       </InputBox>
       <InputBox>
         <InputWrap>
@@ -149,15 +227,17 @@ const NewRegister = () => {
           <Input
             ref={nicknameRef}
             value={nickname}
+            onBlur={confirmNicknameRequest}
             onChange={(e) => inputHandler(e, setNickname)}
           ></Input>
         </InputWrap>
-        <InputText>경고창이 뜨는 공간입니다.</InputText>
+        <InputText isReg={isConfirmNickname.confirmNickname}>{isConfirmNickname.text}</InputText>
       </InputBox>
       <InputBox>
         <InputWrap>
           <InputTitle>비밀번호</InputTitle>
           <Input
+            type={'password'}
             ref={passwordRef}
             value={password}
             onBlur={passwordCheck}
@@ -170,14 +250,17 @@ const NewRegister = () => {
         <InputWrap>
           <InputTitle>비밀번호 확인</InputTitle>
           <Input
+            // onBlur={passwordConfirmCheck}
+            type={'password'}
             ref={passwordConfirmRef}
-            value={passwordConfrim}
+            value={passwordConfirm}
             onChange={(e) => inputHandler(e, setPasswordConfirm)}
           ></Input>
         </InputWrap>
-        <InputText>경고창이 뜨는 공간입니다.</InputText>
+        <InputText isReg={passwordConfirmReg}>{passwordConfrimRegText}</InputText>
       </InputBox>
-      <BasicButtons ButtonText={'z'}></BasicButtons>
+      <Submit onClick={registerRequest}>회원가입</Submit>
+      <BtnMenu BackHistory></BtnMenu>
     </>
   );
 };
