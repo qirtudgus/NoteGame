@@ -34,13 +34,17 @@ const TabWrap = styled.div`
   justify-content: flex-start;
 `;
 const Tab = styled.div`
+  cursor: pointer;
   width: 100%;
   display: flex;
   justify-content: center;
   font-size: 1.6rem;
   align-items: center;
-  background: #eee;
+  background: #949164;
   height: 60px;
+  &:hover {
+    background: #8d8d8d;
+  }
   &.active {
     background: #fcbb26;
   }
@@ -62,7 +66,7 @@ const Shop = () => {
       name: '종이',
       content: <ShopPaperList></ShopPaperList>,
     },
-    { name: '스킬', content: <ShopPiece></ShopPiece> },
+    // { name: '스킬', content: <ShopPiece></ShopPiece> },
   ];
 
   const SetTabNumberFunc = (index: number): void => {
