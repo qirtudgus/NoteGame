@@ -25,6 +25,11 @@ const FooterIcon = styled.div`
   justify-content: center;
   align-items: flex-end;
   cursor: pointer;
+  &:hover > div {
+    outline: 3px solid#ffbc26;
+    background-color: #fff;
+    color: #000;
+  }
 `;
 
 const FooterTitle = styled.div`
@@ -48,25 +53,40 @@ const FooterMenu = () => {
     <>
       <FooterWrap>
         <FooterIcon onClick={() => navigate('/status')}>
-          <img src={내상태}></img>
+          <img
+            src={내상태}
+            alt='내 상태'
+          ></img>
 
           <FooterTitle>내 상태</FooterTitle>
         </FooterIcon>
         <FooterIcon onClick={() => navigate('/ballpenshop')}>
-          <img src={상점}></img>
+          <img
+            src={상점}
+            alt='상점'
+          ></img>
 
           <FooterTitle>상점</FooterTitle>
         </FooterIcon>
         <FooterIcon onClick={() => navigate('/playpengame')}>
-          <img src={볼펜굴리기}></img>
+          <img
+            src={볼펜굴리기}
+            alt='볼펜 굴리기'
+          ></img>
           <FooterTitle>볼펜 굴리기</FooterTitle>
         </FooterIcon>
         <FooterIcon onClick={() => navigate('/dungeon')}>
-          <img src={던전}></img>
+          <img
+            src={던전}
+            alt='던전'
+          ></img>
           <FooterTitle>던전</FooterTitle>
         </FooterIcon>
         <FooterIcon onClick={() => navigate('/ranking')}>
-          <img src={랭킹}></img>
+          <img
+            src={랭킹}
+            alt='랭킹'
+          ></img>
           <FooterTitle>랭킹</FooterTitle>
         </FooterIcon>
       </FooterWrap>
