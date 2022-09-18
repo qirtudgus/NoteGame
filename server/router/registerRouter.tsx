@@ -67,13 +67,17 @@ registerRouter.post('/confirmnickname', (req, res, next) => {
     return;
   }
   if (spaceCheck.test(nickname)) {
-    res.json({ auth: false, text: '공백과 특수문자는 사용할 수 없어요!' });
+    res.json({ auth: false, text: '1~10자 공백없이 사용 가능합니다.' });
     return;
   }
-  if (special_pattern.test(nickname)) {
-    res.json({ auth: false, text: '공백과 특수문자는 사용할 수 없어요!' });
+  if (nickname.length > 1 && nickname.length > 10) {
+    res.json({ auth: false, text: '1~10자 공백없이 사용 가능합니다.' });
     return;
   }
+  // if (special_pattern.test(nickname)) {
+  //   res.json({ auth: false, text: '공백과 특수문자는 사용할 수 없어요!' });
+  //   return;
+  // }
 
   db.query(nicknameCheck, [nickname], (err, rows, fields) => {
     if (rows[0] === undefined) {
