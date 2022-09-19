@@ -12,7 +12,6 @@ tsconfig.json에 아래 코드를 추가하여 해결
 */
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import cheerio from 'cheerio';
 import { registerRouter } from './router/registerRouter.js';
 import { db } from './db.js';
 import { loginRouter } from './router/loginRouter.js';
@@ -23,7 +22,7 @@ import { dungeonRouter } from './router/dungeonRouter.js';
 import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 import { rankingRouter } from './router/rankingRouter.js';
 import { statRouter } from './router/statRouter.js';
-import { mailRouter } from './router/mailRouter.js';
+// import { mailRouter } from './router/mailRouter.js';
 
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
@@ -87,8 +86,8 @@ app.use('/dungeon', dungeonRouter);
 app.use('/shop', buyBallpenListRouter);
 //랭킹 라우터
 app.use('/ranking', rankingRouter);
-//메일 라우터
-app.use('/mail', mailRouter);
+// //메일 라우터
+// app.use('/mail', mailRouter);
 app.listen('3000', () => {
   console.log(`
   🛡️  Server listening on port: 3000
