@@ -115,7 +115,6 @@ function App() {
         ButtonText='회원가입'
         OnClick={() => navigate('/register')}
       ></BasicBtn>
-      <p>s3 자동 배포 확인용</p>
     </>
   );
 }
