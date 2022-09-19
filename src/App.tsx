@@ -34,9 +34,6 @@ const Check = styled.div`
 `;
 
 function App() {
-  const testValue = process.env.REACT_APP_TEST;
-  const testApi = process.env.REACT_APP_SERVER_API;
-
   const dispatch = useDispatch(); // 디스패치 함수를 가져옵니다
   const navigate = useNavigate();
   const [Id, setId] = useState<string>('');
@@ -118,8 +115,6 @@ function App() {
         ButtonText='회원가입'
         OnClick={() => navigate('/register')}
       ></BasicBtn>
-      <p>{testValue}</p>
-      <p>{testApi}</p>
     </>
   );
 }
