@@ -141,7 +141,7 @@ const Dungeon = () => {
             src={arrowLeft}
             alt='arrow'
           ></img>
-          이전 층으로
+          이전 층
         </MoveBox>
         <MoveBox2
           onClick={() => {
