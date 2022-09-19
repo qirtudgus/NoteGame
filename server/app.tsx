@@ -88,8 +88,8 @@ app.use('/shop', buyBallpenListRouter);
 app.use('/ranking', rankingRouter);
 // //메일 라우터
 // app.use('/mail', mailRouter);
-app.listen('3000', () => {
+app.listen('3001', () => {
   console.log(`
-  🛡️  Server listening on port: 3000
+  🛡️  Server listening on port: 3001
 `);
 });
