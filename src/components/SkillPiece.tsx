@@ -90,7 +90,7 @@ const SkillPiece = (props: any) => {
     {
       skillName: 'UpMoreFloor',
       title: '계단은 올라갈 때 두칸씩',
-      desc: `던전 클리어 시 올라가는 층이 ${userInfo.UpMoreFloor} 상승합니다.`,
+      desc: `1렙당 던전을 깰 시 올라가는 층이 1씩 상승합니다.`,
       level: userInfo.UpMoreFloor,
       requestLevel: 1,
       maxLevel: Infinity,
@@ -98,7 +98,7 @@ const SkillPiece = (props: any) => {
     {
       skillName: 'UpRevivalStatPoint',
       title: '내려갈때도 두칸씩',
-      desc: `환생 시 획득하는 능력치가 ${userInfo.UpRevivalStatPoint}배 상승합니다.`,
+      desc: `1렙당 환생 시 획득하는 능력치가 배로 상승합니다.`,
       level: userInfo.UpRevivalStatPoint,
       requestLevel: 1,
       maxLevel: Infinity,
@@ -106,7 +106,7 @@ const SkillPiece = (props: any) => {
     {
       skillName: 'RevivalPoint',
       title: '다음생에는..',
-      desc: `환생 시 돌아가는 층수가 현재 층의 ${userInfo.RevivalPoint}%가 됩니다.`,
+      desc: `환생 시 현재 층의 ${userInfo.RevivalPoint}%로 돌아갑니다.`,
       level: userInfo.RevivalPoint,
       requestLevel: 1,
       maxLevel: 10,
@@ -167,8 +167,8 @@ const SkillPiece = (props: any) => {
                 <SkillTitle>
                   {i.title} Lv . {i.level}
                 </SkillTitle>
-                <SkillDesc>{i.desc}</SkillDesc>
                 <SkillDesc descColor='#f01616'>요구레벨 {i.requestLevel}</SkillDesc>
+                <SkillDesc>{i.desc}</SkillDesc>
               </SkillTextWrap>
               <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
@@ -187,8 +187,8 @@ const SkillPiece = (props: any) => {
                 <SkillTitle>
                   {i.title} Lv . {i.level}
                 </SkillTitle>
-                <SkillDesc>{i.desc}</SkillDesc>
                 <SkillDesc>요구레벨 {i.requestLevel}</SkillDesc>
+                <SkillDesc>{i.desc}</SkillDesc>
               </SkillTextWrap>
               <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
