@@ -384,7 +384,7 @@ const NewDungeonFight = () => {
       targets: '#penBody',
       translateX: 400,
       // duration: animationSpeed.penAni,
-      duration: userInfo.PenGamePenSpeed,
+      duration: userInfo.DungeonPenSpeed,
       direction: 'alternate', //번갈아 재생
       loop: true, // number는 횟수 true는 무한
       easing: 'easeInOutSine',
