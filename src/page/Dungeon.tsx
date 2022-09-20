@@ -67,7 +67,7 @@ const Dungeon = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  let giveSkillPoint = 50;
+  let giveSkillPoint = 10;
   //환생 후 받을 스킬포인트
   let addSkillPoint = Math.floor((userInfo.DungeonFloor as number) / giveSkillPoint) * userInfo.UpRevivalStatPoint;
   //환생 후 돌아갈 층

@@ -1,6 +1,6 @@
 import BtnMenu from '../components/BtnMenu';
 import FooterMenu from '../components/FooterMenu';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CharacterBox from '../components/CharacterBox';
 import styled from 'styled-components';
 import createRandomNum from '../util/createRandomNum';
@@ -39,6 +39,9 @@ const msgArr = [
   '이러다 내 옆구리가 눅눅해지겠어....',
   '더 이쁜 볼펜은 없어?',
   '잉크가 다 떨어져가는거같아',
+  '잉크가 부족하면 볼펜 굴리기를 하는게 어때?',
+  '당신이...나의 주인..?',
+  '난 연필이 좋더라',
 ];
 
 const Home = () => {
@@ -47,6 +50,10 @@ const Home = () => {
   const msgRandomReturn = () => {
     setMsgRandomNumber(createRandomNum(0, msgArr.length - 1));
   };
+
+  useEffect(() => {
+    setInterval(() => msgRandomReturn(), 3000);
+  }, []);
 
   return (
     <>

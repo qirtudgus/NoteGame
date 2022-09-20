@@ -103,7 +103,8 @@ dungeonRouter.post('/revival', (req, res) => {
     let nowFloor = rows[0].DungeonFloor;
     let revivalPoint = rows[0].RevivalPoint;
     let UpRevivalStatPoint = rows[0].UpRevivalStatPoint;
-    let giveStatPoint = 50;
+    //몇층단위로 1씩 지급할지
+    let giveStatPoint = 10;
     //환생 후 받을 스킬포인트
     let addStatPoint = Math.floor(nowFloor / giveStatPoint) * UpRevivalStatPoint;
     //환생 후 돌아갈 층
