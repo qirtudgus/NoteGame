@@ -120,6 +120,13 @@ const NewPenGame = () => {
     dispatch(modal_failure());
   };
 
+  //새로고침 시 렙 x 1000골드 지불
+  const rewardRefresh = () => {
+    if (userInfo.Level * 1000 > userInfo.Gold) return;
+    dispatch(pengame_request(userInfo.Level * 1000, 'deduct', 1));
+    setRefresh((prev) => !prev);
+  };
+
   //시작 버튼 함수
   // restart를 이용하는 방법을 생각해보자....
   const penAnimationStart = () => {
@@ -256,9 +263,8 @@ const NewPenGame = () => {
         BackHistory
         Home
         Refresh
-        RefreshFunc={() => {
-          setRefresh((prev) => !prev);
-        }}
+        RefreshFunc={rewardRefresh}
+        RefreshGold={userInfo.Level * 1000}
         FastForward
         FastForwardFunc={FastForward}
         FastForwardText={penSpeed.text}

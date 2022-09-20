@@ -22,6 +22,12 @@ const penGameTakeGoldMultiple = async (reward: number, speed: number) => {
   });
 };
 
+const penGameTakeRewardRefresh = async (reward: number, speed: number) => {
+  return await customAxios('post', '/pengame/refresh', { reward, speed }).then((res) => {
+    return res.data;
+  });
+};
+
 function* penGameTakeGold$(action: any): Generator<any, any, any> {
   try {
     console.log(action.reward);
@@ -35,6 +41,9 @@ function* penGameTakeGold$(action: any): Generator<any, any, any> {
     }
     if (action.act === 'multiple') {
       result = yield call(penGameTakeGoldMultiple, action.reward, action.speed);
+    }
+    if (action.act === 'refresh') {
+      result = yield call(penGameTakeRewardRefresh, action.reward, action.speed);
     }
     // const result = yield call(penGameTakeGoldMultiple, action.multiple);
     console.log(result);
