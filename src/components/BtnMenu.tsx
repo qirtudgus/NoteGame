@@ -31,6 +31,7 @@ export const Back = styled(ButtonColor)`
   justify-content: center;
   align-items: center;
   margin-right: 5px;
+  flex-direction: column;
 
   &:hover {
     filter: invert(80%);
@@ -45,6 +46,7 @@ interface btn {
   FastForwardText?: number;
   Refresh?: boolean;
   RefreshFunc?: () => void;
+  RefreshGold?: number;
   LogOut?: boolean;
   Revival?: boolean;
   RevivalDispatch?: () => { type: 'modalState/MODAL_SUCCESS' };
@@ -60,6 +62,7 @@ const BtnMenu = ({
   Refresh,
   LogOut,
   RefreshFunc,
+  RefreshGold,
   Revival,
   RevivalDispatch,
   DetailView,
@@ -68,7 +71,12 @@ const BtnMenu = ({
     <BtnWrap>
       {BackHistory && <BackHistoryBtn></BackHistoryBtn>}
       {Home && <HomeBtn></HomeBtn>}
-      {Refresh && <RefreshBtn func={RefreshFunc}></RefreshBtn>}
+      {Refresh && (
+        <RefreshBtn
+          func={RefreshFunc}
+          RefreshGold={RefreshGold}
+        ></RefreshBtn>
+      )}
       {FastForward && (
         <FastFowardBtn
           func={FastForwardFunc}
