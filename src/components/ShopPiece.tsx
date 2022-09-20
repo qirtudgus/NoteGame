@@ -29,6 +29,9 @@ const ShopTextWrap = styled.div`
 
 const ShopDesc = styled.div`
   font-size: 16px;
+  & .penGold {
+    text-align: right;
+  }
 `;
 const ShopIcon = styled(ButtonColor)`
   width: 100px;
@@ -171,7 +174,7 @@ const ShopPiece = (props: any) => {
   const a = (
     <>
       <p>{buyPenObj.title}</p>
-      <p>{buyPenObj.Gold}잉크</p>
+      <p>{buyPenObj.Gold}골드</p>
       <p>구매하시겠습니까?</p>
       <BasicBtn
         ButtonText='네, 구매하겠습니다.'
@@ -222,7 +225,7 @@ const ShopPiece = (props: any) => {
                   <p>공격력 {i.weaponDamage}</p>
                   <p>최소 공격률 {Math.min(...i.rewardList)}</p>
                   <p>최대 공격률 {Math.max(...i.rewardList)}</p>
-                  <p>가격 {i.Gold} 잉크</p>
+                  <p className='penGold'> {i.Gold} 골드</p>
                 </ShopDesc>
               </ShopTextWrap>
               {
