@@ -86,31 +86,32 @@ const StatusPiece = (props: any) => {
     {
       statName: 'UpMaxHp',
       title: '굳은살이 베겼다',
-      desc: `기본 체력이 ${userInfo.UpMaxHp * 100} 상승합니다.`,
+      desc: `1렙당 기본 체력이 100 상승합니다.`,
+
       level: userInfo.UpMaxHp,
     },
     {
       statName: 'UpBasicDamage',
       title: '쉬는시간엔 팔씨름',
-      desc: `기본 공격력이 ${userInfo.UpBasicDamage * 50} 상승합니다.`,
+      desc: `1렙당 기본 공격력이 50 상승합니다.`,
       level: userInfo.UpBasicDamage,
     },
     {
       statName: 'UpGoldPen',
       title: '황금 볼펜',
-      desc: `볼펜 굴리기로 획득하는 골드가 ${userInfo.UpGoldPen * 1}% 상승합니다.`,
+      desc: `1렙당 볼펜 굴리기로 획득하는 골드가 1% 상승합니다.`,
       level: userInfo.UpGoldPen,
     },
     {
       statName: 'UpGoldHunt',
       title: '부지런한 학생',
-      desc: `던전에서 획득하는 골드가 ${userInfo.UpGoldHunt * 1}% 상승합니다.`,
+      desc: `1렙당 던전에서 획득하는 골드가 1% 상승합니다.`,
       level: userInfo.UpGoldHunt,
     },
     {
       statName: 'BetterPen',
       title: '펜은 칼보다 강하다',
-      desc: `던전에서 공격력이 ${userInfo.BetterPen * 2}% 상승합니다.`,
+      desc: `1렙당 던전에서 공격력이 2% 상승합니다.`,
       level: userInfo.BetterPen,
     },
   ];
