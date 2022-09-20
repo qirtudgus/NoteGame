@@ -41,9 +41,12 @@ const Tab = styled.div`
   justify-content: center;
   font-size: 1.6rem;
   align-items: center;
-  background: #949164;
-
+  background: #aaaaaa;
+  margin-right: 5px;
   height: 60px;
+  &:last-child {
+    margin-right: 0px;
+  }
   &:hover {
     background: #8d8d8d;
   }
