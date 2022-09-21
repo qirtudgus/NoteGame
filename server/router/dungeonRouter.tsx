@@ -13,7 +13,7 @@ const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
 const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1 WHERE ID = ?`;
 const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor, UpRevivalStatPoint FROM users WHERE Id = ?`;
 const RevivalUpdateQuery =
-  'UPDATE users SET DungeonFloor = ?, StatPoint = StatPoint + ?, RevivalCount = RevivalCount + 1 WHERE ID = ?';
+  'UPDATE users SET DungeonFloor = ?, StatPoint = StatPoint + ?, RevivalCount = RevivalCount + 1, UpGoldPen = 0, UpGoldHunt = 0, UpMaxHp = 0, UpBasicDamage = 0, BetterPen = 0 WHERE ID = ?';
 
 //맥스층 갱신 쿼리
 // const MaxFloorUpdateQuery;
