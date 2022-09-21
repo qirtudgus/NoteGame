@@ -23,7 +23,7 @@ import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 import { rankingRouter } from './router/rankingRouter.js';
 import { statRouter } from './router/statRouter.js';
 // import { mailRouter } from './router/mailRouter.js';
-
+const SERVER_PORT = 3001;
 db.connect((err: any) => {
   if (err) console.log('MySQL 연결 실패 : ', err);
   console.log('MySQL Connected!!!');
@@ -88,8 +88,8 @@ app.use('/shop', buyBallpenListRouter);
 app.use('/ranking', rankingRouter);
 // //메일 라우터
 // app.use('/mail', mailRouter);
-app.listen('3001', () => {
+app.listen(SERVER_PORT, () => {
   console.log(`
-  🛡️  Server listening on port: 3001
+  🛡️  Server listening on port: ${SERVER_PORT}
 `);
 });
