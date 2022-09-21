@@ -14,6 +14,5 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          mkdir abc/def
-          ls -al
-          pwd
+          echo '에코테스트'
+          
