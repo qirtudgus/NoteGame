@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import 랭킹 from '../img/랭킹.svg';
-import 던전 from '../img/던전.svg';
-import 볼펜굴리기 from '../img/볼펜굴리기.svg';
-import 상점 from '../img/상점.svg';
-import 내상태 from '../img/내상태.svg';
+import 랭킹 from '../img/랭킹2.svg';
+import 던전 from '../img/던전2.svg';
+import 볼펜굴리기 from '../img/볼펜굴리기2.svg';
+import 상점 from '../img/상점2.svg';
+import 내상태 from '../img/내상태2.svg';
 
 const FooterWrap = styled.div`
   position: absolute;
