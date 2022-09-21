@@ -67,7 +67,7 @@ const Reward = styled.div<reward>`
     height: 100%;
   }
   &.active::after {
-    background: #fff;
+    background: #ffbc26;
     animation: ${choiceRewordEffect} 0.7s ease;
   }
 `;
