@@ -160,10 +160,12 @@ const Dungeon = () => {
       <BottomBox></BottomBox>
       {isModal && (
         <RevivalModal close>
+          <p>환생하시겠습니까?</p>
+          스텟이 모두 초기화됩니다.
+          <br />
           스텟 포인트 {addSkillPoint} 획득
           <br />
           던전 {revivalFloor} 층에서 시작
-          <p>환생하시겠습니까?</p>
           <BasicButtons
             margin='5px 5px 5px 5px'
             ButtonText='예'
