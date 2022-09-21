@@ -15,4 +15,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           echo '에코테스트'
+          pwd
+          ls
           
