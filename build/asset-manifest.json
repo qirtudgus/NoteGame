@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7d074fff.css",
-    "main.js": "/static/js/main.7a0bcb5a.js",
+    "main.js": "/static/js/main.36fc19bc.js",
     "static/media/paper7.png": "/static/media/paper7.1b0d2d702aaf2f4980e1.png",
     "static/media/paper8.png": "/static/media/paper8.6efb827fcdc20f6b3ce6.png",
     "static/media/SamliphopangcheTTFOutline.ttf": "/static/media/SamliphopangcheTTFOutline.cb8928233ec33a2a880f.ttf",
@@ -46,10 +46,10 @@
     "static/media/오른쪽화살표.svg": "/static/media/오른쪽화살표.466cbb5421099442f761d66ff9d02967.svg",
     "static/media/빠른재생.svg": "/static/media/빠른재생.611cb4e95180ef059ea3048170132202.svg",
     "main.7d074fff.css.map": "/static/css/main.7d074fff.css.map",
-    "main.7a0bcb5a.js.map": "/static/js/main.7a0bcb5a.js.map"
+    "main.36fc19bc.js.map": "/static/js/main.36fc19bc.js.map"
   },
   "entrypoints": [
     "static/css/main.7d074fff.css",
-    "static/js/main.7a0bcb5a.js"
+    "static/js/main.36fc19bc.js"
   ]
 }
