@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7d074fff.css",
-    "main.js": "/static/js/main.664f0313.js",
+    "main.js": "/static/js/main.36fc19bc.js",
     "static/media/paper7.png": "/static/media/paper7.1b0d2d702aaf2f4980e1.png",
     "static/media/paper8.png": "/static/media/paper8.6efb827fcdc20f6b3ce6.png",
     "static/media/SamliphopangcheTTFOutline.ttf": "/static/media/SamliphopangcheTTFOutline.cb8928233ec33a2a880f.ttf",
@@ -20,15 +20,15 @@
     "static/media/보드마카2.png": "/static/media/보드마카2.cfe64b04546222d8911e.png",
     "static/media/슬블_수정.gif": "/static/media/슬블_수정.48a00bd92fd7849db3de.gif",
     "static/media/컴퓨터용사인펜.png": "/static/media/컴퓨터용사인펜.60ee74719a5e20ca25ad.png",
-    "static/media/내상태.svg": "/static/media/내상태.54beee09c6346f16880d91738f165621.svg",
-    "static/media/상점.svg": "/static/media/상점.a3d587e0de12338355ecb623deeeb6ab.svg",
-    "static/media/볼펜굴리기.svg": "/static/media/볼펜굴리기.fb85cfa763ade08ccc25a442b230ef7d.svg",
+    "static/media/내상태2.svg": "/static/media/내상태2.cdd75c65f3d836593882b33c46f5fb33.svg",
+    "static/media/상점2.svg": "/static/media/상점2.86d10751c4eb5c5cb92911946ea02220.svg",
+    "static/media/볼펜굴리기2.svg": "/static/media/볼펜굴리기2.8fe4714ad42998582407a811a59b5ecd.svg",
     "static/media/하이테크.png": "/static/media/하이테크.bb7f190dbb73ca0ed30b.png",
     "static/media/600x600.png": "/static/media/600x600.adf83f21b9eeb8b64c7c.png",
-    "static/media/던전.svg": "/static/media/던전.de64e21a419e725ef9fa357f2b629b5a.svg",
+    "static/media/던전2.svg": "/static/media/던전2.cbdb54fb84eb0f79665befa824068a55.svg",
     "static/media/paper1.png": "/static/media/paper1.9c5761cf042fc48c140d.png",
     "static/media/모남볼펜2.png": "/static/media/모남볼펜2.6ce33dae263dc745a2c1.png",
-    "static/media/랭킹.svg": "/static/media/랭킹.0be0f4e22b4973d09e1a16f5861e45cc.svg",
+    "static/media/랭킹2.svg": "/static/media/랭킹2.622fdecfd65de37482837a782cdaf45c.svg",
     "static/media/visibleoff.svg": "/static/media/visibleoff.af3e7a5ee540253e0b087929bc3dc331.svg",
     "static/media/하얀체크.svg": "/static/media/하얀체크.5d1e0e825c3a4f9a1f8d576dea0a364c.svg",
     "static/media/흰칼.svg": "/static/media/흰칼.274528bb86419f08be458abbd31b532d.svg",
@@ -46,10 +46,10 @@
     "static/media/오른쪽화살표.svg": "/static/media/오른쪽화살표.466cbb5421099442f761d66ff9d02967.svg",
     "static/media/빠른재생.svg": "/static/media/빠른재생.611cb4e95180ef059ea3048170132202.svg",
     "main.7d074fff.css.map": "/static/css/main.7d074fff.css.map",
-    "main.664f0313.js.map": "/static/js/main.664f0313.js.map"
+    "main.36fc19bc.js.map": "/static/js/main.36fc19bc.js.map"
   },
   "entrypoints": [
     "static/css/main.7d074fff.css",
-    "static/js/main.664f0313.js"
+    "static/js/main.36fc19bc.js"
   ]
 }
