@@ -31,7 +31,7 @@ const Bg = styled.div`
   align-items: center;
   user-select: none;
   & > p {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: bold;
     margin-bottom: 5px;
   }
