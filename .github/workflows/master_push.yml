@@ -17,9 +17,10 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           echo 'start'
-          . ~/.nvm/nvm.sh
           sudo su
           cd NoteGame
+          npm -v
+          nvm -v
           node -v
           node -e "console.log('Running Node.js ' + process.version)"
           npm run build
