@@ -19,7 +19,7 @@ jobs:
           echo 'start'
           sudo su
           cd NoteGame
-          npm run build
+          sudo npm run build
           
         
           
