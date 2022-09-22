@@ -1,4 +1,4 @@
-name: remote ssh command
+name: pull repo
 on:
   push:
     branches:
@@ -16,12 +16,10 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          sudo su
           cd NoteGame
           sudo git pull
           npm i
-          npm run build
-          sudo systemctl restart nginx
-          sudo systemctl restart mysqld
           pm2 kill
           npx pm2 start server/app.ts
           
