@@ -18,10 +18,10 @@ jobs:
         script: |
           sudo su
           cd NoteGame
+          node -e "console.log('Running Node.js ' + process.version)"
           sudo git pull
           npm i
-          pm2 kill
-          npx pm2 start server/app.ts
+          npm run build
           
         
           
