@@ -16,8 +16,10 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          echo 'start'
           sudo su
           cd NoteGame
+          pwd
           sudo git pull
           npm i
           npm run build
