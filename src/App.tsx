@@ -89,6 +89,7 @@ function App() {
 
   return (
     <>
+      <p>빌드테스트</p>
       <BasicInputs
         ref={IdRef}
         value={Id}

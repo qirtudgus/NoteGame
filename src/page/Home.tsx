@@ -57,7 +57,6 @@ const Home = () => {
 
   return (
     <>
-      <p>빌드테스트</p>
       <BtnMenu LogOut></BtnMenu>
       <MessageBox>{msgArr[msgRandomNumber]}</MessageBox>
       <CallCharacterMsg onClick={msgRandomReturn}>
