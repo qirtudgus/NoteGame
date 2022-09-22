@@ -18,10 +18,9 @@ jobs:
         script: |
           sudo su
           cd NoteGame
-          npm cache clean
           sudo git pull
-          npm i
-          npm run build
+          sudo npm i
+          sudo npm run build
           sudo systemctl restart nginx
           sudo systemctl restart mysqld
           pm2 kill
