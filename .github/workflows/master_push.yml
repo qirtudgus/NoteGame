@@ -1,4 +1,4 @@
-name: remote ssh command
+name: pull repo
 on:
   push:
     branches:
@@ -16,6 +16,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          sudo su
           cd NoteGame
           sudo git pull
           npm i
