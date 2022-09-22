@@ -22,7 +22,7 @@ jobs:
           cd NoteGame
           node -v
           node -e "console.log('Running Node.js ' + process.version)"
-          sudo npm run build
+          npm run build
           
         
           
