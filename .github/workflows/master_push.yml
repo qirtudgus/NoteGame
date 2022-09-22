@@ -18,6 +18,7 @@ jobs:
         script: |
           sudo su
           cd NoteGame
+          npm cache clean
           sudo git pull
           npm i
           npm run build
