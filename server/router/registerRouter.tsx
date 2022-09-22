@@ -81,7 +81,7 @@ registerRouter.post('/confirmnickname', (req, res, next) => {
 
   db.query(nicknameCheck, [nickname], (err, rows, fields) => {
     if (rows[0] === undefined) {
-      console.log('사용가능한 닉네임');
+      console.log(`${nickname} 사용가능한 닉네임`);
       res.status(200).json({ auth: true, text: '사용 가능한 닉네임입니다.' });
       // res.send(true);
     } else if (rows[0]) {
