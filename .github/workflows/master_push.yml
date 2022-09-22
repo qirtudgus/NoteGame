@@ -1,0 +1,29 @@
+name: remote ssh command
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: pull repo
+    runs-on: ubuntu-latest
+    steps:
+    - name: git pull repository
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd NoteGame
+          sudo git pull
+          npm i
+          npm run build
+          sudo systemctl restart nginx
+          sudo systemctl restart mysqld
+          pm2 kill
+          npx pm2 start server/app.ts
+          
+        
+          
