@@ -22,6 +22,21 @@ jobs:
           sudo git pull
           npm i
           npm run build
+    
+    - name: nginx, mysql restart
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          sudo su
+          cd NoteGame
+          sudo systemctl stop nginx
+          sudo systemctl stop mysqld
+          sudo systemctl start nginx
+          sudo systemctl start mysqld
           
         
           
