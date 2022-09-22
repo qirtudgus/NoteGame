@@ -19,6 +19,8 @@ jobs:
           sudo su
           cd NoteGame
           node -e "console.log('Running Node.js ' + process.version)"
+          sudo git pull
+          npm i
           npm run build
           
         
