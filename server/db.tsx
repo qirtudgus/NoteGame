@@ -1,7 +1,7 @@
 import mysql from 'mysql';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 export const db = mysql.createConnection({
   host: process.env.local_DB_host,
   port: 3306,
