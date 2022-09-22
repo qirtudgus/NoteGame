@@ -20,7 +20,9 @@ jobs:
           cd NoteGame
           sudo git pull
           npm i
+          npm run build
           pm2 kill
+          pm2 install typescript
           npx pm2 start server/app.ts
           
         
