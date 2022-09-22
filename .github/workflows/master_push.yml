@@ -38,5 +38,20 @@ jobs:
           sudo systemctl start nginx
           sudo systemctl start mysqld
           
+    - name: on pm2 server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          sudo su
+          cd NoteGame
+          npx pm2 kill
+          npx pm2 start server/app.ts
+          
+ 
+          
         
           
