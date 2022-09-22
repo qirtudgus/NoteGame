@@ -18,11 +18,7 @@ jobs:
         script: |
           echo 'start'
           sudo su
-          chmod 711 /home/ec2-user
           cd NoteGame
-          pwd
-          sudo git pull
-          npm i
           npm run build
           
         
