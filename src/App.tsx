@@ -90,6 +90,7 @@ function App() {
   return (
     <>
       <p>빌드테스트</p>
+      <p>빌드테스트2</p>
       <BasicInputs
         ref={IdRef}
         value={Id}
