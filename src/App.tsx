@@ -4,7 +4,7 @@ import './App.css';
 import './Reset.css';
 import BasicInputs from './components/BasicInput';
 import BasicBtn from './components/BasicBtn';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './modules/modules_index';
 import { login_request } from './modules/login';
@@ -72,7 +72,7 @@ function App() {
     if (isLogin === true) {
       navigate('/home');
     }
-  }, [isLogin]);
+  }, [isLogin, navigate]);
 
   const statusArr = [
     null,
@@ -80,7 +80,10 @@ function App() {
       <div></div>
     </div>,
     <Check>
-      <img src={하얀체크}></img>
+      <img
+        src={하얀체크}
+        alt='체크표시'
+      ></img>
     </Check>,
     null,
   ];
@@ -89,7 +92,6 @@ function App() {
 
   return (
     <>
-      <p>데스크탑 빌드 테스트</p>
       <BasicInputs
         ref={IdRef}
         value={Id}
