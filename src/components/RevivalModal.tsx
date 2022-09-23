@@ -30,6 +30,7 @@ const Bg = styled.div`
   flex-direction: column;
   align-items: center;
   user-select: none;
+  font-size: 1.2rem;
   & > p {
     font-size: 1.6rem;
     font-weight: bold;
