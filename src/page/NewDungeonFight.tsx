@@ -31,6 +31,49 @@ interface p {
   view: boolean;
 }
 
+const AttackEffect = styled.div`
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 550px;
+`;
+
+const effact = keyframes`
+0% {scale:0; }
+100%{scale:1; }
+`;
+
+const AttackEffectDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  position: relative;
+  border: 10px solid#e5005a;
+  /* animation: ${effact} 0.32s ease;
+  animation-fill-mode: backwards; */
+  animation-name: ${effact};
+  animation-duration: 0.32s;
+  animation-fill-mode: backwards;
+`;
+const AttackEffectDiv2 = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  position: relative;
+  border: 10px solid#e5005a;
+  animation-name: ${effact};
+  animation-duration: 0.32s;
+  animation-fill-mode: backwards;
+  /* animation: ${effact} 0.32s ease;
+  animation-fill-mode: backwards !important; ; */
+`;
+
 const DoubleAttackEffect = styled.div<p>`
   position: absolute;
   transform: scaleX(-1);
@@ -417,6 +460,11 @@ const NewDungeonFight = () => {
 
   return (
     <>
+      <AttackEffect>
+        <AttackEffectDiv>
+          <AttackEffectDiv2></AttackEffectDiv2>
+        </AttackEffectDiv>
+      </AttackEffect>
       {isModal ? (
         <VictoryModal
           isModal={victoryModal}
