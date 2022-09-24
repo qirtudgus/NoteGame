@@ -156,7 +156,7 @@ const ShopPaperPiece = (props: any) => {
   const a = (
     <>
       <p>{buyPaperObj.title}</p>
-      <p>{buyPaperObj.Gold}잉크</p>
+      <p>{buyPaperObj.Gold.toLocaleString()}잉크</p>
       <p>구매하시겠습니까?</p>
       <BasicBtn
         ButtonText='네, 구매하겠습니다.'
@@ -205,8 +205,8 @@ const ShopPaperPiece = (props: any) => {
                 </ShopTitle>
                 <ShopDesc>
                   <p>{i.desc}</p>
-                  <p>체력 {i.Hp}</p>
-                  <p>가격 {i.Gold} 잉크</p>
+                  <p>체력 {i.Hp.toLocaleString()}</p>
+                  <p>가격 {i.Gold.toLocaleString()} 잉크</p>
                 </ShopDesc>
               </ShopTextWrap>
               {

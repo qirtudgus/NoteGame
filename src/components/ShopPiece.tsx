@@ -174,7 +174,7 @@ const ShopPiece = (props: any) => {
   const a = (
     <>
       <p>{buyPenObj.title}</p>
-      <p>{buyPenObj.Gold}골드</p>
+      <p>{buyPenObj.Gold.toLocaleString()}골드</p>
       <p>구매하시겠습니까?</p>
       <BasicBtn
         ButtonText='네, 구매하겠습니다.'
@@ -222,10 +222,10 @@ const ShopPiece = (props: any) => {
                 </ShopTitle>
                 <ShopDesc>
                   <p>{i.desc}</p>
-                  <p>공격력 {i.weaponDamage}</p>
-                  <p>최소 공격률 {Math.min(...i.rewardList)}</p>
-                  <p>최대 공격률 {Math.max(...i.rewardList)}</p>
-                  <p className='penGold'> {i.Gold} 골드</p>
+                  <p>공격력 {i.weaponDamage.toLocaleString()}</p>
+                  <p>최소 공격률 {Math.min(...i.rewardList).toLocaleString()}</p>
+                  <p>최대 공격률 {Math.max(...i.rewardList).toLocaleString()}</p>
+                  <p className='penGold'> {i.Gold.toLocaleString()} 골드</p>
                 </ShopDesc>
               </ShopTextWrap>
               {
