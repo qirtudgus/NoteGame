@@ -42,6 +42,7 @@ export interface userInfoInterface {
   UpRevivalStatPoint: number;
   UpDoubleAttack: number;
   StatPoint: number;
+  isLevelUp: boolean;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {
