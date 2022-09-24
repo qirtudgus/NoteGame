@@ -158,26 +158,33 @@ const Dungeon = () => {
       </MoveBoxWrap>
       <CharacterBox></CharacterBox>
       <BottomBox></BottomBox>
-      {isModal && (
-        <RevivalModal close>
-          <p>환생하시겠습니까?</p>
-          스텟이 모두 초기화됩니다.
-          <br />
-          스텟 포인트 {addSkillPoint} 획득
-          <br />
-          던전 {revivalFloor} 층에서 시작
-          <BasicButtons
-            margin='5px 5px 5px 5px'
-            ButtonText='예'
-            OnClick={() => dispatch(revival_request())}
-          ></BasicButtons>
-          <BasicButtons
-            margin='5px 5px 5px 5px'
-            ButtonText='아니요'
-            OnClick={() => dispatch(modal_failure())}
-          ></BasicButtons>
-        </RevivalModal>
-      )}
+      {isModal ? (
+        userInfo.DungeonFloor < 10 ? (
+          <RevivalModal close>
+            <p>10층부터 환생할 수 있습니다!</p>
+            환생하면 층을 내려오는 대신에<br></br> 10층 당 스텟 1포인트를 받을 수 있습니다!
+          </RevivalModal>
+        ) : (
+          <RevivalModal close>
+            <p>환생하시겠습니까?</p>
+            스텟이 모두 초기화됩니다.
+            <br />
+            스텟 포인트 {addSkillPoint} 획득
+            <br />
+            던전 {revivalFloor} 층에서 시작
+            <BasicButtons
+              margin='5px 5px 5px 5px'
+              ButtonText='예'
+              OnClick={() => dispatch(revival_request())}
+            ></BasicButtons>
+            <BasicButtons
+              margin='5px 5px 5px 5px'
+              ButtonText='아니요'
+              OnClick={() => dispatch(modal_failure())}
+            ></BasicButtons>
+          </RevivalModal>
+        )
+      ) : null}
     </>
   );
 };
