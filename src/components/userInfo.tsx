@@ -109,7 +109,7 @@ const UserGold = styled.div`
 const UserInfo = () => {
   const dispatch = useDispatch();
   const isVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
-  const { Nickname, Level, BasicHp, BasicDamage, WeaponDamage, Gold, Exp } = useSelector(
+  const { Nickname, Level, BasicHp, BasicDamage, WeaponDamage, WeaponHp, Gold, Exp } = useSelector(
     (state: RootState) => state.login.userInfo,
   ) as LoginUserInfoInterface;
 
@@ -122,7 +122,7 @@ const UserInfo = () => {
           <span>Exp</span> {Exp} / {expTable[Level]}
         </UserGold>
         <UserGold as='div'>
-          <span>HP</span> {BasicHp.toLocaleString()}
+          <span>HP</span> {(BasicHp + WeaponHp).toLocaleString()}
         </UserGold>
         <UserGold as='div'>
           <span>
@@ -162,7 +162,7 @@ const UserInfo = () => {
       </UserBox>
       {isVisible ? (
         <UserStat isVisible={isVisible}>
-          <p>체력 {BasicHp}</p>
+          <p>체력 {BasicHp + WeaponHp}</p>
           <p>공격력 {BasicDamage + WeaponDamage}</p>
 
           <p>
