@@ -36,6 +36,9 @@ export const EQUIP_PAPER_SUCCESS = 'login/EQUIP_PAPER_SUCCESS' as const;
 export const REVIVAL_REQUSET = 'login/REVIVAL_REQUSET' as const;
 export const REVIVAL_SUCCESS = 'login/REVIVAL_SUCCESS' as const;
 
+//레벨업 관련 액션
+export const LEVELUP_FAILURE = 'login/LEVELUP_FAILURE' as const;
+
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUserInfo = {
@@ -69,7 +72,13 @@ export let setUserInfo = {
   UpRevivalStatPoint: 0,
   UpDoubleAttack: 0,
   StatPoint: 0,
+  isLevelUp: false,
 };
+
+export const levelup_failure = (setUserInfo: any) => ({
+  type: LEVELUP_FAILURE,
+  userInfo: setUserInfo,
+});
 
 export const equip_paper_request = (paperName: string, WeaponHp: number) => ({
   type: EQUIP_PAPER_REQUEST,
@@ -219,7 +228,8 @@ type LoginAction =
   | ReturnType<typeof equip_paper_success>
   | ReturnType<typeof db_refresh_success>
   | ReturnType<typeof revival_request>
-  | ReturnType<typeof revival_success>;
+  | ReturnType<typeof revival_success>
+  | ReturnType<typeof levelup_failure>;
 
 export interface LoginUserInfoInterface {
   Nickname: string;
@@ -251,6 +261,7 @@ export interface LoginUserInfoInterface {
   UpRevivalStatPoint: number;
   UpDoubleAttack: number;
   StatPoint: number;
+  isLevelUp: boolean;
   [prop: string]: any;
 }
 
@@ -339,6 +350,9 @@ const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): Is
       return { ...state, userInfo: action.userInfo };
     }
     case REVIVAL_SUCCESS: {
+      return { ...state, userInfo: action.userInfo };
+    }
+    case LEVELUP_FAILURE: {
       return { ...state, userInfo: action.userInfo };
     }
     default:
