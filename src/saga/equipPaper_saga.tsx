@@ -11,7 +11,6 @@ const equipPaperApi = async (paperName: string, Hp: number): Promise<boolean> =>
 
 function* equipPaperApi$(action: any): Generator<any, any, any> {
   try {
-    console.log(action);
     const resultUserInfo = yield call(equipPaperApi, action.paperName, action.WeaponHp);
     yield put({ type: EQUIP_PAPER_SUCCESS, userInfo: resultUserInfo.userInfo });
   } catch (E: any) {
