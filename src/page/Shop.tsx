@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
 import ShopPaperList from '../components/shopPaperList';
 import ShopPiece from '../components/ShopPiece';
+import 형광펜 from '../img/형광펜.png';
 const ShopWrap = styled.div`
   width: 90%;
   margin-top: 50px;
@@ -28,6 +29,11 @@ const Shops = styled.div`
   /* background: #aaa; */
 `;
 
+const HighLightAni = keyframes`
+from{transform:scaleX(1); transform-origin:100% 0 0;}
+to{transform:scaleX(0); transform-origin:100% 0 0;}
+`;
+
 const TabWrap = styled.div`
   width: 100%;
   display: flex;
@@ -40,17 +46,54 @@ const Tab = styled.div`
   justify-content: center;
   font-size: 1.6rem;
   align-items: center;
-  background: #aaaaaa;
+  background: #fff;
   margin-right: 5px;
   height: 60px;
   &:last-child {
     margin-right: 0px;
   }
   &:hover {
-    background: #8d8d8d;
+    font-weight: bold;
+    background: #fff;
   }
   &.active {
-    background: #fcbb26;
+    background: #fff;
+    font-weight: bold;
+  }
+  &.active > div {
+  }
+  & > img {
+    display: none;
+  }
+  &.active > div > div {
+    display: block;
+    animation: ${HighLightAni} 0.55s cubic-bezier(0, 0, 0.2, 1);
+    animation-fill-mode: forwards;
+  }
+`;
+
+const HighLight = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & p {
+    z-index: 50;
+  }
+  & > div {
+    width: 200px;
+    height: 50px;
+    background: #fff;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & > img {
+    position: absolute;
+    width: 130px;
   }
 `;
 
@@ -91,7 +134,11 @@ const Shop = () => {
                 className={tabNum === index ? 'active' : ''}
                 onClick={() => SetTabNumberFunc(index)}
               >
-                {i.name}
+                <HighLight>
+                  <p> {i.name}</p>
+                  <div></div>
+                  <img src={형광펜}></img>
+                </HighLight>
               </Tab>
             );
           })}
