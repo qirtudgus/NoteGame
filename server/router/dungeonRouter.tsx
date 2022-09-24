@@ -37,6 +37,7 @@ dungeonRouter.post('/victory', (req, res, next) => {
 
             db.query(loginQuery, [userId], (err, rows, fields) => {
               let userInfo = userInfoProcess(rows[0]);
+              userInfo.isLevelUp = true;
               res.status(200).json({ code: 200, userInfo: userInfo });
             });
           });
@@ -70,6 +71,7 @@ dungeonRouter.post('/victory', (req, res, next) => {
               //마지막에는 유저정보 업데이트
               db.query(loginQuery, [userId], (err, rows, fields) => {
                 const userInfo = userInfoProcess(rows[0]);
+                userInfo.isLevelUp = true;
                 res.status(200).json({ code: 200, userInfo: userInfo });
               });
             });
