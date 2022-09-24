@@ -454,7 +454,7 @@ const NewDungeonFight = () => {
   // 몬스터 호출
   //현재 체력 할당
   useEffect(() => {
-    setHp({ ...hp, userHp: userInfo.BasicHp, monsterHp: monsterInfo.monsterFullHp });
+    setHp({ ...hp, userHp: userInfo.BasicHp + userInfo.WeaponHp, monsterHp: monsterInfo.monsterFullHp });
     setMonsterCall(createRandomNum(0, monsterArr.length - 1));
   }, []);
 
@@ -477,7 +477,7 @@ const NewDungeonFight = () => {
         {isVisible && (
           <HpTextWrap>
             <HpText>
-              {hp.userHp} / {userInfo.BasicHp}
+              {hp.userHp} / {userInfo.BasicHp + userInfo.WeaponHp}
             </HpText>
             <HpText>
               {hp.monsterHp} / {monsterInfo.monsterFullHp}
