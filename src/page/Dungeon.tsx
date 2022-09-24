@@ -11,7 +11,7 @@ import FloorBox from '../components/FloorBox';
 import { useState } from 'react';
 import BtnMenu from '../components/BtnMenu';
 import { modal_failure, modal_success } from '../modules/modalState';
-import { LoginUserInfoInterface, revival_request } from '../modules/login';
+import { levelup_failure, LoginUserInfoInterface, revival_request } from '../modules/login';
 import RevivalModal from '../components/RevivalModal';
 import BasicButtons from '../components/BasicBtn';
 import BasicBtn from '../components/BasicBtn';
@@ -107,6 +107,18 @@ const Dungeon = () => {
 
   return (
     <>
+      {userInfo.isLevelUp && (
+        <RevivalModal>
+          <p>레벨 업!</p>
+          {userInfo.Level - 1} {'->'} {userInfo.Level}
+          <BasicBtn
+            ButtonText='확인'
+            OnClick={() => {
+              dispatch(levelup_failure({ ...userInfo, isLevelUp: false }));
+            }}
+          ></BasicBtn>
+        </RevivalModal>
+      )}
       <BtnMenu
         BackHistory
         Revival
