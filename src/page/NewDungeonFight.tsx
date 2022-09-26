@@ -30,7 +30,10 @@ import { StartBtn } from './NewPenGame';
 interface p {
   view: boolean;
 }
-
+interface effectCoord {
+  top?: number;
+  left?: number;
+}
 const AttackEffect = styled.div`
   width: 400px;
   height: 400px;
@@ -42,11 +45,12 @@ const AttackEffect = styled.div`
 `;
 
 const effact = keyframes`
-0% {scale:0; }
-100%{scale:1; }
+0% {scale:0; border: 10px solid#ffbc26; }
+50% { border: 40px solid#ffbc26;}
+100%{scale:1; border: 0px solid#ffbc26;}
 `;
 
-const AttackEffectDiv = styled.div`
+const AttackEffectDiv = styled.div<effectCoord>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,22 +58,30 @@ const AttackEffectDiv = styled.div`
   height: 250px;
   border-radius: 100%;
   position: relative;
-  border: 10px solid#e5005a;
-  /* animation: ${effact} 0.32s ease;
-  animation-fill-mode: backwards; */
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+  z-index: 1000;
+  scale: 0;
   animation-name: ${effact};
   animation-duration: 0.32s;
   animation-fill-mode: backwards;
+  animation-iteration-count: 1;
+  animation-delay: 0.4s;
+  animation-timing-function: ease;
+  border: 10px solid#ffbc26;
 `;
 const AttackEffectDiv2 = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 100%;
   position: relative;
+  scale: 0;
+
   border: 10px solid#e5005a;
   animation-name: ${effact};
   animation-duration: 0.32s;
   animation-fill-mode: backwards;
+
   /* animation: ${effact} 0.32s ease;
   animation-fill-mode: backwards !important; ; */
 `;
@@ -203,6 +215,9 @@ const NewDungeonFight = () => {
   //이펙트를 담아둔 상태값
   const [effectImg, setEffectImg] = useState<string>(평타);
 
+  //이펙트컴포넌트의 위치값
+  const [effectCoords, setEffectCoords] = useState({ top: 0, left: 0 });
+
   //이겼을 때 모달 상태
   const [isModal, setIsModal] = useState<boolean>(false);
   const [victoryModal, setVictoryModal] = useState<boolean>(false);
@@ -296,6 +311,11 @@ const NewDungeonFight = () => {
     let a = createRandomNum(1, 4);
     return 'attack' + a;
   }
+  function randomEffectCoords() {
+    const top = createRandomNum(-50, 50);
+    const left = createRandomNum(-100, 100);
+    return { top, left };
+  }
 
   //해당 좌표의 엘레먼트를 반환
   const getRewardElement = async (x: number, y: number) => {
@@ -306,6 +326,9 @@ const NewDungeonFight = () => {
       MonsterAttack();
       return;
     }
+
+    //이펙트 좌표 랜덤연산
+    setEffectCoords({ ...randomEffectCoords() });
     //유저데미지 연산
     const userResultDamage = userDamage(
       parseInt(rewardNumber as string),
@@ -460,11 +483,16 @@ const NewDungeonFight = () => {
 
   return (
     <>
-      <AttackEffect>
-        <AttackEffectDiv>
-          <AttackEffectDiv2></AttackEffectDiv2>
-        </AttackEffectDiv>
-      </AttackEffect>
+      {attackAni.monsterHit && (
+        <AttackEffect>
+          <AttackEffectDiv
+            top={effectCoords.top}
+            left={effectCoords.left}
+          >
+            {/* <AttackEffectDiv2></AttackEffectDiv2> */}
+          </AttackEffectDiv>
+        </AttackEffect>
+      )}
       {isModal ? (
         <VictoryModal
           isModal={victoryModal}
@@ -502,17 +530,18 @@ const NewDungeonFight = () => {
           gelatine={attackAni.userHit}
         ></CharacterBox>
         {attackAni.monsterHit ? <DamageText textLeft={550}>{damageText.userAttackDamage}</DamageText> : null}
-        <DoubleAttackEffect
+
+        {/* <DoubleAttackEffect
           id='doubleAttackDiv'
           view={attackAni.doubleAttack}
-        >
-          {/* 이펙트gif가 캐싱되기때문에 캐싱을 방지해야한다.
+        > */}
+        {/* 이펙트gif가 캐싱되기때문에 캐싱을 방지해야한다.
           https://velog.io/@sgyoon/2021-02-21 */}
-          <img
+        {/* <img
             src={`${effectImg}?${attackAni.doubleAttack}`}
             alt='이펙트'
           ></img>
-        </DoubleAttackEffect>
+        </DoubleAttackEffect> */}
 
         <MonsterBox
           attack={attackAni.monster}
