@@ -27,6 +27,7 @@ const BottomBox = styled.div`
 
 const MoveBox = styled.div`
   display: flex;
+  cursor: pointer;
   align-items: center;
   position: absolute;
   left: 30px;
@@ -34,16 +35,24 @@ const MoveBox = styled.div`
   & img {
     width: 50px;
   }
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 const MoveBox2 = styled.div`
   display: flex;
+  cursor: pointer;
+
   align-items: center;
   position: absolute;
   right: 30px;
   font-size: 30px;
   & img {
     width: 50px;
+  }
+  &:hover {
+    font-weight: bold;
   }
 `;
 
