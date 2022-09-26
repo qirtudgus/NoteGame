@@ -174,14 +174,15 @@ const Dungeon = () => {
         userInfo.DungeonFloor < 10 ? (
           <RevivalModal close>
             <p>10층부터 환생할 수 있습니다!</p>
-            환생하면 층을 내려오는 대신에<br></br> 10층 당 스텟 1포인트를 받을 수 있습니다!
+            환생하면 층을 내려오는 대신에<br></br> 스텟이 모두 초기화되고, 10층당 1, 레벨당 5의 스텟포인트를 획득할 수
+            있습니다.
           </RevivalModal>
         ) : (
           <RevivalModal close>
             <p>환생하시겠습니까?</p>
-            스텟이 모두 초기화됩니다.
+            스텟이 모두 초기화되고, 10층당 1,레벨당 5의 포인트를 획득합니다.
             <br />
-            스텟 포인트 {addSkillPoint} 획득
+            스텟 포인트 {addSkillPoint + userInfo.Level * 5} 획득
             <br />
             던전 {revivalFloor} 층에서 시작
             <BasicButtons
