@@ -52,7 +52,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    setInterval(() => msgRandomReturn(), 3000);
+    setInterval(() => msgRandomReturn(), 5000);
   }, []);
 
   return (
@@ -60,7 +60,7 @@ const Home = () => {
       <BtnMenu LogOut></BtnMenu>
       <MessageBox>{msgArr[msgRandomNumber]}</MessageBox>
       <CallCharacterMsg onClick={msgRandomReturn}>
-        <CharacterBox></CharacterBox>
+        <CharacterBox normally={true}></CharacterBox>
       </CallCharacterMsg>
       <FooterMenu></FooterMenu>
     </>
