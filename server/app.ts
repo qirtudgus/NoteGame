@@ -33,6 +33,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//mysql connection 끊김 방지를 위해 1시간마다 쿼리를 날린다.
+setInterval(() => {
+  db.query('SELECT 1', [], (err, rows, fields) => {
+    console.log('커넥션 끊김방지 쿼리');
+  });
+}, 3600000);
+
 //express req 속성 추가
 declare module 'express-serve-static-core' {
   interface Request {
