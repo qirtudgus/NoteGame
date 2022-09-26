@@ -28,7 +28,10 @@ const ShopTextWrap = styled.div`
 `;
 
 const ShopDesc = styled.div`
-  font-size: 16px;
+  font-size: 18px;
+  & .penGold {
+    text-align: right;
+  }
 `;
 const ShopIcon = styled(ButtonColor)`
   width: 100px;
@@ -206,7 +209,7 @@ const ShopPaperPiece = (props: any) => {
                 <ShopDesc>
                   <p>{i.desc}</p>
                   <p>체력 {i.Hp.toLocaleString()}</p>
-                  <p>가격 {i.Gold.toLocaleString()} 잉크</p>
+                  <p className='penGold'>가격 {i.Gold.toLocaleString()} 잉크</p>
                 </ShopDesc>
               </ShopTextWrap>
               {

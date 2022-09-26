@@ -28,7 +28,7 @@ const ShopTextWrap = styled.div`
 `;
 
 const ShopDesc = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   & .penGold {
     text-align: right;
   }
