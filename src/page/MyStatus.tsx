@@ -27,6 +27,7 @@ const Status = styled.div`
   height: 100%;
   box-shadow: 0px 0px 7px 6px rgb(0 0 0 / 20%);
   overflow: hidden;
+  z-index: 10;
   /* background: #aaa; */
 `;
 
