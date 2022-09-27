@@ -12,10 +12,8 @@ const loginQuery = 'SELECT * FROM users WHERE ID = ?';
 const ExpCheckQuery = 'SELECT NeedExp FROM leveltable WHERE Level = ?';
 const LevelUpQuery = `UPDATE users SET Level = Level + 1 ,Exp = 0, SkillPoint = SkillPoint + 1, StatPoint = StatPoint + 5 WHERE ID = ?`;
 const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor, UpRevivalStatPoint FROM users WHERE Id = ?`;
-
-//환생은 10층 당 1 + 렙 x 5 지급하자, 기존에 스텟에서 합치는게 아니라, 변경을 해주자. 그럼 환생을 여러번해도 이득이 없다.
 const RevivalUpdateQuery =
-  'UPDATE users SET DungeonFloor = ?, StatPoint = ? + (Level * 5), RevivalCount = RevivalCount + 1, UpGoldPen = 0, UpGoldHunt = 0, UpMaxHp = 0, UpBasicDamage = 0, BetterPen = 0 WHERE ID = ?';
+  'UPDATE users SET DungeonFloor = ?, StatPoint = StatPoint + ?, RevivalCount = RevivalCount + 1 WHERE ID = ?';
 
 //맥스층 갱신 쿼리
 // const MaxFloorUpdateQuery;
