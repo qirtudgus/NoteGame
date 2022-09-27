@@ -78,7 +78,7 @@ const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
 };
 app.use(jwtCheck);
 //회원가입 라우터
-app.use('/register', registerRouter);
+app.use('/api/register', registerRouter);
 //로그인 라우터
 app.use('/api/login', loginRouter);
 //팬게임 라우터
