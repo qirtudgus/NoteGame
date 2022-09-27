@@ -1,10 +1,7 @@
-import BtnMenu from '../components/BtnMenu';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../modules/login';
 import BasicBtn from '../components/BasicBtn';
 const TokenExpired = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const logOutRequest = () => {
     dispatch(logout());

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import Pen from '../components/Pen';
 import { LoginUserInfoInterface, pengame_request } from '../modules/login';

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface } from '../modules/login';
 import BasicBtn from './BasicBtn';

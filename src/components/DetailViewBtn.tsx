@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import visible from '../img/visible.svg';
 import visibleoff from '../img/visibleoff.svg';
 import React from 'react';
@@ -24,7 +23,6 @@ const VisibleOffImg = styled.img.attrs({
 `;
 
 const DetailViewBtn = (props: any) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isVisible = useSelector((state: RootState) => state.visibleState.isVisible) as boolean;
   return (

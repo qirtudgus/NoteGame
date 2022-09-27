@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import 랭킹 from '../img/랭킹2.svg';
 import 던전 from '../img/던전2.svg';
 import 볼펜굴리기 from '../img/볼펜굴리기2.svg';

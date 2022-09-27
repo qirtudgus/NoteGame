@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
 import ShopPaperList from '../components/shopPaperList';
@@ -137,7 +137,10 @@ const Shop = () => {
                 <HighLight>
                   <p> {i.name}</p>
                   <div></div>
-                  <img src={형광펜}></img>
+                  <img
+                    src={형광펜}
+                    alt='형광펜'
+                  ></img>
                 </HighLight>
               </Tab>
             );

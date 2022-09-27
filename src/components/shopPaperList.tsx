@@ -109,7 +109,6 @@ const ShopPaperPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
-  const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
   const buyPaperList = useSelector((state: RootState) => state.buyPaperListRequest.buyPaperList);
   const [goldCheck, setGoldCheck] = useState(true);
   const [buyPaperObj, setBuyPaperObj] = useState({

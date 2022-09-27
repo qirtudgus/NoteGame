@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-import { LoginUserInfoInterface, skill_request, stat_request } from '../modules/login';
+import { LoginUserInfoInterface, stat_request } from '../modules/login';
 import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';

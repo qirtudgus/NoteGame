@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 // import { expTable } from '../util/ExpTable';
@@ -8,7 +8,7 @@ import 물음표 from '../img/물음표_원형.svg';
 import 칼 from '../img/흰칼.svg';
 import 잉크 from '../img/잉크.png';
 import { LoginUserInfoInterface } from '../modules/login';
-import { userInfo_visible_on, userInfo_visible_off } from '../modules/userInfoVisible';
+import { userInfo_visible_on } from '../modules/userInfoVisible';
 
 const BasicBox = styled.div`
   width: 100%;
@@ -47,37 +47,6 @@ const UserLevel = styled.div`
   margin-left: 0.1rem;
   padding: 3px 0.6rem 3px 0.6rem;
   border-radius: 6px;
-`;
-
-const UserStat = styled.div<btnAni>`
-  position: relative;
-  padding: 3px;
-  ${(props) => props.isVisible && css``}
-`;
-
-interface btnAni {
-  isVisible: boolean;
-}
-
-const UserBtnCircle = styled.div<btnAni>`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  left: 5px;
-  border-radius: 100px;
-  height: 35px;
-  width: 35px;
-  background: #fff;
-  ${(props) =>
-    props.isVisible &&
-    css`
-      & > img {
-        transition: 0.2s all;
-        transform: rotate(0deg);
-      }
-    `}
 `;
 
 const UserGold = styled.div`

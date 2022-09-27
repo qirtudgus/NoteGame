@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { RootState } from '../modules/modules_index';
 // import { PenImgDun, PenImgWrapDun, PenEndDun } from '../styledComponents/DungeonFight_Effect';
 import { LoginUserInfoInterface } from '../modules/login';

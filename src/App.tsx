@@ -40,7 +40,6 @@ function App() {
   const [Password, setPassword] = useState<string>('');
   // const [isLoading, setIsLoading] = useState(false);
   const isLogin = useSelector((state: RootState) => state.login.isLogin);
-  const isLoading = useSelector((state: RootState) => state.isLoadingRequest.isLoading);
   const isLoadingText = useSelector((state: RootState) => state.isLoadingRequest.text);
   const isLoadingCode = useSelector((state: RootState) => state.isLoadingRequest.code);
 

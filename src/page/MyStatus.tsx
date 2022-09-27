@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
 import StatusPiece from '../components/StatusPiece';
