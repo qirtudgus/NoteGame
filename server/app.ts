@@ -22,6 +22,7 @@ import { dungeonRouter } from './router/dungeonRouter.js';
 import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 import { rankingRouter } from './router/rankingRouter.js';
 import { statRouter } from './router/statRouter.js';
+import { builtinModules } from 'module';
 // import { mailRouter } from './router/mailRouter.js';
 const SERVER_PORT = 3001;
 db.connect((err: any) => {
@@ -82,17 +83,17 @@ app.use('/api/register', registerRouter);
 //로그인 라우터
 app.use('/api/login', loginRouter);
 //팬게임 라우터
-app.use('/pengame', pengameRouter);
+app.use('/api/pengame', pengameRouter);
 //스킬 라우터
-app.use('/skill', skillRouter);
+app.use('/api/skill', skillRouter);
 //스킬 라우터
-app.use('/stat', statRouter);
+app.use('/api/stat', statRouter);
 //던전 라우터
-app.use('/dungeon', dungeonRouter);
+app.use('/api/dungeon', dungeonRouter);
 //상점 및 장착 라우터
-app.use('/shop', buyBallpenListRouter);
+app.use('/api/shop', buyBallpenListRouter);
 //랭킹 라우터
-app.use('/ranking', rankingRouter);
+app.use('/api/ranking', rankingRouter);
 // //메일 라우터
 // app.use('/mail', mailRouter);
 app.listen(SERVER_PORT, () => {
