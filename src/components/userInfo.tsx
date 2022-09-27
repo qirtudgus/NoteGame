@@ -4,12 +4,12 @@ import { RootState } from '../modules/modules_index';
 // import { expTable } from '../util/ExpTable';
 import { expTable } from '../util/expTable';
 import React from 'react';
-import 위쪽화살표 from '../img/위쪽화살표.svg';
+import 물음표 from '../img/물음표_원형.svg';
 import 칼 from '../img/흰칼.svg';
 import 잉크 from '../img/잉크.png';
 import { LoginUserInfoInterface } from '../modules/login';
 import { userInfo_visible_on, userInfo_visible_off } from '../modules/userInfoVisible';
-import { ButtonColor } from './BtnMenu';
+
 const BasicBox = styled.div`
   width: 100%;
   position: absolute;
@@ -106,9 +106,21 @@ const UserGold = styled.div`
   }
 `;
 
+const Help = styled.div`
+  cursor: pointer;
+  z-index: 1000;
+  position: absolute;
+  right: 30px;
+  margin-left: 0.6rem;
+  width: 40px;
+  height: 40px;
+  & img {
+    width: 100%;
+  }
+`;
+
 const UserInfo = () => {
   const dispatch = useDispatch();
-  const isVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
   const { Nickname, Level, BasicHp, BasicDamage, WeaponDamage, WeaponHp, Gold, Exp } = useSelector(
     (state: RootState) => state.login.userInfo,
   ) as LoginUserInfoInterface;
@@ -142,34 +154,13 @@ const UserInfo = () => {
           </span>
           {Gold.toLocaleString()}
         </UserGold>
-        {/* <UserBtnCircle
-          isVisible={isVisible}
-          onClick={
-            isVisible
-              ? () => {
-                  dispatch(userInfo_visible_off());
-                }
-              : () => {
-                  dispatch(userInfo_visible_on());
-                }
-          }
+        <Help
+          onClick={() => dispatch(userInfo_visible_on())}
+          title='도움말'
         >
-          <img
-            src={위쪽화살표}
-            alt='보기'
-          ></img>
-        </UserBtnCircle> */}
+          <img src={물음표}></img>
+        </Help>
       </UserBox>
-      {isVisible ? (
-        <UserStat isVisible={isVisible}>
-          <p>체력 {BasicHp + WeaponHp}</p>
-          <p>공격력 {BasicDamage + WeaponDamage}</p>
-
-          <p>
-            경험치 {Exp} / {expTable[Level]}
-          </p>
-        </UserStat>
-      ) : null}
     </BasicBox>
   );
 };
