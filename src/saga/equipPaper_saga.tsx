@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { EQUIP_PAPER_REQUEST, EQUIP_PAPER_SUCCESS, LOGIN_FAILURE } from '../modules/login';
+import { EQUIP_PAPER_REQUEST, EQUIP_PAPER_SUCCESS } from '../modules/login';
 import { customAxios } from '../util/axios';
 import { error_saga } from '../util/error_saga';
 

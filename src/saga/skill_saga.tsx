@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { LOGIN_FAILURE, SKILL_REQUEST, SKILL_UP } from '../modules/login';
+import { SKILL_REQUEST, SKILL_UP } from '../modules/login';
 import customAxios from '../util/axios';
 import { error_saga } from '../util/error_saga';
 

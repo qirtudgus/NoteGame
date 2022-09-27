@@ -5,7 +5,7 @@ import {
   UPDATE_PAPER_REQUEST,
   UPDATE_PAPER_SUCCESS,
 } from '../modules/buyPaperList';
-import { DB_REFRESH_SUCCESS, LOGIN_FAILURE } from '../modules/login';
+import { DB_REFRESH_SUCCESS } from '../modules/login';
 import customAxios from '../util/axios';
 import { error_saga } from '../util/error_saga';
 

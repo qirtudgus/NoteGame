@@ -5,7 +5,7 @@ import {
   REAL_BUY_BALLPEN_REQUEST,
   REAL_BUY_BALLPEN_SUCCESS,
 } from '../modules/buyBallpenList';
-import { DB_REFRESH_SUCCESS, LOGIN_FAILURE } from '../modules/login';
+import { DB_REFRESH_SUCCESS } from '../modules/login';
 import { customAxios } from '../util/axios';
 import { error_saga } from '../util/error_saga';
 

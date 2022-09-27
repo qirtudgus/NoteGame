@@ -1,5 +1,5 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { LOGIN_FAILURE, STAT_REQUEST, STAT_UP } from '../modules/login';
+import { STAT_REQUEST, STAT_UP } from '../modules/login';
 import customAxios from '../util/axios';
 import { error_saga } from '../util/error_saga';
 

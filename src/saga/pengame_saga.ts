@@ -1,6 +1,5 @@
-import { AxiosError } from 'axios';
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
-import { LOGIN_FAILURE, PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
+import { PENGAME_MULTIPLE, PENGAME_REQUEST } from '../modules/login';
 import customAxios from '../util/axios';
 import { error_saga } from '../util/error_saga';
 
