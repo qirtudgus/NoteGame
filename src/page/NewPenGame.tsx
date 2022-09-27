@@ -41,6 +41,7 @@ export const StartBtn = styled(ButtonColor)<startButton>`
 
 const NewPenGame = () => {
   const dispatch = useDispatch();
+  const isHelpVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
 
   const [penAnimation, setPenAnimation] = useState(true);
   const [startBtn, setStartBtn] = useState(false);
@@ -143,21 +144,26 @@ const NewPenGame = () => {
   };
 
   //스페이스바로 게임 시작
-  const gameStart = useCallback((e: any) => {
-    console.log('이벤트');
-    let startBtn: HTMLElement = document.getElementById('StartBtn') as HTMLElement;
-    let nextBtn: HTMLElement = document.getElementById('nextBtn') as HTMLElement;
-    if (e.keyCode === 32) {
-      if (nextBtn) {
-        nextBtn.click();
-        return;
+  const gameStart = useCallback(
+    (e: any) => {
+      if (isHelpVisible === true) {
+        return false;
       }
-      if (startBtn) {
-        startBtn.click();
-        return;
+      let startBtn: HTMLElement = document.getElementById('StartBtn') as HTMLElement;
+      let nextBtn: HTMLElement = document.getElementById('nextBtn') as HTMLElement;
+      if (e.keyCode === 32) {
+        if (nextBtn) {
+          nextBtn.click();
+          return;
+        }
+        if (startBtn) {
+          startBtn.click();
+          return;
+        }
       }
-    }
-  }, []);
+    },
+    [isHelpVisible],
+  );
 
   useEffect(() => {
     //userInfo값이 세팅되기전에는 애니메이션이 시작되지않음
