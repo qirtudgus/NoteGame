@@ -80,7 +80,7 @@ app.use(jwtCheck);
 //회원가입 라우터
 app.use('/register', registerRouter);
 //로그인 라우터
-app.use('/login', loginRouter);
+app.use('/api/login', loginRouter);
 //팬게임 라우터
 app.use('/pengame', pengameRouter);
 //스킬 라우터
