@@ -266,7 +266,10 @@ const NewDungeonFight = () => {
   //새로고침 시 뒤로가기 (잘못된 플레이 방지)
   if (monsterInfo.monsterFullHp === 0) navigate(-1);
   //디테일 뷰 상태값
-  const isVisible = useSelector((state: RootState) => state.visibleState.isVisible) as boolean;
+  const isDetailVisible = useSelector((state: RootState) => state.visibleState.isVisible) as boolean;
+
+  //도움말 열린지 여부값
+  const isHelpVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
 
   //더블어택 함수
   const useDoubleAttack = () => {
@@ -291,21 +294,27 @@ const NewDungeonFight = () => {
   };
 
   //스페이스바로 게임 시작
-  const gameStart = useCallback((e: any) => {
-    console.log('이벤트');
-    let startBtn: HTMLElement = document.getElementById('StartBtn') as HTMLElement;
-    let nextBtn: HTMLElement = document.getElementById('nextBtn') as HTMLElement;
-    if (e.keyCode === 32) {
-      if (nextBtn) {
-        nextBtn.click();
-        return;
+  const gameStart = useCallback(
+    (e: any) => {
+      console.log('이벤트');
+      if (isHelpVisible === true) {
+        return false;
       }
-      if (startBtn) {
-        startBtn.click();
-        return;
+      let startBtn: HTMLElement = document.getElementById('StartBtn') as HTMLElement;
+      let nextBtn: HTMLElement = document.getElementById('nextBtn') as HTMLElement;
+      if (e.keyCode === 32) {
+        if (nextBtn) {
+          nextBtn.click();
+          return;
+        }
+        if (startBtn) {
+          startBtn.click();
+          return;
+        }
       }
-    }
-  }, []);
+    },
+    [isHelpVisible],
+  );
 
   function randomAttack(): string {
     let a = createRandomNum(1, 4);
@@ -502,7 +511,7 @@ const NewDungeonFight = () => {
         ></VictoryModal>
       ) : null}
       <FightState>
-        {isVisible && (
+        {isDetailVisible && (
           <HpTextWrap>
             <HpText>
               {hp.userHp} / {userInfo.BasicHp + userInfo.WeaponHp}
@@ -561,7 +570,7 @@ const NewDungeonFight = () => {
         penTop={penCoords.top}
         penLeft={penCoords.left}
         penWidth={50}
-        detailView={isVisible}
+        detailView={isDetailVisible}
       ></Pen>
       <BtnMenu
         BackHistory
