@@ -12,6 +12,7 @@ import getStatUpRequestSaga from './stat_saga';
 import getBuyPaperRequestApiSaga from './buyPaper_saga';
 import getEquipPaperSaga from './equipPaper_saga';
 import getConfirmNicknameApiSaga from './confirmNickname_saga';
+import getIsHelpModalApiSaga from './isHelpModal_saga';
 function* rootSaga() {
   yield all([
     fork(getRegisterApiSaga),
@@ -27,6 +28,7 @@ function* rootSaga() {
     fork(getStatUpRequestSaga),
     fork(getBuyPaperRequestApiSaga),
     fork(getEquipPaperSaga),
+    fork(getIsHelpModalApiSaga),
   ]);
 }
 
