@@ -7,10 +7,11 @@ import { JwtPayload } from 'jsonwebtoken';
 import { userInfoProcess } from '../../src/util/userInfoProcess.js';
 
 export const loginRouter = express.Router();
+const loginQuery = 'SELECT * FROM users WHERE ID = ?';
+const helpModalQuery = 'UPDATE users SET IsHelpModal = 1 WHERE ID = ?';
 
 loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
   const { id, password } = req.body;
-  const loginQuery = 'SELECT * FROM users WHERE ID = ?';
   db.query(loginQuery, [id], function (err, rows, fields) {
     // db조회값이 없을 시
     if (rows[0] === undefined) {
@@ -77,4 +78,15 @@ loginRouter.post('/localstorage', (req, res) => {
     console.log(e);
     res.status(200).json({ code: 201, token: undefined, id: undefined });
   }
+});
+
+loginRouter.post('/ishelpmodal_confirm', (req, res) => {
+  const userId = req.decoded.userId;
+
+  db.query(helpModalQuery, [userId], (err, rows, fields) => {
+    db.query(loginQuery, [userId], (err, rows, fields) => {
+      const uesrInfo = userInfoProcess(rows[0]);
+      res.status(200).json({ code: 200, userInfo: uesrInfo });
+    });
+  });
 });
