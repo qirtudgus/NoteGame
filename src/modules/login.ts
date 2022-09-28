@@ -39,6 +39,10 @@ export const REVIVAL_SUCCESS = 'login/REVIVAL_SUCCESS' as const;
 //레벨업 관련 액션
 export const LEVELUP_FAILURE = 'login/LEVELUP_FAILURE' as const;
 
+//도움말 모달 관련 액션
+export const ISHELPMODAL_CONFIRM = 'login/ISHELPMODAL_CONFIRM' as const;
+export const ISHELPMODAL_SUCCESS = 'login/ISHELPMODAL_SUCCESS' as const;
+
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUserInfo = {
@@ -73,7 +77,17 @@ export let setUserInfo = {
   UpDoubleAttack: 0,
   StatPoint: 0,
   isLevelUp: false,
+  IsHelpModal: 0,
 };
+
+export const ishelpmodal_confirm = () => ({
+  type: ISHELPMODAL_CONFIRM,
+});
+
+export const ishelpmodal_success = () => ({
+  type: ISHELPMODAL_SUCCESS,
+  userInfo: setUserInfo,
+});
 
 export const levelup_failure = (setUserInfo: any) => ({
   type: LEVELUP_FAILURE,
@@ -229,7 +243,9 @@ type LoginAction =
   | ReturnType<typeof db_refresh_success>
   | ReturnType<typeof revival_request>
   | ReturnType<typeof revival_success>
-  | ReturnType<typeof levelup_failure>;
+  | ReturnType<typeof levelup_failure>
+  | ReturnType<typeof ishelpmodal_confirm>
+  | ReturnType<typeof ishelpmodal_success>;
 
 export interface LoginUserInfoInterface {
   Nickname: string;
@@ -262,6 +278,7 @@ export interface LoginUserInfoInterface {
   UpDoubleAttack: number;
   StatPoint: number;
   isLevelUp: boolean;
+  IsHelpModal: number;
   [prop: string]: any;
 }
 
@@ -353,6 +370,9 @@ const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): Is
       return { ...state, userInfo: action.userInfo };
     }
     case LEVELUP_FAILURE: {
+      return { ...state, userInfo: action.userInfo };
+    }
+    case ISHELPMODAL_SUCCESS: {
       return { ...state, userInfo: action.userInfo };
     }
     default:
