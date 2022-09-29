@@ -119,7 +119,10 @@ const Dungeon = () => {
       {userInfo.isLevelUp && (
         <RevivalModal>
           <p>레벨 업!</p>
-          {userInfo.Level - 1} {'->'} {userInfo.Level}
+          <p>
+            {userInfo.Level - 1} {'->'} {userInfo.Level}
+          </p>
+          스텟 포인트 5 획득<br></br> 스킬 포인트 1 획득
           <BasicBtn
             ButtonText='확인'
             OnClick={() => {
