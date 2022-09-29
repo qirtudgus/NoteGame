@@ -88,12 +88,13 @@ const ShopBtn = styled(ButtonColor)<buy>`
 `;
 
 const ShopBox = styled.div<shopBoxInterface>`
-  width: 100%;
+  width: auto;
   height: 150px;
   background: #fff;
   margin-bottom: 4px;
   display: flex;
   /* border-radius: 10px; */
+  border: 1px solid#aaa;
   justify-content: space-between;
   //장착한 장비의 css
   ${(props) =>

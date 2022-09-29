@@ -88,10 +88,12 @@ const ShopBtn = styled(ButtonColor)<buy>`
 `;
 
 const ShopBox = styled.div<shopBoxInterface>`
-  width: 100%;
+  width: auto;
+
   height: 150px;
   background: #fff;
   margin-bottom: 4px;
+  border: 1px solid#aaa;
   display: flex;
   /* border-radius: 10px; */
   justify-content: space-between;
