@@ -79,12 +79,16 @@ const Help = styled.div`
   cursor: pointer;
   z-index: 1000;
   position: absolute;
+  border-radius: 100%;
   right: 30px;
   margin-left: 0.6rem;
   width: 40px;
   height: 40px;
   & img {
     width: 100%;
+  }
+  &:hover {
+    box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 35%);
   }
 `;
 
