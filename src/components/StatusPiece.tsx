@@ -5,6 +5,7 @@ import { LoginUserInfoInterface, stat_request } from '../modules/login';
 import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
+import 스킬아이콘배경 from '../img/스킬아이콘배경.jpg';
 import { StatName, StatValue } from './StatList';
 
 interface skillBoxInterface {
@@ -15,17 +16,17 @@ interface skillBoxInterface {
   icon?: string;
 }
 
-const StatBox = styled(ButtonColor)<skillBoxInterface>`
-  width: 100%;
+const StatBox = styled.div<skillBoxInterface>`
+  width: auto;
   height: 100px;
   background: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 4px;
   display: flex;
+  border: 1px solid#aaa;
   justify-content: space-between;
-
-  &:first-child {
+  /* &:first-child {
     margin-top: 20px;
-  }
+  } */
   &:last-child {
     margin-bottom: 20px;
   }
@@ -38,13 +39,14 @@ const StatTextWrap = styled.div`
   width: 400px;
 `;
 const StatTitle = styled.p`
-  font-size: 22px;
+  font-size: 19px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
 const StatDesc = styled.p`
   font-size: 16px;
 `;
+
 const StatIcon = styled.div`
   width: 100px;
   height: 100px;
@@ -53,7 +55,7 @@ const StatIcon = styled.div`
 
 const StatBtn = styled(ButtonColor)`
   cursor: pointer;
-
+  padding: 0 5px;
   width: 10%;
   height: 100px;
   background: #fff;
@@ -68,10 +70,26 @@ const StatBtn = styled(ButtonColor)`
   }
 `;
 
+const StatLevel = styled.div`
+  width: 11%;
+  padding: 0 5px;
+  height: 100px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  & p {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+`;
+
 const StatWrap = styled.div`
   height: 480px;
   overflow-y: scroll;
-  background: #eaeaea;
+  background: #333;
 `;
 
 const StatList = styled.li`
@@ -129,13 +147,21 @@ const StatusPiece = (props: any) => {
               as='div'
               key={index}
             >
-              <StatIcon></StatIcon>
+              <StatIcon>
+                <img
+                  src={스킬아이콘배경}
+                  alt='스킬아이콘'
+                ></img>
+              </StatIcon>
               <StatTextWrap>
                 <StatTitle>
                   {i.title} Lv . {i.level}
                 </StatTitle>
                 <StatDesc>{i.desc}</StatDesc>
               </StatTextWrap>
+              <StatLevel>
+                <p>{i.level}</p>스텟레벨
+              </StatLevel>
               <StatBtn
                 onClick={() => {
                   if (userInfo.StatPoint <= 0) return;

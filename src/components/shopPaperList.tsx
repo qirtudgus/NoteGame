@@ -64,7 +64,7 @@ const ShopTitle = styled.div<shopBoxInterface>`
 const ShopWrap = styled.div`
   height: 480px;
   overflow-y: scroll;
-  background: #eaeaea;
+  background: #333;
 `;
 
 interface buy {
@@ -87,11 +87,11 @@ const ShopBtn = styled(ButtonColor)<buy>`
   }
 `;
 
-const ShopBox = styled(ButtonColor)<shopBoxInterface>`
+const ShopBox = styled.div<shopBoxInterface>`
   width: 100%;
   height: 150px;
   background: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 4px;
   display: flex;
   /* border-radius: 10px; */
   justify-content: space-between;
@@ -100,8 +100,8 @@ const ShopBox = styled(ButtonColor)<shopBoxInterface>`
     props.penname === props.nowEquip &&
     css`
       background: #ffbc26;
-      outline: 2px solid#888;
-      outline-offset: -2px;
+      /* outline: 2px solid#888;
+      outline-offset: -2px; */
     `}
 `;
 

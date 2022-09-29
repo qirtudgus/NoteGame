@@ -5,6 +5,7 @@ import { LoginUserInfoInterface, skill_request } from '../modules/login';
 import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
+import 스킬아이콘배경 from '../img/스킬아이콘배경.jpg';
 import { StatName, StatValue } from './StatList';
 import { modal_success } from '../modules/modalState';
 import RevivalModal from './RevivalModal';
@@ -17,16 +18,17 @@ interface skillBoxInterface {
   descColor?: string;
 }
 
-const SkillBox = styled(ButtonColor)<skillBoxInterface>`
-  width: 100%;
+const SkillBox = styled.div<skillBoxInterface>`
+  width: auto;
   height: 100px;
   background: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 4px;
   display: flex;
+  border: 1px solid#aaa;
   justify-content: space-between;
-  &:first-child {
+  /* &:first-child {
     margin-top: 20px;
-  }
+  } */
   &:last-child {
     margin-bottom: 20px;
   }
@@ -40,7 +42,7 @@ const SkillTextWrap = styled.div`
   width: 400px;
 `;
 const SkillTitle = styled.p`
-  font-size: 22px;
+  font-size: 19px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
@@ -48,6 +50,14 @@ const SkillDesc = styled.p<skillBoxInterface>`
   font-size: 16px;
   color: ${(props) => props.descColor};
 `;
+
+const SkillNeedLevel = styled.p<skillBoxInterface>`
+  font-size: 16px;
+  position: relative;
+  top: 20px;
+  color: ${(props) => props.descColor};
+`;
+
 const SkillIcon = styled.div`
   width: 100px;
   height: 100px;
@@ -58,8 +68,10 @@ const SkillBtn = styled(ButtonColor)`
   cursor: pointer;
   width: 10%;
   height: 100px;
+  padding: 0 5px;
   background: #fff;
   display: flex;
+
   justify-content: center;
   align-items: center;
   & img {
@@ -70,10 +82,26 @@ const SkillBtn = styled(ButtonColor)`
   }
 `;
 
+const SkillLevel = styled.div`
+  width: 10%;
+  padding: 0 5px;
+  height: 100px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  & p {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+`;
+
 const SkillWrap = styled.div`
   height: 480px;
   overflow-y: scroll;
-  background: #eaeaea;
+  background: #333;
 `;
 
 const StatList = styled.li`
@@ -162,14 +190,21 @@ const SkillPiece = (props: any) => {
               key={index}
               className='requestLevel'
             >
-              <SkillIcon></SkillIcon>
+              <SkillIcon>
+                <img
+                  src={스킬아이콘배경}
+                  alt='스킬아이콘'
+                ></img>
+              </SkillIcon>
               <SkillTextWrap>
-                <SkillTitle>
-                  {i.title} Lv . {i.level}
-                </SkillTitle>
-                <SkillDesc descColor='#f01616'>요구레벨 {i.requestLevel}</SkillDesc>
+                <SkillTitle>{i.title}</SkillTitle>
+
                 <SkillDesc>{i.desc}</SkillDesc>
+                <SkillNeedLevel descColor='#f01616'>요구 레벨 {i.requestLevel}</SkillNeedLevel>
               </SkillTextWrap>
+              <SkillLevel>
+                <p>{i.level}</p> 스킬레벨
+              </SkillLevel>
               <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
                   src={플러스}
@@ -182,14 +217,22 @@ const SkillPiece = (props: any) => {
               as='div'
               key={index}
             >
-              <SkillIcon></SkillIcon>
+              <SkillIcon>
+                {' '}
+                <img
+                  src={스킬아이콘배경}
+                  alt='스킬아이콘'
+                ></img>
+              </SkillIcon>
               <SkillTextWrap>
-                <SkillTitle>
-                  {i.title} Lv . {i.level}
-                </SkillTitle>
-                <SkillDesc>요구레벨 {i.requestLevel}</SkillDesc>
+                <SkillTitle>{i.title}</SkillTitle>
+
                 <SkillDesc>{i.desc}</SkillDesc>
+                <SkillNeedLevel>요구 레벨 {i.requestLevel}</SkillNeedLevel>
               </SkillTextWrap>
+              <SkillLevel>
+                <p>{i.level}</p> 스킬레벨
+              </SkillLevel>
               <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
                   src={플러스}

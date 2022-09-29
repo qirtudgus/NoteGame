@@ -28,7 +28,7 @@ const Status = styled.div`
   box-shadow: 0px 0px 7px 6px rgb(0 0 0 / 20%);
   overflow: hidden;
   z-index: 10;
-  /* background: #aaa; */
+  background: #333;
 `;
 
 const TabWrap = styled.div`
@@ -49,6 +49,7 @@ const Tab = styled.div`
   align-items: center;
   background: #fff;
   margin-right: 5px;
+  color: #888;
   height: 60px;
   &:last-child {
     margin-right: 0px;
@@ -58,6 +59,7 @@ const Tab = styled.div`
     background: #fff;
   }
   &.active {
+    color: #000;
     background: #fff;
     font-weight: bold;
   }

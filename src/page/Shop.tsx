@@ -26,7 +26,7 @@ const Shops = styled.div`
   height: 100%;
   box-shadow: 0px 0px 7px 6px rgb(0 0 0 / 20%);
   overflow: hidden;
-  /* background: #aaa; */
+  background: #333;
 `;
 
 const HighLightAni = keyframes`
@@ -45,6 +45,7 @@ const Tab = styled.div`
   display: flex;
   justify-content: center;
   font-size: 1.6rem;
+  color: #888;
   align-items: center;
   background: #fff;
   margin-right: 5px;
@@ -59,6 +60,7 @@ const Tab = styled.div`
   &.active {
     background: #fff;
     font-weight: bold;
+    color: #000;
   }
   &.active > div {
   }

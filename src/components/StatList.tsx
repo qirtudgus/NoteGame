@@ -12,7 +12,7 @@ const StatLists = styled.li`
 `;
 
 export const StatName = styled.span`
-  width: 50%;
+  width: 31.1%;
   height: 35px;
   padding: 5px 0 5px 10px;
   background: #eee;
@@ -25,12 +25,12 @@ export const StatName = styled.span`
 export const StatValue = styled.span`
   width: 50%;
   height: 35px;
-  padding: 5px 10px 5px 0;
+  padding: 5px 0 5px 10px;
   background: #333;
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `;
 
 const StatList = () => {
