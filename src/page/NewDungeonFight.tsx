@@ -70,20 +70,25 @@ const AttackEffectDiv = styled.div<effectCoord>`
   animation-timing-function: ease;
   border: 10px solid#ffbc26;
 `;
+
+const lineEffect = keyframes`
+from {scale:0; }
+100%{scale:1;}
+`;
+
 const AttackEffectDiv2 = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 10px;
   border-radius: 100%;
-  position: relative;
+  top: 70px;
+  transform: rotate(30deg);
+  background-color: #ffbc26;
+  /* border-radius: 100%; */
+  position: absolute;
+  transform-origin: 0 100% 0;
   scale: 0;
-
-  border: 10px solid#e5005a;
-  animation-name: ${effact};
-  animation-duration: 0.32s;
-  animation-fill-mode: backwards;
-
-  /* animation: ${effact} 0.32s ease;
-  animation-fill-mode: backwards !important; ; */
+  animation: ${lineEffect} 0.3s 1 ease backwards;
+  animation-delay: 0.4s;
 `;
 
 const DoubleAttackEffect = styled.div<p>`
@@ -497,11 +502,11 @@ const NewDungeonFight = () => {
           <AttackEffectDiv
             top={effectCoords.top}
             left={effectCoords.left}
-          >
-            {/* <AttackEffectDiv2></AttackEffectDiv2> */}
-          </AttackEffectDiv>
+          ></AttackEffectDiv>
+          <AttackEffectDiv2></AttackEffectDiv2>
         </AttackEffect>
       )}
+
       {isModal ? (
         <VictoryModal
           isModal={victoryModal}
