@@ -83,7 +83,7 @@ const SkillBtn = styled(ButtonColor)`
 `;
 
 const SkillLevel = styled.div`
-  width: 10%;
+  width: 15%;
   padding: 0 5px;
   height: 100px;
   background: #fff;
@@ -92,7 +92,7 @@ const SkillLevel = styled.div`
   align-items: center;
   flex-direction: column;
   & p {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
   }
@@ -121,7 +121,7 @@ const SkillPiece = (props: any) => {
       desc: `1렙당 던전을 깰 시 올라가는 층이 1씩 상승합니다.`,
       level: userInfo.UpMoreFloor,
       requestLevel: 1,
-      maxLevel: Infinity,
+      maxLevel: 30,
     },
     {
       skillName: 'UpRevivalStatPoint',
@@ -129,7 +129,7 @@ const SkillPiece = (props: any) => {
       desc: `1렙당 환생 시 획득하는 능력치가 배로 상승합니다.`,
       level: userInfo.UpRevivalStatPoint,
       requestLevel: 1,
-      maxLevel: Infinity,
+      maxLevel: 30,
     },
     {
       skillName: 'RevivalPoint',
@@ -137,7 +137,7 @@ const SkillPiece = (props: any) => {
       desc: `환생 시 현재 층의 ${userInfo.RevivalPoint}%로 돌아갑니다.`,
       level: userInfo.RevivalPoint,
       requestLevel: 1,
-      maxLevel: 10,
+      maxLevel: 30,
     },
     {
       skillName: 'UpDoubleAttack',
@@ -152,7 +152,7 @@ const SkillPiece = (props: any) => {
   function skillUp(skillName: string, maxLevel: number, requestLevel: number) {
     console.log(skillName);
     console.log(userInfo[skillName]);
-    if (userInfo[skillName] === maxLevel) {
+    if (userInfo[skillName] >= maxLevel) {
       setSkillText('이미 마스터한 스킬입니다.');
       dispatch(modal_success());
       return;
@@ -231,7 +231,10 @@ const SkillPiece = (props: any) => {
                 <SkillNeedLevel>요구 레벨 {i.requestLevel}</SkillNeedLevel>
               </SkillTextWrap>
               <SkillLevel>
-                <p>{i.level}</p> 스킬레벨
+                <p>
+                  {i.level} / {i.maxLevel}
+                </p>{' '}
+                스킬레벨
               </SkillLevel>
               <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
                 <img
