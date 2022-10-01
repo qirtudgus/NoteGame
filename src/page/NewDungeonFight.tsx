@@ -77,18 +77,18 @@ from {scale:0; }
 `;
 
 const AttackEffectDiv2 = styled.div`
-  width: 400px;
+  width: 500px;
   height: 10px;
   border-radius: 100%;
-  top: 70px;
+  top: -20px;
   transform: rotate(30deg);
   background-color: #ffbc26;
   /* border-radius: 100%; */
   position: absolute;
   transform-origin: 0 100% 0;
   scale: 0;
-  animation: ${lineEffect} 0.3s 1 ease backwards;
-  animation-delay: 0.4s;
+  animation: ${lineEffect} 0.31s 1 ease backwards;
+  animation-delay: 0.39s;
 `;
 
 const DoubleAttackEffect = styled.div<p>`
@@ -502,8 +502,9 @@ const NewDungeonFight = () => {
           <AttackEffectDiv
             top={effectCoords.top}
             left={effectCoords.left}
-          ></AttackEffectDiv>
-          <AttackEffectDiv2></AttackEffectDiv2>
+          >
+            <AttackEffectDiv2></AttackEffectDiv2>
+          </AttackEffectDiv>
         </AttackEffect>
       )}
 
