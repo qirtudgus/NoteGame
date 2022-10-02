@@ -154,9 +154,7 @@ const StatusPiece = (props: any) => {
                 ></img>
               </StatIcon>
               <StatTextWrap>
-                <StatTitle>
-                  {i.title} Lv . {i.level}
-                </StatTitle>
+                <StatTitle>{i.title}</StatTitle>
                 <StatDesc>{i.desc}</StatDesc>
               </StatTextWrap>
               <StatLevel>
