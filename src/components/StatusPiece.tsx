@@ -80,7 +80,7 @@ const StatLevel = styled.div`
   align-items: center;
   flex-direction: column;
   & p {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
   }
