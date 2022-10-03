@@ -517,16 +517,14 @@ const NewDungeonFight = () => {
         ></VictoryModal>
       ) : null}
       <FightState>
-        {isDetailVisible && (
-          <HpTextWrap>
-            <HpText>
-              {hp.userHp} / {userInfo.BasicHp + userInfo.WeaponHp}
-            </HpText>
-            <HpText>
-              {hp.monsterHp} / {monsterInfo.monsterFullHp}
-            </HpText>
-          </HpTextWrap>
-        )}
+        <HpTextWrap>
+          <HpText>
+            {hp.userHp} / {userInfo.BasicHp + userInfo.WeaponHp}
+          </HpText>
+          <HpText>
+            {hp.monsterHp} / {monsterInfo.monsterFullHp}
+          </HpText>
+        </HpTextWrap>
 
         <UserHpBar>
           <UserHpNowBar hpBar={hp.userHpBar}></UserHpNowBar>
