@@ -147,6 +147,14 @@ const SkillPiece = (props: any) => {
       requestLevel: 5,
       maxLevel: 1,
     },
+    {
+      skillName: 'UpMulilpleReward',
+      title: '곱하기 출현',
+      desc: `볼펜 굴리기에서 일정확률로 1.5배 리워드가 등장합니다.`,
+      level: userInfo.UpMulilpleReward,
+      requestLevel: 10,
+      maxLevel: 1,
+    },
   ];
 
   function skillUp(skillName: string, maxLevel: number, requestLevel: number) {
