@@ -70,7 +70,7 @@ const Tab = styled.div`
   }
   &.active > div > div {
     display: block;
-    animation: ${HighLightAni} 0.55s cubic-bezier(0, 0, 0.2, 1);
+    animation: ${HighLightAni} 0.75s cubic-bezier(0, 0, 0.2, 1);
     animation-fill-mode: forwards;
   }
 `;
