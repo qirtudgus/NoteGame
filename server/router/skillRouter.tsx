@@ -7,6 +7,7 @@ export const skillRouter = express.Router();
 const UpMoreFloorQuery = `UPDATE users SET UpMoreFloor = UpMoreFloor + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpRevivalStatPointQuery = `UPDATE users SET UpRevivalStatPoint = UpRevivalStatPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const UpDoubleAttackQuery = `UPDATE users SET UpDoubleAttack = UpDoubleAttack + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
+const UpMulilpleRewardQuery = `UPDATE users SET UpMulilpleReward = UpMulilpleReward + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 const RevivalPointQuery = `UPDATE users SET RevivalPoint = RevivalPoint + 1, SkillPoint = SkillPoint - 1 WHERE ID = ?`;
 
 const loginQuery = 'SELECT * FROM users WHERE ID = ?';
@@ -34,6 +35,12 @@ skillRouter.post('/skillup', (req, res, next) => {
   }
   if (skillName === 'RevivalPoint') {
     db.query(RevivalPointQuery, [userId], (err, result, fields) => {
+      // console.log(err);
+    });
+  }
+
+  if (skillName === 'UpMulilpleReward') {
+    db.query(UpMulilpleRewardQuery, [userId], (err, result, fields) => {
       // console.log(err);
     });
   }
