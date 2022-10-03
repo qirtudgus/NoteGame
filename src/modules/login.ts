@@ -75,6 +75,7 @@ export let setUserInfo = {
   UpMoreFloor: 0,
   UpRevivalStatPoint: 0,
   UpDoubleAttack: 0,
+  UpMulilpleReward: 0,
   StatPoint: 0,
   isLevelUp: false,
   IsHelpModal: 0,
@@ -276,9 +277,11 @@ export interface LoginUserInfoInterface {
   UpMoreFloor: number;
   UpRevivalStatPoint: number;
   UpDoubleAttack: number;
+  UpMulilpleReward: number;
   StatPoint: number;
   isLevelUp: boolean;
   IsHelpModal: number;
+
   [prop: string]: any;
 }
 

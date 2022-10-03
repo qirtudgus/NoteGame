@@ -44,6 +44,7 @@ export interface userInfoInterface {
   StatPoint: number;
   isLevelUp: boolean;
   IsHelpModal: number;
+  UpMulilpleReward: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {
