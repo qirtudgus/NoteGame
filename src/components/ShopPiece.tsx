@@ -56,7 +56,7 @@ const ShopTitle = styled.div<shopBoxInterface>`
     props.penname === props.nowEquip &&
     css`
       &::after {
-        content: '(장착중)';
+        content: ' (장착중)';
       }
     `}
 `;
@@ -219,7 +219,7 @@ const ShopPiece = (props: any) => {
                   nowEquip={equip}
                   penname={i.ballPenName}
                 >
-                  {i.title} Lv . {i.level}
+                  {i.title}
                 </ShopTitle>
                 <ShopDesc>
                   <p>{i.desc}</p>
