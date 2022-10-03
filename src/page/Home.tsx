@@ -58,9 +58,9 @@ const helpHighLight = keyframes`
 
 const Help = styled.div`
   z-index: 1000;
-  position: absolute;
-  right: -223px;
-  top: -191px;
+  position: relative;
+  right: -446px;
+  top: -120px;
   margin-left: 0.6rem;
   width: 70px;
   height: 70px;
@@ -68,7 +68,6 @@ const Help = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   & img {
     width: 40px;
   }
@@ -103,15 +102,17 @@ const Home = () => {
           close
           OnClick={() => setFirstLoginModal(false)}
         >
-          <Help>
-            <img src={물음표}></img>
-          </Help>
           처음이라면 팝업을 닫은 후 오른쪽상단의 <br></br>도움말을 읽어보시면 좋아요!
           <BasicBtn
             ButtonText={'팝업은 그만 볼래요..'}
             OnClick={() => dispatch(ishelpmodal_confirm())}
           ></BasicBtn>
         </RevivalModal>
+      )}
+      {firstLoginModal && (
+        <Help>
+          <img src={물음표}></img>
+        </Help>
       )}
       <BtnMenu LogOut></BtnMenu>
       <MessageBox>{msgArr[msgRandomNumber]}</MessageBox>
