@@ -77,6 +77,7 @@ const DetailViewAttackNumber = styled.div`
   color: #333;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   font-size: 1.2rem;
   letter-spacing: 3px;
   position: absolute;
