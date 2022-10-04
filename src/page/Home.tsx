@@ -111,7 +111,10 @@ const Home = () => {
       )}
       {firstLoginModal && (
         <Help>
-          <img src={물음표}></img>
+          <img
+            src={물음표}
+            alt='물음표'
+          ></img>
         </Help>
       )}
       <BtnMenu LogOut></BtnMenu>
