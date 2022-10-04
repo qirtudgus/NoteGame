@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -22,9 +22,9 @@ import { penObj } from '../util/shopList';
 import { monsterArr } from '../util/dungeonMonsterList';
 import RewardListBox from '../components/RewardListBox';
 import sleep from '../util/sleep';
-import 더블어택 from '../img/effect/더블어택한번.gif';
-import 하이리워드 from '../img/effect/하이리워드이펙트_수정2.gif';
-import 평타 from '../img/effect/슬블_수정.gif';
+// import 더블어택 from '../img/effect/더블어택한번.gif';
+// import 하이리워드 from '../img/effect/하이리워드이펙트_수정2.gif';
+// import 평타 from '../img/effect/슬블_수정.gif';
 import DungeonSkill from '../components/DungeonSkill';
 import { StartBtn } from './NewPenGame';
 interface p {
@@ -91,19 +91,19 @@ const AttackEffectDiv2 = styled.div`
   animation-delay: 0.39s;
 `;
 
-const DoubleAttackEffect = styled.div<p>`
-  position: absolute;
-  transform: scaleX(-1);
-  left: 200px;
-  display: none;
-  z-index: 1000;
+// const DoubleAttackEffect = styled.div<p>`
+//   position: absolute;
+//   transform: scaleX(-1);
+//   left: 200px;
+//   display: none;
+//   z-index: 1000;
 
-  ${(props) =>
-    props.view &&
-    css`
-      display: block;
-    `}
-`;
+//   ${(props) =>
+//     props.view &&
+//     css`
+//       display: block;
+//     `}
+// `;
 
 const BottomBox = styled.div`
   width: 100%;
@@ -218,7 +218,7 @@ const NewDungeonFight = () => {
   const [doubleAttack, setDoubleAttack] = useState<boolean>(false);
   const [doubleAttackCount, setDoubleAttackCount] = useState(1);
   //이펙트를 담아둔 상태값
-  const [effectImg, setEffectImg] = useState<string>(평타);
+  // const [effectImg, setEffectImg] = useState<string>(평타);
 
   //이펙트컴포넌트의 위치값
   const [effectCoords, setEffectCoords] = useState({ top: 0, left: 0 });
@@ -355,13 +355,13 @@ const NewDungeonFight = () => {
     //하이리워드를 획득했는지 보려면... 무기의 리워드 최대값과, 획득한 리워드과 동일한지 체크하는 if문을 걸면 되겠다.
     const hi = penObj.find((i) => i.ballPenName === userInfo.EquipBallpen)?.rewardList as number[];
     if (Number(rewardNumber) === Math.max(...hi)) {
-      setEffectImg(하이리워드);
+      // setEffectImg(하이리워드);
     }
 
     if (doubleAttack === true) {
       setDoubleAttack(false);
       setDoubleAttackCount(0);
-      setEffectImg(더블어택);
+      // setEffectImg(더블어택);
       setTimeout(() => {
         setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
       }, 350);
@@ -452,7 +452,7 @@ const NewDungeonFight = () => {
       doubleAttack: false,
       highRewardEffect: false,
     });
-    setEffectImg(평타);
+    // setEffectImg(평타);
     setPenAnimation(true);
     setRefresh((prev) => !prev);
     //마지막에 스타트버튼에 함수를 활성화시켜 전투가 끝나기전까지는 제한된다.
