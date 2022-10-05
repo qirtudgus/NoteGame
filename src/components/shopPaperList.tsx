@@ -176,7 +176,7 @@ const ShopPaperPiece = (props: any) => {
   );
   const b = (
     <>
-      <p>골드가 부족해요!</p>
+      <p>잉크가 부족해요!</p>
     </>
   );
 
@@ -210,7 +210,7 @@ const ShopPaperPiece = (props: any) => {
                 <ShopDesc>
                   <p>{i.desc}</p>
                   <p>체력 {i.Hp.toLocaleString()}</p>
-                  <p className='penGold'>가격 {i.Gold.toLocaleString()} 잉크</p>
+                  <p className='penGold'>{i.Gold.toLocaleString()} 잉크</p>
                 </ShopDesc>
               </ShopTextWrap>
               {

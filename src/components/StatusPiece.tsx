@@ -117,13 +117,13 @@ const StatusPiece = (props: any) => {
     {
       statName: 'UpGoldPen',
       title: '황금 볼펜',
-      desc: `1렙당 볼펜 굴리기로 획득하는 골드가 1% 상승합니다.`,
+      desc: `1렙당 볼펜 굴리기로 획득하는 잉크가 1% 상승합니다.`,
       level: userInfo.UpGoldPen,
     },
     {
       statName: 'UpGoldHunt',
       title: '부지런한 학생',
-      desc: `1렙당 던전에서 획득하는 골드가 1% 상승합니다.`,
+      desc: `1렙당 던전에서 획득하는 잉크가 1% 상승합니다.`,
       level: userInfo.UpGoldHunt,
     },
     {

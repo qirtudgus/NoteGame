@@ -51,7 +51,7 @@ const VictoryModal = (props: any) => {
         <Bg>
           <p>승리!</p>
           <p>경험치 + {props.huntExp}</p>
-          <p>골드 + {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)}</p>
+          <p>잉크 + {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)}</p>
           <BasicButtons
             id='nextBtn'
             ClassName={props.cName}
