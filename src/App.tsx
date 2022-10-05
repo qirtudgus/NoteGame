@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import './App.css';
 import './Reset.css';
 import BasicInputs from './components/BasicInput';
 import BasicBtn from './components/BasicBtn';
