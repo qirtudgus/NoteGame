@@ -25,7 +25,7 @@ type PengameBoxCountStateType = {
 };
 
 const pengameBoxCountState: PengameBoxCountStateType = {
-  boxCount: 5,
+  boxCount: 6,
 };
 
 const pengameBoxCountRequest = (

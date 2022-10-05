@@ -228,7 +228,7 @@ const NewPenGame = () => {
             ></BasicBtn>
           </RevivalModal>
         ))}
-      <select
+      {/* <select
         onChange={(e) => {
           console.log(e.target.value);
           dispatch(pengame_boxcount_success(Number(e.target.value)));
@@ -246,7 +246,7 @@ const NewPenGame = () => {
         <option value='8'>8</option>
         <option value='9'>9</option>
         <option value='10'>10</option>
-      </select>
+      </select> */}
       <RewardGoldListBox
         refresh={refresh}
         penSpeed={penSpeed.text}
