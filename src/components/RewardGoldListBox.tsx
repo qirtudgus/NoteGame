@@ -59,11 +59,13 @@ const ErrorPage = styled.div`
 
 const RewardGoldListBox = (props: any) => {
   const boxCount = useSelector((state: RootState) => state.boxCount.boxCount);
+
   const { Level, UpMulilpleReward } = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
+
   //useMemo를 사용하여 해결!!!!!!
   const randomRewardArray = useMemo(() => {
     return createRandomRewardsArray(boxCount, 'penGame', UpMulilpleReward);
-  }, [props.refresh, boxCount]);
+  }, [props.refresh, boxCount, UpMulilpleReward]);
   const navigate = useNavigate();
 
   return (
