@@ -27,9 +27,9 @@ import sleep from '../util/sleep';
 // import 평타 from '../img/effect/슬블_수정.gif';
 import DungeonSkill from '../components/DungeonSkill';
 import { StartBtn } from './NewPenGame';
-interface p {
-  view: boolean;
-}
+// interface p {
+//   view: boolean;
+// }
 interface effectCoord {
   top?: number;
   left?: number;
