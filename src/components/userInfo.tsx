@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
-// import { expTable } from '../util/ExpTable';
 import { expTable } from '../util/expTable';
 import React from 'react';
 import 물음표 from '../img/물음표_원형.svg';
@@ -131,7 +130,10 @@ const UserInfo = () => {
           onClick={() => dispatch(userInfo_visible_on())}
           title='도움말'
         >
-          <img src={물음표}></img>
+          <img
+            src={물음표}
+            alt='물음표'
+          ></img>
         </Help>
       </UserBox>
     </BasicBox>
