@@ -31,7 +31,6 @@ const FooterIcon = styled.div`
   }
 
   &:hover > div {
-    /* outline: 3px solid#ffbc26; */
     background-color: #ffbc26;
     color: #000;
   }
@@ -61,8 +60,6 @@ const FooterTitle = styled.div`
   box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 35%);
   border: 1px solid#aaa;
   box-sizing: border-box;
-
-  /* text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000; */
 `;
 
 const FooterMenu = () => {

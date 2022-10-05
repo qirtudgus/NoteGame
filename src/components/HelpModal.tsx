@@ -166,7 +166,6 @@ const HelpModal = ({ close, OnClick, children }: RevivalModalInterface) => {
         ></img>
       ),
     },
-    // { name: '스킬', content: <ShopPiece></ShopPiece> },
   ];
 
   return (
