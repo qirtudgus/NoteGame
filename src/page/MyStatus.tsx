@@ -141,7 +141,10 @@ const MyStatus = () => {
                 <HighLight>
                   <p> {i.name}</p>
                   <div></div>
-                  <img src={형광펜}></img>
+                  <img
+                    src={형광펜}
+                    alt='형광펜'
+                  ></img>
                 </HighLight>
               </Tab>
             );
