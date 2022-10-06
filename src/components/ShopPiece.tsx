@@ -111,7 +111,7 @@ const ShopPiece = (props: any) => {
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
   const buyBallpenList = useSelector((state: RootState) => state.buyBallpenList.buyBallpenList);
-
+  const [equipPenModal, setEquipPenModal] = useState(false);
   const [goldCheck, setGoldCheck] = useState(true);
   const [buyPenObj, setBuyPenObj] = useState({
     ballPenName: '',
@@ -172,6 +172,14 @@ const ShopPiece = (props: any) => {
     );
   }
 
+  function equipPen(ballPenName: string, level: string) {
+    if (Number(level) > userInfo.Level) {
+      setEquipPenModal(true);
+    } else {
+      dispatch(equip_ballpen_request(`${ballPenName}`, penDamage(ballPenName), penSpeed(ballPenName)));
+    }
+  }
+
   const a = (
     <>
       <p>{buyPenObj.title}</p>
@@ -196,6 +204,16 @@ const ShopPiece = (props: any) => {
   );
   return (
     <>
+      {equipPenModal && (
+        <RevivalModal
+          close
+          OnClick={() => {
+            setEquipPenModal(false);
+          }}
+        >
+          <p>요구 레벨이 부족해요!</p>
+        </RevivalModal>
+      )}
       {isModal && <RevivalModal close>{goldCheck ? a : b}</RevivalModal>}
       <ShopWrap>
         {list.map((i: any, index: number) => {
@@ -228,6 +246,7 @@ const ShopPiece = (props: any) => {
                     공격률 {Math.min(...i.rewardList).toLocaleString()} ~ {Math.max(...i.rewardList).toLocaleString()}
                   </p>
                   <p className='penGold'> {i.Gold.toLocaleString()} 잉크</p>
+                  <p>요구레벨 {i.level}</p>
                 </ShopDesc>
               </ShopTextWrap>
               {
@@ -237,9 +256,7 @@ const ShopPiece = (props: any) => {
                     as='div'
                     buy={i.ballPenName}
                     onClick={() => {
-                      dispatch(
-                        equip_ballpen_request(`${i.ballPenName}`, penDamage(i.ballPenName), penSpeed(i.ballPenName)),
-                      );
+                      equipPen(i.ballPenName, i.level);
                     }}
                   >
                     장착
