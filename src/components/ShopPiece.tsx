@@ -224,8 +224,9 @@ const ShopPiece = (props: any) => {
                 <ShopDesc>
                   <p>{i.desc}</p>
                   <p>공격력 {i.weaponDamage.toLocaleString()}</p>
-                  <p>최소 공격률 {Math.min(...i.rewardList).toLocaleString()}</p>
-                  <p>최대 공격률 {Math.max(...i.rewardList).toLocaleString()}</p>
+                  <p>
+                    공격률 {Math.min(...i.rewardList).toLocaleString()} ~ {Math.max(...i.rewardList).toLocaleString()}
+                  </p>
                   <p className='penGold'> {i.Gold.toLocaleString()} 잉크</p>
                 </ShopDesc>
               </ShopTextWrap>
