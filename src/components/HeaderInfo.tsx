@@ -90,7 +90,7 @@ const Help = styled.div`
   }
 `;
 
-const UserInfo = () => {
+const HeaderInfo = () => {
   const dispatch = useDispatch();
   const { Nickname, Level, BasicHp, BasicDamage, WeaponDamage, WeaponHp, Gold, Exp } = useSelector(
     (state: RootState) => state.login.userInfo,
@@ -139,4 +139,4 @@ const UserInfo = () => {
   );
 };
 
-export default React.memo(UserInfo);
+export default React.memo(HeaderInfo);

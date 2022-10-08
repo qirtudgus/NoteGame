@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import BackGround from '../components/BackGround';
-import UserInfo from '../components/UserInfo';
+import HeaderInfo from '../components/HeaderInfo';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import React from 'react';
@@ -27,7 +27,7 @@ const Layout = () => {
       ) : (
         <>
           <Outlet />
-          {isLogin && <UserInfo></UserInfo>}
+          {isLogin && <HeaderInfo></HeaderInfo>}
         </>
       )}
     </BackGround>
