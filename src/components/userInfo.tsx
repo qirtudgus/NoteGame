@@ -62,7 +62,6 @@ const UserGold = styled.div`
   border-radius: 6px;
   border: 1px solid#aaa;
   box-shadow: 2px 2px 5px 2px rgb(0 0 0 / 35%);
-
   & img {
     width: 28px;
   }
