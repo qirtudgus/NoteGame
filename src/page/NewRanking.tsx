@@ -7,6 +7,9 @@ import { RootState } from '../modules/modules_index';
 import 왼쪽화살표 from '../img/왼쪽화살표.svg';
 import 오른쪽화살표 from '../img/오른쪽화살표.svg';
 import 돋보기 from '../img/돋보기.svg';
+import 금메달 from '../img/금메달.png';
+import 은메달 from '../img/은메달.png';
+import 동메달 from '../img/동메달.png';
 
 const RankingWrap = styled.div`
   width: 800px;
@@ -97,14 +100,64 @@ const MyRanking = styled.div`
   border-radius: 5px;
 `;
 
-const Ranking = styled.div`
+interface ranking {
+  rankingNumber?: number;
+}
+
+const Ranking = styled.div<ranking>`
   width: 100%;
   height: 40px;
   display: flex;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:nth-child(2n) {
     background: #eee;
   }
+  ${(props) =>
+    props.rankingNumber === 1 &&
+    css`
+      &::before {
+        content: '';
+        width: 30px;
+        height: 30px;
+        background-image: url(${금메달});
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 120px;
+      }
+    `}
+
+  ${(props) =>
+    props.rankingNumber === 2 &&
+    css`
+      &::before {
+        content: '';
+        width: 30px;
+        height: 30px;
+        background-image: url(${은메달});
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 120px;
+      }
+    `}
+    ${(props) =>
+    props.rankingNumber === 3 &&
+    css`
+      &::before {
+        content: '';
+        width: 30px;
+        height: 30px;
+        background-image: url(${동메달});
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 120px;
+      }
+    `}
 `;
 
 const HeadCell = styled.p`
@@ -371,14 +424,14 @@ const NewRangking = () => {
               {list!.map((i: any, index: any) => (
                 <React.Fragment key={index}>
                   {i.Id === userId ? (
-                    <Ranking key={i.Id}>
+                    <Ranking>
                       <Cell>{i.ranking}</Cell>
                       <Cell>{i.Nickname}</Cell>
                       <Cell>{i.Level}</Cell>
                       <Cell>{i.MaxDungeonFloor}</Cell>
                     </Ranking>
                   ) : (
-                    <Ranking key={i.Nickname}>
+                    <Ranking rankingNumber={i.ranking}>
                       <Cell>{i.ranking}</Cell>
                       <Cell>{i.Nickname}</Cell>
                       <Cell>{i.Level}</Cell>
