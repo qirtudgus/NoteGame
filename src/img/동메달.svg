@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#846455;}
+	.st3{fill:#99644D;}
+	.st4{fill:none;stroke:#824530;stroke-miterlimit:10;}
+	.st5{fill:#757575;}
+	.st6{font-family:'AdobeMyungjoStd-Medium-KSCpc-EUC-H';}
+	.st7{font-size:25.4644px;}
+	.st8{letter-spacing:1;}
+	.st9{fill:#2D2D2D;}
+</style>
+<g>
+	<rect x="-12.6" y="-12.6" class="st0" width="49.3" height="49.3"/>
+</g>
+<g>
+	<path class="st1" d="M-3.1-0.8C-3.7-0.3-4.3,0.3-4.4,1C-4.5,1.4-4.4,1.9-4,2c0.2,0,0.4-0.1,0.6-0.2C-2.1,0.9-1.2-0.5,0-1.4
+		c0.9-0.7,2.1-1.3,2.6-2.3c0-0.1,0.1-0.2,0-0.3C2.6-4.1,2.5-4.2,2.4-4.2C0.2-4.4-1.7-2.1-3.1-0.8z"/>
+	<path class="st1" d="M-7.1,7.7c0,0.2,0,0.3,0.1,0.5c0.2,0.3,0.6,0.3,0.9,0.1s0.4-0.5,0.6-0.8c0.9-1.9,1.8-3.9,2.6-5.8
+		c0.1-0.2,0.2-0.4,0-0.6C-3,1-3,0.9-3.1,0.9C-4,0.5-4.3,0.6-4.9,1.3C-5.3,1.9-5.7,2.6-6,3.3C-6.7,4.6-7.1,6.1-7.1,7.7z"/>
+	<circle class="st2" cx="12" cy="12" r="20.5"/>
+	<ellipse transform="matrix(0.2298 -0.9732 0.9732 0.2298 -2.436 20.9219)" class="st3" cx="12" cy="12" rx="15.5" ry="15.5"/>
+	<ellipse transform="matrix(0.2298 -0.9732 0.9732 0.2298 -2.436 20.922)" class="st4" cx="12" cy="12" rx="18.1" ry="18.1"/>
+	<g>
+		<g>
+			<g>
+				<text transform="matrix(1 0 0 1 0.71 20.6846)" class="st5 st6 st7 st8">I</text>
+				<text transform="matrix(1 0 0 1 -0.7515 20.6846)" class="st9 st6 st7 st8">I</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 7.3047 20.6846)" class="st5 st6 st7 st8">I</text>
+				<text transform="matrix(1 0 0 1 5.8413 20.6846)" class="st9 st6 st7 st8">I</text>
+			</g>
+		</g>
+		<g>
+			<text transform="matrix(1 0 0 1 14.1846 20.6846)" class="st5 st6 st7 st8">I</text>
+			<text transform="matrix(1 0 0 1 12.7231 20.6846)" class="st9 st6 st7 st8">I</text>
+		</g>
+	</g>
+</g>
+</svg>
