@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './modules/modules_index';
 import { login_request } from './modules/login';
 import 하얀체크 from './img/하얀체크.svg';
+import 로고 from './img/로고제작중2.png';
 import styled, { keyframes } from 'styled-components';
 
 const LoginErrorText = styled.p`
@@ -29,6 +30,12 @@ const Check = styled.div`
   background: green;
   border-radius: 40px;
   animation: ${checkAni} 0.45s ease;
+`;
+const Logo = styled.div`
+  width: 600px;
+  & img {
+    width: 100%;
+  }
 `;
 
 function App() {
@@ -89,6 +96,9 @@ function App() {
 
   return (
     <>
+      <Logo>
+        <img src={로고}></img>
+      </Logo>
       <BasicInputs
         ref={IdRef}
         value={Id}
