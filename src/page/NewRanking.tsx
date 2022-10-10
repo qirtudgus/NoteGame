@@ -189,7 +189,7 @@ const MyCell = styled.p`
     font-size: 1.2rem;
     content: '내 순위';
     position: absolute;
-    left: 100px;
+    left: 120px;
   }
 `;
 const UndefinedPage = styled.div`
