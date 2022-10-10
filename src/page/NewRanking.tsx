@@ -98,6 +98,7 @@ const MyRanking = styled.div`
   margin-top: 30px;
   background-color: #eee;
   border-radius: 5px;
+  background: #ffbc26;
 `;
 
 interface ranking {
@@ -112,8 +113,9 @@ const Ranking = styled.div<ranking>`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #d3d3d3;
   &:nth-child(2n) {
-    background: #eee;
+    background: #e7e7e7;
   }
   ${(props) =>
     props.rankingNumber === 1 &&
