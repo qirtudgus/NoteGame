@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
-import ShopPaperList from '../components/shopPaperList';
-import ShopPiece from '../components/ShopPiece';
+import ShopPaperList from '../components/ShopPaperList';
+import ShopPiece from '../components/ShopPenList';
 import 형광펜 from '../img/형광펜.png';
 const ShopWrap = styled.div`
   width: 90%;
