@@ -13,7 +13,6 @@ import Home from './page/Home';
 import { login_localstorage } from './modules/login';
 import Layout from './layout/layout';
 import Dungeon from './page/Dungeon';
-import Rangking from './page/Ranking';
 import LayoutNotInfo from './layout/layoutNotInfo';
 import axios from 'axios';
 import MyStatus from './page/MyStatus';
