@@ -7,6 +7,7 @@ import 형광펜 from '../img/형광펜.png';
 import 도움말_게임소개 from '../img/도움말_게임소개.jpg';
 import 도움말_자주묻는질문 from '../img/도움말_자주묻는질문.jpg';
 import 도움말_던전 from '../img/도움말_던전.jpg';
+import 도움말_볼펜굴리기 from '../img/도움말_볼펜굴리기.jpg';
 
 const BgWrap = styled.div`
   width: 100%;
@@ -154,6 +155,15 @@ const HelpModal = ({ close, OnClick, children }: RevivalModalInterface) => {
         <img
           src={도움말_자주묻는질문}
           alt='자주 묻는 질문'
+        ></img>
+      ),
+    },
+    {
+      name: '볼펜 굴리기',
+      content: (
+        <img
+          src={도움말_볼펜굴리기}
+          alt='볼펜 굴리기'
         ></img>
       ),
     },
