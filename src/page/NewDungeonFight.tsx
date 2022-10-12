@@ -423,7 +423,7 @@ const NewDungeonFight = () => {
 
     const monsterResultDamage = monsterDamage(monsterInfo.monsterDamage);
     const userHp = hp.userHp - monsterResultDamage;
-    const userHpBar = Math.ceil((userHp / userInfo.BasicHp) * 100);
+    const userHpBar = Math.ceil((userHp / (userInfo.BasicHp + userInfo.WeaponHp)) * 100);
     if (userHp <= 0) {
       setAttackAni({ ...attackAni, monster: true, userHit: true });
       setHp((prev) => ({ ...prev, userHp: 0, userHpBar: 0 }));
