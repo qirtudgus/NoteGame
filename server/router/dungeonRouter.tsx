@@ -112,11 +112,10 @@ dungeonRouter.post('/revival', (req, res) => {
     //환생 후 돌아갈 층
     let revivalFloor = Math.ceil((nowFloor * revivalPoint) / 100);
 
-    console.log(revivalFloor);
-
     db.query(RevivalUpdateQuery, [revivalFloor, addStatPoint, userId], (err, rows, fields) => {
-      console.log(rows);
-      console.log(`${userId}님이 환생하셨습니다.`);
+      console.log(
+        `${userId}님이 환생하여서 ${revivalFloor}층으로 돌아가고, ${addStatPoint}스텟포인트를 획득하였습니다.`,
+      );
     });
 
     db.query(loginQuery, [userId], (err, rows, fields) => {
