@@ -46,7 +46,7 @@ const StatList = () => {
       statValue: userInfo.Exp.toLocaleString() + ' / ' + expTable[userInfo.Level].toLocaleString(),
     },
     { statName: '체력', statValue: userInfo.BasicHp.toLocaleString() },
-    { statName: '공격력', statValue: (userInfo.BasicHp + userInfo.WeaponDamage).toLocaleString() },
+    { statName: '공격력', statValue: (userInfo.BasicDamage + userInfo.WeaponDamage).toLocaleString() },
     { statName: '환생 포인트', statValue: userInfo.RevivalPoint },
     { statName: '보유 잉크', statValue: userInfo.Gold.toLocaleString() },
     { statName: '던전 최고 기록', statValue: userInfo.MaxDungeonFloor },
