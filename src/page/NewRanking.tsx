@@ -109,11 +109,12 @@ const Ranking = styled.div<ranking>`
   width: 100%;
   height: 40px;
   display: flex;
-  border-radius: 5px;
+
   display: flex;
   justify-content: center;
   align-items: center;
   background: #d3d3d3;
+
   &:nth-child(2n) {
     background: #e7e7e7;
   }
