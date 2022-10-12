@@ -45,7 +45,7 @@ const StatList = () => {
       statName: '경험치',
       statValue: userInfo.Exp.toLocaleString() + ' / ' + expTable[userInfo.Level].toLocaleString(),
     },
-    { statName: '체력', statValue: userInfo.BasicHp.toLocaleString() },
+    { statName: '체력', statValue: (userInfo.BasicHp + userInfo.WeaponHp).toLocaleString() },
     { statName: '공격력', statValue: (userInfo.BasicDamage + userInfo.WeaponDamage).toLocaleString() },
     { statName: '환생 포인트', statValue: userInfo.RevivalPoint },
     { statName: '보유 잉크', statValue: userInfo.Gold.toLocaleString() },
