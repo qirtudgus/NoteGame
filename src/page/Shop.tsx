@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import CharacterBox from '../components/CharacterBox';
-import ShopList_etc from '../components/ShopList_etc';
-import ShopList_paper from '../components/ShopList_paper';
-import ShopList_pen from '../components/ShopList_pen';
+import ShopListEtc from '../components/ShopListEtc';
+import ShopListPaper from '../components/ShopListPaper';
+import ShopListPen from '../components/ShopListPen';
 import 형광펜 from '../img/형광펜.png';
 const ShopWrap = styled.div`
   width: 90%;
@@ -110,13 +110,13 @@ const Shop = () => {
   const menuArr = [
     {
       name: '볼펜',
-      content: <ShopList_pen></ShopList_pen>,
+      content: <ShopListPen></ShopListPen>,
     },
     {
       name: '종이',
-      content: <ShopList_paper></ShopList_paper>,
+      content: <ShopListPaper></ShopListPaper>,
     },
-    { name: '스킬', content: <ShopList_etc></ShopList_etc> },
+    { name: '스킬', content: <ShopListEtc></ShopListEtc> },
   ];
 
   const SetTabNumberFunc = (index: number): void => {

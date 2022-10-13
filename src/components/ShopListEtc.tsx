@@ -111,7 +111,7 @@ const StatValue = styled.span`
   justify-content: flex-start;
 `;
 
-const ShopList_etc = (props: any) => {
+const ShopListEtc = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
@@ -237,4 +237,4 @@ const ShopList_etc = (props: any) => {
   );
 };
 
-export default React.memo(ShopList_etc);
+export default React.memo(ShopListEtc);

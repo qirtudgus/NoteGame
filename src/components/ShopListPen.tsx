@@ -105,7 +105,7 @@ const ShopBox = styled.div<shopBoxInterface>`
     `}
 `;
 
-const ShopList_pen = (props: any) => {
+const ShopListPen = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const isModal = useSelector((state: RootState) => state.modalState.isModal);
@@ -279,4 +279,4 @@ const ShopList_pen = (props: any) => {
   );
 };
 
-export default React.memo(ShopList_pen);
+export default React.memo(ShopListPen);
