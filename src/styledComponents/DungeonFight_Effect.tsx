@@ -143,24 +143,22 @@ export const PenImgWrap = styled.div`
 `;
 
 export const PenImg = styled.img<penAni>`
-z-index:100;
-display:block;
-position:relative;
-height: auto;
-width:auto;
-top: 0px;
-left: 0px;
-margin: none;
-animation-fill-mode: both;
+  z-index: 100;
+  display: block;
+  position: relative;
+  height: auto;
+  width: auto;
+  top: 0px;
+  left: 0px;
+  margin: none;
+  animation-fill-mode: both;
   animation-play-state: running;
   animation: ${animation} ${(props) => props.penSpeed}s ease-in-out infinite;
-    infinite; //1초동안 선형 무한 속성값주기
   ${(props) =>
     props.penStatus &&
     css`
       animation-play-state: paused;
     `}
-
 `;
 
 export const PenEnd2 = styled.div<penAni>`
@@ -329,10 +327,10 @@ export const attack3 = keyframes`
   40% { transform:  rotate(60deg) ; }
   `;
 
+//속도감이 매우 안좋아서 수정 요함..현재 1~3까지만 사용
 export const attack4 = keyframes`
   from, to { transform: rotate(30deg) ; }
   40% { transform: rotate(150deg); }
-
   `;
 
 export const movingAni = keyframes`
