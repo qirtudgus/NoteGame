@@ -13,6 +13,7 @@ const EquipPaperQuery = `UPDATE users SET EquipPaper = ?, WeaponHp = ? WHERE ID 
 const ConcatBuyBallpenList = `UPDATE users SET BuyBallpenList = CONCAT(BuyBallpenList,',',?) WHERE ID = ?`;
 const ConcatBuyPaperList = `UPDATE users SET BuyPaperList = CONCAT(BuyPaperList,',',?) WHERE ID = ?`;
 const BuyAfterGoldQuery = `UPDATE users SET Gold = Gold - ? WHERE ID = ?`;
+const BuySkillPointQuery = `UPDATE users SET BuySkillPointCount = BuySkillPointCount + 1 ,SkillPoint = SkillPoint + 1, StatPoint = StatPoint - ? WHERE ID = ?`;
 
 buyBallpenListRouter.post('/updateballpen', (req, res, next) => {
   const userId = req.decoded.userId;
@@ -95,6 +96,24 @@ buyBallpenListRouter.post('/buypaper', (req, res) => {
             BuyPaperList: resultList,
           });
         });
+      });
+    });
+  });
+});
+
+buyBallpenListRouter.post('/buyskillpoint', (req, res) => {
+  const userId = req.decoded.userId;
+  const { BuySkillPointCount } = req.body;
+
+  db.query(BuySkillPointQuery, [BuySkillPointCount, userId], (error, rows, fields) => {
+    console.log(error);
+
+    console.log(`${userId}님이 ${BuySkillPointCount}스텟포인트를 내고 스킬포인트를 구매하였습니다.`);
+    db.query(loginQuery, [userId], (err, rows, fields) => {
+      let userInfo = userInfoProcess(rows[0]);
+      res.status(200).json({
+        code: 200,
+        userInfo: userInfo,
       });
     });
   });
