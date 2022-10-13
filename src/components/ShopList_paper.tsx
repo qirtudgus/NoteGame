@@ -93,7 +93,6 @@ const ShopBox = styled.div<shopBoxInterface>`
   height: 150px;
   background: #fff;
   margin-bottom: 4px;
-  border: 1px solid#aaa;
   display: flex;
   /* border-radius: 10px; */
   justify-content: space-between;

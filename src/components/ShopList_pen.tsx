@@ -94,7 +94,6 @@ const ShopBox = styled.div<shopBoxInterface>`
   margin-bottom: 4px;
   display: flex;
   /* border-radius: 10px; */
-  border: 1px solid#aaa;
   justify-content: space-between;
   //장착한 장비의 css
   ${(props) =>
