@@ -144,7 +144,7 @@ const Dungeon = () => {
           close
           OnClick={closeFloorInputModal}
         >
-          <p>도전할 층을 입력해주세요!</p>
+          <h1>도전할 층을 입력해주세요!</h1>
           <p>자신의 최고층전까지 도전가능합니다.</p>
           <p>이동 가능한 층 : {userInfo.MaxDungeonFloor - 1}</p>
           {notFloor && <p>{notFloorText}</p>}
@@ -185,22 +185,17 @@ const Dungeon = () => {
       {isModal ? (
         userInfo.DungeonFloor < 10 ? (
           <RevivalModal close>
-            <p>10층부터 환생할 수 있습니다!</p>
+            <h1>10층부터 환생할 수 있습니다!</h1>
             환생하면 현재층의 1%로 내려오는 대신<br></br>10층당 1스텟포인트를 획득하실 수 있습니다!
           </RevivalModal>
         ) : (
           <RevivalModal close>
-            <p>환생하시겠습니까?</p>
+            <h1>환생하시겠습니까?</h1>
             {/* 10층당 1스텟포인트를 획득합니다.(스킬에 따라 달라집니다.) */}
-            <br />
-            내려갈때도 두칸씩 스킬레벨 {userInfo.UpRevivalStatPoint}
-            <br />
-            스텟 포인트 {addSkillPoint} 획득
-            <br />
-            다음 생에는 스킬레벨 {userInfo.RevivalPoint}
-            <br />
-            던전 {revivalFloor} 층에서 시작
-            <br />
+            <p>내려갈때도 두칸씩 Lv.{userInfo.UpRevivalStatPoint}</p>
+            <p>스텟 포인트 {addSkillPoint} 획득</p>
+            <p> 다음 생에는 Lv.{userInfo.RevivalPoint}</p>
+            <p>던전 {revivalFloor} 층에서 시작</p>
             <BasicButtons
               margin='5px 5px 5px 5px'
               ButtonText='예'
