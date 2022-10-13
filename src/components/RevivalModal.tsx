@@ -31,10 +31,20 @@ const Bg = styled.div`
   align-items: center;
   user-select: none;
   font-size: 1.2rem;
-  & > p {
+  /* & > p {
     font-size: 1.6rem;
     font-weight: bold;
     margin-bottom: 5px;
+  } */
+  & > h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid#333;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0px 0 10px 0;
   }
 
   & .result {
