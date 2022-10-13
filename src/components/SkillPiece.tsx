@@ -183,7 +183,7 @@ const SkillPiece = (props: any) => {
     <>
       {isModal && (
         <RevivalModal close>
-          <p>{skillText}</p>
+          <h1>{skillText}</h1>
         </RevivalModal>
       )}
       <StatList>
@@ -226,7 +226,6 @@ const SkillPiece = (props: any) => {
               key={index}
             >
               <SkillIcon>
-                {' '}
                 <img
                   src={스킬아이콘배경}
                   alt='스킬아이콘'
@@ -241,7 +240,7 @@ const SkillPiece = (props: any) => {
               <SkillLevel>
                 <p>
                   {i.level} / {i.maxLevel}
-                </p>{' '}
+                </p>
                 스킬레벨
               </SkillLevel>
               <SkillBtn onClick={() => skillUp(i.skillName, i.maxLevel, i.requestLevel)}>
