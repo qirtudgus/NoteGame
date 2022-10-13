@@ -3,10 +3,11 @@ import { STAT_REQUEST, STAT_UP } from '../modules/login';
 import customAxios from '../util/axios';
 import { error_saga } from '../util/error_saga';
 
-const statUpRequest = async (statName: string, statPoint: number) => {
+const statUpRequest = async (statName: string, statPoint: number, takePoint: number) => {
   return await customAxios('post', '/stat/statup', {
     statName,
     statPoint,
+    takePoint,
   }).then((res) => {
     return res.data;
   });
@@ -14,7 +15,7 @@ const statUpRequest = async (statName: string, statPoint: number) => {
 
 function* statUpRequest$(action: any): Generator<any, any, any> {
   try {
-    let result = yield call(statUpRequest, action.payload.statName, action.payload.statPoint);
+    let result = yield call(statUpRequest, action.payload.statName, action.payload.statPoint, action.payload.takePoint);
 
     yield put({ type: STAT_UP, userInfo: result.userInfo });
   } catch (E: any) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface, stat_request } from '../modules/login';
@@ -6,7 +6,8 @@ import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import 스킬아이콘배경 from '../img/스킬아이콘배경.jpg';
-import { StatName, StatValue } from './StatList';
+import { StatName } from './StatList';
+import RevivalModal from './RevivalModal';
 
 interface skillBoxInterface {
   title?: string;
@@ -96,10 +97,48 @@ const StatList = styled.li`
   display: flex;
   font-size: 1.5rem;
 `;
+const StatValue = styled.span`
+  width: 50%;
+  height: 35px;
+  padding: 5px 0 5px 10px;
+  background: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
+const TakePoint = styled.div`
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 30px;
+  background: #fff;
+  color: #333;
+  display: flex;
+  margin-left: 10px;
+
+  &.active {
+    background: #ffbc26;
+  }
+`;
+
+const TakePointArr = [{ number: 1 }, { number: 10 }, { number: 100 }];
 
 const StatusPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
+  const [takePoint, setTakePoint] = useState(1);
+  const [statCheck, setStatCheck] = useState(false);
+
+  const takeStats = (statName: string) => {
+    if (userInfo.StatPoint < takePoint) {
+      setStatCheck(true);
+    } else {
+      dispatch(stat_request(statName, userInfo.StatPoint, takePoint));
+    }
+  };
+
   const statArr = [
     {
       statName: 'UpMaxHp',
@@ -133,12 +172,35 @@ const StatusPiece = (props: any) => {
       level: userInfo.BetterPen,
     },
   ];
-
   return (
     <>
+      {statCheck ? (
+        <RevivalModal
+          close
+          OnClick={() => {
+            setStatCheck(false);
+          }}
+        >
+          <h1>스텟포인트가 부족해요!</h1>
+        </RevivalModal>
+      ) : null}
       <StatList>
         <StatName>스텟 포인트</StatName>
-        <StatValue>{userInfo.StatPoint}</StatValue>
+        <StatValue>
+          {userInfo.StatPoint}
+          {TakePointArr.map((i, index) => {
+            return (
+              <TakePoint
+                className={i.number === takePoint ? 'active' : undefined}
+                onClick={() => {
+                  setTakePoint(i.number);
+                }}
+              >
+                {i.number}
+              </TakePoint>
+            );
+          })}
+        </StatValue>
       </StatList>
       <StatWrap>
         {statArr.map((i: any, index: number) => {
@@ -162,8 +224,7 @@ const StatusPiece = (props: any) => {
               </StatLevel>
               <StatBtn
                 onClick={() => {
-                  if (userInfo.StatPoint <= 0) return;
-                  dispatch(stat_request(`${i.statName}`, userInfo.StatPoint));
+                  takeStats(i.statName);
                 }}
               >
                 <img

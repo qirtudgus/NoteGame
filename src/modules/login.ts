@@ -172,9 +172,9 @@ export const skill_up = () => ({
   userInfo: setUserInfo,
 });
 
-export const stat_request = (statName: string, statPoint: number) => ({
+export const stat_request = (statName: string, statPoint: number, takePoint: number) => ({
   type: STAT_REQUEST,
-  payload: { statName, statPoint },
+  payload: { statName, statPoint, takePoint },
 });
 
 export const stat_up = () => ({
