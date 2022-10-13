@@ -98,6 +98,7 @@ const StatList = styled.li`
   font-size: 1.5rem;
 `;
 const StatValue = styled.span`
+  position: relative;
   width: 50%;
   height: 35px;
   padding: 5px 0 5px 10px;
@@ -107,18 +108,25 @@ const StatValue = styled.span`
   align-items: center;
   justify-content: flex-start;
 `;
+const TakePointWrap = styled.div`
+  width: 100%;
+  position: absolute;
+  display: flex;
+  left: 200px;
+`;
 const TakePoint = styled.div`
   cursor: pointer;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  width: 50px;
   height: 30px;
   background: #fff;
   color: #333;
   display: flex;
   margin-left: 10px;
-
+  border-radius: 2px;
   &.active {
+    font-weight: bold;
     background: #ffbc26;
   }
 `;
@@ -188,18 +196,20 @@ const StatusPiece = (props: any) => {
         <StatName>스텟 포인트</StatName>
         <StatValue>
           {userInfo.StatPoint}
-          {TakePointArr.map((i, index) => {
-            return (
-              <TakePoint
-                className={i.number === takePoint ? 'active' : undefined}
-                onClick={() => {
-                  setTakePoint(i.number);
-                }}
-              >
-                {i.number}
-              </TakePoint>
-            );
-          })}
+          <TakePointWrap>
+            {TakePointArr.map((i, index) => {
+              return (
+                <TakePoint
+                  className={i.number === takePoint ? 'active' : undefined}
+                  onClick={() => {
+                    setTakePoint(i.number);
+                  }}
+                >
+                  +{i.number}
+                </TakePoint>
+              );
+            })}
+          </TakePointWrap>
         </StatValue>
       </StatList>
       <StatWrap>
