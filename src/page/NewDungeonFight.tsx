@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -45,9 +45,9 @@ const AttackEffect = styled.div`
 `;
 
 const effact = keyframes`
-0% {scale:0; border: 10px solid#ffbc26; }
-50% { border: 40px solid#ffbc26;}
-100%{scale:1; border: 0px solid#ffbc26;}
+0% {scale:0; border: 10px solid#333; }
+50% { border: 40px solid#333;}
+100%{scale:1; border: 0px solid#333;}
 `;
 
 const AttackEffectDiv = styled.div<effectCoord>`
@@ -68,7 +68,7 @@ const AttackEffectDiv = styled.div<effectCoord>`
   animation-iteration-count: 1;
   animation-delay: 0.4s;
   animation-timing-function: ease;
-  border: 10px solid#ffbc26;
+  border: 10px solid#333;
 `;
 
 const lineEffect = keyframes`
@@ -82,13 +82,29 @@ const AttackEffectDiv2 = styled.div`
   border-radius: 100%;
   top: -20px;
   transform: rotate(30deg);
-  background-color: #ffbc26;
+  background-color: #333;
   /* border-radius: 100%; */
   position: absolute;
   transform-origin: 0 100% 0;
   scale: 0;
   animation: ${lineEffect} 0.31s 1 ease backwards;
   animation-delay: 0.39s;
+  z-index: 2;
+`;
+
+const ShineEffect = keyframes`
+  from {opacity:0}
+  50% {opacity:1}
+  to {opacity:0}
+`;
+
+const AttackEffectDiv3 = styled.div`
+  width: 400px;
+  height: 400px;
+  border-radius: 100%;
+  position: absolute;
+  background: #fff;
+  animation: ${ShineEffect} 0.9s 1 ease forwards;
 `;
 
 // const DoubleAttackEffect = styled.div<p>`
@@ -105,13 +121,32 @@ const AttackEffectDiv2 = styled.div`
 //     `}
 // `;
 
-const BottomBox = styled.div`
+const bottomBoxAttackEffect = keyframes`
+  0% { transform: translateY(0);}
+  20% { transform: translateY(60px);}
+  50% { transform: translateY(0px);}
+  70% { transform: translateY(15px);}
+  100% { transform: translateY(0px);}
+
+`;
+
+interface bottomBoxEffect {
+  attackEffect: boolean;
+}
+
+const BottomBox = styled.div<bottomBoxEffect>`
   width: 100%;
   height: 240px;
   border-radius: 0 0 20px 20px;
   position: absolute;
   bottom: 0px;
   background: #928282;
+  ${(props) =>
+    props.attackEffect &&
+    css`
+      animation: ${bottomBoxAttackEffect} 0.6s ease;
+      animation-delay: 0.39s;
+    `}
 `;
 
 const FightZone = styled.div`
@@ -322,8 +357,7 @@ const NewDungeonFight = () => {
   );
 
   function randomAttack(): string {
-    let a = createRandomNum(1, 4);
-    return 'attack' + a;
+    return 'attack' + createRandomNum(1, 3);
   }
   function randomEffectCoords() {
     const top = createRandomNum(-50, 50);
@@ -504,6 +538,7 @@ const NewDungeonFight = () => {
             left={effectCoords.left}
           >
             <AttackEffectDiv2></AttackEffectDiv2>
+            <AttackEffectDiv3></AttackEffectDiv3>
           </AttackEffectDiv>
         </AttackEffect>
       )}
@@ -590,7 +625,7 @@ const NewDungeonFight = () => {
         OnClick={useDoubleAttack}
       ></DungeonSkill>
 
-      <BottomBox></BottomBox>
+      <BottomBox attackEffect={attackAni.monsterHit}></BottomBox>
     </>
   );
 };
