@@ -24,7 +24,7 @@ const SkillBox = styled.div<skillBoxInterface>`
   background: #fff;
   margin-bottom: 4px;
   display: flex;
-  border: 1px solid#aaa;
+  /* border: 1px solid#aaa; */
   justify-content: space-between;
   /* &:first-child {
     margin-top: 20px;
