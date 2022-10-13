@@ -158,9 +158,9 @@ const ShopListPaper = (props: any) => {
 
   const a = (
     <>
+      <h1>구매하시겠습니까?</h1>
       <p>{buyPaperObj.title}</p>
       <p>{buyPaperObj.Gold.toLocaleString()}잉크</p>
-      <p>구매하시겠습니까?</p>
       <BasicBtn
         ButtonText='네, 구매하겠습니다.'
         color='#333'

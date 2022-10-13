@@ -181,9 +181,10 @@ const ShopListPen = (props: any) => {
 
   const a = (
     <>
+      <h1>구매하시겠습니까?</h1>
       <p>{buyPenObj.title}</p>
       <p>{buyPenObj.Gold.toLocaleString()}잉크</p>
-      <p>구매하시겠습니까?</p>
+
       <BasicBtn
         ButtonText='네, 구매하겠습니다.'
         color='#333'
@@ -198,7 +199,7 @@ const ShopListPen = (props: any) => {
   );
   const b = (
     <>
-      <p>잉크가 부족해요!</p>
+      <h1>잉크가 부족해요!</h1>
     </>
   );
   return (
@@ -210,7 +211,7 @@ const ShopListPen = (props: any) => {
             setEquipPenModal(false);
           }}
         >
-          <p>요구 레벨이 부족해요!</p>
+          <h1>요구 레벨이 부족해요!</h1>
         </RevivalModal>
       )}
       {isModal && <RevivalModal close>{goldCheck ? a : b}</RevivalModal>}
