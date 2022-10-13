@@ -161,17 +161,17 @@ const SkillPiece = (props: any) => {
     console.log(skillName);
     console.log(userInfo[skillName]);
     if (userInfo[skillName] >= maxLevel) {
-      setSkillText('이미 마스터한 스킬입니다.');
+      setSkillText('이미 마스터한 스킬이에요.');
       dispatch(modal_success());
       return;
     }
     if (userInfo.Level < requestLevel) {
-      setSkillText('요구 레벨이 부족합니다.');
+      setSkillText('요구 레벨이 부족해요.');
       dispatch(modal_success());
       return;
     }
     if (userInfo.SkillPoint === 0) {
-      setSkillText('스킬포인트가 부족합니다.');
+      setSkillText('스킬포인트가 부족해요.');
       dispatch(modal_success());
       return;
     } else {
