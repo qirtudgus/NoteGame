@@ -40,6 +40,7 @@ export interface userInfoInterface {
   isLevelUp: boolean;
   IsHelpModal: number;
   UpMulilpleReward: number;
+  BuySkillPointCount: number;
 }
 
 export const userInfoProcess = (arr: userInfoInterface) => {
