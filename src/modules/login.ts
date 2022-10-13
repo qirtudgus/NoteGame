@@ -43,6 +43,10 @@ export const LEVELUP_FAILURE = 'login/LEVELUP_FAILURE' as const;
 export const ISHELPMODAL_CONFIRM = 'login/ISHELPMODAL_CONFIRM' as const;
 export const ISHELPMODAL_SUCCESS = 'login/ISHELPMODAL_SUCCESS' as const;
 
+//스킬포인트 구매 관련 액션
+export const BUY_SKILLPOINT_REQUEST = 'login/BUY_SKILLPOINT_REQUEST' as const;
+export const BUY_SKILLPOINT_SUCCESS = 'login/BUY_SKILLPOINT_SUCCESS' as const;
+
 //userInfo 초기값 객체
 //렌더링할 때 필요한 값들입니다.
 export let setUserInfo = {
@@ -79,7 +83,17 @@ export let setUserInfo = {
   StatPoint: 0,
   isLevelUp: false,
   IsHelpModal: 0,
+  BuySkillPointCount: 0,
 };
+export const buy_skillpoint_success = () => ({
+  type: BUY_SKILLPOINT_SUCCESS,
+  userInfo: setUserInfo,
+});
+
+export const buy_skillpoint_request = (BuySkillPointCount: number) => ({
+  type: BUY_SKILLPOINT_REQUEST,
+  BuySkillPointCount,
+});
 
 export const ishelpmodal_confirm = () => ({
   type: ISHELPMODAL_CONFIRM,
@@ -246,7 +260,9 @@ type LoginAction =
   | ReturnType<typeof revival_success>
   | ReturnType<typeof levelup_failure>
   | ReturnType<typeof ishelpmodal_confirm>
-  | ReturnType<typeof ishelpmodal_success>;
+  | ReturnType<typeof ishelpmodal_success>
+  | ReturnType<typeof buy_skillpoint_request>
+  | ReturnType<typeof buy_skillpoint_success>;
 
 export interface LoginUserInfoInterface {
   Nickname: string;
@@ -281,7 +297,7 @@ export interface LoginUserInfoInterface {
   StatPoint: number;
   isLevelUp: boolean;
   IsHelpModal: number;
-
+  BuySkillPointCount: number;
   [prop: string]: any;
 }
 
@@ -376,6 +392,9 @@ const LoginRequest = (state: IsLoginState = LoginState, action: LoginAction): Is
       return { ...state, userInfo: action.userInfo };
     }
     case ISHELPMODAL_SUCCESS: {
+      return { ...state, userInfo: action.userInfo };
+    }
+    case BUY_SKILLPOINT_SUCCESS: {
       return { ...state, userInfo: action.userInfo };
     }
     default:
