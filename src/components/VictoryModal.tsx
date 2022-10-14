@@ -23,7 +23,7 @@ const Bg = styled.div`
   border-radius: 20px;
   width: 400px;
   height: 300px;
-  background: ${(props) => props.color || '#eee'};
+  background: ${(props) => props.color || '#fff'};
   margin: 50px auto;
   position: relative;
   z-index: 1;
@@ -37,6 +37,16 @@ const Bg = styled.div`
     font-weight: bold;
     margin-bottom: 5px;
   }
+  & > h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid#333;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0px 0 10px 0;
+  }
 `;
 
 const VictoryModal = (props: any) => {
@@ -49,7 +59,7 @@ const VictoryModal = (props: any) => {
     <BgWrap>
       {props.isModal ? (
         <Bg>
-          <p>승리!</p>
+          <h1>승리!</h1>
           <p>경험치 + {props.huntExp}</p>
           <p>잉크 + {Math.ceil(props.huntGold + (props.huntGold * userInfo.UpGoldHunt) / 100)}</p>
           <BasicButtons
