@@ -21,7 +21,7 @@ const Bg = styled.div`
   border-radius: 20px;
   width: 500px;
   height: 300px;
-  background: ${(props) => props.color || '#eee'};
+  background: ${(props) => props.color || '#fff'};
   margin: 50px auto;
   position: relative;
   z-index: 1;
@@ -31,11 +31,7 @@ const Bg = styled.div`
   align-items: center;
   user-select: none;
   font-size: 1.2rem;
-  /* & > p {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-  } */
+
   & > h1 {
     display: flex;
     justify-content: center;
@@ -45,12 +41,6 @@ const Bg = styled.div`
     font-size: 1.6rem;
     font-weight: bold;
     margin: 0px 0 10px 0;
-  }
-
-  & .result {
-    background: #ffbc26;
-    padding: 9px 30px 5px 30px;
-    border-radius: 10px;
   }
 `;
 
