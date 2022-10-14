@@ -131,14 +131,12 @@ const TakePoint = styled.div`
   }
 `;
 
-const TakePointArr = [{ number: 1 }, { number: 10 }, { number: 100 }];
-
 const StatusPiece = (props: any) => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
   const [takePoint, setTakePoint] = useState(1);
   const [statCheck, setStatCheck] = useState(false);
-
+  const TakePointArr = [{ number: 1 }, { number: 10 }, { number: 100 }];
   const takeStats = (statName: string) => {
     if (userInfo.StatPoint < takePoint) {
       setStatCheck(true);
