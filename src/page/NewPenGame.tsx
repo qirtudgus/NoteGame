@@ -39,6 +39,14 @@ export const StartBtn = styled(ButtonColor)<startButton>`
   ${(props) => props.penAnimation && css``}
 `;
 
+const Result = styled.div`
+  font-size: 1.5rem;
+  background: #ffbc26;
+  padding: 15px 30px 15px 30px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+`;
+
 const NewPenGame = () => {
   const dispatch = useDispatch();
   const isHelpVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
@@ -201,10 +209,10 @@ const NewPenGame = () => {
       {isModal &&
         (isSuccess ? (
           <RevivalModal>
-            <p>열심히 멈춘 결과</p>
-            <p className='result'>
+            <h1>열심히 멈춘 결과</h1>
+            <Result className='result'>
               {rewardText.actionName} {rewardText.reward.toLocaleString()}
-            </p>
+            </Result>
             <div>
               <p>{userInfo.beforeGold?.toLocaleString()} 골드에서</p>
               <p>{userInfo.Gold?.toLocaleString()} 골드로!</p>
