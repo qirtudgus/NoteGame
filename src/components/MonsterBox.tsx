@@ -8,7 +8,7 @@ import {
 import { monsterArr } from '../util/dungeonMonsterList';
 
 const CharacterWrap = styled.div<children>`
-  width: 200px;
+  width: 300px;
   height: 300px;
   position: relative;
   z-index: 10;
