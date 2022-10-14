@@ -1,12 +1,44 @@
-import 강아지 from '../img/monster/강아지.png';
-import 고양이 from '../img/monster/고양이.png';
-import 돼지 from '../img/monster/돼지.png';
-import 리자드 from '../img/monster/리자드.png';
-import size600 from '../img/monster/600x600.png';
+import 슬라임_1 from '../img/monster/슬라임_1.png';
+import 슬라임_2 from '../img/monster/슬라임_2.png';
+import 슬라임_3 from '../img/monster/슬라임_3.png';
+import 말미잘_1 from '../img/monster/말미잘_1.png';
+import 지렁용_1 from '../img/monster/지렁용_1.png';
+import 지렁용_2 from '../img/monster/지렁용_2.png';
+import 지렁용_3 from '../img/monster/지렁용_3.png';
 
 export const monsterArr: JSX.Element[] = [
   <img
-    src={size600}
+    src={슬라임_1}
+    alt='monster'
+    title='몬스터'
+  ></img>,
+  <img
+    src={슬라임_2}
+    alt='monster'
+    title='몬스터'
+  ></img>,
+  <img
+    src={슬라임_3}
+    alt='monster'
+    title='몬스터'
+  ></img>,
+  <img
+    src={말미잘_1}
+    alt='monster'
+    title='몬스터'
+  ></img>,
+  <img
+    src={지렁용_1}
+    alt='monster'
+    title='몬스터'
+  ></img>,
+  <img
+    src={지렁용_2}
+    alt='monster'
+    title='몬스터'
+  ></img>,
+  <img
+    src={지렁용_3}
     alt='monster'
     title='몬스터'
   ></img>,
