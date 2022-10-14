@@ -123,9 +123,9 @@ const AttackEffectDiv3 = styled.div`
 
 const bottomBoxAttackEffect = keyframes`
   0% { transform: translateY(0);}
-  20% { transform: translateY(60px);}
+  20% { transform: translateY(30px);}
   50% { transform: translateY(0px);}
-  70% { transform: translateY(15px);}
+  70% { transform: translateY(5px);}
   100% { transform: translateY(0px);}
 
 `;
@@ -144,7 +144,7 @@ const BottomBox = styled.div<bottomBoxEffect>`
   ${(props) =>
     props.attackEffect &&
     css`
-      animation: ${bottomBoxAttackEffect} 0.6s ease;
+      animation: ${bottomBoxAttackEffect} 0.5s ease;
       animation-delay: 0.39s;
     `}
 `;
