@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './Reset.css';
 import BasicInputs from './components/BasicInput';
 import BasicBtn from './components/BasicBtn';
@@ -94,10 +94,30 @@ function App() {
 
   const statusTextarr = ['로그인', null, null, '로그인'];
 
+  const enterLogin = useCallback((e: any) => {
+    if (e.keyCode === 13) {
+      document.getElementById('loginBtn')?.click();
+    } else {
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    (() => {
+      document.addEventListener('keypress', enterLogin);
+    })();
+    return () => {
+      document.removeEventListener('keypress', enterLogin);
+    };
+  }, [enterLogin]);
+
   return (
     <>
       <Logo>
-        <img src={로고}></img>
+        <img
+          src={로고}
+          alt={'로고'}
+        ></img>
       </Logo>
       <BasicInputs
         ref={IdRef}
@@ -116,6 +136,7 @@ function App() {
       ></BasicInputs>
       <LoginErrorText> {isLoadingText}</LoginErrorText>
       <BasicBtn
+        id='loginBtn'
         ButtonText={statusTextarr[isLoadingCode]}
         OnClick={loginRequest}
       >
