@@ -105,7 +105,9 @@ const Dungeon = () => {
   //환생 후 받을 스킬포인트
   let addSkillPoint = Math.floor((userInfo.DungeonFloor as number) / giveSkillPoint) * userInfo.UpRevivalStatPoint;
   //환생 후 돌아갈 층
-  let revivalFloor = Math.ceil(((userInfo.DungeonFloor as number) * (userInfo.RevivalPoint as number)) / 100);
+  let revivalFloor = Math.ceil(
+    ((userInfo.DungeonFloor as number) * (userInfo.BasicRevivalPoint + (userInfo.RevivalPoint as number))) / 100,
+  );
 
   const beforeFloorInput = () => {
     setFloorInputModal(true);
@@ -141,7 +143,7 @@ const Dungeon = () => {
 
   useEffect(() => {
     console.log('환생 확인');
-    if (localStorage.getItem('revivalModal') === '0' && userInfo.DungeonFloor > 10) {
+    if (localStorage.getItem('revivalModal') === '0' && userInfo.DungeonFloor >= 10) {
       setRevivalModalLocalStorage(true);
       localStorage.setItem('revivalModal', '1');
     } else {
