@@ -42,6 +42,15 @@ function loadUser() {
 }
 loadUser();
 
+// 10층 이상 도달했을 때 환생시스템을 안내해줄 모달창띄울지 여부값 로컬스토리지 선언 -> Dungeon에서 값 체크
+const revivalModalLocalStorage = () => {
+  if (localStorage.getItem('revivalModal') === null) {
+    localStorage.setItem('revivalModal', '0');
+  } else {
+    return;
+  }
+};
+revivalModalLocalStorage();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>
