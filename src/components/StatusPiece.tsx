@@ -198,6 +198,7 @@ const StatusPiece = (props: any) => {
             {TakePointArr.map((i, index) => {
               return (
                 <TakePoint
+                  key={index}
                   className={i.number === takePoint ? 'active' : undefined}
                   onClick={() => {
                     setTakePoint(i.number);
