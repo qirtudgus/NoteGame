@@ -72,6 +72,7 @@ export let setUserInfo = {
   EquipPaper: '',
   DungeonPenSpeed: 1,
   PenGamePenSpeed: 1,
+  BasicRevivalPoint: 30,
   RevivalPoint: 0,
   RevivalCount: 0,
   MaxDungeonFloor: 0,
@@ -286,6 +287,7 @@ export interface LoginUserInfoInterface {
   EquipPaper: string;
   DungeonPenSpeed: number;
   PenGamePenSpeed: number;
+  BasicRevivalPoint: number;
   RevivalPoint: number;
   RevivalCount: number;
   MaxDungeonFloor: number;

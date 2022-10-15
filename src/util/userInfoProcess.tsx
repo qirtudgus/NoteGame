@@ -29,6 +29,7 @@ export interface userInfoInterface {
   EquipPaper: string;
   DungeonPenSpeed: number;
   PenGamePenSpeed: number;
+  BasicRevivalPoint: number;
   RevivalPoint: number;
   RevivalCount: number;
   MaxDungeonFloor: number;
@@ -45,6 +46,7 @@ export interface userInfoInterface {
 
 export const userInfoProcess = (arr: userInfoInterface) => {
   let result = {} as userInfoInterface;
+  console.log(arr);
   Object.assign(result, { ...arr });
   delete result.Index;
   delete result.Password;
