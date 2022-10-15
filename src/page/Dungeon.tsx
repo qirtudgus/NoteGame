@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrowRight from '../img/오른쪽화살표.svg';
 import arrowLeft from '../img/왼쪽화살표.svg';
+import 던전배경 from '../img/던전입구.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { useNavigate } from 'react-router-dom';
@@ -26,11 +27,16 @@ const BottomBox = styled.div`
 `;
 
 const MoveBox = styled.div`
+  background-color: #ffbc26;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+  padding-right: 15px;
   display: flex;
   cursor: pointer;
   align-items: center;
   position: absolute;
-  left: 30px;
+  left: 180px;
+  top: 400px;
   font-size: 30px;
   & img {
     width: 50px;
@@ -41,12 +47,17 @@ const MoveBox = styled.div`
 `;
 
 const MoveBox2 = styled.div`
+  background-color: #ffbc26;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+  padding-left: 15px;
   display: flex;
   cursor: pointer;
 
   align-items: center;
   position: absolute;
-  right: 30px;
+  right: 180px;
+  top: 400px;
   font-size: 30px;
   & img {
     width: 50px;
@@ -64,6 +75,19 @@ const MoveBoxWrap = styled.div`
 const FloorInputModal = styled.input`
   width: 200px;
   height: 50px;
+`;
+
+const Bgimg = styled.div`
+  width: 997px;
+  height: 769px;
+  bottom: 0px;
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: 20px;
+  & img {
+    width: 100%;
+  }
 `;
 
 const Dungeon = () => {
@@ -180,8 +204,8 @@ const Dungeon = () => {
           ></img>
         </MoveBox2>
       </MoveBoxWrap>
-      <CharacterBox></CharacterBox>
-      <BottomBox></BottomBox>
+      <CharacterBox normally></CharacterBox>
+      {/* <BottomBox></BottomBox> */}
       {isModal ? (
         userInfo.DungeonFloor < 10 ? (
           <RevivalModal close>
@@ -209,6 +233,9 @@ const Dungeon = () => {
           </RevivalModal>
         )
       ) : null}
+      <Bgimg>
+        <img src={던전배경}></img>
+      </Bgimg>
     </>
   );
 };
