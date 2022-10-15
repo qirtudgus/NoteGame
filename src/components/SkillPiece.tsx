@@ -134,7 +134,7 @@ const SkillPiece = (props: any) => {
     {
       skillName: 'RevivalPoint',
       title: '다음생에는..',
-      desc: `환생 시 현재 층의 ${userInfo.RevivalPoint}%로 돌아갑니다.`,
+      desc: `1렙당 환생 시 돌아가는 층이 1% 증가합니다.(현재 ${userInfo.BasicRevivalPoint + userInfo.RevivalPoint}%)`,
       level: userInfo.RevivalPoint,
       requestLevel: 1,
       maxLevel: 30,
