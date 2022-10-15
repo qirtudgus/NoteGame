@@ -142,7 +142,7 @@ const Dungeon = () => {
     <>
       {userInfo.isLevelUp && (
         <RevivalModal>
-          <p>레벨 업!</p>
+          <h1>레벨 업!</h1>
           <p>
             {userInfo.Level - 1} {'->'} {userInfo.Level}
           </p>
