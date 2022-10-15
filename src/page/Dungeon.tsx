@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import arrowRight from '../img/오른쪽화살표.svg';
 import arrowLeft from '../img/왼쪽화살표.svg';
@@ -97,6 +97,7 @@ const Dungeon = () => {
   const [notFloor, setNotFloor] = useState(false);
   const [notFloorText, setNotFloorText] = useState('');
   const [floorInput, setFloorInput] = useState(1);
+  const [revivalModalLocalStorage, setRevivalModalLocalStorage] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -138,8 +139,29 @@ const Dungeon = () => {
     setFloorInputModal(false);
   };
 
+  useEffect(() => {
+    console.log('환생 확인');
+    if (localStorage.getItem('revivalModal') === '0' && userInfo.DungeonFloor > 10) {
+      setRevivalModalLocalStorage(true);
+      localStorage.setItem('revivalModal', '1');
+    } else {
+      return;
+    }
+  }, []);
+
   return (
     <>
+      {revivalModalLocalStorage && (
+        <RevivalModal
+          close
+          OnClick={() => {
+            setRevivalModalLocalStorage(false);
+          }}
+        >
+          <h1>10층부터는 환생을 할 수 있습니다!</h1>
+          <p>하단의 환생버튼을 눌러 확인해보세요.</p>
+        </RevivalModal>
+      )}
       {userInfo.isLevelUp && (
         <RevivalModal>
           <h1>레벨 업!</h1>
