@@ -13,6 +13,7 @@ const createMonsterRequest = async (dungeonFloor: number) => {
     return Math.ceil(floor + (floor * randomNum) / 10);
   };
   let monsterLevel = createLevel(floor, ran);
+
   const createHp = (floor: number) => {
     return Math.ceil(floor * (520 + floor * createRandomNum(5, 8)));
   };
@@ -22,10 +23,12 @@ const createMonsterRequest = async (dungeonFloor: number) => {
     return Math.ceil(floor + hp / 200);
   };
   let monsterExp = createExp(floor, monsterFullHp);
+
   const createDamage = (floor: number) => {
     return Math.ceil(floor + floor * createRandomNum(5, 9));
   };
   let monsterDamage = createDamage(floor);
+
   const createGold = (floor: number) => {
     return Math.ceil(floor + floor * createRandomNum(5, 9));
   };
@@ -43,7 +46,7 @@ const createMonsterRequest = async (dungeonFloor: number) => {
 
 function* createMonsterRequest$(action: any): Generator<any, any, any> {
   try {
-    let result = yield call(createMonsterRequest, action.dungeonFloor);
+    let result = yield call(createMonsterRequest, Number(action.dungeonFloor));
     yield put({ type: CREATE_MONSTER_SUCCESS, monsterInfo: result });
   } catch (E) {
     console.log(E);
