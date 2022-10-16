@@ -6,6 +6,11 @@ import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import 스킬아이콘배경 from '../img/스킬아이콘배경.jpg';
+import stat_hp from '../img/skill/stat_hp.png';
+import stat_attack from '../img/skill/stat_attack.png';
+import pen_ink from '../img/skill/pen_ink.png';
+import dungeon_ink from '../img/skill/dungeon_ink.png';
+import dungeon_attack from '../img/skill/dungeon_attack.png';
 import { StatName } from './StatList';
 import RevivalModal from './RevivalModal';
 
@@ -150,32 +155,61 @@ const StatusPiece = (props: any) => {
       statName: 'UpMaxHp',
       title: '굳은살이 베겼다',
       desc: `1렙당 기본 체력이 100 상승합니다.`,
-
       level: userInfo.UpMaxHp,
+      img: (
+        <img
+          src={stat_hp}
+          alt='굳은살이 베겼다'
+        ></img>
+      ),
     },
     {
       statName: 'UpBasicDamage',
       title: '쉬는시간엔 팔씨름',
       desc: `1렙당 기본 공격력이 50 상승합니다.`,
       level: userInfo.UpBasicDamage,
+      img: (
+        <img
+          src={stat_attack}
+          alt='굳은살이 베겼다'
+        ></img>
+      ),
     },
     {
       statName: 'UpGoldPen',
       title: '황금 볼펜',
       desc: `1렙당 볼펜 굴리기로 획득하는 잉크가 1% 상승합니다.`,
       level: userInfo.UpGoldPen,
+      img: (
+        <img
+          src={pen_ink}
+          alt='굳은살이 베겼다'
+        ></img>
+      ),
     },
     {
       statName: 'UpGoldHunt',
       title: '부지런한 학생',
       desc: `1렙당 던전에서 획득하는 잉크가 1% 상승합니다.`,
       level: userInfo.UpGoldHunt,
+      img: (
+        <img
+          src={dungeon_ink}
+          alt='굳은살이 베겼다'
+        ></img>
+      ),
     },
     {
       statName: 'BetterPen',
       title: '펜은 칼보다 강하다',
       desc: `1렙당 던전에서 공격력이 2% 상승합니다.`,
       level: userInfo.BetterPen,
+      img: (
+        <img
+          src={dungeon_attack}
+          alt='굳은살이 베겼다'
+        ></img>
+      ),
     },
   ];
   return (
@@ -218,12 +252,7 @@ const StatusPiece = (props: any) => {
               as='div'
               key={index}
             >
-              <StatIcon>
-                <img
-                  src={스킬아이콘배경}
-                  alt='스킬아이콘'
-                ></img>
-              </StatIcon>
+              <StatIcon>{i.img}</StatIcon>
               <StatTextWrap>
                 <StatTitle>{i.title}</StatTitle>
                 <StatDesc>{i.desc}</StatDesc>
