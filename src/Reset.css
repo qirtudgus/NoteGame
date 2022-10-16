@@ -132,6 +132,10 @@ table {
   font-family: 'Damage';
   src: url('../public/font/SamliphopangcheTTFOutline.ttf');
 }
+@font-face {
+  font-family: 'VITRO';
+  src: url('../public/font/VITRO CORE TTF.ttf');
+}
 
 * {
   font-family: 'HandFont' !important;
@@ -151,8 +155,6 @@ button {
 *::-webkit-scrollbar-track {
   background-color: #aaa;
 }
-
-
 
 .lds-ring {
   position: relative;
