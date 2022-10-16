@@ -34,7 +34,7 @@ export const StartBtn = styled(ButtonColor)<startButton>`
   flex-direction: column;
   & .startText {
     font-size: 3rem;
-    font-family: 'Damage' !important;
+    font-family: 'VITRO' !important;
   }
   ${(props) => props.penAnimation && css``}
 `;
