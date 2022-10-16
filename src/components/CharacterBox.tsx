@@ -57,8 +57,8 @@ const Character = styled.div<dungeonAni>`
     `}
 `;
 
-const attackTime = '0.7s';
-const attackDelayTime = '0.3s';
+const attackTime = '0.6s';
+const attackDelayTime = '0.2s';
 
 const EquipBallpenImg = styled.div<dungeonAni>`
   position: absolute;
