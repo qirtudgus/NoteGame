@@ -225,10 +225,10 @@ const HpText = styled.p`
 `;
 
 const damageTextAnimation = keyframes`
-    from{ opacity:0; transform:translateY(0)}
-    40%{ opacity:0;}
-    41%{ opacity:1;}
-    to{opacity:1; transform:translateY(-100px)}
+    from{ opacity:1; scale:0.9; transform:translateY(0)}
+    30%{  scale:1; transform:translateY(-20px)}
+    60%{  scale:1; transform:translateY(-15px)}
+    to{ opacity:1; scale:1; transform:translateY(-15px)}
 `;
 
 interface textCoords {
@@ -238,11 +238,16 @@ interface textCoords {
 const DamageText = styled.p<textCoords>`
   z-index: 1111;
   position: absolute;
+  top: 320px;
   left: ${(props) => props.textLeft}px;
   font-size: 3rem;
-  font-weight: bold;
-  font-family: 'Damage' !important;
-  animation: ${damageTextAnimation} 1s;
+  scale: 1;
+  color: #fff;
+  opacity: 0;
+  -webkit-text-stroke: 3px black;
+  font-family: 'VITRO' !important;
+  animation: ${damageTextAnimation} 0.6s ease forwards;
+  animation-delay: 0.3s;
 `;
 
 const NewDungeonFight = () => {
@@ -251,6 +256,7 @@ const NewDungeonFight = () => {
   const characterAnimeRef = useRef<any>(null);
   //더블어택 사용유무
   const [doubleAttack, setDoubleAttack] = useState<boolean>(false);
+  //더블어택 남은 사용횟수
   const [doubleAttackCount, setDoubleAttackCount] = useState(1);
   //이펙트를 담아둔 상태값
   // const [effectImg, setEffectImg] = useState<string>(평타);
@@ -336,7 +342,7 @@ const NewDungeonFight = () => {
   //스페이스바로 게임 시작
   const gameStart = useCallback(
     (e: any) => {
-      console.log('이벤트');
+      //도움말창이 열려있으면 게임진행 불가하게 return
       if (isHelpVisible === true) {
         return false;
       }
@@ -359,7 +365,7 @@ const NewDungeonFight = () => {
   function randomAttack(): string {
     return 'attack' + createRandomNum(1, 3);
   }
-  function randomEffectCoords() {
+  function randomEffectCoords(): { top: number; left: number } {
     const top = createRandomNum(-50, 50);
     const left = createRandomNum(-100, 100);
     return { top, left };
@@ -370,10 +376,12 @@ const NewDungeonFight = () => {
     const reward = document.elementFromPoint(x, y) as HTMLElement;
     reward.classList.add('active');
     const rewardNumber = reward.dataset.attacknumber;
-    if (rewardNumber === undefined) {
-      MonsterAttack();
-      return;
-    }
+
+    //리워드를 못골랐을 시 바로 몬스터턴으로 넘긴다. 현재는 css상 볼펜이 리워드바깥을 벗어나질않아 주석처리
+    // if (rewardNumber === undefined) {
+    //   MonsterAttack();
+    //   return;
+    // }
 
     //이펙트 좌표 랜덤연산
     setEffectCoords({ ...randomEffectCoords() });
@@ -400,13 +408,12 @@ const NewDungeonFight = () => {
         setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
       }, 350);
     }
-    //남은 몬스터 체력 계산
+    //남은 몬스터 체력 계산하여 승리와 진행으로 분기됨
     const monsterHp: number = hp.monsterHp - userResultDamage;
     const monsterHpBar: number = Math.ceil((monsterHp / monsterInfo.monsterFullHp) * 100);
+    //전투 승리 시
     if (monsterHp <= 0) {
-      setAttackAni((prev) => ({ ...prev, userNomally: false }));
-      setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
-      // setHp({ ...hp, monsterHp, monsterHpBar });
+      setAttackAni((prev) => ({ ...prev, userNomally: false, user: randomAttack(), monsterHit: true }));
       setHp((prev) => ({ ...prev, monsterHp: 0, monsterHpBar: 0 }));
       characterAnimeRef.current.play();
       setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
@@ -421,17 +428,14 @@ const NewDungeonFight = () => {
       }, 1000);
       return;
     }
-    setAttackAni((prev) => ({ ...prev, userNomally: false }));
-    setAttackAni((prev) => ({ ...prev, user: randomAttack(), monsterHit: true }));
-
+    //전투 진행 시
+    setAttackAni((prev) => ({ ...prev, userNomally: false, user: randomAttack(), monsterHit: true }));
     setTimeout(() => {
       setAttackAni((prev) => ({ ...prev, doubleAttack: true }));
     }, 200);
-
     setHp((prev) => ({ ...prev, monsterHp, monsterHpBar }));
     characterAnimeRef.current.restart();
     setDamageText({ ...damageText, userAttackDamage: userResultDamage.toLocaleString() + '' });
-
     setTimeout(() => {
       let box = document.querySelectorAll('.active');
       for (let value of box) {
@@ -570,14 +574,14 @@ const NewDungeonFight = () => {
         </MonsterHpBar>
       </FightState>
       <FightZone>
-        {attackAni.userHit ? <DamageText textLeft={300}>{damageText.monsterAttackDamage}</DamageText> : null}
+        {attackAni.userHit && <DamageText textLeft={300}>{damageText.monsterAttackDamage}</DamageText>}
 
         <CharacterBox
           normally={attackAni.userNomally}
           attack={attackAni.user}
           gelatine={attackAni.userHit}
         ></CharacterBox>
-        {attackAni.monsterHit ? <DamageText textLeft={550}>{damageText.userAttackDamage}</DamageText> : null}
+        {attackAni.monsterHit && <DamageText textLeft={550}>{damageText.userAttackDamage}</DamageText>}
 
         {/* <DoubleAttackEffect
           id='doubleAttackDiv'
