@@ -142,7 +142,6 @@ const Dungeon = () => {
   };
 
   useEffect(() => {
-    console.log('환생 확인');
     if (localStorage.getItem('revivalModal') === '0' && userInfo.DungeonFloor >= 10) {
       setRevivalModalLocalStorage(true);
       localStorage.setItem('revivalModal', '1');
@@ -258,7 +257,10 @@ const Dungeon = () => {
         )
       ) : null}
       <Bgimg>
-        <img src={던전배경}></img>
+        <img
+          src={던전배경}
+          alt='던전배경'
+        ></img>
       </Bgimg>
     </>
   );
