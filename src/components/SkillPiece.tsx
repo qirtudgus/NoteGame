@@ -6,6 +6,11 @@ import { ButtonColor } from './BtnMenu';
 import styled from 'styled-components';
 import 플러스 from '../img/플러스.svg';
 import 스킬아이콘배경 from '../img/스킬아이콘배경.jpg';
+import skill_moreFloor from '../img/skill/skill_moreFloor.png';
+import skill_moreRevivalPoint from '../img/skill/skill_moreRevivalPoint.png';
+import skill_Revival from '../img/skill/skill_Revival.png';
+import skill_multiple from '../img/skill/skill_multiple.png';
+import skill_doubleAttack from '../img/skill/skill_doubleAttack.png';
 import { StatName, StatValue } from './StatList';
 import { modal_success } from '../modules/modalState';
 import RevivalModal from './RevivalModal';
@@ -122,6 +127,12 @@ const SkillPiece = (props: any) => {
       level: userInfo.UpMoreFloor,
       requestLevel: 1,
       maxLevel: 30,
+      img: (
+        <img
+          src={skill_moreFloor}
+          alt='계단은 올라갈 때 두칸씩'
+        ></img>
+      ),
     },
     {
       skillName: 'UpRevivalStatPoint',
@@ -130,6 +141,12 @@ const SkillPiece = (props: any) => {
       level: userInfo.UpRevivalStatPoint,
       requestLevel: 1,
       maxLevel: 30,
+      img: (
+        <img
+          src={skill_moreRevivalPoint}
+          alt='내려갈때도 두칸씩'
+        ></img>
+      ),
     },
     {
       skillName: 'RevivalPoint',
@@ -138,6 +155,12 @@ const SkillPiece = (props: any) => {
       level: userInfo.RevivalPoint,
       requestLevel: 1,
       maxLevel: 30,
+      img: (
+        <img
+          src={skill_Revival}
+          alt='다음생에는..'
+        ></img>
+      ),
     },
     {
       skillName: 'UpDoubleAttack',
@@ -146,6 +169,12 @@ const SkillPiece = (props: any) => {
       level: userInfo.UpDoubleAttack,
       requestLevel: 5,
       maxLevel: 1,
+      img: (
+        <img
+          src={skill_doubleAttack}
+          alt='더블어택'
+        ></img>
+      ),
     },
     {
       skillName: 'UpMulilpleReward',
@@ -154,6 +183,12 @@ const SkillPiece = (props: any) => {
       level: userInfo.UpMulilpleReward,
       requestLevel: 10,
       maxLevel: 1,
+      img: (
+        <img
+          src={skill_multiple}
+          alt='곱하기 출현'
+        ></img>
+      ),
     },
   ];
 
@@ -198,12 +233,7 @@ const SkillPiece = (props: any) => {
               key={index}
               className='requestLevel'
             >
-              <SkillIcon>
-                <img
-                  src={스킬아이콘배경}
-                  alt='스킬아이콘'
-                ></img>
-              </SkillIcon>
+              <SkillIcon>{i.img}</SkillIcon>
               <SkillTextWrap>
                 <SkillTitle>{i.title}</SkillTitle>
 
@@ -225,12 +255,7 @@ const SkillPiece = (props: any) => {
               as='div'
               key={index}
             >
-              <SkillIcon>
-                <img
-                  src={스킬아이콘배경}
-                  alt='스킬아이콘'
-                ></img>
-              </SkillIcon>
+              <SkillIcon>{i.img}</SkillIcon>
               <SkillTextWrap>
                 <SkillTitle>{i.title}</SkillTitle>
 
