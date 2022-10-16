@@ -1,12 +1,22 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { createRandomRewardsArray } from '../util/createRandomRewardsArray';
 import { useSelector } from 'react-redux';
 import { RootState } from '../modules/modules_index';
 import { LoginUserInfoInterface } from '../modules/login';
 import BasicBtn from './BasicBtn';
 import { useNavigate } from 'react-router-dom';
-const Wrap = styled.div`
+
+interface refreshInterface {
+  refresh: boolean;
+}
+
+const ani = keyframes`
+from{transform:rotateX(0)}
+to{transform:rotateX(360deg)}
+`;
+
+const Wrap = styled.div<refreshInterface>`
   position: relative;
   width: auto;
   padding: 2rem;
@@ -16,6 +26,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  /* animation: ${(props) => (props.refresh ? ani : ani)} 1s; */
 `;
 
 const Reward = styled.div`
@@ -70,7 +81,7 @@ const RewardGoldListBox = (props: any) => {
 
   return (
     <>
-      <Wrap>
+      <Wrap refresh={props.refresh}>
         {boxCount === 0 ? (
           <ErrorPage>
             <div>뒤로 돌아가 다시 박스 갯수를 정해주세요!</div>
