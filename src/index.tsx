@@ -21,6 +21,7 @@ import NewDungeonFight from './page/NewDungeonFight';
 import NewPenGame from './page/NewPenGame';
 import NewRegister from './page/NewRegister';
 import NewRanking from './page/NewRanking';
+import MonsterCollection from './page/MonsterCollection';
 //사가미들웨어 생성
 const sagaMiddleware = createSagaMiddleware();
 //두번째인자에 사용할 미들웨어를 추가해주었다.
@@ -97,6 +98,10 @@ root.render(
           <Route
             path='/ballpenshop'
             element={<Shop />}
+          ></Route>
+          <Route
+            path='/monstercollection'
+            element={<MonsterCollection />}
           ></Route>
         </Route>
         <Route element={<LayoutNotInfo />}>
