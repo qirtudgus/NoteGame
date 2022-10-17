@@ -29,6 +29,7 @@ const SkillBox = styled.div<skillBoxInterface>`
   background: #fff;
   margin-bottom: 4px;
   display: flex;
+  position: relative;
   /* border: 1px solid#aaa; */
   justify-content: space-between;
   /* &:first-child {
@@ -43,7 +44,7 @@ const SkillTextWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  padding: 10px 0 10px 0;
+  padding: 10px 0 5px 0;
   width: 400px;
 `;
 const SkillTitle = styled.p`
@@ -54,12 +55,13 @@ const SkillTitle = styled.p`
 const SkillDesc = styled.p<skillBoxInterface>`
   font-size: 16px;
   color: ${(props) => props.descColor};
+  word-break: keep-all;
 `;
 
 const SkillNeedLevel = styled.p<skillBoxInterface>`
-  font-size: 16px;
-  position: relative;
-  top: 20px;
+  font-size: 15px;
+  position: absolute;
+  bottom: 5px;
   color: ${(props) => props.descColor};
 `;
 
@@ -137,7 +139,7 @@ const SkillPiece = (props: any) => {
     {
       skillName: 'UpRevivalStatPoint',
       title: '내려갈때도 두칸씩',
-      desc: `1렙당 환생 시 획득하는 능력치가 배로 상승합니다.`,
+      desc: `1렙당 환생 시 주어지는 스텟포인트가 스킬레벨만큼 \n 증가합니다.`,
       level: userInfo.UpRevivalStatPoint,
       requestLevel: 1,
       maxLevel: 30,
