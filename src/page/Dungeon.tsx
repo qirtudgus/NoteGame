@@ -100,12 +100,15 @@ const Dungeon = () => {
   const [revivalModalLocalStorage, setRevivalModalLocalStorage] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  let giveSkillPoint = 10;
+  //기본값 1에 '내려갈때도 두칸씩'스킬 값을 합산하여 계산하자
+  const BasicRevivalStatPoint = 1;
+  const giveSkillPoint = 10;
   //환생 후 받을 스킬포인트
-  let addSkillPoint = Math.floor((userInfo.DungeonFloor as number) / giveSkillPoint) * userInfo.UpRevivalStatPoint;
+  const addSkillPoint =
+    Math.floor((userInfo.DungeonFloor as number) / giveSkillPoint) *
+    (userInfo.UpRevivalStatPoint + BasicRevivalStatPoint);
   //환생 후 돌아갈 층
-  let revivalFloor = Math.ceil(
+  const revivalFloor = Math.ceil(
     ((userInfo.DungeonFloor as number) * (userInfo.BasicRevivalPoint + (userInfo.RevivalPoint as number))) / 100,
   );
 
@@ -233,7 +236,8 @@ const Dungeon = () => {
         userInfo.DungeonFloor < 10 ? (
           <RevivalModal close>
             <h1>10층부터 환생할 수 있습니다!</h1>
-            환생하면 현재층의 1%로 내려오는 대신<br></br>10층당 1스텟포인트를 획득하실 수 있습니다!
+            환생하면 현재층의 {userInfo.BasicRevivalPoint + userInfo.RevivalPoint}%의 높이로 내려오는 대신<br></br>
+            10층당 1스텟포인트를 획득하실 수 있습니다!
           </RevivalModal>
         ) : (
           <RevivalModal close>
