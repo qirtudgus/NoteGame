@@ -104,7 +104,10 @@ dungeonRouter.post('/revival', (req, res) => {
   db.query(RevivalPointFindQuery, [userId], (err, rows, fields) => {
     let nowFloor = rows[0].DungeonFloor;
     let revivalPoint = rows[0].RevivalPoint;
-    let UpRevivalStatPoint = rows[0].UpRevivalStatPoint;
+    //기본값 1에 '내려갈때도 두칸씩'스킬 값을 합산하여 계산하자
+    let BasicRevivalStatPoint = 1;
+    //패치전이니까 2씩 주어질것이다. 컬럼 기본값을 0으로 만들어주자
+    let UpRevivalStatPoint = rows[0].UpRevivalStatPoint + BasicRevivalStatPoint;
     let BasicRevivalPoint = rows[0].BasicRevivalPoint;
     //몇층단위로 1씩 지급할지
     let giveStatPoint = 10;
