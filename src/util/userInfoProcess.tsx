@@ -46,7 +46,6 @@ export interface userInfoInterface {
 
 export const userInfoProcess = (arr: userInfoInterface) => {
   let result = {} as userInfoInterface;
-  console.log(arr);
   Object.assign(result, { ...arr });
   delete result.Index;
   delete result.Password;
