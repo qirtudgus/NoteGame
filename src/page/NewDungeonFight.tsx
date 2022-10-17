@@ -225,8 +225,8 @@ const HpText = styled.p`
 `;
 
 const damageTextAnimation = keyframes`
-    from{ opacity:1; scale:0.9; transform:translateY(0)}
-    30%{  scale:1; transform:translateY(-20px)}
+    from{ opacity:1; scale:0; transform:translateY(0)}
+    15%{  scale:1.2; transform:translateY(-20px)}
     60%{  scale:1; transform:translateY(-15px)}
     to{ opacity:1; scale:1; transform:translateY(-15px)}
 `;
@@ -240,7 +240,7 @@ const DamageText = styled.p<textCoords>`
   position: absolute;
   top: 320px;
   left: ${(props) => props.textLeft}px;
-  font-size: 3rem;
+  font-size: 3.5rem;
   scale: 1;
   color: #fff;
   opacity: 0;
