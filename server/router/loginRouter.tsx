@@ -20,8 +20,6 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
     }
     // db조회값이 있을 시
     else {
-      console.log(rows[0].Password);
-      console.log(rows[0].Salt);
       console.log(`로그인 시간
          ${id}님   ${req.requestTime}`);
       const token: unknown = createToken(id);
@@ -30,9 +28,6 @@ loginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
       //https://bobbyhadz.com/blog/typescript-type-unknown-is-not-assignable-to-type
       const b: string = token as string;
       const uesrInfo2 = userInfoProcess(rows[0]);
-
-      console.log(rows[0].Password);
-      console.log(rows[0].Salt);
 
       console.log(checkToken(b));
       req.decoded = checkToken(b);
