@@ -22,7 +22,7 @@ import { dungeonRouter } from './router/dungeonRouter.js';
 import { buyBallpenListRouter } from './router/buyBallepenListRouter.js';
 import { rankingRouter } from './router/rankingRouter.js';
 import { statRouter } from './router/statRouter.js';
-import { builtinModules } from 'module';
+import { monsterCollectionRouter } from './router/monsterCollectionRouter.js';
 // import { mailRouter } from './router/mailRouter.js';
 const SERVER_PORT = 3001;
 db.connect((err: any) => {
@@ -94,6 +94,8 @@ app.use('/api/dungeon', dungeonRouter);
 app.use('/api/shop', buyBallpenListRouter);
 //랭킹 라우터
 app.use('/api/ranking', rankingRouter);
+//도감 라우터
+app.use('/api/monstercollection', monsterCollectionRouter);
 // //메일 라우터
 // app.use('/mail', mailRouter);
 app.listen(SERVER_PORT, () => {
