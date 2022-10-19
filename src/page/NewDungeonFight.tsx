@@ -278,7 +278,7 @@ const NewDungeonFight = () => {
   //전투 진행동안 시작버튼 제어여부
   const [startBtn, setStartBtn] = useState(false);
   //어떤 몬스터가 나올지의 상태값
-  const [monsterCall, setMonsterCall] = useState<number | null>(null);
+  // const [monsterCall, setMonsterCall] = useState<number | null>(null);
   //몬스터의 능력치값
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
   //몬스터 처치 여부
@@ -530,7 +530,7 @@ const NewDungeonFight = () => {
   //현재 체력 할당
   useEffect(() => {
     setHp({ ...hp, userHp: userInfo.BasicHp + userInfo.WeaponHp, monsterHp: monsterInfo.monsterFullHp });
-    setMonsterCall(createRandomNum(0, monsterArr.length - 1));
+    // setMonsterCall(createRandomNum(0, monsterArr.length - 1));
   }, []);
 
   return (
@@ -597,7 +597,7 @@ const NewDungeonFight = () => {
 
         <MonsterBox
           attack={attackAni.monster}
-          monsterCall={monsterCall as number}
+          // monsterCall={monsterCall as number}
           gelatine={attackAni.monsterHit}
           monsterKill={monsterKill}
         ></MonsterBox>
