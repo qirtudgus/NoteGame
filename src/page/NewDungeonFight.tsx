@@ -558,10 +558,10 @@ const NewDungeonFight = () => {
       <FightState>
         <HpTextWrap>
           <HpText>
-            {hp.userHp} / {userInfo.BasicHp + userInfo.WeaponHp}
+            {hp.userHp.toLocaleString()} / {(userInfo.BasicHp + userInfo.WeaponHp).toLocaleString()}
           </HpText>
           <HpText>
-            {hp.monsterHp} / {monsterInfo.monsterFullHp}
+            {hp.monsterHp.toLocaleString()} / {monsterInfo.monsterFullHp.toLocaleString()}
           </HpText>
         </HpTextWrap>
 
