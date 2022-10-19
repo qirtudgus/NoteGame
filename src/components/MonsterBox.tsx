@@ -64,7 +64,7 @@ const MonsterBox = ({ children, id, gelatine, monsterCall, attack, monsterKill }
       attack={attack}
     >
       {children}
-      <Character monsterKill={monsterKill}>{monsterArr[monsterCall!]}</Character>
+      <Character monsterKill={monsterKill}>{monsterArr[monsterCall!].img}</Character>
     </CharacterWrap>
   );
 };
