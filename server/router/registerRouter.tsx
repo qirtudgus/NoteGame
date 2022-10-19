@@ -19,7 +19,7 @@ registerRouter.post('/join', (req: Request, res: Response, next: NextFunction) =
   const a = createHashPassword(password);
   const sqlQuery = 'INSERT INTO users (Id,Password,Salt,Nickname) VALUES (?,?,?,?)';
   //도감 생성하기..
-  const collectionQuery = 'INSERT INTO monsterCollection (Id) VALUES (?)';
+  const collectionQuery = 'INSERT INTO monstercollection (Id) VALUES (?)';
   const countQuery = 'INSERT INTO monstercount (Id) VALUES (?)';
   db.query(sqlQuery, [id, a.hashPassword, a.salt, nickname], () => {
     db.query(collectionQuery, [id]);
