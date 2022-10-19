@@ -55,7 +55,6 @@ const VictoryModal = (props: any) => {
   const dispatch = useDispatch();
   const monsterInfo: any = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
   const userInfo = useSelector((state: RootState) => state.login.userInfo) as LoginUserInfoInterface;
-  console.log(props.floorInput);
   return (
     <BgWrap>
       {props.isModal ? (
