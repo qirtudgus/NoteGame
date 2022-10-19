@@ -114,6 +114,9 @@ const Ranking = styled.div<ranking>`
   justify-content: center;
   align-items: center;
   background: #d3d3d3;
+  &:first-child {
+    background: none;
+  }
 
   &:nth-child(2n) {
     background: #e7e7e7;
