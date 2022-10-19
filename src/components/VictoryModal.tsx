@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { dungeon_request, LoginUserInfoInterface } from '../modules/login';
 import BasicButtons from './BasicBtn';
 import { RootState } from '../modules/modules_index';
+import { monsterArr } from '../util/dungeonMonsterList';
 
 const BgWrap = styled.div`
   width: 100%;
@@ -77,6 +78,7 @@ const VictoryModal = (props: any) => {
                         userInfo.UpGoldHunt,
                         userInfo.Exp,
                         userInfo.Level,
+                        monsterArr[monsterInfo.monsterNumber].monsterNumber,
                         props.floorInput,
                       ),
                     );
@@ -90,6 +92,7 @@ const VictoryModal = (props: any) => {
                         userInfo.UpGoldHunt,
                         userInfo.Exp,
                         userInfo.Level,
+                        monsterArr[monsterInfo.monsterNumber].monsterNumber,
                       ),
                     );
                     navigate(-1);
