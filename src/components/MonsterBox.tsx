@@ -6,6 +6,8 @@ import {
   monsterAppearEffect,
 } from '../styledComponents/DungeonFight_Effect';
 import { monsterArr } from '../util/dungeonMonsterList';
+import { useSelector } from 'react-redux';
+import { RootState } from '../modules/modules_index';
 
 const CharacterWrap = styled.div<children>`
   width: 300px;
@@ -57,6 +59,9 @@ const Character = styled.div<children>`
 `;
 
 const MonsterBox = ({ children, id, gelatine, monsterCall, attack, monsterKill }: children) => {
+  //몬스터의 능력치값
+  const { monsterNumber } = useSelector((state: RootState) => state.monsterInfo.monsterInfo);
+
   return (
     <CharacterWrap
       id={id}
@@ -64,7 +69,7 @@ const MonsterBox = ({ children, id, gelatine, monsterCall, attack, monsterKill }
       attack={attack}
     >
       {children}
-      <Character monsterKill={monsterKill}>{monsterArr[monsterCall!].img}</Character>
+      <Character monsterKill={monsterKill}>{monsterArr[monsterNumber!]?.img}</Character>
     </CharacterWrap>
   );
 };
