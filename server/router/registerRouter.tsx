@@ -18,8 +18,13 @@ registerRouter.post('/join', (req: Request, res: Response, next: NextFunction) =
   const { id, password, nickname } = req.body;
   const a = createHashPassword(password);
   const sqlQuery = 'INSERT INTO users (Id,Password,Salt,Nickname) VALUES (?,?,?,?)';
-
-  db.query(sqlQuery, [id, a.hashPassword, a.salt, nickname]);
+  //도감 생성하기..
+  const collectionQuery = 'INSERT INTO monsterCollection (Id) VALUES (?)';
+  const countQuery = 'INSERT INTO monstercount (Id) VALUES (?)';
+  db.query(sqlQuery, [id, a.hashPassword, a.salt, nickname], () => {
+    db.query(collectionQuery, [id]);
+    db.query(countQuery, [id]);
+  });
   console.log(`${id}님 회원가입 완료`);
   res.status(200).json({ code: 200 });
 });
