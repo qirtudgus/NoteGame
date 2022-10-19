@@ -30,6 +30,7 @@ const dungeonVictoryRequest = async (
   UpGoldHunt: number,
   userExp: number,
   userLevel: number,
+  monsterNumber: string,
   floorInput?: number,
 ) => {
   return await customAxios('post', '/dungeon/victory', {
@@ -38,6 +39,7 @@ const dungeonVictoryRequest = async (
     UpGoldHunt,
     userExp,
     userLevel,
+    monsterNumber,
     floorInput,
   }).then((res) => {
     return res.data;
@@ -54,6 +56,7 @@ function* dungeonVictoryRequest$(action: any): Generator<any, any, any> {
       action.payload.UpGoldHunt,
       action.payload.userExp,
       action.payload.userLevel,
+      action.payload.monsterNumber,
       action.payload.before,
     );
     yield put({ type: DUNGEON_VICTORY, userInfo: result.userInfo });
