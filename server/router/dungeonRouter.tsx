@@ -15,12 +15,19 @@ const RevivalPointFindQuery = `SELECT RevivalPoint, DungeonFloor, UpRevivalStatP
 const RevivalUpdateQuery =
   'UPDATE users SET DungeonFloor = ?, StatPoint = StatPoint + ?, RevivalCount = RevivalCount + 1 WHERE ID = ?';
 
+const MonsterCountQuery2 =
+  'UPDATE monstercollection AS a INNER JOIN monstercount AS b ON (a.Id = b.Id) SET a.?? = 1, b.?? = b.?? + 1 WHERE a.Id = ?';
 //맥스층 갱신 쿼리
 // const MaxFloorUpdateQuery;
 
 dungeonRouter.post('/victory', (req, res, next) => {
   const userId = req.decoded.userId;
-  const { monsterGold, monsterExp, UpGoldHunt, userExp, userLevel, floorInput } = req.body;
+  const { monsterGold, monsterExp, UpGoldHunt, userExp, userLevel, floorInput, monsterNumber } = req.body;
+
+  db.query(MonsterCountQuery2, [monsterNumber, monsterNumber, monsterNumber, userId], (err, rows) => {
+    if (err) console.log(err);
+  });
+
   const resultGold: number = Math.ceil(monsterGold + (monsterGold * UpGoldHunt) / 100);
   const resultExp = userExp + monsterExp;
   //이전층으로 돌아가서 클리어시 before값이 들어온다. 그에 맞는 로직.
