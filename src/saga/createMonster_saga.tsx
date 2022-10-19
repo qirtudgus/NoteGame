@@ -1,10 +1,13 @@
 import { takeLatest, put, call, fork, all } from 'redux-saga/effects';
 import { CREATE_MONSTER_REQUEST, CREATE_MONSTER_SUCCESS } from '../modules/createMonster';
 import createRandomNum from '../util/createRandomNum';
+import { monsterArr } from '../util/dungeonMonsterList';
 
 const createMonsterRequest = async (dungeonFloor: number) => {
   let floor = dungeonFloor;
   let monsterInfo = {};
+  //랜덤한 수를 하나 뽑아서 몬스터를 호출할 때 사용
+  let monsterNumber = createRandomNum(0, monsterArr.length - 1);
   //   //레벨과 경험치 난수 미리 생성
   let ran = createRandomNum(0, 2);
 
@@ -40,6 +43,7 @@ const createMonsterRequest = async (dungeonFloor: number) => {
     monsterExp,
     monsterDamage,
     monsterGold,
+    monsterNumber,
   };
   return monsterInfo;
 };
