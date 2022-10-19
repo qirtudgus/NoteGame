@@ -6,6 +6,7 @@ import 던전 from '../img/던전2.svg';
 import 볼펜굴리기 from '../img/볼펜굴리기2.svg';
 import 상점 from '../img/상점2.svg';
 import 내상태 from '../img/내상태2.svg';
+import 도감 from '../img/도감2.svg';
 
 const FooterWrap = styled.div`
   position: absolute;
@@ -104,6 +105,13 @@ const FooterMenu = () => {
             alt='랭킹'
           ></img>
           <FooterTitle>랭킹</FooterTitle>
+        </FooterIcon>
+        <FooterIcon onClick={() => navigate('/monstercollection')}>
+          <img
+            src={도감}
+            alt='도감'
+          ></img>
+          <FooterTitle>도감</FooterTitle>
         </FooterIcon>
       </FooterWrap>
     </>
