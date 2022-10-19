@@ -152,10 +152,11 @@ export const dungeon_request = (
   UpGoldHunt: number,
   userExp: number,
   userLevel: number,
+  monsterNumber: string,
   before?: boolean,
 ) => ({
   type: DUNGEON_REQUEST,
-  payload: { monsterGold, monsterExp, before, UpGoldHunt, userExp, userLevel },
+  payload: { monsterGold, monsterExp, UpGoldHunt, userExp, userLevel, monsterNumber, before },
 });
 
 export const dungeon_victory = () => ({
