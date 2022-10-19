@@ -10,6 +10,7 @@ interface MonsterInfo {
     monsterExp: number | null;
     monsterDamage: number | null;
     monsterGold: number | null;
+    monsterNumber: number | null;
   };
 }
 
@@ -41,6 +42,7 @@ type CreateMonsterStateType = {
     monsterExp: number | null;
     monsterDamage: number | null;
     monsterGold: number | null;
+    monsterNumber: number | null;
   };
 };
 
@@ -52,6 +54,7 @@ const createMonsterState: CreateMonsterStateType = {
     monsterExp: 0,
     monsterDamage: 0,
     monsterGold: 0,
+    monsterNumber: 0,
   },
 };
 
