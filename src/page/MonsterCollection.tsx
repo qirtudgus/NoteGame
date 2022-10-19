@@ -4,6 +4,9 @@ import styled, { css } from 'styled-components';
 import BtnMenu from '../components/BtnMenu';
 import 왼쪽화살표 from '../img/왼쪽화살표.svg';
 import 오른쪽화살표 from '../img/오른쪽화살표.svg';
+import 줌 from '../img/줌.svg';
+import 엑스 from '../img/엑스.svg';
+
 import { monsterArr } from '../util/dungeonMonsterList';
 interface a {
   userList?: any;
@@ -77,8 +80,21 @@ const CardImg = styled.div`
   background: #fff;
   display: flex;
   justify-content: center;
+  position: relative;
   & img {
     width: 200px;
+  }
+  & button {
+    position: absolute;
+    bottom: 0px;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    background: none;
+  }
+
+  & button img {
+    width: 100%;
   }
 `;
 const CardImgMissing = styled.div`
@@ -109,6 +125,68 @@ const CardCount = styled.p`
   align-items: center;
 `;
 
+const MonsterDetailModal = styled.div`
+  width: 1000px;
+  height: 600px;
+  background: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+`;
+
+const MonsterDetailImg = styled.div`
+  width: 500px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  & img {
+    width: 100%;
+  }
+`;
+const MonsterDetailInfo = styled.div`
+  width: 500px;
+  height: 550px;
+  padding-top: 50px;
+  & h1 {
+    margin: 0 20px;
+    font-size: 2.5rem;
+  }
+  & h3 {
+    font-size: 1.5rem;
+    margin: 40px 20px 20px;
+  }
+  & p {
+    margin: 20px 20px;
+    font-size: 1.6rem;
+    word-break: keep-all;
+    line-height: 1.9rem;
+  }
+`;
+
+const BgWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.2);
+  left: 0;
+  top: 0;
+`;
+
+const Close = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  & img {
+    width: 35px;
+  }
+`;
+
 const MonsterCollection = () => {
   //보여줄 페이지 사이즈 페이지당 8마리
   const PAGE_SIZE = 8;
@@ -128,6 +206,16 @@ const MonsterCollection = () => {
   const [currentPageNum, setCurrentPageNum] = useState<number>(1);
   //현재 보여주고있는 페이지버튼 리스트
   const [pageList, setPageList] = useState<number[]>([]);
+  //몬스터 세부정보 모달창 여부
+  const [monsterDetailView, setMonsterDetailView] = useState(false);
+  //몬스터 세부정보 콘텐츠
+  const [monsterDetailContent, setMonsterDetailContent] = useState({
+    monsterNumber: '',
+    name: '',
+    img: '',
+    desc: '',
+    count: '',
+  });
 
   const call = async (currentPageNum: number): Promise<void> => {
     let payloadObj = await customAxios('post', '/monstercollection/joins', {
@@ -174,6 +262,11 @@ const MonsterCollection = () => {
     }
   };
 
+  const DetailViewToggle = (monsterList: any, count: number) => {
+    setMonsterDetailContent({ ...monsterList, count });
+    setMonsterDetailView((prev) => !prev);
+  };
+
   //첫 데이터를 불러온다.
   useEffect(() => {
     call(currentPageNum);
@@ -181,12 +274,42 @@ const MonsterCollection = () => {
 
   return (
     <>
+      {monsterDetailView && (
+        <BgWrap>
+          <MonsterDetailModal>
+            <MonsterDetailImg>{monsterDetailContent.img}</MonsterDetailImg>
+            <MonsterDetailInfo>
+              <h3>이름</h3>
+              <h1>{monsterDetailContent.name}</h1>
+              <h3>설명</h3>
+              <p>{monsterDetailContent?.desc}</p>
+              <h3>잡은 횟수</h3>
+              <p>{monsterDetailContent?.count}</p>
+            </MonsterDetailInfo>
+
+            <Close onClick={() => setMonsterDetailView(false)}>
+              <img
+                src={엑스}
+                alt='닫기'
+              />
+            </Close>
+          </MonsterDetailModal>
+        </BgWrap>
+      )}
       <CollectionWrap>
         {list.collection.map((i, index) => (
           <CardWrap key={index}>
             {list.collection[index] >= 1 ? (
               <>
-                <CardImg>{monsterList![index].img}</CardImg>
+                <CardImg>
+                  {monsterList![index].img}
+                  <button onClick={() => DetailViewToggle(monsterList![index], list.count[index])}>
+                    <img
+                      src={줌}
+                      alt='상세정보'
+                    ></img>
+                  </button>
+                </CardImg>
                 <CardTitle>{monsterList![index].name}</CardTitle>
               </>
             ) : (
