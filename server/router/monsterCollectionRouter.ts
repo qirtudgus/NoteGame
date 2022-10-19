@@ -2,11 +2,11 @@ import express, { Request, Response, NextFunction } from 'express';
 import { db } from '../db.js';
 export const monsterCollectionRouter = express.Router();
 
-const joinQuery = 'SELECT * FROM monsterCollection WHERE ID = ?';
+const joinQuery = 'SELECT * FROM monstercollection WHERE ID = ?';
 const joinQueryCount = 'SELECT * FROM monstercount WHERE ID = ?';
 
 //각 테이블의 컬럼명이 동일하니까 뒤에있는 테이블의 컬럼데이터로 덮여씌워짐..
-const joinQuery2 = 'SELECT * FROM monsterCollection AS c LEFT JOIN monstercount AS r ON c.Id = r.Id';
+const joinQuery2 = 'SELECT * FROM monstercollection AS c LEFT JOIN monstercount AS r ON c.Id = r.Id';
 
 //랭킹과 다른점을 작성해보자
 //도감은 몬스터갯수만큼 각 쌍의 컬럼갯수도 고정되어있다.
