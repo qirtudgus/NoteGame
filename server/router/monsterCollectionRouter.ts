@@ -28,11 +28,6 @@ monsterCollectionRouter.post('/joins', async (req, res) => {
   let monsterCollection: any = [];
   db.query(joinQuery, [userId], (err, rows, fields) => {
     if (err) console.log(err);
-    console.log('도감 rows 오류 디버깅중');
-    console.log(rows);
-    console.log('도감 rows 오류 디버깅중 [0] 접근');
-    console.log(rows[0]);
-
     delete rows[0].Id;
     delete rows[0].Index;
     monsterCollection.collection = Object.values(rows[0]);
