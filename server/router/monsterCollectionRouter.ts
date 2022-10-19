@@ -30,31 +30,19 @@ monsterCollectionRouter.post('/joins', async (req, res) => {
     delete rows[0].Id;
     delete rows[0].Index;
     monsterCollection.collection = Object.values(rows[0]);
-    console.log(monsterCollection);
 
     db.query(joinQueryCount, [userId], (err, rows2, fields) => {
       delete rows2[0].Id;
       delete rows2[0].Index;
       monsterCollection.count = Object.values(rows2[0]);
-      //각 테이블의 동일한 Id에 담긴 컬럼값을 할당
-      // index 0번부터 1번몬스터 사냥여부와, 잡은횟수가 기록되어있다.
-      // 이를 응답하여주면 나쁘지않을듯..
-      console.log(monsterCollection); // [ collection: [ 0, 2, 0, 0, 0 ], count: [ 0, 0, 0, 0, 0 ] ]
 
-      //넘길 갯수만큼 총 배열에서 잘라내야한다.
-      //pageNumber = 0; 이면 8까지 잘린다.
-      //pageNumber = 1; 이면 10부터 잘린다.
       let collectionResult = monsterCollection.collection.slice(pageNumber, pageNumber + 7 + 1); // 0~7 까지 8개를 넘겨준다.
       let countResult = monsterCollection.count.slice(pageNumber, pageNumber + 7 + 1); // 0~7 까지 8개를 넘겨준다.
 
-      console.log('배열 자른결과');
-      console.log(collectionResult);
-      console.log(countResult);
-
-      // res.status(200).json({ collection: Object.values(rows[0]), count: Object.values(rows2[0]) });
       res.status(200).json({
         collection: collectionResult,
         count: countResult,
+        //필요한 페이지 갯수
         listNum: Math.ceil(monsterCollection.collection.length / 8),
       });
     });
