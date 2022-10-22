@@ -106,6 +106,9 @@ const NewRegister = () => {
   //공백체크 표현식
   const spaceCheck = /\s/;
 
+  //회원가입 완료 모달 ref
+  const registerModal = useRef() as React.MutableRefObject<any>;
+
   const inputHandler = (e: any, setState: any) => {
     const { value } = e.currentTarget;
     setState(value);
@@ -156,7 +159,9 @@ const NewRegister = () => {
       passwordConfirmRef.current.focus();
       return;
     }
+
     dispatch(register(id, password, nickname));
+    registerModal.current.blur();
   };
 
   const goToLogin = () => {
@@ -254,7 +259,12 @@ const NewRegister = () => {
         </InputWrap>
         <InputText isReg={passwordConfirmReg}>{passwordConfrimRegText}</InputText>
       </InputBox>
-      <Submit onClick={registerRequest}>회원가입</Submit>
+      <Submit
+        onClick={registerRequest}
+        ref={registerModal}
+      >
+        회원가입
+      </Submit>
       <BtnMenu BackHistory></BtnMenu>
     </>
   );
