@@ -34,11 +34,6 @@ const ResgisterState: IsRegisterState = {
 
 const regitserRequest = (state: IsRegisterState = ResgisterState, action: RegisterAction): IsRegisterState => {
   switch (action.type) {
-    //아래 REGISTER case가 없어도
-    //dispatch를 통해 saga가 액션을 감지하는데는 지장없었다.
-    // case REGISTER:{
-    //     return { isRegister : 1}
-    // }
     case REGISTER_SUCCESS: {
       return { isRegister: action.payload };
     }
