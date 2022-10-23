@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import Pen from '../components/Pen';
 import { LoginUserInfoInterface, pengame_request } from '../modules/login';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,18 @@ import RevivalModal from '../components/RevivalModal';
 import BasicBtn from '../components/BasicBtn';
 import Loading from '../components/Loading';
 import { pengame_boxcount_success } from '../modules/pengameBoxCount';
+import sleep from '../util/sleep';
+import createRandomNum from '../util/createRandomNum';
+
+const colors = [
+  '#4b7bec', // blue
+  '#fc5c65', // red
+  '#fed330', // yellow
+  '#26de81', // green
+  '#2bcbba', // sea
+  '#fd9644', // orange
+  '#a55eea', // violet
+];
 
 interface startButton {
   penAnimation?: boolean;
@@ -47,9 +59,40 @@ const Result = styled.div`
   margin-bottom: 10px;
 `;
 
+interface effectCoord {
+  top: number;
+  left: number;
+  widthAndHeight: number;
+  translateX: number;
+  translateY: number;
+  rotate: number;
+}
+
+const EffectAni = (x: number, y: number, rotate: number) => keyframes`
+  from{opacity:1; transform:translateX(0) translateY(0) rotate(0) }
+  80%{opacity:1;}
+  to{opacity:0;transform:translateX(${x}px) translateY(${y}px) rotate(${rotate}deg)}
+`;
+
+const Effect = styled.div<effectCoord>`
+  width: ${(props) => props.widthAndHeight}px;
+  height: ${(props) => props.widthAndHeight}px;
+  z-index: 100;
+  opacity: 1;
+  background: #ff0000;
+  position: fixed;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+  animation: ${(props) => EffectAni(props.translateX, props.translateY, props.rotate)} 0.6s ease-out;
+`;
+
 const NewPenGame = () => {
   const dispatch = useDispatch();
   const isHelpVisible = useSelector((state: RootState) => state.userInfo_visibleRequest.isVisible);
+  //이펙트 좌표값
+  const [effectCoord, setEffectCoord] = useState({ top: 0, left: 0 });
+  //펜이 멈췄을때 이펙트를 터뜨리기위한 불린값
+  const [penAnimationEffect, setPenAnimationEffect] = useState(false);
 
   const [penAnimation, setPenAnimation] = useState(true);
   const [startBtn, setStartBtn] = useState(false);
@@ -103,23 +146,30 @@ const NewPenGame = () => {
   //리워드 획득
   const getRewardElement = async (x: number, y: number) => {
     const el = document.elementFromPoint(x, y) as HTMLElement;
+    console.log(y, x);
+    setEffectCoord({ top: y, left: x });
     let reward: number = Number(el.dataset.number as string);
     let action = el.dataset.action as string;
     let actionName = el.dataset.actionname as string;
-    setIsLoading(false);
+    // 로딩스피너 띄우는 코드
+    // setIsLoading(false);
+    setPenAnimationEffect(() => true);
+
     //과도한 서버통신을 방지하기위한 딜레이 부여
     setTimeout(function () {
       setIsLoading(true);
       if (isNaN(reward)) {
+        setPenAnimationEffect(() => false);
         setIsSuccess(false);
         dispatch(modal_success());
       } else {
+        setPenAnimationEffect(() => false);
         dispatch(pengame_request(reward, action, 1));
         setIsSuccess(true);
         SetRewardText({ reward, actionName });
         dispatch(modal_success());
       }
-    }, 400);
+    }, 600);
   };
 
   const replay = () => {
@@ -203,8 +253,59 @@ const NewPenGame = () => {
     };
   }, [gameStart]);
 
+  // const ranObj = useMemo(() => {
+  //   return {
+  //     widthAndHeight: createRandomNum(20, 50),
+  //     translateX: createRandomNum(-300, 300),
+  //     translateY: createRandomNum(-300, 300),
+  //     rotate: createRandomNum(150, 360),
+  //   };
+  // }, [penAnimationEffect]);
+  // console.log(ranObj);
+
+  // const array = [0, 0, 0, 0, 0, 0, 0, 0];
+  // const arrayObj = array.map((i, index) => ({
+  //   widthAndHeight: createRandomNum(20, 50),
+  //   translateX: createRandomNum(-300, 300),
+  //   translateY: createRandomNum(-300, 300),
+  //   rotate: createRandomNum(150, 360),
+  // }));
+  // console.log(arrayObj);
+
+  //(width, height) translateX, Y, rotate 4가지의 난수를 생성해야한다.
+  const memoFrom = useMemo(() => {
+    return Array.from({ length: 7 }).map((i, index) => ({
+      widthAndHeight: createRandomNum(20, 50),
+      translateX: createRandomNum(-300, 300),
+      translateY: createRandomNum(-300, 300),
+      rotate: createRandomNum(150, 360),
+    }));
+  }, [penAnimationEffect]);
+
+  // const From = Array.from({ length: 10 }).map((i, index) => ({
+  //   widthAndHeight: createRandomNum(20, 50),
+  //   translateX: createRandomNum(-300, 300),
+  //   translateY: createRandomNum(-300, 300),
+  //   rotate: createRandomNum(150, 360),
+  // }));
+  // console.log(From);
+  // console.log(memoFrom);
+
   return (
     <>
+      {penAnimationEffect &&
+        memoFrom.map((i: any, index: number) => (
+          <React.Fragment key={index}>
+            <Effect
+              top={effectCoord.top}
+              left={effectCoord.left}
+              widthAndHeight={i.widthAndHeight}
+              translateX={i.translateX}
+              translateY={i.translateY}
+              rotate={i.rotate}
+            ></Effect>
+          </React.Fragment>
+        ))}
       {isLoading ? null : <Loading></Loading>}
       {isModal &&
         (isSuccess ? (
