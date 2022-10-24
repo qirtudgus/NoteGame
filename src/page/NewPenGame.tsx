@@ -209,7 +209,7 @@ const NewPenGame = () => {
         SetRewardText({ reward, actionName });
         dispatch(modal_success());
       }
-    }, 900);
+    }, 700);
   };
 
   const replay = () => {
