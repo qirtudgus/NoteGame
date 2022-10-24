@@ -66,6 +66,7 @@ interface effectCoord {
   translateX: number;
   translateY: number;
   rotate: number;
+  BgColor: string;
 }
 
 const EffectAni = (x: number, y: number, rotate: number) => keyframes`
@@ -74,16 +75,55 @@ const EffectAni = (x: number, y: number, rotate: number) => keyframes`
   to{opacity:0;transform:translateX(${x}px) translateY(${y}px) rotate(${rotate}deg)}
 `;
 
+const AttackEffect = styled.div<effectCoord2>`
+  width: 100px;
+  height: 100px;
+  display: flex;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+  transform: translate(-50%, -50%);
+`;
+
 const Effect = styled.div<effectCoord>`
   width: ${(props) => props.widthAndHeight}px;
   height: ${(props) => props.widthAndHeight}px;
   z-index: 100;
   opacity: 1;
-  background: #ff0000;
-  position: fixed;
-  top: ${(props) => props.top}px;
-  left: ${(props) => props.left}px;
-  animation: ${(props) => EffectAni(props.translateX, props.translateY, props.rotate)} 0.6s ease-out;
+  background: ${(props) => props.BgColor};
+  /* position: relative; */
+  /* top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px; */
+  animation: ${(props) => EffectAni(props.translateX, props.translateY, props.rotate)} 0.6s ease-out forwards;
+`;
+
+const effact = keyframes`
+0% {scale:0;  opacity:1;}
+100%{scale:1.5;opacity:0;}
+`;
+interface effectCoord2 {
+  top: number;
+  left: number;
+}
+
+const AttackEffectDiv = styled.div<effectCoord2>`
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  position: absolute;
+  /* top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px; */
+  z-index: 1000;
+  scale: 0;
+  animation-name: ${effact};
+  animation-duration: 0.6s;
+  animation-fill-mode: backwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  border: 5px solid#ffbc26;
 `;
 
 const NewPenGame = () => {
@@ -169,7 +209,7 @@ const NewPenGame = () => {
         SetRewardText({ reward, actionName });
         dispatch(modal_success());
       }
-    }, 600);
+    }, 900);
   };
 
   const replay = () => {
@@ -253,33 +293,17 @@ const NewPenGame = () => {
     };
   }, [gameStart]);
 
-  // const ranObj = useMemo(() => {
-  //   return {
-  //     widthAndHeight: createRandomNum(20, 50),
-  //     translateX: createRandomNum(-300, 300),
-  //     translateY: createRandomNum(-300, 300),
-  //     rotate: createRandomNum(150, 360),
-  //   };
-  // }, [penAnimationEffect]);
-  // console.log(ranObj);
-
-  // const array = [0, 0, 0, 0, 0, 0, 0, 0];
-  // const arrayObj = array.map((i, index) => ({
-  //   widthAndHeight: createRandomNum(20, 50),
-  //   translateX: createRandomNum(-300, 300),
-  //   translateY: createRandomNum(-300, 300),
-  //   rotate: createRandomNum(150, 360),
-  // }));
-  // console.log(arrayObj);
-
   //(width, height) translateX, Y, rotate 4가지의 난수를 생성해야한다.
   const memoFrom = useMemo(() => {
-    return Array.from({ length: 7 }).map((i, index) => ({
+    const arr = Array.from({ length: 5 }).map((i, index) => ({
       widthAndHeight: createRandomNum(20, 50),
       translateX: createRandomNum(-300, 300),
       translateY: createRandomNum(-300, 300),
       rotate: createRandomNum(150, 360),
+      BgColor: colors[index],
     }));
+
+    return arr;
   }, [penAnimationEffect]);
 
   // const From = Array.from({ length: 10 }).map((i, index) => ({
@@ -295,7 +319,15 @@ const NewPenGame = () => {
     <>
       {penAnimationEffect &&
         memoFrom.map((i: any, index: number) => (
-          <React.Fragment key={index}>
+          <AttackEffect
+            top={effectCoord.top}
+            left={effectCoord.left}
+            key={index}
+          >
+            <AttackEffectDiv
+              top={effectCoord.top}
+              left={effectCoord.left}
+            ></AttackEffectDiv>
             <Effect
               top={effectCoord.top}
               left={effectCoord.left}
@@ -303,9 +335,11 @@ const NewPenGame = () => {
               translateX={i.translateX}
               translateY={i.translateY}
               rotate={i.rotate}
+              BgColor={i.BgColor}
             ></Effect>
-          </React.Fragment>
+          </AttackEffect>
         ))}
+
       {isLoading ? null : <Loading></Loading>}
       {isModal &&
         (isSuccess ? (
