@@ -18,7 +18,6 @@ jobs:
         script: |
           sudo su
           cd NoteGame
-          node -e "console.log('Running Node.js ' + process.version)"
           sudo git pull
           npm i
           npm run build
@@ -31,12 +30,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          sudo su
-          cd NoteGame
-          sudo systemctl stop nginx
-          sudo systemctl stop mysqld
-          sudo systemctl start nginx
-          sudo systemctl start mysqld
+          sudo systemctl restart nginx
+          sudo systemctl restart mysqld
           
     - name: on pm2 server
       uses: appleboy/ssh-action@master
@@ -46,11 +41,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          sudo su
-          cd NoteGame
-          npx pm2 kill
-          npx pm2 install typescript
-          npx pm2 start server/app.ts
+          npx pm2 stop dungeonNote
+          npx pm2 start dungeonNote.json
           
  
           
